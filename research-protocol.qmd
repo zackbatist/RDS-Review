@@ -1,0 +1,78 @@
+---
+title: "Research Protocol"
+---
+
+::: {.callout-note}
+## Status
+Draft. The eligibility criteria, databases, and limits can still change. The protocol will be registered on [OSF Registries](https://osf.io/registries) before screening begins, because PROSPERO does not accept scoping reviews. Registration link: to be added.
+:::
+
+## Background
+
+@vanpanhuis2014 reviewed barriers to sharing routinely collected public health data. They defined public health data as data collected by public health agencies for routine purposes, such as disease surveillance or program monitoring, without a primary intention of research. They excluded studies of clinical data and research data. They identified 20 barriers and grouped them into technical, motivational, economic, political, legal, and ethical categories.
+
+Health data fall into two groups with different governance concerns. Health systems data, which include public health data, are collected for operational and administrative purposes. Research data are collected for research under ethics oversight. This review addresses the second group.
+
+Research data sharing has been reviewed across disciplines [@fecher2015; @zuiderwijk2020; @perrier2020]. In health and medical research, reviews cover incentives [@rowhanifarid2017] and principles and norms [@kalkman2019], and work on governance mechanisms includes harmonized data access agreements [@saulnier2019]. Several scoping and systematic reviews overlap with parts of this question. The [known-item list](materials/search-strategy.qmd#known-item-test) names them, and the closest is a scoping review of stakeholders' perceptions of personal health data sharing.
+
+This review also serves the CITF-emails study. It began as an effort to replicate and update @vanpanhuis2014 in order to derive a taxonomy for manual annotation, which supports supervised machine learning on the emails. A review of research data sharing identifies the full range of factors that the emails cover only in part. It also allows health research data sharing to be compared with data sharing in general and in other fields.
+
+## Objective and questions
+
+The objective is to map the factors reported to influence the sharing and reuse of research data in health research, and to compare them with the factors reported for other fields and for public health data.
+
+1. Which factors (barriers, facilitators, and governance mechanisms) are reported to influence the sharing and reuse of research data in health research?
+2. How can these factors be organized into a taxonomy suitable for annotating correspondence about data sharing?
+3. How do the factors reported for health research differ from those reported for research in other fields?
+4. How do they differ from the barriers that @vanpanhuis2014 reported for public health data?
+
+## Methods
+
+The review follows the scoping review framework of @arksey2005 as refined by @levac2010 and the JBI guidance [@peters2020]. It is reported according to PRISMA-ScR [@tricco2018]. The searches are reported according to PRISMA-S [@rethlefsen2021]. The flow diagram adapts the PRISMA 2020 template [@page2021], with "sources of evidence" in place of "studies".
+
+### Eligibility criteria
+
+The criteria follow the population, concept, and context (PCC) structure that JBI recommends for scoping reviews.
+
+| Element | Criterion |
+|---|---|
+| Population | No restriction. Sources may concern researchers, data stewards, institutions, or governance bodies. |
+| Concept | Factors that influence the sharing and reuse of research data, including barriers, facilitators, and governance mechanisms. Research data are data collected for research purposes. |
+| Context, tier 1 | Health research. All source types are eligible. |
+| Context, tier 2 | Research in other fields and cross-disciplinary research. Reviews and syntheses only. |
+
+Sources are excluded when they concern only public health data or other health systems data, or only clinical care data. The rule for routine or clinical data reused for research is not yet set. Each source is assigned a tier at screening from its field, so a health review retrieved by either search block is tier 1.
+
+Language and date limits are not yet set. Any limit will be stated and justified, as PRISMA-S item 9 requires.
+
+### Information sources and search
+
+Two search blocks run in the same databases. Block A combines research data sharing terms with health terms and applies no source-type limit. Block B combines research data sharing terms with a review filter and applies no health terms. The query terms of @vanpanhuis2014 are the starting point for the factor terms.
+
+Citation searching of the included sources and of @vanpanhuis2014 supplements the database searches. Before the full searches run, the final strings are tested against a list of known relevant sources. The databases are not yet selected. Every search is recorded on the [search strategy](materials/search-strategy.qmd) page.
+
+### Selection of sources
+
+Search results are deduplicated and then screened on title and abstract, and again on full text, against the [screening guide](materials/screening-guide.qmd). Exclusion reasons are recorded at full text. Counts at every stage feed the flow diagram.
+
+### Data charting
+
+Each included source is charted once into the form defined in the [codebook](codebook.qmd). The form is piloted on a sample of sources and revised before full charting begins.
+
+### Synthesis
+
+Factors are coded to categories that start from the six categories of @vanpanhuis2014 and are revised inductively. The resulting taxonomy is a primary output. Counts by tier, field, source type, and year describe the evidence base, and the factor categories are compared across fields.
+
+### Reporting and data
+
+The checklists for PRISMA-ScR and PRISMA-S record where each item is reported. The flow diagram is generated from the screening counts. Search exports, screening decisions, charted data, and all code are in the repository.
+
+## Open decisions
+
+- Databases and platforms.
+- Language and date limits.
+- The rule for routine or clinical data reused for research.
+- The definition of research data, by purpose or by consent.
+- The number of screeners, calibration on a sample, and the handling of disagreement.
+- Critical appraisal of included sources, which PRISMA-ScR treats as optional.
+- Whether any step uses a large language model. Any such step will be reported following the PRISMA 2020 guidance on automation tools and the RAISE guidance.

@@ -1,0 +1,72 @@
+project:
+  type: website
+  title: RDS-Review
+  preview:
+    port: 7777
+    browser: false
+  render:
+    - "*.qmd"
+    - "*.ipynb"
+
+bibliography: assets/RDS-Review.bib
+csl: assets/chicago-author-date.csl
+
+website:
+  title: "RDS-Review"
+  site-url: https://zackbatist.info/RDS-Review/
+  repo-url: https://github.com/zackbatist/RDS-Review
+  repo-actions: none
+  bread-crumbs: true
+  page-navigation: false
+  back-to-top-navigation: false
+  page-footer:
+    right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
+  sidebar:
+    pinned: true
+    align: center
+    style: docked
+    search: false
+    collapse-level: 2
+    contents:
+      - href: index.qmd
+        text: Home
+      - href: research-protocol.qmd
+        text: Research Protocol
+      - href: codebook.qmd
+        text: Codebook
+      - section: Materials
+        contents:
+          - href: materials/search-strategy.qmd
+            text: Search strategy
+          - href: materials/screening-guide.qmd
+            text: Screening guide
+          - href: materials/checklists/index.qmd
+            text: Checklists
+      - section: Analysis
+        href: analysis/index.qmd
+        contents:
+          - analysis/01-deduplication.ipynb
+          - analysis/02-screening.ipynb
+          - analysis/03-charting.ipynb
+          - analysis/04-synthesis.ipynb
+
+toc: true
+toc-depth: 3
+toc-expand: 2
+number-sections: false
+
+format:
+  html:
+    theme: cosmo
+    code-copy: true
+    code-overflow: wrap
+    page-layout: article
+    grid:
+      body-width: 1100px
+      margin-width: 600px
+
+execute:
+  echo: false
+  message: false
+  warning: false
+  freeze: true

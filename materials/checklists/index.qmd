@@ -1,0 +1,56 @@
+---
+title: "Checklists"
+---
+
+Two checklists apply. Download the fillable versions, complete them for the manuscript, and save copies in this folder. The tables below name each item and show where this repository reports it.
+
+- [PRISMA-ScR](https://www.prisma-statement.org/scoping) [@tricco2018] has 22 items, 20 essential and 2 optional. The optional items are the critical appraisal items, 12 and 16.
+- [PRISMA-S](https://www.prisma-statement.org/prisma-search) [@rethlefsen2021] has 16 items for reporting the literature searches.
+
+## PRISMA-ScR
+
+| Item | Topic | Where reported |
+|---|---|---|
+| 1 | Title | Manuscript |
+| 2 | Structured summary | Manuscript |
+| 3 | Rationale | [Protocol, background](../../research-protocol.qmd#background) |
+| 4 | Objectives | [Protocol, objective and questions](../../research-protocol.qmd#objective-and-questions) |
+| 5 | Protocol and registration | [Protocol](../../research-protocol.qmd) |
+| 6 | Eligibility criteria | [Protocol](../../research-protocol.qmd#eligibility-criteria), [screening guide](../screening-guide.qmd) |
+| 7 | Information sources | [Search strategy](../search-strategy.qmd) |
+| 8 | Search | [Search strategy](../search-strategy.qmd) |
+| 9 | Selection of sources of evidence | [Screening guide](../screening-guide.qmd) |
+| 10 | Data charting process | [Codebook](../../codebook.qmd) |
+| 11 | Data items | [Codebook](../../codebook.qmd) |
+| 12 | Critical appraisal of individual sources of evidence (optional) | Open decision in the [protocol](../../research-protocol.qmd#open-decisions) |
+| 13 | Synthesis of results | [Protocol, synthesis](../../research-protocol.qmd#synthesis) |
+| 14 | Selection of sources of evidence | [04-synthesis](../../analysis/04-synthesis.ipynb), flow diagram |
+| 15 | Characteristics of sources of evidence | [03-charting](../../analysis/03-charting.ipynb), manuscript |
+| 16 | Critical appraisal within sources of evidence (optional) | Applies only if appraisal is done |
+| 17 | Results of individual sources of evidence | [03-charting](../../analysis/03-charting.ipynb), `included_sources_clean.csv` |
+| 18 | Synthesis of results | [04-synthesis](../../analysis/04-synthesis.ipynb), manuscript |
+| 19 | Summary of evidence | Manuscript |
+| 20 | Limitations | Manuscript |
+| 21 | Conclusions | Manuscript |
+| 22 | Funding | Manuscript |
+
+## PRISMA-S
+
+| Item | Topic | Where reported |
+|---|---|---|
+| 1 | Database name | [Search strategy](../search-strategy.qmd) |
+| 2 | Multi-database searching | [Search strategy](../search-strategy.qmd) |
+| 3 | Study registries | [Search strategy](../search-strategy.qmd) |
+| 4 | Online resources and browsing | [Search strategy](../search-strategy.qmd) |
+| 5 | Citation searching | [Search strategy](../search-strategy.qmd) |
+| 6 | Contacts | [Search strategy](../search-strategy.qmd) |
+| 7 | Other methods | [Search strategy](../search-strategy.qmd) |
+| 8 | Full search strategies | [Search strategy](../search-strategy.qmd) |
+| 9 | Limits and restrictions | [Search strategy](../search-strategy.qmd) |
+| 10 | Search filters | [Search strategy](../search-strategy.qmd) |
+| 11 | Prior work | [Search strategy](../search-strategy.qmd) |
+| 12 | Updates | [Search strategy](../search-strategy.qmd) |
+| 13 | Dates of searches | [Search strategy](../search-strategy.qmd) |
+| 14 | Peer review | [Search strategy](../search-strategy.qmd) |
+| 15 | Total records | [01-deduplication](../../analysis/01-deduplication.ipynb) |
+| 16 | Deduplication | [01-deduplication](../../analysis/01-deduplication.ipynb) |

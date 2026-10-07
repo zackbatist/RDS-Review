@@ -1,0 +1,22 @@
+---
+title: "Analysis"
+---
+
+Four notebooks turn the raw files into counts, tables, and figures. Each reads from `data/raw/` or `data/processed/` and writes only to `data/processed/`. No notebook changes a raw file. Deleting `data/processed/` and rerunning the notebooks in order rebuilds it.
+
+| Notebook | Reads | Writes |
+|---|---|---|
+| [01 Deduplication](01-deduplication.ipynb) | `raw/search_exports/` | `processed/deduplicated_records.csv`, the identification counts in `processed/screening_counts.yaml` |
+| [02 Screening](02-screening.ipynb) | `processed/deduplicated_records.csv`, `raw/screening_exports/` | The screening and inclusion counts in `processed/screening_counts.yaml` |
+| [03 Charting](03-charting.ipynb) | `raw/included_sources_raw.csv`, `processed/deduplicated_records.csv` | `processed/included_sources_clean.csv`, `processed/bibliography.csv` |
+| [04 Synthesis](04-synthesis.ipynb) | `processed/screening_counts.yaml`, `processed/included_sources_clean.csv`, `processed/bibliography.csv` | `processed/prisma_flow.png` |
+
+## Running
+
+Install Quarto and the Python packages in `requirements.txt`. Then render one notebook at a time, in order, as data arrives.
+
+```bash
+quarto render analysis/01-deduplication.ipynb
+```
+
+The site is set to `freeze: true`, so a full `quarto render` reuses the stored results in `_freeze/` and does not rerun the notebooks. After the data change, render the affected notebooks explicitly. Commit `_freeze/` so the site builds without rerunning them.

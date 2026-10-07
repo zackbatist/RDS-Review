@@ -1,0 +1,78 @@
+---
+title: "Search strategy"
+---
+
+This page records every search, as PRISMA-S requires [@rethlefsen2021]. Each database search gets one row in the table and one entry under search strings. The record counts below are written by [01-deduplication](../analysis/01-deduplication.ipynb) from the exports in `data/raw/search_exports/`.
+
+## Search blocks
+
+Two blocks run in each database.
+
+| Block | Concepts combined | Limit |
+|---|---|---|
+| A | Research data sharing and reuse; factors, barriers, facilitators, and governance; health research | None on source type |
+| B | Research data sharing and reuse; factors, barriers, facilitators, and governance | Review or synthesis filter; no health terms |
+
+The query terms of @vanpanhuis2014 are the starting point for the factor terms. Their public health terms are replaced by research data terms.
+
+## Databases and searches
+
+Databases are not yet selected. Add one row per database search.
+
+| Block | Platform | Database | Coverage dates | Search date | Limits and filters | Records |
+|---|---|---|---|---|---|---|
+| | | | | | | |
+
+## Search strings
+
+Paste each string exactly as run, with the platform and the date. One entry per database and block.
+
+```text
+Database, platform, block, date
+(string to be added)
+```
+
+## Other sources
+
+Describe each supplementary method and how records were identified: citation searching of the included sources and of @vanpanhuis2014, registries, websites, and contacts. Name export files for these sources with the prefix `other-`.
+
+## Known-item test {#known-item-test}
+
+Before the full searches run, the final strings are tested against these sources. The first two groups are in scope, so both blocks together should retrieve them. The last two groups are comparators or adjacent work, and retrieving them is not required.
+
+**Health research data sharing (tier 1)**
+
+- Rowhani-Farid, Allen, and Barnett (2017). What incentives increase data sharing in health and medical research? A systematic review. doi:10.1186/s41073-017-0028-9
+- Devriendt, Shabani, and Borry (2021). Data sharing in biomedical sciences: a systematic review of incentives. doi:10.1089/bio.2020.0037
+- Kalkman et al. (2019). Responsible data sharing in international health research: a systematic review of principles and norms. BMC Medical Ethics 20(21)
+- Hamilton et al. (2023). Prevalence and predictors of data and code sharing in the medical and health sciences: systematic review with meta-analysis of individual participant data. PMC10334349
+- A systematic literature review of researchers' and healthcare professionals' attitudes towards the secondary use and sharing of health administrative and clinical trial data (2020). doi:10.1186/s13643-020-01485-5
+- Saulnier et al. (2019). Benefits and barriers in the design of harmonized access agreements for international data sharing. doi:10.1038/s41597-019-0310-4
+- Regulatory frameworks for clinical trial data sharing: scoping review. PMC9118011
+- The anatomy of a data transfer agreement for health research. PMC11383768
+- Andanda and Mlotshwa (2024). Streamlining the ethical-legal governance of cross-border health data sharing during global health emergencies. doi:10.1177/17470161241261907
+- Initiatives, concepts, and implementation practices of the FAIR data principles in health data stewardship: scoping review. PMC10495848
+- Scheibner et al. (2023). Does legislation impede data sharing in Australia across institutions and jurisdictions? A scoping review. Journal of Medical Systems 47(1): 116
+
+**Cross-disciplinary reviews (tier 2)**
+
+- Fecher, Friesike, and Hebing (2015). What drives academic data sharing? PLoS ONE 10
+- Zuiderwijk, Shinde, and Jeng (2020). What drives and inhibits researchers to share and use open research data? doi:10.1371/journal.pone.0239283
+- Perrier, Blondal, and MacDonald (2020). The views, perspectives, and experiences of academic researchers with data sharing and reuse: a meta-synthesis. doi:10.1371/journal.pone.0229182
+- Chawinga and Zinn (2019). A systematic literature review of barriers to research data sharing. Full citation to be added.
+- Researcher attitudes toward data sharing in public data repositories: a meta-evaluation of studies on researcher data sharing. Journal of Documentation 78(7)
+
+**Personal health data and data subjects (adjacent)**
+
+- Stakeholders' perceptions of personal health data sharing: a scoping review. PMC11578505
+- Patient and public willingness to share personal health data for third-party or secondary uses: systematic review (2024). Journal of Medical Internet Research, e50421
+- Health data sharing attitudes towards primary and secondary use of data: a systematic review (2024). eClinicalMedicine
+
+**Public health data (comparator)**
+
+- @vanpanhuis2014
+- Yehudi et al. (2025). COVID-19: an exploration of consecutive systemic barriers to pathogen-related data sharing during a pandemic. Data & Policy 7: e4. doi:10.1017/dap.2024.79
+
+## Export file names
+
+Name each export `<database>_<YYYY-MM-DD>[_<block>].<ext>`, for example `scopus_2026-11-02_A.ris`. The date is the search date. Supported formats are RIS and CSV. See the README in `data/raw/search_exports/`.

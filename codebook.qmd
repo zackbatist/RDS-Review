@@ -1,0 +1,26 @@
+---
+title: "Codebook"
+---
+
+The codebook defines the charting form. It lists every variable charted for each included source of evidence, as PRISMA-ScR item 11 requires. The form is a draft and will be revised after piloting on a sample of sources.
+
+Each source is one row in `data/raw/included_sources_raw.csv`. Variables that take several values hold them in one cell, separated by semicolons. Closed variables take only the values listed below, in lowercase.
+
+| Variable | Definition | Allowed values |
+|---|---|---|
+| `source_id` | Identifier of the source of evidence. Reports of the same study share one `source_id`. | Free text |
+| `record_id` | Identifier of the primary report in `deduplicated_records.csv`. | Free text |
+| `tier` | Context tier from the [protocol](research-protocol.qmd). | `1`, `2` |
+| `field` | Field of research the source concerns. | `health`, `other`, `cross-disciplinary` |
+| `field_detail` | Specific field or subfield, such as genomics or archaeology. | Free text |
+| `source_type` | Type of source. | `empirical`, `review`, `policy-guidance`, `opinion`, `other` |
+| `peer_reviewed` | Whether the source was peer reviewed. | `yes`, `no` |
+| `data_origin` | Origin of the data the source concerns. `research` means collected for research. `routine-reused` means collected for operational or care purposes and reused for research. | `research`, `routine-reused`, `mixed`, `unclear` |
+| `factor_types` | Kinds of factor the source reports. | `barrier`, `facilitator`, `governance-mechanism` |
+| `factor_categories` | Initial categories from @vanpanhuis2014, revised during synthesis. | `technical`, `motivational`, `economic`, `political`, `legal`, `ethical`, `other` |
+| `level` | Level at which the factor operates. `system` covers national, sectoral, and international levels. | `individual`, `institutional`, `system` |
+| `factors` | The specific factors the source reports, in the source's words or a close paraphrase. | Free text, semicolon-separated |
+| `region` | Country or region of the data, institutions, or participants. | Free text |
+| `notes` | Anything that affects interpretation. | Free text |
+
+`03-charting.ipynb` checks charted values against the closed lists above and reports any value that is not allowed. The lists are written in that notebook as well, so a change here needs the same change there.

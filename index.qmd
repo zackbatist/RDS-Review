@@ -1,0 +1,23 @@
+---
+title: "Research data sharing: a scoping review (RDS-Review)"
+---
+
+RDS-Review maps the factors reported to influence the sharing and reuse of research data, including barriers, facilitators, and governance mechanisms. It centres on health research data and compares it with research data sharing in other fields.
+
+The review began as an effort to replicate and update the systematic review by @vanpanhuis2014 of barriers to sharing public health data. That review defined public health data as data collected by public health agencies for routine purposes, and it excluded studies of research data. This review takes research data as its subject. The taxonomy of factors it produces will support manual annotation for supervised machine learning in the [CITF-emails](https://zackbatist.info/CITF-emails/) study. The review also identifies factors that the emails cover only in part, and it allows health research data sharing to be compared with data sharing in general and in other fields.
+
+::: {.callout-note}
+## Status
+Draft protocol. The protocol is not yet registered, and the eligibility criteria, databases, and limits can still change. See the [Research Protocol](research-protocol.qmd).
+:::
+
+This website hosts the research protocol, the codebook, the search and screening materials, and the notebooks that turn search exports and screening decisions into counts, tables, and the PRISMA flow diagram. All content is hosted and tracked at [github.com/zackbatist/RDS-Review](https://github.com/zackbatist/RDS-Review).
+
+| Page | Contents |
+|---|---|
+| [Research Protocol](research-protocol.qmd) | Background, questions, eligibility criteria, methods, and open decisions |
+| [Codebook](codebook.qmd) | The charting form, with each variable and its allowed values |
+| [Search strategy](materials/search-strategy.qmd) | Databases, search strings, dates, counts, and the known-item test |
+| [Screening guide](materials/screening-guide.qmd) | Screening stages, criteria, exclusion reasons, and export formats |
+| [Checklists](materials/checklists/index.qmd) | PRISMA-ScR and PRISMA-S, with the location of each item |
+| [Analysis](analysis/index.qmd) | Notebooks for deduplication, screening counts, charting, and synthesis |

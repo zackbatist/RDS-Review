@@ -1,0 +1,57 @@
+---
+title: "Screening guide"
+---
+
+The guide states how records are screened and how decisions are exported for the analysis notebooks. The criteria come from the [protocol](../research-protocol.qmd) and are a draft.
+
+## Stages
+
+1. **Title and abstract.** Each deduplicated record gets one decision, `include` or `exclude`. When the title and abstract do not allow a decision, include the record.
+2. **Full text.** Each included record's full text is retrieved. A report that cannot be retrieved is counted as not retrieved. Each retrieved report gets one decision, and each exclusion gets one reason from the list below.
+
+Each included report is assigned to a source of evidence. Reports of the same study share one `source_id`.
+
+## Criteria
+
+A source is included when all of these hold.
+
+- It concerns the sharing or reuse of research data.
+- It reports factors that influence sharing or reuse, including barriers, facilitators, and governance mechanisms.
+- It concerns health research (tier 1), or it is a review or synthesis of research in other fields or across fields (tier 2).
+
+A source is excluded when it concerns only public health data, other health systems data, or only clinical care data. The rule for routine or clinical data reused for research is not yet set.
+
+## Exclusion reasons
+
+Record one reason code per excluded report at full text.
+
+| Code | Reason |
+|---|---|
+| `not-data-sharing` | Not about the sharing or reuse of research data |
+| `not-factors` | Reports no barriers, facilitators, or governance mechanisms |
+| `not-research-data` | Concerns only public health, other health systems, or clinical care data |
+| `tier2-not-review` | Research in other fields, and not a review or synthesis |
+| `language` | Outside the language limit, if one is set |
+| `date` | Outside the date limit, if one is set |
+| `other` | Any other reason, explained in a comment |
+
+## Export formats
+
+Export decisions from the screening tool into `data/raw/screening_exports/` as two CSV files with lowercase values. [02-screening](../analysis/02-screening.ipynb) reads them.
+
+**`title_abstract.csv`**
+
+| Column | Content |
+|---|---|
+| `record_id` | The identifier from `deduplicated_records.csv` |
+| `decision` | `include` or `exclude` |
+
+**`full_text.csv`**
+
+| Column | Content |
+|---|---|
+| `record_id` | The identifier from `deduplicated_records.csv` |
+| `source_id` | The source of evidence the report belongs to. Optional. Defaults to `record_id`. |
+| `retrieved` | `yes` or `no` |
+| `decision` | `include` or `exclude`. Blank when `retrieved` is `no`. |
+| `reason` | An exclusion reason code. Required when `decision` is `exclude`. |
