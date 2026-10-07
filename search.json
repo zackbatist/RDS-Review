@@ -1,0 +1,389 @@
+[
+  {
+    "objectID": "analysis/04-synthesis.html",
+    "href": "analysis/04-synthesis.html",
+    "title": "04 Synthesis",
+    "section": "",
+    "text": "This notebook draws the PRISMA flow diagram from data/processed/screening_counts.yaml and summarizes the charted sources from data/processed/included_sources_clean.csv. It saves the diagram as data/processed/prisma_flow.png.\nThe diagram follows the PRISMA 2020 template (Page et al. 2021), with “sources of evidence” in place of “studies” as PRISMA-ScR uses the term (Tricco et al. 2018). Records from other methods are deduplicated against the database records and screened in the same pass, so the diagram shows one path.\nCode\nimport textwrap\nfrom pathlib import Path\n\nimport matplotlib.pyplot as plt\nfrom matplotlib.ticker import MaxNLocator\nimport pandas as pd\nimport yaml\nfrom matplotlib.patches import FancyBboxPatch\n\nROOT = next(p for p in [Path.cwd(), *Path.cwd().parents] if (p / \"_quarto.yml\").exists())\nOUT = ROOT / \"data\" / \"processed\"\n\ncounts_path = OUT / \"screening_counts.yaml\"\ncounts = (yaml.safe_load(counts_path.read_text()) or {}) if counts_path.exists() else {}\nhave_flow = all(k in counts for k in (\"identification\", \"screening\", \"included\"))\nif not have_flow:\n    print(\"The flow diagram needs the output of notebooks 01 and 02.\")\n\n\nThe flow diagram needs the output of notebooks 01 and 02.",
+    "crumbs": [
+      "Analysis",
+      "04 Synthesis"
+    ]
+  },
+  {
+    "objectID": "analysis/04-synthesis.html#flow-diagram",
+    "href": "analysis/04-synthesis.html#flow-diagram",
+    "title": "04 Synthesis",
+    "section": "Flow diagram",
+    "text": "Flow diagram\n\n\nCode\ndef wrap(lines, width=34):\n    out = []\n    for line in lines:\n        out.extend(textwrap.wrap(line, width) or [\"\"])\n    return out\n\n\ndef box_height(lines):\n    return 0.30 * len(lines) + 0.35\n\n\ndef draw_box(ax, cx, cy, lines, width):\n    h = box_height(lines)\n    ax.add_patch(FancyBboxPatch(\n        (cx - width / 2, cy - h / 2), width, h,\n        boxstyle=\"round,pad=0.02,rounding_size=0.08\", fc=\"white\", ec=\"black\", lw=1,\n    ))\n    ax.text(cx, cy, \"\\n\".join(lines), ha=\"center\", va=\"center\", fontsize=9, linespacing=1.4)\n    return h\n\n\ndef arrow(ax, start, end):\n    ax.annotate(\"\", xy=end, xytext=start, arrowprops=dict(arrowstyle=\"-|&gt;\", lw=1, color=\"black\"))\n\n\ndef flow_rows(c):\n    ident, scr, inc = c[\"identification\"], c[\"screening\"], c[\"included\"]\n    dbs, others = ident.get(\"databases\", []), ident.get(\"other_methods\", [])\n    total = sum(d[\"n\"] for d in dbs) + sum(d[\"n\"] for d in others)\n    first = [\"Records identified\", f\"(n = {total})\"]\n    first += [f\"{d['name']}{' [' + d['block'] + ']' if d.get('block') else ''} (n = {d['n']})\" for d in dbs]\n    first += [f\"other: {d['name']} (n = {d['n']})\" for d in others]\n    removed = [\n        \"Records removed before screening\",\n        f\"Duplicate records removed (n = {ident.get('duplicates_removed', 0)})\",\n        f\"Marked ineligible by automation tools (n = {ident.get('marked_ineligible_by_automation', 0)})\",\n        f\"Removed for other reasons (n = {ident.get('removed_other_reasons', 0)})\",\n    ]\n    reasons = scr.get(\"reports_excluded\", [])\n    excl_total = sum(r[\"n\"] for r in reasons)\n    return [\n        (first, removed),\n        ([\"Records screened\", f\"(n = {scr['records_screened']})\"], [\"Records excluded\", f\"(n = {scr['records_excluded']})\"]),\n        ([\"Reports sought for retrieval\", f\"(n = {scr['reports_sought']})\"], [\"Reports not retrieved\", f\"(n = {scr['reports_not_retrieved']})\"]),\n        ([\"Reports assessed for eligibility\", f\"(n = {scr['reports_assessed']})\"],\n         [\"Reports excluded\", f\"(n = {excl_total})\"] + [f\"{r['reason']} (n = {r['n']})\" for r in reasons]),\n        ([\"Sources of evidence included in the review\", f\"(n = {inc['sources']})\",\n          \"Reports of included sources\", f\"(n = {inc['reports']})\"], None),\n    ]\n\n\ndef draw_flow(c, path):\n    rows = [(wrap(m), wrap(s, 38) if s else None) for m, s in flow_rows(c)]\n    main_w, side_w, gap = 4.4, 5.0, 0.8\n    x_main, x_side = 3.0, 9.0\n    heights = [max(box_height(m), box_height(s) if s else 0) for m, s in rows]\n    total = sum(heights) + gap * (len(rows) - 1) + 1\n    fig, ax = plt.subplots(figsize=(13.2 * 0.7, total * 0.7))\n    ax.set_xlim(-1.2, 12)\n    ax.set_ylim(0, total)\n    ax.set_aspect(\"equal\")\n    ax.axis(\"off\")\n    y, previous, centers = total - 0.5, None, []\n    for (m, s), h in zip(rows, heights):\n        cy = y - h / 2\n        mh = draw_box(ax, x_main, cy, m, main_w)\n        if previous:\n            arrow(ax, previous, (x_main, cy + mh / 2))\n        if s:\n            draw_box(ax, x_side, cy, s, side_w)\n            arrow(ax, (x_main + main_w / 2, cy), (x_side - side_w / 2, cy))\n        previous = (x_main, cy - mh / 2)\n        centers.append((cy, h))\n        y -= h + gap\n    for label, (a, b) in {\"Identification\": (0, 0), \"Screening\": (1, 3), \"Included\": (4, 4)}.items():\n        top = centers[a][0] + centers[a][1] / 2\n        bottom = centers[b][0] - centers[b][1] / 2\n        ax.plot([-0.4, -0.4], [bottom, top], color=\"black\", lw=1)\n        ax.text(-0.8, (top + bottom) / 2, label, rotation=90, ha=\"center\", va=\"center\", fontsize=10, fontweight=\"bold\")\n    fig.savefig(path, dpi=200, bbox_inches=\"tight\")\n    plt.show()\n\n\nif have_flow:\n    draw_flow(counts, OUT / \"prisma_flow.png\")",
+    "crumbs": [
+      "Analysis",
+      "04 Synthesis"
+    ]
+  },
+  {
+    "objectID": "analysis/04-synthesis.html#charted-sources",
+    "href": "analysis/04-synthesis.html#charted-sources",
+    "title": "04 Synthesis",
+    "section": "Charted sources",
+    "text": "Charted sources\n\n\nCode\nclean_path, bib_path = OUT / \"included_sources_clean.csv\", OUT / \"bibliography.csv\"\nhave_sources = clean_path.exists() and bib_path.exists()\nif have_sources:\n    clean = pd.read_csv(clean_path, dtype=str).fillna(\"\")\n    bib = pd.read_csv(bib_path, dtype=str).fillna(\"\")\n    data = clean.merge(bib[[\"source_id\", \"year\"]].drop_duplicates(\"source_id\"), on=\"source_id\", how=\"left\").fillna(\"\")\n    print(f\"{len(data)} charted source(s).\")\nelse:\n    print(\"The charts need the output of notebook 03.\")\n\n\nThe charts need the output of notebook 03.\n\n\n\n\nCode\nif have_sources:\n    fig, ax = plt.subplots(figsize=(8, 3.5))\n    pd.crosstab(data[\"year\"].replace(\"\", \"unknown\"), data[\"field\"]).plot.bar(stacked=True, ax=ax)\n    ax.set_xlabel(\"Publication year\")\n    ax.set_ylabel(\"Sources\")\n    ax.set_title(\"Sources per year, by field\")\n    ax.yaxis.set_major_locator(MaxNLocator(integer=True))\n    ax.legend(title=\"Field\", loc=\"upper left\", bbox_to_anchor=(1, 1))\n    plt.tight_layout()\n    plt.show()\n\n\n\n\nCode\nif have_sources:\n    exploded = data.assign(category=data[\"factor_categories\"].str.split(\"; \")).explode(\"category\", ignore_index=True)\n    exploded = exploded[exploded[\"category\"].fillna(\"\") != \"\"]\n    if len(exploded):\n        fig, ax = plt.subplots(figsize=(8, 3.5))\n        pd.crosstab(exploded[\"category\"], exploded[\"field\"]).plot.bar(ax=ax)\n        ax.set_xlabel(\"Factor category\")\n        ax.set_ylabel(\"Sources\")\n        ax.set_title(\"Factor categories, by field\")\n        ax.yaxis.set_major_locator(MaxNLocator(integer=True))\n        ax.legend(title=\"Field\", loc=\"upper left\", bbox_to_anchor=(1, 1))\n        plt.xticks(rotation=30, ha=\"right\")\n        plt.tight_layout()\n        plt.show()\n    else:\n        print(\"No factor categories charted yet.\")\n\n\n\n\nCode\nif have_sources:\n    fig, ax = plt.subplots(figsize=(8, 2.5))\n    data[\"source_type\"].value_counts().sort_values().plot.barh(ax=ax)\n    ax.set_xlabel(\"Sources\")\n    ax.set_title(\"Source types\")\n    ax.xaxis.set_major_locator(MaxNLocator(integer=True))\n    plt.tight_layout()\n    plt.show()",
+    "crumbs": [
+      "Analysis",
+      "04 Synthesis"
+    ]
+  },
+  {
+    "objectID": "analysis/02-screening.html",
+    "href": "analysis/02-screening.html",
+    "title": "02 Screening",
+    "section": "",
+    "text": "This notebook reads the title and abstract decisions and the full-text decisions exported from the screening tool, checks them against the deduplicated records, and counts the sources at each stage. It adds the screening, included, and by_block sections to data/processed/screening_counts.yaml. 04 Synthesis draws the flow diagram from that file.\nThe export formats are in the screening guide. A record is a title and abstract. A report is a full-text document. A source of evidence can have several reports.\nCode\nfrom pathlib import Path\n\nimport pandas as pd\nimport yaml\n\nROOT = next(p for p in [Path.cwd(), *Path.cwd().parents] if (p / \"_quarto.yml\").exists())\nPROC = ROOT / \"data\" / \"processed\"\nEXP = ROOT / \"data\" / \"raw\" / \"screening_exports\"\ndedup_path = PROC / \"deduplicated_records.csv\"\nta_path = EXP / \"title_abstract.csv\"\nft_path = EXP / \"full_text.csv\"\ncounts_path = PROC / \"screening_counts.yaml\"\n\nmissing = [str(p.relative_to(ROOT)) for p in (dedup_path, ta_path) if not p.exists()]\nhave_data = not missing\nif not have_data:\n    print(\"Not run yet. Missing: \" + \", \".join(missing))\n\n\ndef read(path, required, optional=()):\n    df = pd.read_csv(path, dtype=str).fillna(\"\")\n    df.columns = [c.strip().lower() for c in df.columns]\n    absent = [c for c in required if c not in df.columns]\n    if absent:\n        raise ValueError(f\"{path.name} is missing column(s): {', '.join(absent)}\")\n    for c in optional:\n        if c not in df.columns:\n            df[c] = \"\"\n    return df.apply(lambda s: s.str.strip())\n\n\nNot run yet. Missing: data/processed/deduplicated_records.csv, data/raw/screening_exports/title_abstract.csv\nCode\nif have_data:\n    dedup = read(dedup_path, [\"record_id\"], [\"blocks\"])\n    ta = read(ta_path, [\"record_id\", \"decision\"])\n    ta[\"decision\"] = ta[\"decision\"].str.lower()\n    ft_cols = [\"record_id\", \"source_id\", \"retrieved\", \"decision\", \"reason\"]\n    if ft_path.exists():\n        ft = read(ft_path, [\"record_id\", \"retrieved\", \"decision\", \"reason\"], [\"source_id\"])\n    else:\n        ft = pd.DataFrame({c: pd.Series(dtype=str) for c in ft_cols})\n    for col in [\"retrieved\", \"decision\", \"reason\"]:\n        ft[col] = ft[col].str.lower()\n    ft[\"source_id\"] = ft[\"source_id\"].where(ft[\"source_id\"] != \"\", ft[\"record_id\"])\n\n    ta_ok = ta[ta[\"decision\"].isin([\"include\", \"exclude\"])]\n    screened = len(ta_ok)\n    ta_excluded = int((ta_ok[\"decision\"] == \"exclude\").sum())\n    sought = int((ta_ok[\"decision\"] == \"include\").sum())\n\n    not_retrieved = int((ft[\"retrieved\"] == \"no\").sum())\n    ft_ok = ft[(ft[\"retrieved\"] == \"yes\") & ft[\"decision\"].isin([\"include\", \"exclude\"])]\n    assessed = len(ft_ok)\n    ft_excl = ft_ok[ft_ok[\"decision\"] == \"exclude\"]\n    ft_incl = ft_ok[ft_ok[\"decision\"] == \"include\"]\n    reasons = ft_excl[\"reason\"].replace(\"\", \"unspecified\").value_counts()\n    included_reports = len(ft_incl)\n    included_sources = int(ft_incl[\"source_id\"].nunique())",
+    "crumbs": [
+      "Analysis",
+      "02 Screening"
+    ]
+  },
+  {
+    "objectID": "analysis/02-screening.html#checks",
+    "href": "analysis/02-screening.html#checks",
+    "title": "02 Screening",
+    "section": "Checks",
+    "text": "Checks\n\n\nCode\nif have_data:\n    problems = []\n    unknown = set(ta[\"record_id\"]) - set(dedup[\"record_id\"])\n    if unknown:\n        problems.append(f\"{len(unknown)} title/abstract record_id value(s) are not in deduplicated_records.csv.\")\n    unscreened = len(set(dedup[\"record_id\"]) - set(ta[\"record_id\"]))\n    if unscreened:\n        problems.append(f\"{unscreened} deduplicated record(s) have no title/abstract decision yet.\")\n    if ta[\"record_id\"].duplicated().any():\n        problems.append(\"Some record_id values appear more than once in title_abstract.csv.\")\n    bad = ta[~ta[\"decision\"].isin([\"include\", \"exclude\"])]\n    if len(bad):\n        problems.append(f\"{len(bad)} title/abstract row(s) have a decision other than include or exclude.\")\n    stray = set(ft[\"record_id\"]) - set(ta_ok.loc[ta_ok[\"decision\"] == \"include\", \"record_id\"])\n    if stray:\n        problems.append(f\"{len(stray)} full-text record_id value(s) were not included at title and abstract.\")\n    pending = sought - not_retrieved - assessed\n    if pending &gt; 0:\n        problems.append(f\"{pending} included record(s) have no full-text outcome yet.\")\n    if (ft_excl[\"reason\"] == \"\").any():\n        problems.append(\"Some excluded full-text rows have no reason.\")\n    print(\"\\n\".join(problems) if problems else \"No problems found.\")",
+    "crumbs": [
+      "Analysis",
+      "02 Screening"
+    ]
+  },
+  {
+    "objectID": "analysis/02-screening.html#counts",
+    "href": "analysis/02-screening.html#counts",
+    "title": "02 Screening",
+    "section": "Counts",
+    "text": "Counts\n\n\nCode\nif have_data:\n    summary = pd.DataFrame(\n        [\n            (\"Records screened\", screened),\n            (\"Records excluded at title and abstract\", ta_excluded),\n            (\"Reports sought for retrieval\", sought),\n            (\"Reports not retrieved\", not_retrieved),\n            (\"Reports assessed for eligibility\", assessed),\n            (\"Reports excluded at full text\", len(ft_excl)),\n            (\"Reports included\", included_reports),\n            (\"Sources of evidence included\", included_sources),\n        ],\n        columns=[\"Stage\", \"n\"],\n    )\n    display(summary)\n    if len(reasons):\n        display(reasons.rename_axis(\"Exclusion reason\").reset_index(name=\"n\"))\n\n\n\n\nCode\nif have_data:\n    block_ids = {}\n    for rid, blocks in zip(dedup[\"record_id\"], dedup[\"blocks\"]):\n        for b in [x.strip() for x in blocks.split(\";\") if x.strip()]:\n            block_ids.setdefault(b, set()).add(rid)\n    ta_excl_ids = ta_ok.loc[ta_ok[\"decision\"] == \"exclude\", \"record_id\"]\n    by_block = {}\n    for b, ids in sorted(block_ids.items()):\n        by_block[b] = {\n            \"records_identified\": len(ids),\n            \"records_screened\": int(ta_ok[\"record_id\"].isin(ids).sum()),\n            \"records_excluded\": int(ta_excl_ids.isin(ids).sum()),\n            \"reports_assessed\": int(ft_ok[\"record_id\"].isin(ids).sum()),\n            \"reports_excluded\": int(ft_excl[\"record_id\"].isin(ids).sum()),\n            \"reports_included\": int(ft_incl[\"record_id\"].isin(ids).sum()),\n        }\n\n    counts = (yaml.safe_load(counts_path.read_text()) or {}) if counts_path.exists() else {}\n    counts[\"screening\"] = {\n        \"records_screened\": screened,\n        \"records_excluded\": ta_excluded,\n        \"reports_sought\": sought,\n        \"reports_not_retrieved\": not_retrieved,\n        \"reports_assessed\": assessed,\n        \"reports_excluded\": [{\"reason\": r, \"n\": int(n)} for r, n in reasons.items()],\n    }\n    counts[\"included\"] = {\"sources\": included_sources, \"reports\": included_reports}\n    counts[\"by_block\"] = by_block\n    counts_path.write_text(yaml.safe_dump(counts, sort_keys=False))\n    print(\"Wrote data/processed/screening_counts.yaml\")\n    if by_block:\n        display(pd.DataFrame(by_block).T.rename_axis(\"block\"))",
+    "crumbs": [
+      "Analysis",
+      "02 Screening"
+    ]
+  },
+  {
+    "objectID": "research-protocol.html",
+    "href": "research-protocol.html",
+    "title": "Research Protocol",
+    "section": "",
+    "text": "NoteStatus\n\n\n\nDraft. The eligibility criteria, databases, and limits can still change. The protocol will be registered on OSF Registries before screening begins, because PROSPERO does not accept scoping reviews. Registration link: to be added.",
+    "crumbs": [
+      "Research Protocol"
+    ]
+  },
+  {
+    "objectID": "research-protocol.html#background",
+    "href": "research-protocol.html#background",
+    "title": "Research Protocol",
+    "section": "Background",
+    "text": "Background\nPanhuis et al. (2014) reviewed barriers to sharing routinely collected public health data. They defined public health data as data collected by public health agencies for routine purposes, such as disease surveillance or program monitoring, without a primary intention of research. They excluded studies of clinical data and research data. They identified 20 barriers and grouped them into technical, motivational, economic, political, legal, and ethical categories.\nHealth data fall into two groups with different governance concerns. Health systems data, which include public health data, are collected for operational and administrative purposes. Research data are collected for research under ethics oversight. This review addresses the second group.\nResearch data sharing has been reviewed across disciplines (Fecher et al. 2015; Zuiderwijk et al. 2020; Perrier et al. 2020). In health and medical research, reviews cover incentives (Rowhani-Farid et al. 2017) and principles and norms (Kalkman et al. 2019), and work on governance mechanisms includes harmonized data access agreements (Saulnier et al. 2019). Several scoping and systematic reviews overlap with parts of this question. The known-item list names them, and the closest is a scoping review of stakeholders’ perceptions of personal health data sharing.\nThis review also serves the CITF-emails study. It began as an effort to replicate and update Panhuis et al. (2014) in order to derive a taxonomy for manual annotation, which supports supervised machine learning on the emails. A review of research data sharing identifies the full range of factors that the emails cover only in part. It also allows health research data sharing to be compared with data sharing in general and in other fields.",
+    "crumbs": [
+      "Research Protocol"
+    ]
+  },
+  {
+    "objectID": "research-protocol.html#objective-and-questions",
+    "href": "research-protocol.html#objective-and-questions",
+    "title": "Research Protocol",
+    "section": "Objective and questions",
+    "text": "Objective and questions\nThe objective is to map the factors reported to influence the sharing and reuse of research data in health research, and to compare them with the factors reported for other fields and for public health data.\n\nWhich factors (barriers, facilitators, and governance mechanisms) are reported to influence the sharing and reuse of research data in health research?\nHow can these factors be organized into a taxonomy suitable for annotating correspondence about data sharing?\nHow do the factors reported for health research differ from those reported for research in other fields?\nHow do they differ from the barriers that Panhuis et al. (2014) reported for public health data?",
+    "crumbs": [
+      "Research Protocol"
+    ]
+  },
+  {
+    "objectID": "research-protocol.html#methods",
+    "href": "research-protocol.html#methods",
+    "title": "Research Protocol",
+    "section": "Methods",
+    "text": "Methods\nThe review follows the scoping review framework of Arksey and O’Malley (2005) as refined by Levac et al. (2010) and the JBI guidance (Peters et al. 2020). It is reported according to PRISMA-ScR (Tricco et al. 2018). The searches are reported according to PRISMA-S (Rethlefsen et al. 2021). The flow diagram adapts the PRISMA 2020 template (Page et al. 2021), with “sources of evidence” in place of “studies”.\n\nEligibility criteria\nThe criteria follow the population, concept, and context (PCC) structure that JBI recommends for scoping reviews.\n\n\n\n\n\n\n\nElement\nCriterion\n\n\n\n\nPopulation\nNo restriction. Sources may concern researchers, data stewards, institutions, or governance bodies.\n\n\nConcept\nFactors that influence the sharing and reuse of research data, including barriers, facilitators, and governance mechanisms. Research data are data collected for research purposes.\n\n\nContext, tier 1\nHealth research. All source types are eligible.\n\n\nContext, tier 2\nResearch in other fields and cross-disciplinary research. Reviews and syntheses only.\n\n\n\nSources are excluded when they concern only public health data or other health systems data, or only clinical care data. The rule for routine or clinical data reused for research is not yet set. Each source is assigned a tier at screening from its field, so a health review retrieved by either search block is tier 1.\nLanguage and date limits are not yet set. Any limit will be stated and justified, as PRISMA-S item 9 requires.\n\n\nInformation sources and search\nTwo search blocks run in the same databases. Block A combines research data sharing terms with health terms and applies no source-type limit. Block B combines research data sharing terms with a review filter and applies no health terms. The query terms of Panhuis et al. (2014) are the starting point for the factor terms.\nCitation searching of the included sources and of Panhuis et al. (2014) supplements the database searches. Before the full searches run, the final strings are tested against a list of known relevant sources. The databases are not yet selected. Every search is recorded on the search strategy page.\n\n\nSelection of sources\nSearch results are deduplicated and then screened on title and abstract, and again on full text, against the screening guide. Exclusion reasons are recorded at full text. Counts at every stage feed the flow diagram.\n\n\nData charting\nEach included source is charted once into the form defined in the codebook. The form is piloted on a sample of sources and revised before full charting begins.\n\n\nSynthesis\nFactors are coded to categories that start from the six categories of Panhuis et al. (2014) and are revised inductively. The resulting taxonomy is a primary output. Counts by tier, field, source type, and year describe the evidence base, and the factor categories are compared across fields.\n\n\nReporting and data\nThe checklists for PRISMA-ScR and PRISMA-S record where each item is reported. The flow diagram is generated from the screening counts. Search exports, screening decisions, charted data, and all code are in the repository.",
+    "crumbs": [
+      "Research Protocol"
+    ]
+  },
+  {
+    "objectID": "research-protocol.html#open-decisions",
+    "href": "research-protocol.html#open-decisions",
+    "title": "Research Protocol",
+    "section": "Open decisions",
+    "text": "Open decisions\n\nDatabases and platforms.\nLanguage and date limits.\nThe rule for routine or clinical data reused for research.\nThe definition of research data, by purpose or by consent.\nThe number of screeners, calibration on a sample, and the handling of disagreement.\nCritical appraisal of included sources, which PRISMA-ScR treats as optional.\nWhether any step uses a large language model. Any such step will be reported following the PRISMA 2020 guidance on automation tools and the RAISE guidance.",
+    "crumbs": [
+      "Research Protocol"
+    ]
+  },
+  {
+    "objectID": "materials/screening-guide.html",
+    "href": "materials/screening-guide.html",
+    "title": "Screening guide",
+    "section": "",
+    "text": "The guide states how records are screened and how decisions are exported for the analysis notebooks. The criteria come from the protocol and are a draft.",
+    "crumbs": [
+      "Materials",
+      "Screening guide"
+    ]
+  },
+  {
+    "objectID": "materials/screening-guide.html#stages",
+    "href": "materials/screening-guide.html#stages",
+    "title": "Screening guide",
+    "section": "Stages",
+    "text": "Stages\n\nTitle and abstract. Each deduplicated record gets one decision, include or exclude. When the title and abstract do not allow a decision, include the record.\nFull text. Each included record’s full text is retrieved. A report that cannot be retrieved is counted as not retrieved. Each retrieved report gets one decision, and each exclusion gets one reason from the list below.\n\nEach included report is assigned to a source of evidence. Reports of the same study share one source_id.",
+    "crumbs": [
+      "Materials",
+      "Screening guide"
+    ]
+  },
+  {
+    "objectID": "materials/screening-guide.html#criteria",
+    "href": "materials/screening-guide.html#criteria",
+    "title": "Screening guide",
+    "section": "Criteria",
+    "text": "Criteria\nA source is included when all of these hold.\n\nIt concerns the sharing or reuse of research data.\nIt reports factors that influence sharing or reuse, including barriers, facilitators, and governance mechanisms.\nIt concerns health research (tier 1), or it is a review or synthesis of research in other fields or across fields (tier 2).\n\nA source is excluded when it concerns only public health data, other health systems data, or only clinical care data. The rule for routine or clinical data reused for research is not yet set.",
+    "crumbs": [
+      "Materials",
+      "Screening guide"
+    ]
+  },
+  {
+    "objectID": "materials/screening-guide.html#exclusion-reasons",
+    "href": "materials/screening-guide.html#exclusion-reasons",
+    "title": "Screening guide",
+    "section": "Exclusion reasons",
+    "text": "Exclusion reasons\nRecord one reason code per excluded report at full text.\n\n\n\n\n\n\n\nCode\nReason\n\n\n\n\nnot-data-sharing\nNot about the sharing or reuse of research data\n\n\nnot-factors\nReports no barriers, facilitators, or governance mechanisms\n\n\nnot-research-data\nConcerns only public health, other health systems, or clinical care data\n\n\ntier2-not-review\nResearch in other fields, and not a review or synthesis\n\n\nlanguage\nOutside the language limit, if one is set\n\n\ndate\nOutside the date limit, if one is set\n\n\nother\nAny other reason, explained in a comment",
+    "crumbs": [
+      "Materials",
+      "Screening guide"
+    ]
+  },
+  {
+    "objectID": "materials/screening-guide.html#export-formats",
+    "href": "materials/screening-guide.html#export-formats",
+    "title": "Screening guide",
+    "section": "Export formats",
+    "text": "Export formats\nExport decisions from the screening tool into data/raw/screening_exports/ as two CSV files with lowercase values. 02-screening reads them.\ntitle_abstract.csv\n\n\n\nColumn\nContent\n\n\n\n\nrecord_id\nThe identifier from deduplicated_records.csv\n\n\ndecision\ninclude or exclude\n\n\n\nfull_text.csv\n\n\n\n\n\n\n\nColumn\nContent\n\n\n\n\nrecord_id\nThe identifier from deduplicated_records.csv\n\n\nsource_id\nThe source of evidence the report belongs to. Optional. Defaults to record_id.\n\n\nretrieved\nyes or no\n\n\ndecision\ninclude or exclude. Blank when retrieved is no.\n\n\nreason\nAn exclusion reason code. Required when decision is exclude.",
+    "crumbs": [
+      "Materials",
+      "Screening guide"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Research data sharing: a scoping review (RDS-Review)",
+    "section": "",
+    "text": "RDS-Review maps the factors reported to influence the sharing and reuse of research data, including barriers, facilitators, and governance mechanisms. It centres on health research data and compares it with research data sharing in other fields.\nThe review began as an effort to replicate and update the systematic review by Panhuis et al. (2014) of barriers to sharing public health data. That review defined public health data as data collected by public health agencies for routine purposes, and it excluded studies of research data. This review takes research data as its subject. The taxonomy of factors it produces will support manual annotation for supervised machine learning in the CITF-emails study. The review also identifies factors that the emails cover only in part, and it allows health research data sharing to be compared with data sharing in general and in other fields.\n\n\n\n\n\n\nNoteStatus\n\n\n\nDraft protocol. The protocol is not yet registered, and the eligibility criteria, databases, and limits can still change. See the Research Protocol.\n\n\nThis website hosts the research protocol, the codebook, the search and screening materials, and the notebooks that turn search exports and screening decisions into counts, tables, and the PRISMA flow diagram. All content is hosted and tracked at github.com/zackbatist/RDS-Review.\n\n\n\nPage\nContents\n\n\n\n\nResearch Protocol\nBackground, questions, eligibility criteria, methods, and open decisions\n\n\nCodebook\nThe charting form, with each variable and its allowed values\n\n\nSearch strategy\nDatabases, search strings, dates, counts, and the known-item test\n\n\nScreening guide\nScreening stages, criteria, exclusion reasons, and export formats\n\n\nChecklists\nPRISMA-ScR and PRISMA-S, with the location of each item\n\n\nAnalysis\nNotebooks for deduplication, screening counts, charting, and synthesis\n\n\n\n\n\n\n\nReferences\n\nPanhuis, Willem G. van, Proma Paul, Claudia Emerson, et al. 2014. “A Systematic Review of Barriers to Data Sharing in Public Health.” BMC Public Health 14: 1144. https://doi.org/10.1186/1471-2458-14-1144.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "analysis/index.html",
+    "href": "analysis/index.html",
+    "title": "Analysis",
+    "section": "",
+    "text": "Four notebooks turn the raw files into counts, tables, and figures. Each reads from data/raw/ or data/processed/ and writes only to data/processed/. No notebook changes a raw file. Deleting data/processed/ and rerunning the notebooks in order rebuilds it.",
+    "crumbs": [
+      "Analysis"
+    ]
+  },
+  {
+    "objectID": "analysis/index.html#running",
+    "href": "analysis/index.html#running",
+    "title": "Analysis",
+    "section": "Running",
+    "text": "Running\nInstall Quarto and the Python packages in requirements.txt. Then render one notebook at a time, in order, as data arrives.\nquarto render analysis/01-deduplication.ipynb\nThe site is set to freeze: true, so a full quarto render reuses the stored results in _freeze/ and does not rerun the notebooks. After the data change, render the affected notebooks explicitly. Commit _freeze/ so the site builds without rerunning them.",
+    "crumbs": [
+      "Analysis"
+    ]
+  },
+  {
+    "objectID": "codebook.html",
+    "href": "codebook.html",
+    "title": "Codebook",
+    "section": "",
+    "text": "The codebook defines the charting form. It lists every variable charted for each included source of evidence, as PRISMA-ScR item 11 requires. The form is a draft and will be revised after piloting on a sample of sources.\nEach source is one row in data/raw/included_sources_raw.csv. Variables that take several values hold them in one cell, separated by semicolons. Closed variables take only the values listed below, in lowercase.\n\n\n\nVariable\nDefinition\nAllowed values\n\n\n\n\nsource_id\nIdentifier of the source of evidence. Reports of the same study share one source_id.\nFree text\n\n\nrecord_id\nIdentifier of the primary report in deduplicated_records.csv.\nFree text\n\n\ntier\nContext tier from the protocol.\n1, 2\n\n\nfield\nField of research the source concerns.\nhealth, other, cross-disciplinary\n\n\nfield_detail\nSpecific field or subfield, such as genomics or archaeology.\nFree text\n\n\nsource_type\nType of source.\nempirical, review, policy-guidance, opinion, other\n\n\npeer_reviewed\nWhether the source was peer reviewed.\nyes, no\n\n\ndata_origin\nOrigin of the data the source concerns. research means collected for research. routine-reused means collected for operational or care purposes and reused for research.\nresearch, routine-reused, mixed, unclear\n\n\nfactor_types\nKinds of factor the source reports.\nbarrier, facilitator, governance-mechanism\n\n\nfactor_categories\nInitial categories from Panhuis et al. (2014), revised during synthesis.\ntechnical, motivational, economic, political, legal, ethical, other\n\n\nlevel\nLevel at which the factor operates. system covers national, sectoral, and international levels.\nindividual, institutional, system\n\n\nfactors\nThe specific factors the source reports, in the source’s words or a close paraphrase.\nFree text, semicolon-separated\n\n\nregion\nCountry or region of the data, institutions, or participants.\nFree text\n\n\nnotes\nAnything that affects interpretation.\nFree text\n\n\n\n03-charting.ipynb checks charted values against the closed lists above and reports any value that is not allowed. The lists are written in that notebook as well, so a change here needs the same change there.\n\n\n\n\nReferences\n\nPanhuis, Willem G. van, Proma Paul, Claudia Emerson, et al. 2014. “A Systematic Review of Barriers to Data Sharing in Public Health.” BMC Public Health 14: 1144. https://doi.org/10.1186/1471-2458-14-1144.",
+    "crumbs": [
+      "Codebook"
+    ]
+  },
+  {
+    "objectID": "materials/checklists/index.html",
+    "href": "materials/checklists/index.html",
+    "title": "Checklists",
+    "section": "",
+    "text": "Two checklists apply. Download the fillable versions, complete them for the manuscript, and save copies in this folder. The tables below name each item and show where this repository reports it.",
+    "crumbs": [
+      "Materials",
+      "Checklists"
+    ]
+  },
+  {
+    "objectID": "materials/checklists/index.html#prisma-scr",
+    "href": "materials/checklists/index.html#prisma-scr",
+    "title": "Checklists",
+    "section": "PRISMA-ScR",
+    "text": "PRISMA-ScR\n\n\n\nItem\nTopic\nWhere reported\n\n\n\n\n1\nTitle\nManuscript\n\n\n2\nStructured summary\nManuscript\n\n\n3\nRationale\nProtocol, background\n\n\n4\nObjectives\nProtocol, objective and questions\n\n\n5\nProtocol and registration\nProtocol\n\n\n6\nEligibility criteria\nProtocol, screening guide\n\n\n7\nInformation sources\nSearch strategy\n\n\n8\nSearch\nSearch strategy\n\n\n9\nSelection of sources of evidence\nScreening guide\n\n\n10\nData charting process\nCodebook\n\n\n11\nData items\nCodebook\n\n\n12\nCritical appraisal of individual sources of evidence (optional)\nOpen decision in the protocol\n\n\n13\nSynthesis of results\nProtocol, synthesis\n\n\n14\nSelection of sources of evidence\n04-synthesis, flow diagram\n\n\n15\nCharacteristics of sources of evidence\n03-charting, manuscript\n\n\n16\nCritical appraisal within sources of evidence (optional)\nApplies only if appraisal is done\n\n\n17\nResults of individual sources of evidence\n03-charting, included_sources_clean.csv\n\n\n18\nSynthesis of results\n04-synthesis, manuscript\n\n\n19\nSummary of evidence\nManuscript\n\n\n20\nLimitations\nManuscript\n\n\n21\nConclusions\nManuscript\n\n\n22\nFunding\nManuscript",
+    "crumbs": [
+      "Materials",
+      "Checklists"
+    ]
+  },
+  {
+    "objectID": "materials/checklists/index.html#prisma-s",
+    "href": "materials/checklists/index.html#prisma-s",
+    "title": "Checklists",
+    "section": "PRISMA-S",
+    "text": "PRISMA-S\n\n\n\nItem\nTopic\nWhere reported\n\n\n\n\n1\nDatabase name\nSearch strategy\n\n\n2\nMulti-database searching\nSearch strategy\n\n\n3\nStudy registries\nSearch strategy\n\n\n4\nOnline resources and browsing\nSearch strategy\n\n\n5\nCitation searching\nSearch strategy\n\n\n6\nContacts\nSearch strategy\n\n\n7\nOther methods\nSearch strategy\n\n\n8\nFull search strategies\nSearch strategy\n\n\n9\nLimits and restrictions\nSearch strategy\n\n\n10\nSearch filters\nSearch strategy\n\n\n11\nPrior work\nSearch strategy\n\n\n12\nUpdates\nSearch strategy\n\n\n13\nDates of searches\nSearch strategy\n\n\n14\nPeer review\nSearch strategy\n\n\n15\nTotal records\n01-deduplication\n\n\n16\nDeduplication\n01-deduplication",
+    "crumbs": [
+      "Materials",
+      "Checklists"
+    ]
+  },
+  {
+    "objectID": "materials/search-strategy.html",
+    "href": "materials/search-strategy.html",
+    "title": "Search strategy",
+    "section": "",
+    "text": "This page records every search, as PRISMA-S requires (Rethlefsen et al. 2021). Each database search gets one row in the table and one entry under search strings. The record counts below are written by 01-deduplication from the exports in data/raw/search_exports/.",
+    "crumbs": [
+      "Materials",
+      "Search strategy"
+    ]
+  },
+  {
+    "objectID": "materials/search-strategy.html#search-blocks",
+    "href": "materials/search-strategy.html#search-blocks",
+    "title": "Search strategy",
+    "section": "Search blocks",
+    "text": "Search blocks\nTwo blocks run in each database.\n\n\n\n\n\n\n\n\nBlock\nConcepts combined\nLimit\n\n\n\n\nA\nResearch data sharing and reuse; factors, barriers, facilitators, and governance; health research\nNone on source type\n\n\nB\nResearch data sharing and reuse; factors, barriers, facilitators, and governance\nReview or synthesis filter; no health terms\n\n\n\nThe query terms of Panhuis et al. (2014) are the starting point for the factor terms. Their public health terms are replaced by research data terms.",
+    "crumbs": [
+      "Materials",
+      "Search strategy"
+    ]
+  },
+  {
+    "objectID": "materials/search-strategy.html#databases-and-searches",
+    "href": "materials/search-strategy.html#databases-and-searches",
+    "title": "Search strategy",
+    "section": "Databases and searches",
+    "text": "Databases and searches\nDatabases are not yet selected. Add one row per database search.\n\n\n\n\n\n\n\n\n\n\n\n\nBlock\nPlatform\nDatabase\nCoverage dates\nSearch date\nLimits and filters\nRecords",
+    "crumbs": [
+      "Materials",
+      "Search strategy"
+    ]
+  },
+  {
+    "objectID": "materials/search-strategy.html#search-strings",
+    "href": "materials/search-strategy.html#search-strings",
+    "title": "Search strategy",
+    "section": "Search strings",
+    "text": "Search strings\nPaste each string exactly as run, with the platform and the date. One entry per database and block.\nDatabase, platform, block, date\n(string to be added)",
+    "crumbs": [
+      "Materials",
+      "Search strategy"
+    ]
+  },
+  {
+    "objectID": "materials/search-strategy.html#other-sources",
+    "href": "materials/search-strategy.html#other-sources",
+    "title": "Search strategy",
+    "section": "Other sources",
+    "text": "Other sources\nDescribe each supplementary method and how records were identified: citation searching of the included sources and of Panhuis et al. (2014), registries, websites, and contacts. Name export files for these sources with the prefix other-.",
+    "crumbs": [
+      "Materials",
+      "Search strategy"
+    ]
+  },
+  {
+    "objectID": "materials/search-strategy.html#known-item-test",
+    "href": "materials/search-strategy.html#known-item-test",
+    "title": "Search strategy",
+    "section": "Known-item test",
+    "text": "Known-item test\nBefore the full searches run, the final strings are tested against these sources. The first two groups are in scope, so both blocks together should retrieve them. The last two groups are comparators or adjacent work, and retrieving them is not required.\nHealth research data sharing (tier 1)\n\nRowhani-Farid, Allen, and Barnett (2017). What incentives increase data sharing in health and medical research? A systematic review. doi:10.1186/s41073-017-0028-9\nDevriendt, Shabani, and Borry (2021). Data sharing in biomedical sciences: a systematic review of incentives. doi:10.1089/bio.2020.0037\nKalkman et al. (2019). Responsible data sharing in international health research: a systematic review of principles and norms. BMC Medical Ethics 20(21)\nHamilton et al. (2023). Prevalence and predictors of data and code sharing in the medical and health sciences: systematic review with meta-analysis of individual participant data. PMC10334349\nA systematic literature review of researchers’ and healthcare professionals’ attitudes towards the secondary use and sharing of health administrative and clinical trial data (2020). doi:10.1186/s13643-020-01485-5\nSaulnier et al. (2019). Benefits and barriers in the design of harmonized access agreements for international data sharing. doi:10.1038/s41597-019-0310-4\nRegulatory frameworks for clinical trial data sharing: scoping review. PMC9118011\nThe anatomy of a data transfer agreement for health research. PMC11383768\nAndanda and Mlotshwa (2024). Streamlining the ethical-legal governance of cross-border health data sharing during global health emergencies. doi:10.1177/17470161241261907\nInitiatives, concepts, and implementation practices of the FAIR data principles in health data stewardship: scoping review. PMC10495848\nScheibner et al. (2023). Does legislation impede data sharing in Australia across institutions and jurisdictions? A scoping review. Journal of Medical Systems 47(1): 116\n\nCross-disciplinary reviews (tier 2)\n\nFecher, Friesike, and Hebing (2015). What drives academic data sharing? PLoS ONE 10\nZuiderwijk, Shinde, and Jeng (2020). What drives and inhibits researchers to share and use open research data? doi:10.1371/journal.pone.0239283\nPerrier, Blondal, and MacDonald (2020). The views, perspectives, and experiences of academic researchers with data sharing and reuse: a meta-synthesis. doi:10.1371/journal.pone.0229182\nChawinga and Zinn (2019). A systematic literature review of barriers to research data sharing. Full citation to be added.\nResearcher attitudes toward data sharing in public data repositories: a meta-evaluation of studies on researcher data sharing. Journal of Documentation 78(7)\n\nPersonal health data and data subjects (adjacent)\n\nStakeholders’ perceptions of personal health data sharing: a scoping review. PMC11578505\nPatient and public willingness to share personal health data for third-party or secondary uses: systematic review (2024). Journal of Medical Internet Research, e50421\nHealth data sharing attitudes towards primary and secondary use of data: a systematic review (2024). eClinicalMedicine\n\nPublic health data (comparator)\n\nPanhuis et al. (2014)\nYehudi et al. (2025). COVID-19: an exploration of consecutive systemic barriers to pathogen-related data sharing during a pandemic. Data & Policy 7: e4. doi:10.1017/dap.2024.79",
+    "crumbs": [
+      "Materials",
+      "Search strategy"
+    ]
+  },
+  {
+    "objectID": "materials/search-strategy.html#export-file-names",
+    "href": "materials/search-strategy.html#export-file-names",
+    "title": "Search strategy",
+    "section": "Export file names",
+    "text": "Export file names\nName each export &lt;database&gt;_&lt;YYYY-MM-DD&gt;[_&lt;block&gt;].&lt;ext&gt;, for example scopus_2026-11-02_A.ris. The date is the search date. Supported formats are RIS and CSV. See the README in data/raw/search_exports/.",
+    "crumbs": [
+      "Materials",
+      "Search strategy"
+    ]
+  },
+  {
+    "objectID": "analysis/01-deduplication.html",
+    "href": "analysis/01-deduplication.html",
+    "title": "01 Deduplication",
+    "section": "",
+    "text": "This notebook reads every export in data/raw/search_exports/, merges duplicate records, and writes data/processed/deduplicated_records.csv. It also writes the identification counts to data/processed/screening_counts.yaml, which 02 Screening extends.",
+    "crumbs": [
+      "Analysis",
+      "01 Deduplication"
+    ]
+  },
+  {
+    "objectID": "analysis/01-deduplication.html#method",
+    "href": "analysis/01-deduplication.html#method",
+    "title": "01 Deduplication",
+    "section": "Method",
+    "text": "Method\nEach export is parsed into title, abstract, authors, year, journal, and DOI. Two records are duplicates when they share a normalized DOI, or when they share a normalized title and a publication year. Matches are transitive, so a record without a DOI joins the group of a record with one when their titles and years agree. The DOI is lowercased and stripped of any resolver prefix. The title is reduced to lowercase letters and digits after accents are removed. From each group the record with the longest abstract is kept. The record_id is a hash of the smallest DOI or title key in the group, so it stays the same when the same exports are processed again.\nThe merge is written in Python with pandas and no other deduplication software. The table at the end lists merged groups for a spot check.\n\n\nCode\nimport hashlib\nimport re\nimport unicodedata\nfrom pathlib import Path\n\nimport pandas as pd\nimport rispy\nimport yaml\n\nROOT = next(p for p in [Path.cwd(), *Path.cwd().parents] if (p / \"_quarto.yml\").exists())\nRAW = ROOT / \"data\" / \"raw\" / \"search_exports\"\nOUT = ROOT / \"data\" / \"processed\"\nOUT.mkdir(parents=True, exist_ok=True)\n\nNAME = re.compile(r\"^(?P&lt;database&gt;.+?)_(?P&lt;date&gt;\\d{4}-\\d{2}-\\d{2})(?:_(?P&lt;block&gt;[A-Za-z0-9]+))?$\")\nfiles = sorted(p for p in RAW.glob(\"*\") if p.suffix.lower() in {\".ris\", \".csv\"})\nhave_data = bool(files)\nif have_data:\n    print(f\"{len(files)} export file(s) found.\")\nelse:\n    print(\"No exports found in data/raw/search_exports/. Add exports and render this notebook again.\")\n\n\nNo exports found in data/raw/search_exports/. Add exports and render this notebook again.\n\n\n\n\nCode\nFIELDS = [\"title\", \"abstract\", \"authors\", \"year\", \"journal\", \"doi\"]\nCSV_COLUMNS = {\n    \"title\": [\"title\", \"article title\", \"document title\"],\n    \"abstract\": [\"abstract\"],\n    \"authors\": [\"authors\", \"author full names\", \"author(s)\", \"author\"],\n    \"year\": [\"year\", \"publication year\", \"py\"],\n    \"journal\": [\"journal\", \"source title\", \"journal/book\", \"publication title\"],\n    \"doi\": [\"doi\"],\n}\nRIS_KEYS = {\n    \"title\": [\"primary_title\", \"title\", \"translated_title\"],\n    \"abstract\": [\"abstract\", \"notes_abstract\"],\n    \"authors\": [\"authors\", \"first_authors\"],\n    \"year\": [\"year\", \"publication_year\", \"date\"],\n    \"journal\": [\"secondary_title\", \"journal_name\", \"alternate_title3\", \"alternate_title2\"],\n    \"doi\": [\"doi\"],\n}\n\n\ndef first(record, keys):\n    for key in keys:\n        value = record.get(key)\n        if value:\n            return \"; \".join(map(str, value)) if isinstance(value, list) else str(value)\n    return \"\"\n\n\ndef read_export(path):\n    if path.suffix.lower() == \".ris\":\n        with open(path, encoding=\"utf-8-sig\") as fh:\n            rows = [{f: first(r, RIS_KEYS[f]) for f in FIELDS} for r in rispy.load(fh)]\n        return pd.DataFrame(rows, columns=FIELDS)\n    df = pd.read_csv(path, encoding=\"utf-8-sig\", dtype=str).fillna(\"\")\n    lower = {c.lower().strip(): c for c in df.columns}\n    out = pd.DataFrame(index=df.index)\n    for f in FIELDS:\n        col = next((lower[c] for c in CSV_COLUMNS[f] if c in lower), None)\n        out[f] = df[col] if col else \"\"\n    return out\n\n\n\n\nCode\nif have_data:\n    frames = []\n    for p in files:\n        m = NAME.match(p.stem)\n        if not m:\n            raise ValueError(f\"{p.name}: name the file &lt;database&gt;_&lt;YYYY-MM-DD&gt;[_&lt;block&gt;], for example scopus_2026-11-02_A.ris\")\n        df = read_export(p)\n        df[\"database\"] = m[\"database\"]\n        df[\"search_date\"] = m[\"date\"]\n        df[\"block\"] = m[\"block\"] or \"\"\n        df[\"file\"] = p.name\n        frames.append(df)\n    records = pd.concat(frames, ignore_index=True).fillna(\"\").astype(str)\n\n\ndef clean_doi(x):\n    x = x.strip().lower()\n    return re.sub(r\"^(https?://(dx\\.)?doi\\.org/|doi:\\s*)\", \"\", x)\n\n\ndef title_key(x):\n    x = unicodedata.normalize(\"NFKD\", x).encode(\"ascii\", \"ignore\").decode().lower()\n    return re.sub(r\"[^a-z0-9]+\", \"\", x)\n\n\ndef year4(x):\n    m = re.search(r\"\\d{4}\", x)\n    return m.group(0) if m else \"\"\n\n\n\n\nCode\nif have_data:\n    records[\"doi\"] = records[\"doi\"].map(clean_doi)\n    records[\"year\"] = records[\"year\"].map(year4)\n    records[\"tkey\"] = records[\"title\"].map(title_key)\n    records[\"abstract_len\"] = records[\"abstract\"].str.len()\n\n    parent = list(range(len(records)))\n\n    def find(i):\n        while parent[i] != i:\n            parent[i] = parent[parent[i]]\n            i = parent[i]\n        return i\n\n    seen = {}\n    for i, r in enumerate(records.itertuples()):\n        keys = []\n        if r.doi:\n            keys.append((\"doi\", r.doi))\n        if r.tkey and r.year:\n            keys.append((\"title\", r.tkey, r.year))\n        for k in keys:\n            if k in seen:\n                parent[find(i)] = find(seen[k])\n            else:\n                seen[k] = i\n    records[\"group\"] = [find(i) for i in range(len(records))]\n\n    def group_key(g):\n        keys = {f\"doi:{d}\" for d in g[\"doi\"] if d}\n        keys |= {f\"title:{t}:{y}\" for t, y in zip(g[\"tkey\"], g[\"year\"]) if t and y}\n        return min(keys) if keys else f\"row:{g['file'].iloc[0]}:{g.index[0]}\"\n\n    rows = []\n    for _, g in records.groupby(\"group\", sort=False):\n        best = g.sort_values(\"abstract_len\", ascending=False).iloc[0]\n        rows.append({\n            \"record_id\": \"R\" + hashlib.sha1(group_key(g).encode()).hexdigest()[:10],\n            \"title\": best[\"title\"],\n            \"abstract\": best[\"abstract\"],\n            \"authors\": best[\"authors\"],\n            \"year\": best[\"year\"],\n            \"journal\": best[\"journal\"],\n            \"doi\": next((d for d in g[\"doi\"] if d), \"\"),\n            \"databases\": \"; \".join(sorted(set(g[\"database\"]))),\n            \"blocks\": \"; \".join(sorted(b for b in set(g[\"block\"]) if b)),\n            \"n_exports\": len(g),\n        })\n    dedup = pd.DataFrame(rows).sort_values(\"record_id\").reset_index(drop=True)\n    dedup.to_csv(OUT / \"deduplicated_records.csv\", index=False)",
+    "crumbs": [
+      "Analysis",
+      "01 Deduplication"
+    ]
+  },
+  {
+    "objectID": "analysis/01-deduplication.html#records-per-search",
+    "href": "analysis/01-deduplication.html#records-per-search",
+    "title": "01 Deduplication",
+    "section": "Records per search",
+    "text": "Records per search\n\n\nCode\nif have_data:\n    by_export = (\n        records.groupby([\"database\", \"block\", \"search_date\"], as_index=False)\n        .size()\n        .rename(columns={\"size\": \"records\"})\n    )\n    display(by_export)\n    total, unique = len(records), len(dedup)\n    print(f\"Records identified: {total}\")\n    print(f\"Duplicate records removed: {total - unique}\")\n    print(f\"Unique records: {unique}\")\n\n\n\n\nCode\nif have_data:\n    path = OUT / \"screening_counts.yaml\"\n    counts = (yaml.safe_load(path.read_text()) or {}) if path.exists() else {}\n    previous = counts.get(\"identification\", {})\n    is_other = by_export[\"database\"].str.startswith(\"other-\")\n\n    def entry(r, strip=False):\n        name = r.database.removeprefix(\"other-\") if strip else r.database\n        return {\"name\": name, \"block\": r.block or None, \"search_date\": r.search_date, \"n\": int(r.records)}\n\n    counts[\"identification\"] = {\n        \"databases\": [entry(r) for r in by_export[~is_other].itertuples()],\n        \"other_methods\": [entry(r, strip=True) for r in by_export[is_other].itertuples()],\n        \"duplicates_removed\": int(total - unique),\n        \"marked_ineligible_by_automation\": previous.get(\"marked_ineligible_by_automation\", 0),\n        \"removed_other_reasons\": previous.get(\"removed_other_reasons\", 0),\n    }\n    path.write_text(yaml.safe_dump(counts, sort_keys=False))\n    print(\"Wrote data/processed/screening_counts.yaml\")",
+    "crumbs": [
+      "Analysis",
+      "01 Deduplication"
+    ]
+  },
+  {
+    "objectID": "analysis/01-deduplication.html#merged-records-for-a-spot-check",
+    "href": "analysis/01-deduplication.html#merged-records-for-a-spot-check",
+    "title": "01 Deduplication",
+    "section": "Merged records, for a spot check",
+    "text": "Merged records, for a spot check\n\n\nCode\nif have_data:\n    merged = dedup[dedup[\"n_exports\"] &gt; 1][[\"record_id\", \"title\", \"year\", \"databases\", \"n_exports\"]]\n    if merged.empty:\n        print(\"No records were merged.\")\n    else:\n        display(merged.head(25))",
+    "crumbs": [
+      "Analysis",
+      "01 Deduplication"
+    ]
+  },
+  {
+    "objectID": "analysis/03-charting.html",
+    "href": "analysis/03-charting.html",
+    "title": "03 Charting",
+    "section": "",
+    "text": "This notebook cleans the charted data in data/raw/included_sources_raw.csv and checks it against the codebook. It writes data/processed/included_sources_clean.csv and data/processed/bibliography.csv, which holds the reference details of each included source, taken from the deduplicated records.\nCleaning trims whitespace, lowercases the closed variables, and sorts and deduplicates the values of the multi-valued variables. A value outside the allowed lists is reported and left as entered.\nCode\nfrom pathlib import Path\n\nimport pandas as pd\n\nROOT = next(p for p in [Path.cwd(), *Path.cwd().parents] if (p / \"_quarto.yml\").exists())\nRAW = ROOT / \"data\" / \"raw\" / \"included_sources_raw.csv\"\nDEDUP = ROOT / \"data\" / \"processed\" / \"deduplicated_records.csv\"\nOUT = ROOT / \"data\" / \"processed\"\n\nCOLUMNS = [\n    \"source_id\", \"record_id\", \"tier\", \"field\", \"field_detail\", \"source_type\",\n    \"peer_reviewed\", \"data_origin\", \"factor_types\", \"factor_categories\",\n    \"level\", \"factors\", \"region\", \"notes\",\n]\nREQUIRED = [\"source_id\", \"record_id\", \"tier\", \"field\", \"source_type\"]\n\n# These lists mirror codebook.qmd. Change both together.\nSINGLE = {\n    \"tier\": [\"1\", \"2\"],\n    \"field\": [\"health\", \"other\", \"cross-disciplinary\"],\n    \"source_type\": [\"empirical\", \"review\", \"policy-guidance\", \"opinion\", \"other\"],\n    \"peer_reviewed\": [\"yes\", \"no\"],\n    \"data_origin\": [\"research\", \"routine-reused\", \"mixed\", \"unclear\"],\n}\nMULTI = {\n    \"factor_types\": [\"barrier\", \"facilitator\", \"governance-mechanism\"],\n    \"factor_categories\": [\"technical\", \"motivational\", \"economic\", \"political\", \"legal\", \"ethical\", \"other\"],\n    \"level\": [\"individual\", \"institutional\", \"system\"],\n}\n\nraw = pd.read_csv(RAW, dtype=str).fillna(\"\") if RAW.exists() else pd.DataFrame(columns=COLUMNS)\nabsent = [c for c in COLUMNS if c not in raw.columns]\nif absent:\n    raise ValueError(\"included_sources_raw.csv is missing column(s): \" + \", \".join(absent))\nhave_data = len(raw) &gt; 0\nprint(f\"{len(raw)} charted source(s).\" if have_data else \"No charted sources yet. Add rows to data/raw/included_sources_raw.csv.\")\n\n\nNo charted sources yet. Add rows to data/raw/included_sources_raw.csv.\nCode\nif have_data:\n    clean = raw[COLUMNS].apply(lambda s: s.str.strip())\n    for col in SINGLE:\n        clean[col] = clean[col].str.lower()\n\n    def tidy(cell):\n        values = [v.strip().lower() for v in cell.split(\";\") if v.strip()]\n        return \"; \".join(sorted(set(values)))\n\n    for col in MULTI:\n        clean[col] = clean[col].map(tidy)",
+    "crumbs": [
+      "Analysis",
+      "03 Charting"
+    ]
+  },
+  {
+    "objectID": "analysis/03-charting.html#checks",
+    "href": "analysis/03-charting.html#checks",
+    "title": "03 Charting",
+    "section": "Checks",
+    "text": "Checks\n\n\nCode\nif have_data:\n    issues = []\n    for col, allowed in SINGLE.items():\n        bad = clean.loc[(clean[col] != \"\") & ~clean[col].isin(allowed), col]\n        issues += [(col, v, int(n)) for v, n in bad.value_counts().items()]\n    for col, allowed in MULTI.items():\n        vals = pd.Series([v for cell in clean[col] for v in cell.split(\"; \") if v], dtype=str)\n        bad = vals[~vals.isin(allowed)]\n        issues += [(col, v, int(n)) for v, n in bad.value_counts().items()]\n    if issues:\n        print(\"Values outside the codebook:\")\n        display(pd.DataFrame(issues, columns=[\"variable\", \"value\", \"n\"]))\n    else:\n        print(\"All closed values match the codebook.\")\n\n    empty = {c: int((clean[c] == \"\").sum()) for c in REQUIRED if (clean[c] == \"\").any()}\n    if empty:\n        print(\"Required variables with empty cells:\", empty)\n    if clean[\"source_id\"].duplicated().any():\n        print(\"Some source_id values are repeated.\")\n    if DEDUP.exists():\n        dedup = pd.read_csv(DEDUP, dtype=str).fillna(\"\")\n        unknown = set(clean[\"record_id\"]) - set(dedup[\"record_id\"])\n        if unknown:\n            print(f\"{len(unknown)} record_id value(s) are not in deduplicated_records.csv.\")\n\n\n\n\nCode\nif have_data:\n    clean.to_csv(OUT / \"included_sources_clean.csv\", index=False)\n    print(\"Wrote data/processed/included_sources_clean.csv\")\n    if DEDUP.exists():\n        keep = [\"record_id\", \"authors\", \"year\", \"title\", \"journal\", \"doi\"]\n        bib = clean[[\"source_id\", \"record_id\"]].merge(dedup[keep], on=\"record_id\", how=\"left\")\n        bib.to_csv(OUT / \"bibliography.csv\", index=False)\n        print(\"Wrote data/processed/bibliography.csv\")\n        display(bib.head(20))\n    else:\n        print(\"deduplicated_records.csv not found, so bibliography.csv was not written.\")",
+    "crumbs": [
+      "Analysis",
+      "03 Charting"
+    ]
+  }
+]
