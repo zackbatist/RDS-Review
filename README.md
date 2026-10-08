@@ -9,7 +9,13 @@ Site: <https://zackbatist.info/RDS-Review/>
 1. Install [Quarto](https://quarto.org/).
 2. Clone this repository and `cd` into it.
 3. Create a virtual environment outside any synced folder and install the Python packages:
-   `python3 -m venv ~/.venvs/rds-review`, then `source ~/.venvs/rds-review/bin/activate`, then `pip install -r requirements.txt`.
+
+   ```bash
+   python3 -m venv ~/.venvs/rds-review
+   source ~/.venvs/rds-review/bin/activate
+   pip install -r requirements.txt
+   ```
+
 4. Run `quarto preview`.
 5. Open `localhost:7777` in a web browser.
 
@@ -20,7 +26,7 @@ Run `quarto publish gh-pages`.
 ## Layout
 
 | Path | Contents |
-|---|---|
+| --- | --- |
 | `index.qmd`, `research-protocol.qmd`, `codebook.qmd` | Home page, protocol, and charting form |
 | `materials/` | Search strategy, screening guide, and checklists |
 | `data/raw/` | Search exports, screening exports, and charted data as entered. Notebooks never change these. |
