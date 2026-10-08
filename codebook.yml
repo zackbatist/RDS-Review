@@ -1,0 +1,86 @@
+# The charting form and the screening codes.
+#
+# codebook.qmd and materials/screening-guide.qmd print this file.
+# analysis/02-screening.ipynb and analysis/03-charting.ipynb check the data against it.
+# Change a variable, a value, or a code here and nowhere else.
+#
+# A variable with `values` is closed: it takes only those values, in lowercase.
+# A variable without `values` is free text.
+# A variable with `required: true` may not be empty.
+# Put quotes around values that YAML reads as something else, such as "yes", "no", and "1".
+
+tables:
+  sources:
+    file: data/raw/included_sources_raw.csv
+    summary: One row per included source of evidence.
+    variables:
+      - name: source_id
+        definition: Identifier of the source of evidence. Reports of the same study share one `source_id`.
+        required: true
+      - name: record_id
+        definition: Identifier of the primary report in `deduplicated_records.csv`.
+        required: true
+      - name: tier
+        definition: Context tier from the [protocol](research-protocol.qmd).
+        values: ["1", "2"]
+        required: true
+      - name: field
+        definition: Field of research the source concerns.
+        values: [health, other, cross-disciplinary]
+        required: true
+      - name: field_detail
+        definition: Specific field or subfield, such as genomics or archaeology.
+      - name: source_type
+        definition: Type of source.
+        values: [empirical, review, policy-guidance, opinion, other]
+        required: true
+      - name: peer_reviewed
+        definition: Whether the source was peer reviewed.
+        values: ["yes", "no"]
+      - name: data_origin
+        definition: Origin of the data the source concerns. `research` means collected for research. `routine-reused` means collected for operational or care purposes and reused for research.
+        values: [research, routine-reused, mixed, unclear]
+      - name: region
+        definition: Country or region of the data, institutions, or participants.
+      - name: notes
+        definition: Anything that affects interpretation.
+
+  factors:
+    file: data/raw/included_factors_raw.csv
+    summary: One row per factor that a source reports. A source that reports five factors has five rows, each with its own type, category, and level.
+    variables:
+      - name: source_id
+        definition: The source that reports the factor. It must appear in `included_sources_raw.csv`.
+        required: true
+      - name: factor
+        definition: The specific factor, in the source's words or a close paraphrase.
+        required: true
+      - name: factor_type
+        definition: Kind of factor.
+        values: [barrier, facilitator, governance-mechanism]
+        required: true
+      - name: factor_category
+        definition: Initial categories from @vanpanhuis2014, revised during synthesis. Left empty until the factor is coded.
+        values: [technical, motivational, economic, political, legal, ethical, other]
+      - name: level
+        definition: Level at which the factor operates. `system` covers national, sectoral, and international levels. When a source reports the same factor at two levels, enter one row for each.
+        values: [individual, institutional, system]
+      - name: notes
+        definition: Anything that affects interpretation.
+
+# Exclusion reasons at full text. One code per excluded report.
+exclusion_reasons:
+  - code: not-data-sharing
+    reason: Not about the sharing or reuse of research data
+  - code: not-factors
+    reason: Reports no barriers, facilitators, or governance mechanisms
+  - code: not-research-data
+    reason: Concerns only public health, other health systems, or clinical care data
+  - code: tier2-not-review
+    reason: Research in other fields, and not a review or synthesis
+  - code: language
+    reason: Outside the language limit, if one is set
+  - code: date
+    reason: Outside the date limit, if one is set
+  - code: other
+    reason: Any other reason, explained in a comment

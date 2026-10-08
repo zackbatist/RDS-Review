@@ -57,7 +57,7 @@ Search results are deduplicated and then screened on title and abstract, and aga
 
 ### Data charting
 
-Each included source is charted once into the form defined in the [codebook](codebook.qmd). The form is piloted on a sample of sources and revised before full charting begins.
+Each included source is charted once into the form defined in the [codebook](codebook.qmd), with one row for the source and one row for each factor it reports. The form is piloted on a sample of sources and revised before full charting begins.
 
 ### Synthesis
 

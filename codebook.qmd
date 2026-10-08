@@ -1,26 +1,40 @@
 ---
 title: "Codebook"
+jupyter: python3
 ---
 
 The codebook defines the charting form. It lists every variable charted for each included source of evidence, as PRISMA-ScR item 11 requires. The form is a draft and will be revised after piloting on a sample of sources.
 
-Each source is one row in `data/raw/included_sources_raw.csv`. Variables that take several values hold them in one cell, separated by semicolons. Closed variables take only the values listed below, in lowercase.
+The form has two tables, both CSV files in `data/raw/`. The sources table has one row per included source. The factors table has one row per factor that a source reports, so a source with five factors has five rows there. The tables are linked by `source_id`. Closed variables take only the values listed below, in lowercase. This page and [03-charting](analysis/03-charting.ipynb) both read the variables from `codebook.yml`, so a change is made there once.
 
-| Variable | Definition | Allowed values |
-|---|---|---|
-| `source_id` | Identifier of the source of evidence. Reports of the same study share one `source_id`. | Free text |
-| `record_id` | Identifier of the primary report in `deduplicated_records.csv`. | Free text |
-| `tier` | Context tier from the [protocol](research-protocol.qmd). | `1`, `2` |
-| `field` | Field of research the source concerns. | `health`, `other`, `cross-disciplinary` |
-| `field_detail` | Specific field or subfield, such as genomics or archaeology. | Free text |
-| `source_type` | Type of source. | `empirical`, `review`, `policy-guidance`, `opinion`, `other` |
-| `peer_reviewed` | Whether the source was peer reviewed. | `yes`, `no` |
-| `data_origin` | Origin of the data the source concerns. `research` means collected for research. `routine-reused` means collected for operational or care purposes and reused for research. | `research`, `routine-reused`, `mixed`, `unclear` |
-| `factor_types` | Kinds of factor the source reports. | `barrier`, `facilitator`, `governance-mechanism` |
-| `factor_categories` | Initial categories from @vanpanhuis2014, revised during synthesis. | `technical`, `motivational`, `economic`, `political`, `legal`, `ethical`, `other` |
-| `level` | Level at which the factor operates. `system` covers national, sectoral, and international levels. | `individual`, `institutional`, `system` |
-| `factors` | The specific factors the source reports, in the source's words or a close paraphrase. | Free text, semicolon-separated |
-| `region` | Country or region of the data, institutions, or participants. | Free text |
-| `notes` | Anything that affects interpretation. | Free text |
+```{python}
+#| echo: false
+#| output: asis
+from pathlib import Path
 
-`03-charting.ipynb` checks charted values against the closed lists above and reports any value that is not allowed. The lists are written in that notebook as well, so a change here needs the same change there.
+import yaml
+
+book = yaml.safe_load(Path("codebook.yml").read_text(encoding="utf-8"))
+
+
+def cell(text):
+    return str(text).replace("|", "\\|").replace("\n", " ")
+
+
+def show(name, heading):
+    table = book["tables"][name]
+    print(f"## {heading}\n")
+    print(f"`{Path(table['file']).name}`. {table['summary']}\n")
+    print("| Variable | Definition | Allowed values | Required |")
+    print("|---|---|---|---|")
+    for v in table["variables"]:
+        values = ", ".join(f"`{x}`" for x in v["values"]) if v.get("values") else "Free text"
+        print(f"| `{v['name']}` | {cell(v['definition'])} | {values} | {'yes' if v.get('required') else 'no'} |")
+    print()
+
+
+show("sources", "Sources")
+show("factors", "Factors")
+```
+
+`03-charting.ipynb` stops with an error when a charted value is not allowed, a required cell is empty, or a `source_id` or `record_id` does not match the other files.

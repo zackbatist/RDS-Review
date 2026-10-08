@@ -28,6 +28,7 @@ Run `quarto publish gh-pages`.
 | Path | Contents |
 | --- | --- |
 | `index.qmd`, `research-protocol.qmd`, `codebook.qmd` | Home page, protocol, and charting form |
+| `codebook.yml` | The charting variables, their allowed values, and the exclusion reason codes. The codebook page and the notebooks read it. |
 | `materials/` | Search strategy, screening guide, and checklists |
 | `data/raw/` | Search exports, screening exports, and charted data as entered. Notebooks never change these. |
 | `data/processed/` | Files written by the notebooks |

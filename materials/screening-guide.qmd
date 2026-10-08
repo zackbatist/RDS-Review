@@ -1,5 +1,6 @@
 ---
 title: "Screening guide"
+jupyter: python3
 ---
 
 The guide states how records are screened and how decisions are exported for the analysis notebooks. The criteria come from the [protocol](../research-protocol.qmd) and are a draft.
@@ -25,19 +26,25 @@ A source is excluded when it concerns only public health data, other health syst
 
 Record one reason code per excluded report at full text.
 
-| Code | Reason |
-|---|---|
-| `not-data-sharing` | Not about the sharing or reuse of research data |
-| `not-factors` | Reports no barriers, facilitators, or governance mechanisms |
-| `not-research-data` | Concerns only public health, other health systems, or clinical care data |
-| `tier2-not-review` | Research in other fields, and not a review or synthesis |
-| `language` | Outside the language limit, if one is set |
-| `date` | Outside the date limit, if one is set |
-| `other` | Any other reason, explained in a comment |
+```{python}
+#| echo: false
+#| output: asis
+from pathlib import Path
+
+import yaml
+
+book = yaml.safe_load(Path("../codebook.yml").read_text(encoding="utf-8"))
+print("| Code | Reason |")
+print("|---|---|")
+for r in book["exclusion_reasons"]:
+    print(f"| `{r['code']}` | {r['reason']} |")
+```
+
+[02-screening](../analysis/02-screening.ipynb) stops with an error when a full-text exclusion has a reason code that is not in this list.
 
 ## Export formats
 
-Export decisions from the screening tool into `data/raw/screening_exports/` as two CSV files with lowercase values. [02-screening](../analysis/02-screening.ipynb) reads them.
+Export decisions from the screening tool into `data/raw/screening_exports/` as CSV files with lowercase values. [02-screening](../analysis/02-screening.ipynb) reads them. The final files hold one row per record, with disagreements between reviewers already settled.
 
 **`title_abstract.csv`**
 
@@ -55,3 +62,7 @@ Export decisions from the screening tool into `data/raw/screening_exports/` as t
 | `retrieved` | `yes` or `no` |
 | `decision` | `include` or `exclude`. Blank when `retrieved` is `no`. |
 | `reason` | An exclusion reason code. Required when `decision` is `exclude`. |
+
+**Reviewer files**
+
+When more than one person screens, export each reviewer's own decisions as well. Name them `title_abstract_<reviewer>.csv` and `full_text_<reviewer>.csv`, for example `title_abstract_r1.csv`. They have the columns `record_id` and `decision`, and they may cover only a sample, such as a calibration set. With two or more reviewer files for a stage, the notebook reports percent agreement and Cohen's kappa for each pair of reviewers and lists the records they disagree on. Reviewer files do not change the counts. The final files do.
