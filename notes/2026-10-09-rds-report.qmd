@@ -1,0 +1,172 @@
+---
+title: "Updating a Global Scoping Review of Research Data Sharing with Machine Learning Methods"
+author:
+  - "Zack Batist"
+  - "Melissa Ouellet"
+date: 2026-10-09
+date-modified: 2026-10-14
+bibliography: 2026-10-09-rds-report.bib
+csl: ../assets/chicago-author-date.csl
+format:
+  pdf:
+    documentclass: article
+    fontsize: 10pt
+    code-overflow: wrap
+    geometry:
+      - margin=0.8in
+    toc: false
+  html:
+    embed-resources: true
+  
+---
+
+## Aim
+
+We are updating the 2019 global perspectives review of research data sharing [@chawinga2019] with scoping review methods from @cavallaro2026. The 2019 review matches our focus on research data sharing, which makes it a strong candidate for an update. Our method draws on the 2026 protocol, which pairs machine learning screening with automated deduplication, and improves on it in two places: deduplication and seed generation.
+
+## Frameworks and Tools
+
+We follow the PRISMA extension for scoping reviews (PRISMA-ScR) and the Joanna Briggs Institute scoping review (JBI) methodology. Both are standard for scoping reviews, make the work reproducible, and are supported by a broad ecosystem of tools and resources.
+
+For deduplication we use ASySD (also used by @perrier2017), which is more reproducible than the Zotero workflow in @cavallaro2026 and performs much better. ASReview uses machine learning to rank records by predicted relevance, a task where LLMs struggle with reproducibility. It needs a seed sample to initialize the ranking. @cavallaro2026 select their seed sample ad-hoc from the first 5% of deduplicated records.
+
+## Search and Seed
+
+The base query is the single term "research data sharing" (RDS), adopted from @chawinga2019. The term stands on its own as the core concept of our focus. We then decided to create a full query comprising separate key terms into two blocks that combine logically with AND. The first block adds data-related concepts such as open data, data reuse, curation and data management plans to the RDS term. The second holds barriers, facilitators, policy, ethics and infrastructure terms. Both queries cover 2015 to 2025, which brackets the 2019 review. The generic query combining, including the terms used in the two blocks, is included in the appendix.
+
+The base RDS query alone serves as the seed. It returned 535 records against 12,188 for the full query (4.4%), close to the conventional 5%. A seed derived from a fixed keyword is reproducible, and its size lands where a seed sample should.
+
+| Database | Full query | Base RDS query | Base / Full |
+|:---------------|-----------:|---------:|-----------:|
+| Scopus | 5,410 | 267 | 4.9% |
+| Web of Science | 4,528 | 182 | 4.0% |
+| PubMed | 2,250 | 86 | 3.8% |
+| **Total** | **12,188** | **535** | **4.4%** |
+
+: Records retrieved per database, 2015 to 2025, before deduplication.
+
+## Tools and Frameworks
+
+- PRISMA-ScR: <https://www.prisma-statement.org/scoping>
+- JBI scoping review methodology: <https://doi.org/10.46658/JBIMES-24-09>
+- ASySD: <https://github.com/camaradesuk/ASySD>
+- ASReview: <https://asreview.nl>
+- Zotero: <https://www.zotero.org>
+
+## References
+
+::: {#refs}
+:::
+
+## Appendix: Full Search Queries
+
+### Generic Full Query
+
+Database-neutral core shared by the three queries below. Each database adds its own field tags, date limits and document type filters.
+
+```sql
+(
+  "research data sharing" OR "research data-sharing"
+  OR "open data" OR "data reuse" OR "data re-use"
+  OR "data curation" OR "digital curation"
+  OR "data management plan*"
+)
+AND
+(
+  barrier* OR challenge* OR obstacle*
+  OR facilitator* OR enabler* OR motivat* OR incentive*
+  OR attitude* OR perception* OR willingness OR reluctan*
+  OR mandate* OR policy OR policies
+  OR ethic* OR privacy OR consent OR licens*
+  OR infrastructure OR repositor* OR interoperab* OR stewardship
+)
+```
+
+### Scopus (5,410 records)
+
+```sql
+TITLE-ABS (
+  (
+    "research data sharing" OR "research data-sharing"
+    OR "open data" OR "data reuse" OR "data re-use"
+    OR "data curation" OR "digital curation"
+    OR "data management plan*"
+  )
+  AND
+  (
+    barrier* OR challenge* OR obstacle*
+    OR facilitator* OR enabler* OR motivat* OR incentive*
+    OR attitude* OR perception* OR willingness OR reluctan*
+    OR mandate* OR "policy" OR "policies"
+    OR ethic* OR privacy OR consent OR licens*
+    OR "infrastructure" OR repositor* OR interoperab* OR "stewardship"
+  )
+)
+AND PUBYEAR > 2014 AND PUBYEAR < 2026
+AND SRCTYPE ( j )
+AND NOT DOCTYPE ( tb )
+```
+
+### Web of Science (4,528 records)
+
+```sql
+(
+  TI=(
+    "research data sharing" OR "research data-sharing"
+    OR "open data" OR "data reuse" OR "data re-use"
+    OR "data curation" OR "digital curation"
+    OR "data management plan*"
+  )
+  OR
+  AB=(
+    "research data sharing" OR "research data-sharing"
+    OR "open data" OR "data reuse" OR "data re-use"
+    OR "data curation" OR "digital curation"
+    OR "data management plan*"
+  )
+)
+AND
+(
+  TI=(
+    barrier* OR challenge* OR obstacle*
+    OR facilitator* OR enabler* OR motivat* OR incentive*
+    OR attitude* OR perception* OR willingness OR reluctan*
+    OR mandate* OR "policy" OR "policies"
+    OR ethic* OR privacy OR consent OR licens*
+    OR "infrastructure" OR repositor* OR interoperab* OR "stewardship"
+  )
+  OR
+  AB=(
+    barrier* OR challenge* OR obstacle*
+    OR facilitator* OR enabler* OR motivat* OR incentive*
+    OR attitude* OR perception* OR willingness OR reluctan*
+    OR mandate* OR "policy" OR "policies"
+    OR ethic* OR privacy OR consent OR licens*
+    OR "infrastructure" OR repositor* OR interoperab* OR "stewardship"
+  )
+)
+AND PY=(2015-2025)
+AND DT=(Article OR Review)
+```
+
+### PubMed (2,250 records)
+
+```sql
+(
+  "research data sharing"[tiab] OR "research data-sharing"[tiab]
+  OR "open data"[tiab] OR "data reuse"[tiab] OR "data re-use"[tiab]
+  OR "data curation"[tiab] OR "digital curation"[tiab]
+  OR "data management plan"[tiab] OR "data management plans"[tiab]
+)
+AND
+(
+  barrier*[tiab] OR challenge*[tiab] OR obstacle*[tiab]
+  OR facilitator*[tiab] OR enabler*[tiab] OR motivat*[tiab] OR incentive*[tiab]
+  OR attitude*[tiab] OR perception*[tiab] OR willingness[tiab] OR reluctan*[tiab]
+  OR mandate*[tiab] OR policy[tiab] OR policies[tiab]
+  OR ethic*[tiab] OR privacy[tiab] OR consent[tiab] OR licens*[tiab]
+  OR infrastructure[tiab] OR repositor*[tiab] OR interoperab*[tiab] OR stewardship[tiab]
+)
+AND 2015:2025[dp]
+AND "Journal Article"[pt]
+```

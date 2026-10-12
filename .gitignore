@@ -7,4 +7,3 @@ data/**/*.pdf
 
 /.quarto/
 **/*.quarto_ipynb
-untracked/
