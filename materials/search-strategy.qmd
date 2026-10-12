@@ -4,75 +4,177 @@ title: "Search strategy"
 
 This page records every search, as PRISMA-S requires [@rethlefsen2021]. Each database search gets one row in the table and one entry under search strings. The record counts below are written by [01-deduplication](../analysis/01-deduplication.ipynb) from the exports in `data/raw/search_exports/`.
 
-## Search blocks
+## Queries
 
-Two blocks run in each database.
-
-| Block | Concepts combined | Limit |
-|---|---|---|
-| A | Research data sharing and reuse; factors, barriers, facilitators, and governance; health research | None on source type |
-| B | Research data sharing and reuse; factors, barriers, facilitators, and governance | Review or synthesis filter; no health terms |
-
-The query terms of @vanpanhuis2014 are the starting point for the factor terms. Their public health terms are replaced by research data terms.
+One query runs in each database for 2015 to 2025. It joins two blocks with AND. The first block holds "research data sharing" and related data concepts. The second holds factor terms. The query uses no health terms. The term "research data sharing" alone seeds the screening ranking.
 
 ## Databases and searches
 
-Databases are not yet selected. Add one row per database search.
+| Database | Query | Seed term | Seed / query |
+|:---------------|-----------:|---------:|-----------:|
+| Scopus | 5,410 | 267 | 4.9% |
+| Web of Science | 4,528 | 182 | 4.0% |
+| PubMed | 2,250 | 86 | 3.8% |
+| **Total** | **12,188** | **535** | **4.4%** |
 
-| Block | Platform | Database | Coverage dates | Search date | Limits and filters | Records |
-|---|---|---|---|---|---|---|
-| | | | | | | |
+: Records retrieved per database, 2015 to 2025, before deduplication.
+
+Platforms and search dates are to be added.
 
 ## Search strings
 
-Paste each string exactly as run, with the platform and the date. One entry per database and block.
+The generic query is the database-neutral core of the three strings below. Each database adds its own field tags, date limits, and document type filters. The seed term strings are to be added.
+
+### Generic query
 
 ```text
-Database, platform, block, date
-(string to be added)
+(
+  "research data sharing" OR "research data-sharing"
+  OR "open data" OR "data reuse" OR "data re-use"
+  OR "data curation" OR "digital curation"
+  OR "data management plan*"
+)
+AND
+(
+  barrier* OR challenge* OR obstacle*
+  OR facilitator* OR enabler* OR motivat* OR incentive*
+  OR attitude* OR perception* OR willingness OR reluctan*
+  OR mandate* OR policy OR policies
+  OR ethic* OR privacy OR consent OR licens*
+  OR infrastructure OR repositor* OR interoperab* OR stewardship
+)
+```
+
+### Scopus
+
+```text
+TITLE-ABS (
+  (
+    "research data sharing" OR "research data-sharing"
+    OR "open data" OR "data reuse" OR "data re-use"
+    OR "data curation" OR "digital curation"
+    OR "data management plan*"
+  )
+  AND
+  (
+    barrier* OR challenge* OR obstacle*
+    OR facilitator* OR enabler* OR motivat* OR incentive*
+    OR attitude* OR perception* OR willingness OR reluctan*
+    OR mandate* OR "policy" OR "policies"
+    OR ethic* OR privacy OR consent OR licens*
+    OR "infrastructure" OR repositor* OR interoperab* OR "stewardship"
+  )
+)
+AND PUBYEAR > 2014 AND PUBYEAR < 2026
+AND SRCTYPE ( j )
+AND NOT DOCTYPE ( tb )
+```
+
+### Web of Science
+
+```text
+(
+  TI=(
+    "research data sharing" OR "research data-sharing"
+    OR "open data" OR "data reuse" OR "data re-use"
+    OR "data curation" OR "digital curation"
+    OR "data management plan*"
+  )
+  OR
+  AB=(
+    "research data sharing" OR "research data-sharing"
+    OR "open data" OR "data reuse" OR "data re-use"
+    OR "data curation" OR "digital curation"
+    OR "data management plan*"
+  )
+)
+AND
+(
+  TI=(
+    barrier* OR challenge* OR obstacle*
+    OR facilitator* OR enabler* OR motivat* OR incentive*
+    OR attitude* OR perception* OR willingness OR reluctan*
+    OR mandate* OR "policy" OR "policies"
+    OR ethic* OR privacy OR consent OR licens*
+    OR "infrastructure" OR repositor* OR interoperab* OR "stewardship"
+  )
+  OR
+  AB=(
+    barrier* OR challenge* OR obstacle*
+    OR facilitator* OR enabler* OR motivat* OR incentive*
+    OR attitude* OR perception* OR willingness OR reluctan*
+    OR mandate* OR "policy" OR "policies"
+    OR ethic* OR privacy OR consent OR licens*
+    OR "infrastructure" OR repositor* OR interoperab* OR "stewardship"
+  )
+)
+AND PY=(2015-2025)
+AND DT=(Article OR Review)
+```
+
+### PubMed
+
+```text
+(
+  "research data sharing"[tiab] OR "research data-sharing"[tiab]
+  OR "open data"[tiab] OR "data reuse"[tiab] OR "data re-use"[tiab]
+  OR "data curation"[tiab] OR "digital curation"[tiab]
+  OR "data management plan"[tiab] OR "data management plans"[tiab]
+)
+AND
+(
+  barrier*[tiab] OR challenge*[tiab] OR obstacle*[tiab]
+  OR facilitator*[tiab] OR enabler*[tiab] OR motivat*[tiab] OR incentive*[tiab]
+  OR attitude*[tiab] OR perception*[tiab] OR willingness[tiab] OR reluctan*[tiab]
+  OR mandate*[tiab] OR policy[tiab] OR policies[tiab]
+  OR ethic*[tiab] OR privacy[tiab] OR consent[tiab] OR licens*[tiab]
+  OR infrastructure[tiab] OR repositor*[tiab] OR interoperab*[tiab] OR stewardship[tiab]
+)
+AND 2015:2025[dp]
+AND "Journal Article"[pt]
 ```
 
 ## Other sources
 
-Describe each supplementary method and how records were identified: citation searching of the included sources and of @vanpanhuis2014, registries, websites, and contacts. Name export files for these sources with the prefix `other-`.
+Describe each supplementary method and how records were identified: citation searching of the included sources, registries, websites, and contacts. Name export files for these sources with the prefix `other-`.
 
 ## Known-item test {#known-item-test}
 
-Before the full searches run, the final strings are tested against these sources. The first two groups are in scope, so both blocks together should retrieve them. The last two groups are comparators or adjacent work, and retrieving them is not required.
+The final strings are tested against these sources. The first two groups are in scope, so the query should retrieve them. The last two groups are comparators or adjacent work, and retrieving them is not required.
 
 **Health research data sharing (tier 1)**
 
-- Rowhani-Farid, Allen, and Barnett (2017). What incentives increase data sharing in health and medical research? A systematic review. doi:10.1186/s41073-017-0028-9
-- Devriendt, Shabani, and Borry (2021). Data sharing in biomedical sciences: a systematic review of incentives. doi:10.1089/bio.2020.0037
-- Kalkman et al. (2019). Responsible data sharing in international health research: a systematic review of principles and norms. BMC Medical Ethics 20(21)
-- Hamilton et al. (2023). Prevalence and predictors of data and code sharing in the medical and health sciences: systematic review with meta-analysis of individual participant data. PMC10334349
-- A systematic literature review of researchers' and healthcare professionals' attitudes towards the secondary use and sharing of health administrative and clinical trial data (2020). doi:10.1186/s13643-020-01485-5
-- Saulnier et al. (2019). Benefits and barriers in the design of harmonized access agreements for international data sharing. doi:10.1038/s41597-019-0310-4
-- Regulatory frameworks for clinical trial data sharing: scoping review. PMC9118011
-- The anatomy of a data transfer agreement for health research. PMC11383768
-- Andanda and Mlotshwa (2024). Streamlining the ethical-legal governance of cross-border health data sharing during global health emergencies. doi:10.1177/17470161241261907
-- Initiatives, concepts, and implementation practices of the FAIR data principles in health data stewardship: scoping review. PMC10495848
-- Scheibner et al. (2023). Does legislation impede data sharing in Australia across institutions and jurisdictions? A scoping review. Journal of Medical Systems 47(1): 116
+- Rowhani-Farid, Allen, and Barnett (2017). What incentives increase data sharing in health and medical research? A systematic review. Research Integrity and Peer Review 2: 4. doi:10.1186/s41073-017-0028-9
+- Devriendt, Shabani, and Borry (2021). Data sharing in biomedical sciences: a systematic review of incentives. Biopreservation and Biobanking 19(3): 219-227. doi:10.1089/bio.2020.0037
+- Kalkman et al. (2019). Responsible data sharing in international health research: a systematic review of principles and norms. BMC Medical Ethics 20: 21. doi:10.1186/s12910-019-0359-9
+- Hamilton et al. (2023). Prevalence and predictors of data and code sharing in the medical and health sciences: systematic review with meta-analysis of individual participant data. BMJ 382: e075767. doi:10.1136/bmj-2023-075767
+- Hutchings et al. (2020). A systematic literature review of researchers' and healthcare professionals' attitudes towards the secondary use and sharing of health administrative and clinical trial data. Systematic Reviews 9: 240. doi:10.1186/s13643-020-01485-5
+- Saulnier et al. (2019). Benefits and barriers in the design of harmonized access agreements for international data sharing. Scientific Data 6: 297. doi:10.1038/s41597-019-0310-4
+- Gudi et al. (2022). Regulatory frameworks for clinical trial data sharing: scoping review. Journal of Medical Internet Research 24(5): e33591. doi:10.2196/33591
+- Swales, Gooden, and Thaldar (2024). The anatomy of a data transfer agreement for health research. Frontiers in Pharmacology 15: 1332700. doi:10.3389/fphar.2024.1332700
+- Andanda and Mlotshwa (2024). Streamlining the ethical-legal governance of cross-border health data sharing during global health emergencies. Research Ethics 20: 812-834. doi:10.1177/17470161241261907
+- Inau et al. (2023). Initiatives, concepts, and implementation practices of the findable, accessible, interoperable, and reusable data principles in health data stewardship: scoping review. Journal of Medical Internet Research 25: e45013. doi:10.2196/45013
+- Scheibner et al. (2023). Does legislation impede data sharing in Australia across institutions and jurisdictions? A scoping review. Journal of Medical Systems 47(1): 116. doi:10.1007/s10916-023-02009-z
 
 **Cross-disciplinary reviews (tier 2)**
 
-- Fecher, Friesike, and Hebing (2015). What drives academic data sharing? PLoS ONE 10
-- Zuiderwijk, Shinde, and Jeng (2020). What drives and inhibits researchers to share and use open research data? doi:10.1371/journal.pone.0239283
-- Perrier, Blondal, and MacDonald (2020). The views, perspectives, and experiences of academic researchers with data sharing and reuse: a meta-synthesis. doi:10.1371/journal.pone.0229182
-- Chawinga and Zinn (2019). A systematic literature review of barriers to research data sharing. Full citation to be added.
-- Researcher attitudes toward data sharing in public data repositories: a meta-evaluation of studies on researcher data sharing. Journal of Documentation 78(7)
+- Fecher, Friesike, and Hebing (2015). What drives academic data sharing? PLoS ONE 10(2): e0118053. doi:10.1371/journal.pone.0118053
+- Zuiderwijk, Shinde, and Jeng (2020). What drives and inhibits researchers to share and use open research data? A systematic literature review to analyze factors influencing open research data adoption. PLoS ONE 15(9): e0239283. doi:10.1371/journal.pone.0239283
+- Perrier, Blondal, and MacDonald (2020). The views, perspectives, and experiences of academic researchers with data sharing and reuse: a meta-synthesis. PLoS ONE 15(2): e0229182. doi:10.1371/journal.pone.0229182
+- Chawinga and Zinn (2019). Global perspectives of research data sharing: a systematic literature review. Library & Information Science Research 41(2): 109-122. doi:10.1016/j.lisr.2019.04.004
+- Thøgersen and Borlund (2022). Researcher attitudes toward data sharing in public data repositories: a meta-evaluation of studies on researcher data sharing. Journal of Documentation 78(7). doi:10.1108/JD-01-2021-0015
 
 **Personal health data and data subjects (adjacent)**
 
-- Stakeholders' perceptions of personal health data sharing: a scoping review. PMC11578505
-- Patient and public willingness to share personal health data for third-party or secondary uses: systematic review (2024). Journal of Medical Internet Research, e50421
-- Health data sharing attitudes towards primary and secondary use of data: a systematic review (2024). eClinicalMedicine
+- Alam et al. (2024). Stakeholders' perceptions of personal health data sharing: a scoping review. PLOS Digital Health 3(11): e0000652. doi:10.1371/journal.pdig.0000652
+- Baines et al. (2024). Patient and public willingness to share personal health data for third-party or secondary uses: systematic review. Journal of Medical Internet Research 26: e50421. doi:10.2196/50421
+- Cascini et al. (2024). Health data sharing attitudes towards primary and secondary use of data: a systematic review. eClinicalMedicine 71: 102551. doi:10.1016/j.eclinm.2024.102551
 
 **Public health data (comparator)**
 
-- @vanpanhuis2014
+- van Panhuis et al. (2014). A systematic review of barriers to data sharing in public health. BMC Public Health 14: 1144. doi:10.1186/1471-2458-14-1144
 - Yehudi et al. (2025). COVID-19: an exploration of consecutive systemic barriers to pathogen-related data sharing during a pandemic. Data & Policy 7: e4. doi:10.1017/dap.2024.79
 
 ## Export file names
 
-Name each export `<database>_<YYYY-MM-DD>[_<block>].<ext>`, for example `scopus_2026-11-02_A.ris`. The date is the search date. Supported formats are RIS and CSV. See the README in `data/raw/search_exports/`.
+Name each export `<database>_<YYYY-MM-DD>[_<query>].<ext>`, for example `scopus_2026-11-02_full.ris`. The date is the search date. Supported formats are RIS and CSV. See the README in `data/raw/search_exports/`.

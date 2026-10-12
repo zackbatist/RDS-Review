@@ -4,14 +4,14 @@ One file per database search, exactly as exported. Do not edit these files, and 
 
 ## File names
 
-`<database>_<YYYY-MM-DD>[_<block>].<ext>`
+`<database>_<YYYY-MM-DD>[_<query>].<ext>`
 
 - `database` is the database name in lowercase, with hyphens for spaces.
 - The date is the search date.
-- `block` is `A` or `B`, as defined in `materials/search-strategy.qmd`.
+- `query` is `full` or `base`, as defined in `materials/search-strategy.qmd`.
 - Supported formats are `.ris` and `.csv`.
 
-Examples: `scopus_2026-11-02_A.ris`, `web-of-science_2026-11-02_B.ris`.
+Examples: `scopus_2026-11-02_full.ris`, `web-of-science_2026-11-02_base.ris`.
 
 Supplementary sources, such as citation searching, use the prefix `other-`: `other-citation-searching_2026-12-01.ris`.
 
@@ -23,4 +23,4 @@ Volume, issue, and pages help to match records that have no DOI, so keep them wh
 
 ## Duplicate decisions
 
-`data/raw/dedup_decisions.csv` is optional and is not an export. A reviewer writes it to settle pairs of records that the automatic matching got wrong or left open. It has the columns `member_a`, `member_b`, and `decision` (`merge` or `separate`). The member identifiers, such as `scopus_2026-11-02_A.ris#14`, are listed in `data/processed/duplicate_groups.csv` and `data/processed/possible_duplicates.csv`.
+`data/raw/dedup_decisions.csv` is optional and is not an export. A reviewer writes it to settle pairs of records that the automatic matching got wrong or left open. It has the columns `member_a`, `member_b`, and `decision` (`merge` or `separate`). The member identifiers, such as `scopus_2026-11-02_full.ris#14`, are listed in `data/processed/duplicate_groups.csv` and `data/processed/possible_duplicates.csv`.

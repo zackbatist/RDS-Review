@@ -7,6 +7,8 @@ The guide states how records are screened and how decisions are exported for the
 
 ## Stages
 
+Title and abstract screening runs in [ASReview](https://asreview.nl), which ranks records by predicted relevance. The records from the seed term search seed the ranking.
+
 1. **Title and abstract.** Each deduplicated record gets one decision, `include` or `exclude`. When the title and abstract do not allow a decision, include the record.
 2. **Full text.** Each included record's full text is retrieved. A report that cannot be retrieved is counted as not retrieved. Each retrieved report gets one decision, and each exclusion gets one reason from the list below.
 
