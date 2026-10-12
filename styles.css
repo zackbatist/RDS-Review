@@ -1,0 +1,5 @@
+#quarto-document-content p,
+#quarto-document-content li {
+  text-align: justify;
+  hyphens: auto;
+}
