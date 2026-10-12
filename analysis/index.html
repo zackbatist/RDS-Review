@@ -223,7 +223,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#running" id="toc-running" class="nav-link active" data-scroll-target="#running">Running</a></li>
+  <li><a href="#record-identifiers" id="toc-record-identifiers" class="nav-link active" data-scroll-target="#record-identifiers">Record identifiers</a></li>
+  <li><a href="#checks" id="toc-checks" class="nav-link" data-scroll-target="#checks">Checks</a></li>
+  <li><a href="#running" id="toc-running" class="nav-link" data-scroll-target="#running">Running</a></li>
   </ul>
 </nav>
     </div>
@@ -261,31 +263,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td><a href="../analysis/01-deduplication.html">01 Deduplication</a></td>
-<td><code>raw/search_exports/</code></td>
-<td><code>processed/deduplicated_records.csv</code>, the identification counts in <code>processed/screening_counts.yaml</code></td>
+<td><code>raw/search_exports/</code>, <code>raw/dedup_decisions.csv</code> (optional)</td>
+<td><code>processed/deduplicated_records.csv</code>, <code>processed/duplicate_groups.csv</code>, <code>processed/possible_duplicates.csv</code>, the identification counts in <code>processed/screening_counts.yaml</code></td>
 </tr>
 <tr class="even">
 <td><a href="../analysis/02-screening.html">02 Screening</a></td>
-<td><code>processed/deduplicated_records.csv</code>, <code>raw/screening_exports/</code></td>
-<td>The screening and inclusion counts in <code>processed/screening_counts.yaml</code></td>
+<td><code>processed/deduplicated_records.csv</code>, <code>raw/screening_exports/</code>, <code>codebook.yml</code></td>
+<td>The screening and inclusion counts in <code>processed/screening_counts.yaml</code>, <code>processed/included_reports.csv</code></td>
 </tr>
 <tr class="odd">
 <td><a href="../analysis/03-charting.html">03 Charting</a></td>
-<td><code>raw/included_sources_raw.csv</code>, <code>processed/deduplicated_records.csv</code></td>
-<td><code>processed/included_sources_clean.csv</code>, <code>processed/bibliography.csv</code></td>
+<td><code>raw/included_sources_raw.csv</code>, <code>raw/included_factors_raw.csv</code>, <code>codebook.yml</code>, <code>processed/deduplicated_records.csv</code>, <code>processed/included_reports.csv</code></td>
+<td><code>processed/included_sources_clean.csv</code>, <code>processed/included_factors_clean.csv</code>, <code>processed/bibliography.csv</code></td>
 </tr>
 <tr class="even">
 <td><a href="../analysis/04-synthesis.html">04 Synthesis</a></td>
-<td><code>processed/screening_counts.yaml</code>, <code>processed/included_sources_clean.csv</code>, <code>processed/bibliography.csv</code></td>
+<td><code>processed/screening_counts.yaml</code>, <code>processed/included_sources_clean.csv</code>, <code>processed/included_factors_clean.csv</code>, <code>processed/bibliography.csv</code></td>
 <td><code>processed/prisma_flow.png</code></td>
 </tr>
 </tbody>
 </table>
+<section id="record-identifiers" class="level2">
+<h2 class="anchored" data-anchor-id="record-identifiers">Record identifiers</h2>
+<p>Each deduplicated record has a <code>record_id</code>. It is a hash of the key of the earliest exported record in its group, so it stays the same when a later search adds records or finds the same records again. This holds only while the earlier exports stay in <code>data/raw/search_exports/</code>. Screening decisions and charted data refer to these identifiers. If a later search joins two groups that were separate, one identifier is retired, and notebook 01 lists the change.</p>
+</section>
+<section id="checks" class="level2">
+<h2 class="anchored" data-anchor-id="checks">Checks</h2>
+<p>Notebooks 02, 03, and 04 stop with an error when the data break a rule, and they write nothing until the problem is fixed. The rules include an unknown <code>record_id</code>, a record with no screening decision, a value outside <code>codebook.yml</code>, an empty required cell, and flow counts that do not add up. Warnings, such as a charted source with no factors, are printed and do not stop the run.</p>
+</section>
 <section id="running" class="level2">
 <h2 class="anchored" data-anchor-id="running">Running</h2>
 <p>Install Quarto and the Python packages in <code>requirements.txt</code>. Then render one notebook at a time, in order, as data arrives.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render analysis/01-deduplication.ipynb</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The site is set to <code>freeze: true</code>, so a full <code>quarto render</code> reuses the stored results in <code>_freeze/</code> and does not rerun the notebooks. After the data change, render the affected notebooks explicitly. Commit <code>_freeze/</code> so the site builds without rerunning them.</p>
+<p>The site is set to <code>freeze: true</code>, so a full <code>quarto render</code> reuses the stored results in <code>_freeze/</code> and does not rerun the notebooks. After the data change, render the affected notebooks explicitly. A change to <code>codebook.yml</code> also needs <code>quarto render codebook.qmd</code> and <code>quarto render materials/screening-guide.qmd</code>, which print it. Commit <code>_freeze/</code> so the site builds without rerunning them.</p>
 
 
 </section>

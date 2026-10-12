@@ -224,6 +224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#checks" id="toc-checks" class="nav-link active" data-scroll-target="#checks">Checks</a></li>
+  <li><a href="#agreement-between-reviewers" id="toc-agreement-between-reviewers" class="nav-link" data-scroll-target="#agreement-between-reviewers">Agreement between reviewers</a></li>
   <li><a href="#counts" id="toc-counts" class="nav-link" data-scroll-target="#counts">Counts</a></li>
   </ul>
 </nav>
@@ -250,40 +251,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This notebook reads the title and abstract decisions and the full-text decisions exported from the screening tool, checks them against the deduplicated records, and counts the sources at each stage. It adds the <code>screening</code>, <code>included</code>, and <code>by_block</code> sections to <code>data/processed/screening_counts.yaml</code>. <a href="../analysis/04-synthesis.html">04 Synthesis</a> draws the flow diagram from that file.</p>
+<p>This notebook reads the title and abstract decisions and the full-text decisions exported from the screening tool, checks them against the deduplicated records, and counts the sources at each stage. It adds the <code>screening</code>, <code>included</code>, and <code>by_block</code> sections to <code>data/processed/screening_counts.yaml</code>, and writes the included reports to <code>data/processed/included_reports.csv</code>. <a href="../analysis/04-synthesis.html">04 Synthesis</a> draws the flow diagram from that file.</p>
 <p>The export formats are in the <a href="../materials/screening-guide.html">screening guide</a>. A record is a title and abstract. A report is a full-text document. A source of evidence can have several reports.</p>
+<p>The checks come first. If any check finds an error, the notebook stops and writes nothing, so the counts never rest on data that do not add up. A warning is printed and does not stop the run. When reviewers export their own decisions as well, the notebook reports their agreement.</p>
 <div id="82237e2c" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yaml</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>ROOT <span class="op">=</span> <span class="bu">next</span>(p <span class="cf">for</span> p <span class="kw">in</span> [Path.cwd(), <span class="op">*</span>Path.cwd().parents] <span class="cf">if</span> (p <span class="op">/</span> <span class="st">"_quarto.yml"</span>).exists())</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>PROC <span class="op">=</span> ROOT <span class="op">/</span> <span class="st">"data"</span> <span class="op">/</span> <span class="st">"processed"</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>EXP <span class="op">=</span> ROOT <span class="op">/</span> <span class="st">"data"</span> <span class="op">/</span> <span class="st">"raw"</span> <span class="op">/</span> <span class="st">"screening_exports"</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>dedup_path <span class="op">=</span> PROC <span class="op">/</span> <span class="st">"deduplicated_records.csv"</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>ta_path <span class="op">=</span> EXP <span class="op">/</span> <span class="st">"title_abstract.csv"</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ft_path <span class="op">=</span> EXP <span class="op">/</span> <span class="st">"full_text.csv"</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>counts_path <span class="op">=</span> PROC <span class="op">/</span> <span class="st">"screening_counts.yaml"</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>missing <span class="op">=</span> [<span class="bu">str</span>(p.relative_to(ROOT)) <span class="cf">for</span> p <span class="kw">in</span> (dedup_path, ta_path) <span class="cf">if</span> <span class="kw">not</span> p.exists()]</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>have_data <span class="op">=</span> <span class="kw">not</span> missing</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> have_data:</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Not run yet. Missing: "</span> <span class="op">+</span> <span class="st">", "</span>.join(missing))</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read(path, required, optional<span class="op">=</span>()):</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.read_csv(path, dtype<span class="op">=</span><span class="bu">str</span>).fillna(<span class="st">""</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    df.columns <span class="op">=</span> [c.strip().lower() <span class="cf">for</span> c <span class="kw">in</span> df.columns]</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    absent <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> required <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> df.columns]</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> absent:</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f"</span><span class="sc">{</span>path<span class="sc">.</span>name<span class="sc">}</span><span class="ss"> is missing column(s): </span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(absent)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> c <span class="kw">in</span> optional:</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> df.columns:</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>            df[c] <span class="op">=</span> <span class="st">""</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df.<span class="bu">apply</span>(<span class="kw">lambda</span> s: s.<span class="bu">str</span>.strip())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yaml</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>ROOT <span class="op">=</span> <span class="bu">next</span>(p <span class="cf">for</span> p <span class="kw">in</span> [Path.cwd(), <span class="op">*</span>Path.cwd().parents] <span class="cf">if</span> (p <span class="op">/</span> <span class="st">"_quarto.yml"</span>).exists())</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>PROC <span class="op">=</span> ROOT <span class="op">/</span> <span class="st">"data"</span> <span class="op">/</span> <span class="st">"processed"</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>EXP <span class="op">=</span> ROOT <span class="op">/</span> <span class="st">"data"</span> <span class="op">/</span> <span class="st">"raw"</span> <span class="op">/</span> <span class="st">"screening_exports"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>dedup_path <span class="op">=</span> PROC <span class="op">/</span> <span class="st">"deduplicated_records.csv"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ta_path <span class="op">=</span> EXP <span class="op">/</span> <span class="st">"title_abstract.csv"</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>ft_path <span class="op">=</span> EXP <span class="op">/</span> <span class="st">"full_text.csv"</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>counts_path <span class="op">=</span> PROC <span class="op">/</span> <span class="st">"screening_counts.yaml"</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>REASONS <span class="op">=</span> [r[<span class="st">"code"</span>] <span class="cf">for</span> r <span class="kw">in</span> yaml.safe_load((ROOT <span class="op">/</span> <span class="st">"codebook.yml"</span>).read_text(encoding<span class="op">=</span><span class="st">"utf-8"</span>))[<span class="st">"exclusion_reasons"</span>]]</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>missing <span class="op">=</span> [<span class="bu">str</span>(p.relative_to(ROOT)) <span class="cf">for</span> p <span class="kw">in</span> (dedup_path, ta_path) <span class="cf">if</span> <span class="kw">not</span> p.exists()]</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>have_data <span class="op">=</span> <span class="kw">not</span> missing</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> have_data:</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Not run yet. Missing: "</span> <span class="op">+</span> <span class="st">", "</span>.join(missing))</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read(path, required, optional<span class="op">=</span>()):</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.read_csv(path, dtype<span class="op">=</span><span class="bu">str</span>).fillna(<span class="st">""</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    df.columns <span class="op">=</span> [c.strip().lower() <span class="cf">for</span> c <span class="kw">in</span> df.columns]</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    absent <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> required <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> df.columns]</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> absent:</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f"</span><span class="sc">{</span>path<span class="sc">.</span>name<span class="sc">}</span><span class="ss"> is missing column(s): </span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(absent)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> c <span class="kw">in</span> optional:</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> df.columns:</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>            df[c] <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df.<span class="bu">apply</span>(<span class="kw">lambda</span> s: s.<span class="bu">str</span>.strip())</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sample(values, n<span class="op">=</span><span class="dv">5</span>):</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    values <span class="op">=</span> <span class="bu">sorted</span>(<span class="bu">set</span>(values))</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">", "</span>.join(values[:n]) <span class="op">+</span> (<span class="ss">f" and </span><span class="sc">{</span><span class="bu">len</span>(values) <span class="op">-</span> n<span class="sc">}</span><span class="ss"> more"</span> <span class="cf">if</span> <span class="bu">len</span>(values) <span class="op">&gt;</span> n <span class="cf">else</span> <span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Not run yet. Missing: data/processed/deduplicated_records.csv, data/raw/screening_exports/title_abstract.csv</code></pre>
@@ -305,19 +314,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        ft[col] <span class="op">=</span> ft[col].<span class="bu">str</span>.lower()</span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    ft[<span class="st">"source_id"</span>] <span class="op">=</span> ft[<span class="st">"source_id"</span>].where(ft[<span class="st">"source_id"</span>] <span class="op">!=</span> <span class="st">""</span>, ft[<span class="st">"record_id"</span>])</span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    ta_ok <span class="op">=</span> ta[ta[<span class="st">"decision"</span>].isin([<span class="st">"include"</span>, <span class="st">"exclude"</span>])]</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    screened <span class="op">=</span> <span class="bu">len</span>(ta_ok)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    ta_excluded <span class="op">=</span> <span class="bu">int</span>((ta_ok[<span class="st">"decision"</span>] <span class="op">==</span> <span class="st">"exclude"</span>).<span class="bu">sum</span>())</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    sought <span class="op">=</span> <span class="bu">int</span>((ta_ok[<span class="st">"decision"</span>] <span class="op">==</span> <span class="st">"include"</span>).<span class="bu">sum</span>())</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    not_retrieved <span class="op">=</span> <span class="bu">int</span>((ft[<span class="st">"retrieved"</span>] <span class="op">==</span> <span class="st">"no"</span>).<span class="bu">sum</span>())</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    ft_ok <span class="op">=</span> ft[(ft[<span class="st">"retrieved"</span>] <span class="op">==</span> <span class="st">"yes"</span>) <span class="op">&amp;</span> ft[<span class="st">"decision"</span>].isin([<span class="st">"include"</span>, <span class="st">"exclude"</span>])]</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    assessed <span class="op">=</span> <span class="bu">len</span>(ft_ok)</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    ft_excl <span class="op">=</span> ft_ok[ft_ok[<span class="st">"decision"</span>] <span class="op">==</span> <span class="st">"exclude"</span>]</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    ft_incl <span class="op">=</span> ft_ok[ft_ok[<span class="st">"decision"</span>] <span class="op">==</span> <span class="st">"include"</span>]</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    reasons <span class="op">=</span> ft_excl[<span class="st">"reason"</span>].replace(<span class="st">""</span>, <span class="st">"unspecified"</span>).value_counts()</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    included_reports <span class="op">=</span> <span class="bu">len</span>(ft_incl)</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    included_sources <span class="op">=</span> <span class="bu">int</span>(ft_incl[<span class="st">"source_id"</span>].nunique())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Optional files with each reviewer's own decisions, for example title_abstract_r1.csv</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    reviewers <span class="op">=</span> {<span class="st">"title_abstract"</span>: {}, <span class="st">"full_text"</span>: {}}</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> p <span class="kw">in</span> <span class="bu">sorted</span>(EXP.glob(<span class="st">"*.csv"</span>)):</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> re.fullmatch(<span class="vs">r"</span><span class="kw">(</span><span class="vs">title_abstract</span><span class="cf">|</span><span class="vs">full_text</span><span class="kw">)</span><span class="vs">_</span><span class="kw">(</span><span class="dv">.</span><span class="op">+</span><span class="kw">)</span><span class="vs">"</span>, p.stem)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> m:</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>            r <span class="op">=</span> read(p, [<span class="st">"record_id"</span>, <span class="st">"decision"</span>])</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>            r[<span class="st">"decision"</span>] <span class="op">=</span> r[<span class="st">"decision"</span>].<span class="bu">str</span>.lower()</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>            reviewers[m[<span class="dv">1</span>]][m[<span class="dv">2</span>]] <span class="op">=</span> r[[<span class="st">"record_id"</span>, <span class="st">"decision"</span>]]</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(dedup)<span class="sc">}</span><span class="ss"> deduplicated record(s), </span><span class="sc">{</span><span class="bu">len</span>(ta)<span class="sc">}</span><span class="ss"> title/abstract decision(s), </span><span class="sc">{</span><span class="bu">len</span>(ft)<span class="sc">}</span><span class="ss"> full-text row(s)."</span>)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> stage, found <span class="kw">in</span> reviewers.items():</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> found:</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Reviewer files for </span><span class="sc">{</span>stage<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(found)<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <section id="checks" class="level2">
@@ -326,89 +334,204 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    problems <span class="op">=</span> []</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    unknown <span class="op">=</span> <span class="bu">set</span>(ta[<span class="st">"record_id"</span>]) <span class="op">-</span> <span class="bu">set</span>(dedup[<span class="st">"record_id"</span>])</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> unknown:</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        problems.append(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(unknown)<span class="sc">}</span><span class="ss"> title/abstract record_id value(s) are not in deduplicated_records.csv."</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    unscreened <span class="op">=</span> <span class="bu">len</span>(<span class="bu">set</span>(dedup[<span class="st">"record_id"</span>]) <span class="op">-</span> <span class="bu">set</span>(ta[<span class="st">"record_id"</span>]))</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> unscreened:</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        problems.append(<span class="ss">f"</span><span class="sc">{</span>unscreened<span class="sc">}</span><span class="ss"> deduplicated record(s) have no title/abstract decision yet."</span>)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ta[<span class="st">"record_id"</span>].duplicated().<span class="bu">any</span>():</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        problems.append(<span class="st">"Some record_id values appear more than once in title_abstract.csv."</span>)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    bad <span class="op">=</span> ta[<span class="op">~</span>ta[<span class="st">"decision"</span>].isin([<span class="st">"include"</span>, <span class="st">"exclude"</span>])]</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(bad):</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        problems.append(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(bad)<span class="sc">}</span><span class="ss"> title/abstract row(s) have a decision other than include or exclude."</span>)</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    stray <span class="op">=</span> <span class="bu">set</span>(ft[<span class="st">"record_id"</span>]) <span class="op">-</span> <span class="bu">set</span>(ta_ok.loc[ta_ok[<span class="st">"decision"</span>] <span class="op">==</span> <span class="st">"include"</span>, <span class="st">"record_id"</span>])</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> stray:</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        problems.append(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(stray)<span class="sc">}</span><span class="ss"> full-text record_id value(s) were not included at title and abstract."</span>)</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    pending <span class="op">=</span> sought <span class="op">-</span> not_retrieved <span class="op">-</span> assessed</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> pending <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        problems.append(<span class="ss">f"</span><span class="sc">{</span>pending<span class="sc">}</span><span class="ss"> included record(s) have no full-text outcome yet."</span>)</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (ft_excl[<span class="st">"reason"</span>] <span class="op">==</span> <span class="st">""</span>).<span class="bu">any</span>():</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        problems.append(<span class="st">"Some excluded full-text rows have no reason."</span>)</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>.join(problems) <span class="cf">if</span> problems <span class="cf">else</span> <span class="st">"No problems found."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    errors, warnings <span class="op">=</span> [], []</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    dedup_ids <span class="op">=</span> <span class="bu">set</span>(dedup[<span class="st">"record_id"</span>])</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    ok <span class="op">=</span> [<span class="st">"include"</span>, <span class="st">"exclude"</span>]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Title and abstract</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ta[<span class="st">"record_id"</span>].duplicated().<span class="bu">any</span>():</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        errors.append(<span class="ss">f"title_abstract.csv has record_id values more than once: </span><span class="sc">{</span>sample(ta.loc[ta[<span class="st">'record_id'</span>].duplicated(), <span class="st">'record_id'</span>])<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    unknown <span class="op">=</span> <span class="bu">set</span>(ta[<span class="st">"record_id"</span>]) <span class="op">-</span> dedup_ids</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> unknown:</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        errors.append(<span class="ss">f"title_abstract.csv has </span><span class="sc">{</span><span class="bu">len</span>(unknown)<span class="sc">}</span><span class="ss"> record_id value(s) that are not in deduplicated_records.csv: </span><span class="sc">{</span>sample(unknown)<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    bad <span class="op">=</span> ta[<span class="op">~</span>ta[<span class="st">"decision"</span>].isin(ok)]</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(bad):</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        errors.append(<span class="ss">f"title_abstract.csv has </span><span class="sc">{</span><span class="bu">len</span>(bad)<span class="sc">}</span><span class="ss"> row(s) with a decision other than include or exclude."</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    unscreened <span class="op">=</span> dedup_ids <span class="op">-</span> <span class="bu">set</span>(ta[<span class="st">"record_id"</span>])</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> unscreened:</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        errors.append(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(unscreened)<span class="sc">}</span><span class="ss"> deduplicated record(s) have no title/abstract decision: </span><span class="sc">{</span>sample(unscreened)<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    sought_ids <span class="op">=</span> <span class="bu">set</span>(ta.loc[ta[<span class="st">"decision"</span>] <span class="op">==</span> <span class="st">"include"</span>, <span class="st">"record_id"</span>])</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Full text</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ft[<span class="st">"record_id"</span>].duplicated().<span class="bu">any</span>():</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        errors.append(<span class="ss">f"full_text.csv has record_id values more than once: </span><span class="sc">{</span>sample(ft.loc[ft[<span class="st">'record_id'</span>].duplicated(), <span class="st">'record_id'</span>])<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    stray <span class="op">=</span> <span class="bu">set</span>(ft[<span class="st">"record_id"</span>]) <span class="op">-</span> sought_ids</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> stray:</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        errors.append(<span class="ss">f"full_text.csv has </span><span class="sc">{</span><span class="bu">len</span>(stray)<span class="sc">}</span><span class="ss"> record_id value(s) that were not included at title and abstract: </span><span class="sc">{</span>sample(stray)<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    bad <span class="op">=</span> ft[<span class="op">~</span>ft[<span class="st">"retrieved"</span>].isin([<span class="st">"yes"</span>, <span class="st">"no"</span>])]</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(bad):</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        errors.append(<span class="ss">f"full_text.csv has </span><span class="sc">{</span><span class="bu">len</span>(bad)<span class="sc">}</span><span class="ss"> row(s) where retrieved is not yes or no."</span>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    bad <span class="op">=</span> ft[(ft[<span class="st">"retrieved"</span>] <span class="op">==</span> <span class="st">"yes"</span>) <span class="op">&amp;</span> <span class="op">~</span>ft[<span class="st">"decision"</span>].isin(ok)]</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(bad):</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        errors.append(<span class="ss">f"full_text.csv has </span><span class="sc">{</span><span class="bu">len</span>(bad)<span class="sc">}</span><span class="ss"> retrieved report(s) without an include or exclude decision."</span>)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    bad <span class="op">=</span> ft[(ft[<span class="st">"retrieved"</span>] <span class="op">==</span> <span class="st">"no"</span>) <span class="op">&amp;</span> (ft[<span class="st">"decision"</span>] <span class="op">!=</span> <span class="st">""</span>)]</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(bad):</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>        errors.append(<span class="ss">f"full_text.csv has </span><span class="sc">{</span><span class="bu">len</span>(bad)<span class="sc">}</span><span class="ss"> report(s) that were not retrieved but have a decision."</span>)</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    excluded <span class="op">=</span> ft[(ft[<span class="st">"retrieved"</span>] <span class="op">==</span> <span class="st">"yes"</span>) <span class="op">&amp;</span> (ft[<span class="st">"decision"</span>] <span class="op">==</span> <span class="st">"exclude"</span>)]</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (excluded[<span class="st">"reason"</span>] <span class="op">==</span> <span class="st">""</span>).<span class="bu">any</span>():</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>        errors.append(<span class="ss">f"full_text.csv has </span><span class="sc">{</span><span class="bu">int</span>((excluded[<span class="st">'reason'</span>] <span class="op">==</span> <span class="st">''</span>).<span class="bu">sum</span>())<span class="sc">}</span><span class="ss"> excluded report(s) without a reason."</span>)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    odd <span class="op">=</span> <span class="bu">set</span>(excluded[<span class="st">"reason"</span>]) <span class="op">-</span> <span class="bu">set</span>(REASONS) <span class="op">-</span> {<span class="st">""</span>}</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> odd:</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>        errors.append(<span class="ss">f"full_text.csv has exclusion reasons that are not in codebook.yml: </span><span class="sc">{</span>sample(odd)<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    pending <span class="op">=</span> sought_ids <span class="op">-</span> <span class="bu">set</span>(ft[<span class="st">"record_id"</span>])</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> pending:</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>        errors.append(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(pending)<span class="sc">}</span><span class="ss"> record(s) included at title and abstract have no full-text row: </span><span class="sc">{</span>sample(pending)<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Reviewer files</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> stage, found <span class="kw">in</span> reviewers.items():</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> name, r <span class="kw">in</span> found.items():</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>            label <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>stage<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">.csv"</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> r[<span class="st">"record_id"</span>].duplicated().<span class="bu">any</span>():</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>                errors.append(<span class="ss">f"</span><span class="sc">{</span>label<span class="sc">}</span><span class="ss"> has record_id values more than once."</span>)</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>            unknown <span class="op">=</span> <span class="bu">set</span>(r[<span class="st">"record_id"</span>]) <span class="op">-</span> dedup_ids</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> unknown:</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>                errors.append(<span class="ss">f"</span><span class="sc">{</span>label<span class="sc">}</span><span class="ss"> has </span><span class="sc">{</span><span class="bu">len</span>(unknown)<span class="sc">}</span><span class="ss"> record_id value(s) that are not in deduplicated_records.csv: </span><span class="sc">{</span>sample(unknown)<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>            bad <span class="op">=</span> r[<span class="op">~</span>r[<span class="st">"decision"</span>].isin(ok)]</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">len</span>(bad):</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>                errors.append(<span class="ss">f"</span><span class="sc">{</span>label<span class="sc">}</span><span class="ss"> has </span><span class="sc">{</span><span class="bu">len</span>(bad)<span class="sc">}</span><span class="ss"> row(s) with a decision other than include or exclude."</span>)</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> w <span class="kw">in</span> warnings:</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Warning:"</span>, w)</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> errors:</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Fix these problems in the screening exports, then run this notebook again:</span><span class="ch">\n</span><span class="st">- "</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">- "</span>.join(errors))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="c0f2a001" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    screened <span class="op">=</span> <span class="bu">len</span>(ta)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    ta_excluded <span class="op">=</span> <span class="bu">int</span>((ta[<span class="st">"decision"</span>] <span class="op">==</span> <span class="st">"exclude"</span>).<span class="bu">sum</span>())</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    sought <span class="op">=</span> <span class="bu">len</span>(sought_ids)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    not_retrieved <span class="op">=</span> <span class="bu">int</span>((ft[<span class="st">"retrieved"</span>] <span class="op">==</span> <span class="st">"no"</span>).<span class="bu">sum</span>())</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    ft_ok <span class="op">=</span> ft[ft[<span class="st">"retrieved"</span>] <span class="op">==</span> <span class="st">"yes"</span>]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    assessed <span class="op">=</span> <span class="bu">len</span>(ft_ok)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    ft_excl <span class="op">=</span> ft_ok[ft_ok[<span class="st">"decision"</span>] <span class="op">==</span> <span class="st">"exclude"</span>]</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    ft_incl <span class="op">=</span> ft_ok[ft_ok[<span class="st">"decision"</span>] <span class="op">==</span> <span class="st">"include"</span>]</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    reasons <span class="op">=</span> ft_excl[<span class="st">"reason"</span>].value_counts()</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    included_reports <span class="op">=</span> <span class="bu">len</span>(ft_incl)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    included_sources <span class="op">=</span> <span class="bu">int</span>(ft_incl[<span class="st">"source_id"</span>].nunique())</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># These hold by construction once the checks pass. They guard against a later edit breaking that.</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> screened <span class="op">==</span> <span class="bu">len</span>(dedup), <span class="st">"Every deduplicated record must be screened."</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> screened <span class="op">==</span> ta_excluded <span class="op">+</span> sought</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> sought <span class="op">==</span> not_retrieved <span class="op">+</span> assessed</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> assessed <span class="op">==</span> <span class="bu">len</span>(ft_excl) <span class="op">+</span> included_reports</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> included_sources <span class="op">&lt;=</span> included_reports</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"No problems found."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="agreement-between-reviewers" class="level2">
+<h2 class="anchored" data-anchor-id="agreement-between-reviewers">Agreement between reviewers</h2>
+<p>With two or more reviewer files for a stage, each pair of reviewers is compared on the records they both decided. Cohen’s kappa corrects the percent agreement for the agreement expected by chance. A reviewer file may cover only a sample, such as a calibration set. The final decisions in <code>title_abstract.csv</code> and <code>full_text.csv</code> are what the counts use.</p>
+<div id="c0f2a003" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> kappa(a, b):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    po <span class="op">=</span> <span class="bu">float</span>((a <span class="op">==</span> b).mean())</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    pe <span class="op">=</span> <span class="bu">sum</span>(<span class="bu">float</span>((a <span class="op">==</span> label).mean() <span class="op">*</span> (b <span class="op">==</span> label).mean()) <span class="cf">for</span> label <span class="kw">in</span> (<span class="st">"include"</span>, <span class="st">"exclude"</span>))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">float</span>(<span class="st">"nan"</span>) <span class="cf">if</span> pe <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> (po <span class="op">-</span> pe) <span class="op">/</span> (<span class="dv">1</span> <span class="op">-</span> pe)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    final <span class="op">=</span> {<span class="st">"title_abstract"</span>: ta.set_index(<span class="st">"record_id"</span>)[<span class="st">"decision"</span>], <span class="st">"full_text"</span>: ft[ft[<span class="st">"decision"</span>] <span class="op">!=</span> <span class="st">""</span>].set_index(<span class="st">"record_id"</span>)[<span class="st">"decision"</span>]}</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    agreement <span class="op">=</span> []</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> stage, found <span class="kw">in</span> reviewers.items():</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        names <span class="op">=</span> <span class="bu">sorted</span>(found)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> k, a <span class="kw">in</span> <span class="bu">enumerate</span>(names):</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> b <span class="kw">in</span> names[k <span class="op">+</span> <span class="dv">1</span>:]:</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                both <span class="op">=</span> found[a].merge(found[b], on<span class="op">=</span><span class="st">"record_id"</span>, suffixes<span class="op">=</span>(<span class="st">"_a"</span>, <span class="st">"_b"</span>))</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> both.empty:</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">continue</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>                agreement.append({</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"stage"</span>: stage, <span class="st">"reviewer_a"</span>: a, <span class="st">"reviewer_b"</span>: b,</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"n_compared"</span>: <span class="bu">len</span>(both),</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"percent_agreement"</span>: <span class="bu">round</span>(<span class="dv">100</span> <span class="op">*</span> <span class="bu">float</span>((both[<span class="st">"decision_a"</span>] <span class="op">==</span> both[<span class="st">"decision_b"</span>]).mean()), <span class="dv">1</span>),</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"kappa"</span>: <span class="bu">round</span>(kappa(both[<span class="st">"decision_a"</span>], both[<span class="st">"decision_b"</span>]), <span class="dv">3</span>),</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>                })</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> names:</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>            wide <span class="op">=</span> pd.concat({n: found[n].set_index(<span class="st">"record_id"</span>)[<span class="st">"decision"</span>] <span class="cf">for</span> n <span class="kw">in</span> names}, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>            disagree <span class="op">=</span> wide[wide.nunique(axis<span class="op">=</span><span class="dv">1</span>) <span class="op">&gt;</span> <span class="dv">1</span>]</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>            split <span class="op">=</span> disagree.assign(final<span class="op">=</span>final[stage].reindex(disagree.index))</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>            same <span class="op">=</span> wide[(wide.nunique(axis<span class="op">=</span><span class="dv">1</span>) <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> wide.notna().<span class="bu">all</span>(axis<span class="op">=</span><span class="dv">1</span>)]</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>            overridden <span class="op">=</span> <span class="bu">int</span>((final[stage].reindex(same.index) <span class="op">!=</span> same.iloc[:, <span class="dv">0</span>]).<span class="bu">sum</span>()) <span class="cf">if</span> <span class="bu">len</span>(same) <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>stage<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span><span class="bu">len</span>(split)<span class="sc">}</span><span class="ss"> record(s) with a disagreement. </span><span class="sc">{</span><span class="bu">len</span>(split[split[<span class="st">'final'</span>].isna()])<span class="sc">}</span><span class="ss"> of them have no final decision."</span>)</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> overridden:</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f"Warning: </span><span class="sc">{</span>overridden<span class="sc">}</span><span class="ss"> record(s) have a final decision that differs from the decision all reviewers agreed on."</span>)</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">len</span>(split):</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>                display(split.head(<span class="dv">50</span>))</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> agreement:</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>        display(pd.DataFrame(agreement))</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"No pair of reviewer files to compare."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
 <section id="counts" class="level2">
 <h2 class="anchored" data-anchor-id="counts">Counts</h2>
-<div id="2af1cff5" class="cell" data-execution_count="4">
+<div id="2af1cff5" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    summary <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        [</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"Records screened"</span>, screened),</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"Records excluded at title and abstract"</span>, ta_excluded),</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"Reports sought for retrieval"</span>, sought),</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"Reports not retrieved"</span>, not_retrieved),</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"Reports assessed for eligibility"</span>, assessed),</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"Reports excluded at full text"</span>, <span class="bu">len</span>(ft_excl)),</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"Reports included"</span>, included_reports),</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"Sources of evidence included"</span>, included_sources),</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        ],</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        columns<span class="op">=</span>[<span class="st">"Stage"</span>, <span class="st">"n"</span>],</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    display(summary)</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(reasons):</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        display(reasons.rename_axis(<span class="st">"Exclusion reason"</span>).reset_index(name<span class="op">=</span><span class="st">"n"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    summary <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        [</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"Records screened"</span>, screened),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"Records excluded at title and abstract"</span>, ta_excluded),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"Reports sought for retrieval"</span>, sought),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"Reports not retrieved"</span>, not_retrieved),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"Reports assessed for eligibility"</span>, assessed),</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"Reports excluded at full text"</span>, <span class="bu">len</span>(ft_excl)),</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"Reports included"</span>, included_reports),</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"Sources of evidence included"</span>, included_sources),</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        ],</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        columns<span class="op">=</span>[<span class="st">"Stage"</span>, <span class="st">"n"</span>],</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    display(summary)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(reasons):</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        display(reasons.rename_axis(<span class="st">"Exclusion reason"</span>).reset_index(name<span class="op">=</span><span class="st">"n"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="572f81cf" class="cell" data-execution_count="5">
+<div id="572f81cf" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    block_ids <span class="op">=</span> {}</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> rid, blocks <span class="kw">in</span> <span class="bu">zip</span>(dedup[<span class="st">"record_id"</span>], dedup[<span class="st">"blocks"</span>]):</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> b <span class="kw">in</span> [x.strip() <span class="cf">for</span> x <span class="kw">in</span> blocks.split(<span class="st">";"</span>) <span class="cf">if</span> x.strip()]:</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>            block_ids.setdefault(b, <span class="bu">set</span>()).add(rid)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    ta_excl_ids <span class="op">=</span> ta_ok.loc[ta_ok[<span class="st">"decision"</span>] <span class="op">==</span> <span class="st">"exclude"</span>, <span class="st">"record_id"</span>]</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    by_block <span class="op">=</span> {}</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> b, ids <span class="kw">in</span> <span class="bu">sorted</span>(block_ids.items()):</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        by_block[b] <span class="op">=</span> {</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">"records_identified"</span>: <span class="bu">len</span>(ids),</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">"records_screened"</span>: <span class="bu">int</span>(ta_ok[<span class="st">"record_id"</span>].isin(ids).<span class="bu">sum</span>()),</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">"records_excluded"</span>: <span class="bu">int</span>(ta_excl_ids.isin(ids).<span class="bu">sum</span>()),</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">"reports_assessed"</span>: <span class="bu">int</span>(ft_ok[<span class="st">"record_id"</span>].isin(ids).<span class="bu">sum</span>()),</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">"reports_excluded"</span>: <span class="bu">int</span>(ft_excl[<span class="st">"record_id"</span>].isin(ids).<span class="bu">sum</span>()),</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">"reports_included"</span>: <span class="bu">int</span>(ft_incl[<span class="st">"record_id"</span>].isin(ids).<span class="bu">sum</span>()),</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    counts <span class="op">=</span> (yaml.safe_load(counts_path.read_text()) <span class="kw">or</span> {}) <span class="cf">if</span> counts_path.exists() <span class="cf">else</span> {}</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    counts[<span class="st">"screening"</span>] <span class="op">=</span> {</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"records_screened"</span>: screened,</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">"records_excluded"</span>: ta_excluded,</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"reports_sought"</span>: sought,</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">"reports_not_retrieved"</span>: not_retrieved,</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">"reports_assessed"</span>: assessed,</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        <span class="st">"reports_excluded"</span>: [{<span class="st">"reason"</span>: r, <span class="st">"n"</span>: <span class="bu">int</span>(n)} <span class="cf">for</span> r, n <span class="kw">in</span> reasons.items()],</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    counts[<span class="st">"included"</span>] <span class="op">=</span> {<span class="st">"sources"</span>: included_sources, <span class="st">"reports"</span>: included_reports}</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    counts[<span class="st">"by_block"</span>] <span class="op">=</span> by_block</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    counts_path.write_text(yaml.safe_dump(counts, sort_keys<span class="op">=</span><span class="va">False</span>))</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Wrote data/processed/screening_counts.yaml"</span>)</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> by_block:</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        display(pd.DataFrame(by_block).T.rename_axis(<span class="st">"block"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    block_ids <span class="op">=</span> {}</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> rid, blocks <span class="kw">in</span> <span class="bu">zip</span>(dedup[<span class="st">"record_id"</span>], dedup[<span class="st">"blocks"</span>]):</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> b <span class="kw">in</span> [x.strip() <span class="cf">for</span> x <span class="kw">in</span> blocks.split(<span class="st">";"</span>) <span class="cf">if</span> x.strip()]:</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>            block_ids.setdefault(b, <span class="bu">set</span>()).add(rid)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    ta_excl_ids <span class="op">=</span> ta.loc[ta[<span class="st">"decision"</span>] <span class="op">==</span> <span class="st">"exclude"</span>, <span class="st">"record_id"</span>]</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    by_block <span class="op">=</span> {}</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> b, ids <span class="kw">in</span> <span class="bu">sorted</span>(block_ids.items()):</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        by_block[b] <span class="op">=</span> {</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">"records_identified"</span>: <span class="bu">len</span>(ids),</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">"records_screened"</span>: <span class="bu">int</span>(ta[<span class="st">"record_id"</span>].isin(ids).<span class="bu">sum</span>()),</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">"records_excluded"</span>: <span class="bu">int</span>(ta_excl_ids.isin(ids).<span class="bu">sum</span>()),</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">"reports_assessed"</span>: <span class="bu">int</span>(ft_ok[<span class="st">"record_id"</span>].isin(ids).<span class="bu">sum</span>()),</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">"reports_excluded"</span>: <span class="bu">int</span>(ft_excl[<span class="st">"record_id"</span>].isin(ids).<span class="bu">sum</span>()),</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">"reports_included"</span>: <span class="bu">int</span>(ft_incl[<span class="st">"record_id"</span>].isin(ids).<span class="bu">sum</span>()),</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    counts <span class="op">=</span> (yaml.safe_load(counts_path.read_text()) <span class="kw">or</span> {}) <span class="cf">if</span> counts_path.exists() <span class="cf">else</span> {}</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    counts[<span class="st">"screening"</span>] <span class="op">=</span> {</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"records_screened"</span>: screened,</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">"records_excluded"</span>: ta_excluded,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"reports_sought"</span>: sought,</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">"reports_not_retrieved"</span>: not_retrieved,</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">"reports_assessed"</span>: assessed,</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>        <span class="st">"reports_excluded"</span>: [{<span class="st">"reason"</span>: r, <span class="st">"n"</span>: <span class="bu">int</span>(n)} <span class="cf">for</span> r, n <span class="kw">in</span> reasons.items()],</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    counts[<span class="st">"included"</span>] <span class="op">=</span> {<span class="st">"sources"</span>: included_sources, <span class="st">"reports"</span>: included_reports}</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    counts[<span class="st">"by_block"</span>] <span class="op">=</span> by_block</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> agreement:</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>        counts[<span class="st">"agreement"</span>] <span class="op">=</span> agreement</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>        counts.pop(<span class="st">"agreement"</span>, <span class="va">None</span>)</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    counts_path.write_text(yaml.safe_dump(counts, sort_keys<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    ft_incl[[<span class="st">"source_id"</span>, <span class="st">"record_id"</span>]].sort_values([<span class="st">"source_id"</span>, <span class="st">"record_id"</span>]).to_csv(PROC <span class="op">/</span> <span class="st">"included_reports.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Wrote data/processed/screening_counts.yaml and included_reports.csv"</span>)</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> by_block:</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>        display(pd.DataFrame(by_block).T.rename_axis(<span class="st">"block"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 

@@ -242,7 +242,8 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#flow-diagram" id="toc-flow-diagram" class="nav-link active" data-scroll-target="#flow-diagram">Flow diagram</a></li>
+  <li><a href="#checks" id="toc-checks" class="nav-link active" data-scroll-target="#checks">Checks</a></li>
+  <li><a href="#flow-diagram" id="toc-flow-diagram" class="nav-link" data-scroll-target="#flow-diagram">Flow diagram</a></li>
   <li><a href="#charted-sources" id="toc-charted-sources" class="nav-link" data-scroll-target="#charted-sources">Charted sources</a></li>
   </ul>
 </nav>
@@ -269,8 +270,9 @@ div.csl-indent {
 </header>
 
 
-<p>This notebook draws the PRISMA flow diagram from <code>data/processed/screening_counts.yaml</code> and summarizes the charted sources from <code>data/processed/included_sources_clean.csv</code>. It saves the diagram as <code>data/processed/prisma_flow.png</code>.</p>
+<p>This notebook draws the PRISMA flow diagram from <code>data/processed/screening_counts.yaml</code> and summarizes the charted sources and factors from <code>data/processed/included_sources_clean.csv</code> and <code>data/processed/included_factors_clean.csv</code>. It saves the diagram as <code>data/processed/prisma_flow.png</code>.</p>
 <p>The diagram follows the PRISMA 2020 template <span class="citation" data-cites="page2021">(<a href="#ref-page2021" role="doc-biblioref">Page et al. 2021</a>)</span>, with “sources of evidence” in place of “studies” as PRISMA-ScR uses the term <span class="citation" data-cites="tricco2018">(<a href="#ref-tricco2018" role="doc-biblioref">Tricco et al. 2018</a>)</span>. Records from other methods are deduplicated against the database records and screened in the same pass, so the diagram shows one path.</p>
+<p>The counts are checked before the diagram is drawn. If they do not add up, the notebook stops with an error.</p>
 <div id="80a7db18" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
@@ -296,165 +298,208 @@ div.csl-indent {
 <pre><code>The flow diagram needs the output of notebooks 01 and 02.</code></pre>
 </div>
 </div>
-<section id="flow-diagram" class="level2">
-<h2 class="anchored" data-anchor-id="flow-diagram">Flow diagram</h2>
-<div id="30f82d22" class="cell" data-execution_count="2">
+<section id="checks" class="level2">
+<h2 class="anchored" data-anchor-id="checks">Checks</h2>
+<div id="c0f4a002" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> wrap(lines, width<span class="op">=</span><span class="dv">34</span>):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> []</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> lines:</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        out.extend(textwrap.wrap(line, width) <span class="kw">or</span> [<span class="st">""</span>])</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> out</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> box_height(lines):</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">0.30</span> <span class="op">*</span> <span class="bu">len</span>(lines) <span class="op">+</span> <span class="fl">0.35</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw_box(ax, cx, cy, lines, width):</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> box_height(lines)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    ax.add_patch(FancyBboxPatch(</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        (cx <span class="op">-</span> width <span class="op">/</span> <span class="dv">2</span>, cy <span class="op">-</span> h <span class="op">/</span> <span class="dv">2</span>), width, h,</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        boxstyle<span class="op">=</span><span class="st">"round,pad=0.02,rounding_size=0.08"</span>, fc<span class="op">=</span><span class="st">"white"</span>, ec<span class="op">=</span><span class="st">"black"</span>, lw<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    ))</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    ax.text(cx, cy, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>.join(lines), ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">9</span>, linespacing<span class="op">=</span><span class="fl">1.4</span>)</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> h</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> arrow(ax, start, end):</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    ax.annotate(<span class="st">""</span>, xy<span class="op">=</span>end, xytext<span class="op">=</span>start, arrowprops<span class="op">=</span><span class="bu">dict</span>(arrowstyle<span class="op">=</span><span class="st">"-|&gt;"</span>, lw<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">"black"</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> check_flow(c):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    ident, scr, inc <span class="op">=</span> c[<span class="st">"identification"</span>], c[<span class="st">"screening"</span>], c[<span class="st">"included"</span>]</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    identified <span class="op">=</span> <span class="bu">sum</span>(d[<span class="st">"n"</span>] <span class="cf">for</span> d <span class="kw">in</span> ident.get(<span class="st">"databases"</span>, [])) <span class="op">+</span> <span class="bu">sum</span>(d[<span class="st">"n"</span>] <span class="cf">for</span> d <span class="kw">in</span> ident.get(<span class="st">"other_methods"</span>, []))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    removed <span class="op">=</span> (</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        ident.get(<span class="st">"duplicates_removed"</span>, <span class="dv">0</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> ident.get(<span class="st">"marked_ineligible_by_automation"</span>, <span class="dv">0</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> ident.get(<span class="st">"removed_other_reasons"</span>, <span class="dv">0</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    excluded_at_full_text <span class="op">=</span> <span class="bu">sum</span>(r[<span class="st">"n"</span>] <span class="cf">for</span> r <span class="kw">in</span> scr.get(<span class="st">"reports_excluded"</span>, []))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    equal <span class="op">=</span> [</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"Records identified minus records removed before screening equals records screened"</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>         identified <span class="op">-</span> removed, scr[<span class="st">"records_screened"</span>]),</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"Records screened equals records excluded plus reports sought"</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>         scr[<span class="st">"records_screened"</span>], scr[<span class="st">"records_excluded"</span>] <span class="op">+</span> scr[<span class="st">"reports_sought"</span>]),</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"Reports sought equals reports not retrieved plus reports assessed"</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>         scr[<span class="st">"reports_sought"</span>], scr[<span class="st">"reports_not_retrieved"</span>] <span class="op">+</span> scr[<span class="st">"reports_assessed"</span>]),</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"Reports assessed equals reports excluded plus reports included"</span>,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>         scr[<span class="st">"reports_assessed"</span>], excluded_at_full_text <span class="op">+</span> inc[<span class="st">"reports"</span>]),</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    problems <span class="op">=</span> [<span class="ss">f"</span><span class="sc">{</span>rule<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss"> against </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss">."</span> <span class="cf">for</span> rule, a, b <span class="kw">in</span> equal <span class="cf">if</span> a <span class="op">!=</span> b]</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> inc[<span class="st">"sources"</span>] <span class="op">&gt;</span> inc[<span class="st">"reports"</span>]:</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        problems.append(<span class="ss">f"Sources included (</span><span class="sc">{</span>inc[<span class="st">'sources'</span>]<span class="sc">}</span><span class="ss">) exceed reports included (</span><span class="sc">{</span>inc[<span class="st">'reports'</span>]<span class="sc">}</span><span class="ss">)."</span>)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> problems</span>
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> flow_rows(c):</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    ident, scr, inc <span class="op">=</span> c[<span class="st">"identification"</span>], c[<span class="st">"screening"</span>], c[<span class="st">"included"</span>]</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    dbs, others <span class="op">=</span> ident.get(<span class="st">"databases"</span>, []), ident.get(<span class="st">"other_methods"</span>, [])</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="bu">sum</span>(d[<span class="st">"n"</span>] <span class="cf">for</span> d <span class="kw">in</span> dbs) <span class="op">+</span> <span class="bu">sum</span>(d[<span class="st">"n"</span>] <span class="cf">for</span> d <span class="kw">in</span> others)</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    first <span class="op">=</span> [<span class="st">"Records identified"</span>, <span class="ss">f"(n = </span><span class="sc">{</span>total<span class="sc">}</span><span class="ss">)"</span>]</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    first <span class="op">+=</span> [<span class="ss">f"</span><span class="sc">{</span>d[<span class="st">'name'</span>]<span class="sc">}{</span><span class="st">' ['</span> <span class="op">+</span> d[<span class="st">'block'</span>] <span class="op">+</span> <span class="st">']'</span> <span class="cf">if</span> d<span class="sc">.</span>get(<span class="st">'block'</span>) <span class="cf">else</span> <span class="st">''</span><span class="sc">}</span><span class="ss"> (n = </span><span class="sc">{</span>d[<span class="st">'n'</span>]<span class="sc">}</span><span class="ss">)"</span> <span class="cf">for</span> d <span class="kw">in</span> dbs]</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    first <span class="op">+=</span> [<span class="ss">f"other: </span><span class="sc">{</span>d[<span class="st">'name'</span>]<span class="sc">}</span><span class="ss"> (n = </span><span class="sc">{</span>d[<span class="st">'n'</span>]<span class="sc">}</span><span class="ss">)"</span> <span class="cf">for</span> d <span class="kw">in</span> others]</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    removed <span class="op">=</span> [</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Records removed before screening"</span>,</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Duplicate records removed (n = </span><span class="sc">{</span>ident<span class="sc">.</span>get(<span class="st">'duplicates_removed'</span>, <span class="dv">0</span>)<span class="sc">}</span><span class="ss">)"</span>,</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Marked ineligible by automation tools (n = </span><span class="sc">{</span>ident<span class="sc">.</span>get(<span class="st">'marked_ineligible_by_automation'</span>, <span class="dv">0</span>)<span class="sc">}</span><span class="ss">)"</span>,</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Removed for other reasons (n = </span><span class="sc">{</span>ident<span class="sc">.</span>get(<span class="st">'removed_other_reasons'</span>, <span class="dv">0</span>)<span class="sc">}</span><span class="ss">)"</span>,</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    reasons <span class="op">=</span> scr.get(<span class="st">"reports_excluded"</span>, [])</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    excl_total <span class="op">=</span> <span class="bu">sum</span>(r[<span class="st">"n"</span>] <span class="cf">for</span> r <span class="kw">in</span> reasons)</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>        (first, removed),</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>        ([<span class="st">"Records screened"</span>, <span class="ss">f"(n = </span><span class="sc">{</span>scr[<span class="st">'records_screened'</span>]<span class="sc">}</span><span class="ss">)"</span>], [<span class="st">"Records excluded"</span>, <span class="ss">f"(n = </span><span class="sc">{</span>scr[<span class="st">'records_excluded'</span>]<span class="sc">}</span><span class="ss">)"</span>]),</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>        ([<span class="st">"Reports sought for retrieval"</span>, <span class="ss">f"(n = </span><span class="sc">{</span>scr[<span class="st">'reports_sought'</span>]<span class="sc">}</span><span class="ss">)"</span>], [<span class="st">"Reports not retrieved"</span>, <span class="ss">f"(n = </span><span class="sc">{</span>scr[<span class="st">'reports_not_retrieved'</span>]<span class="sc">}</span><span class="ss">)"</span>]),</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>        ([<span class="st">"Reports assessed for eligibility"</span>, <span class="ss">f"(n = </span><span class="sc">{</span>scr[<span class="st">'reports_assessed'</span>]<span class="sc">}</span><span class="ss">)"</span>],</span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>         [<span class="st">"Reports excluded"</span>, <span class="ss">f"(n = </span><span class="sc">{</span>excl_total<span class="sc">}</span><span class="ss">)"</span>] <span class="op">+</span> [<span class="ss">f"</span><span class="sc">{</span>r[<span class="st">'reason'</span>]<span class="sc">}</span><span class="ss"> (n = </span><span class="sc">{</span>r[<span class="st">'n'</span>]<span class="sc">}</span><span class="ss">)"</span> <span class="cf">for</span> r <span class="kw">in</span> reasons]),</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>        ([<span class="st">"Sources of evidence included in the review"</span>, <span class="ss">f"(n = </span><span class="sc">{</span>inc[<span class="st">'sources'</span>]<span class="sc">}</span><span class="ss">)"</span>,</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Reports of included sources"</span>, <span class="ss">f"(n = </span><span class="sc">{</span>inc[<span class="st">'reports'</span>]<span class="sc">}</span><span class="ss">)"</span>], <span class="va">None</span>),</span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw_flow(c, path):</span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>    rows <span class="op">=</span> [(wrap(m), wrap(s, <span class="dv">38</span>) <span class="cf">if</span> s <span class="cf">else</span> <span class="va">None</span>) <span class="cf">for</span> m, s <span class="kw">in</span> flow_rows(c)]</span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>    main_w, side_w, gap <span class="op">=</span> <span class="fl">4.4</span>, <span class="fl">5.0</span>, <span class="fl">0.8</span></span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>    x_main, x_side <span class="op">=</span> <span class="fl">3.0</span>, <span class="fl">9.0</span></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>    heights <span class="op">=</span> [<span class="bu">max</span>(box_height(m), box_height(s) <span class="cf">if</span> s <span class="cf">else</span> <span class="dv">0</span>) <span class="cf">for</span> m, s <span class="kw">in</span> rows]</span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="bu">sum</span>(heights) <span class="op">+</span> gap <span class="op">*</span> (<span class="bu">len</span>(rows) <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="fl">13.2</span> <span class="op">*</span> <span class="fl">0.7</span>, total <span class="op">*</span> <span class="fl">0.7</span>))</span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>    ax.set_xlim(<span class="op">-</span><span class="fl">1.2</span>, <span class="dv">12</span>)</span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>    ax.set_ylim(<span class="dv">0</span>, total)</span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>    ax.set_aspect(<span class="st">"equal"</span>)</span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>    ax.axis(<span class="st">"off"</span>)</span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>    y, previous, centers <span class="op">=</span> total <span class="op">-</span> <span class="fl">0.5</span>, <span class="va">None</span>, []</span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (m, s), h <span class="kw">in</span> <span class="bu">zip</span>(rows, heights):</span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>        cy <span class="op">=</span> y <span class="op">-</span> h <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>        mh <span class="op">=</span> draw_box(ax, x_main, cy, m, main_w)</span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> previous:</span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>            arrow(ax, previous, (x_main, cy <span class="op">+</span> mh <span class="op">/</span> <span class="dv">2</span>))</span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> s:</span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>            draw_box(ax, x_side, cy, s, side_w)</span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>            arrow(ax, (x_main <span class="op">+</span> main_w <span class="op">/</span> <span class="dv">2</span>, cy), (x_side <span class="op">-</span> side_w <span class="op">/</span> <span class="dv">2</span>, cy))</span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>        previous <span class="op">=</span> (x_main, cy <span class="op">-</span> mh <span class="op">/</span> <span class="dv">2</span>)</span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>        centers.append((cy, h))</span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>        y <span class="op">-=</span> h <span class="op">+</span> gap</span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> label, (a, b) <span class="kw">in</span> {<span class="st">"Identification"</span>: (<span class="dv">0</span>, <span class="dv">0</span>), <span class="st">"Screening"</span>: (<span class="dv">1</span>, <span class="dv">3</span>), <span class="st">"Included"</span>: (<span class="dv">4</span>, <span class="dv">4</span>)}.items():</span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>        top <span class="op">=</span> centers[a][<span class="dv">0</span>] <span class="op">+</span> centers[a][<span class="dv">1</span>] <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>        bottom <span class="op">=</span> centers[b][<span class="dv">0</span>] <span class="op">-</span> centers[b][<span class="dv">1</span>] <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>        ax.plot([<span class="op">-</span><span class="fl">0.4</span>, <span class="op">-</span><span class="fl">0.4</span>], [bottom, top], color<span class="op">=</span><span class="st">"black"</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>        ax.text(<span class="op">-</span><span class="fl">0.8</span>, (top <span class="op">+</span> bottom) <span class="op">/</span> <span class="dv">2</span>, label, rotation<span class="op">=</span><span class="dv">90</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">10</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>    fig.savefig(path, dpi<span class="op">=</span><span class="dv">200</span>, bbox_inches<span class="op">=</span><span class="st">"tight"</span>)</span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_flow:</span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>    draw_flow(counts, OUT <span class="op">/</span> <span class="st">"prisma_flow.png"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_flow:</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    problems <span class="op">=</span> check_flow(counts)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> problems:</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"The flow counts do not add up. Run notebooks 01 and 02 again, in order, and check screening_counts.yaml:</span><span class="ch">\n</span><span class="st">- "</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>            <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">- "</span>.join(problems)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The flow counts add up."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="flow-diagram" class="level2">
+<h2 class="anchored" data-anchor-id="flow-diagram">Flow diagram</h2>
+<div id="30f82d22" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> wrap(lines, width<span class="op">=</span><span class="dv">34</span>):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> []</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> lines:</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        out.extend(textwrap.wrap(line, width) <span class="kw">or</span> [<span class="st">""</span>])</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> out</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> box_height(lines):</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">0.30</span> <span class="op">*</span> <span class="bu">len</span>(lines) <span class="op">+</span> <span class="fl">0.35</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw_box(ax, cx, cy, lines, width):</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> box_height(lines)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    ax.add_patch(FancyBboxPatch(</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        (cx <span class="op">-</span> width <span class="op">/</span> <span class="dv">2</span>, cy <span class="op">-</span> h <span class="op">/</span> <span class="dv">2</span>), width, h,</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        boxstyle<span class="op">=</span><span class="st">"round,pad=0.02,rounding_size=0.08"</span>, fc<span class="op">=</span><span class="st">"white"</span>, ec<span class="op">=</span><span class="st">"black"</span>, lw<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    ax.text(cx, cy, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>.join(lines), ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">9</span>, linespacing<span class="op">=</span><span class="fl">1.4</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> h</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> arrow(ax, start, end):</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    ax.annotate(<span class="st">""</span>, xy<span class="op">=</span>end, xytext<span class="op">=</span>start, arrowprops<span class="op">=</span><span class="bu">dict</span>(arrowstyle<span class="op">=</span><span class="st">"-|&gt;"</span>, lw<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">"black"</span>))</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> flow_rows(c):</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    ident, scr, inc <span class="op">=</span> c[<span class="st">"identification"</span>], c[<span class="st">"screening"</span>], c[<span class="st">"included"</span>]</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    dbs, others <span class="op">=</span> ident.get(<span class="st">"databases"</span>, []), ident.get(<span class="st">"other_methods"</span>, [])</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="bu">sum</span>(d[<span class="st">"n"</span>] <span class="cf">for</span> d <span class="kw">in</span> dbs) <span class="op">+</span> <span class="bu">sum</span>(d[<span class="st">"n"</span>] <span class="cf">for</span> d <span class="kw">in</span> others)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    first <span class="op">=</span> [<span class="st">"Records identified"</span>, <span class="ss">f"(n = </span><span class="sc">{</span>total<span class="sc">}</span><span class="ss">)"</span>]</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    first <span class="op">+=</span> [<span class="ss">f"</span><span class="sc">{</span>d[<span class="st">'name'</span>]<span class="sc">}{</span><span class="st">' ['</span> <span class="op">+</span> d[<span class="st">'block'</span>] <span class="op">+</span> <span class="st">']'</span> <span class="cf">if</span> d<span class="sc">.</span>get(<span class="st">'block'</span>) <span class="cf">else</span> <span class="st">''</span><span class="sc">}</span><span class="ss"> (n = </span><span class="sc">{</span>d[<span class="st">'n'</span>]<span class="sc">}</span><span class="ss">)"</span> <span class="cf">for</span> d <span class="kw">in</span> dbs]</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    first <span class="op">+=</span> [<span class="ss">f"other: </span><span class="sc">{</span>d[<span class="st">'name'</span>]<span class="sc">}</span><span class="ss"> (n = </span><span class="sc">{</span>d[<span class="st">'n'</span>]<span class="sc">}</span><span class="ss">)"</span> <span class="cf">for</span> d <span class="kw">in</span> others]</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    removed <span class="op">=</span> [</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Records removed before screening"</span>,</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Duplicate records removed (n = </span><span class="sc">{</span>ident<span class="sc">.</span>get(<span class="st">'duplicates_removed'</span>, <span class="dv">0</span>)<span class="sc">}</span><span class="ss">)"</span>,</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Marked ineligible by automation tools (n = </span><span class="sc">{</span>ident<span class="sc">.</span>get(<span class="st">'marked_ineligible_by_automation'</span>, <span class="dv">0</span>)<span class="sc">}</span><span class="ss">)"</span>,</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Removed for other reasons (n = </span><span class="sc">{</span>ident<span class="sc">.</span>get(<span class="st">'removed_other_reasons'</span>, <span class="dv">0</span>)<span class="sc">}</span><span class="ss">)"</span>,</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    reasons <span class="op">=</span> scr.get(<span class="st">"reports_excluded"</span>, [])</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    excl_total <span class="op">=</span> <span class="bu">sum</span>(r[<span class="st">"n"</span>] <span class="cf">for</span> r <span class="kw">in</span> reasons)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>        (first, removed),</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>        ([<span class="st">"Records screened"</span>, <span class="ss">f"(n = </span><span class="sc">{</span>scr[<span class="st">'records_screened'</span>]<span class="sc">}</span><span class="ss">)"</span>], [<span class="st">"Records excluded"</span>, <span class="ss">f"(n = </span><span class="sc">{</span>scr[<span class="st">'records_excluded'</span>]<span class="sc">}</span><span class="ss">)"</span>]),</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>        ([<span class="st">"Reports sought for retrieval"</span>, <span class="ss">f"(n = </span><span class="sc">{</span>scr[<span class="st">'reports_sought'</span>]<span class="sc">}</span><span class="ss">)"</span>], [<span class="st">"Reports not retrieved"</span>, <span class="ss">f"(n = </span><span class="sc">{</span>scr[<span class="st">'reports_not_retrieved'</span>]<span class="sc">}</span><span class="ss">)"</span>]),</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>        ([<span class="st">"Reports assessed for eligibility"</span>, <span class="ss">f"(n = </span><span class="sc">{</span>scr[<span class="st">'reports_assessed'</span>]<span class="sc">}</span><span class="ss">)"</span>],</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>         [<span class="st">"Reports excluded"</span>, <span class="ss">f"(n = </span><span class="sc">{</span>excl_total<span class="sc">}</span><span class="ss">)"</span>] <span class="op">+</span> [<span class="ss">f"</span><span class="sc">{</span>r[<span class="st">'reason'</span>]<span class="sc">}</span><span class="ss"> (n = </span><span class="sc">{</span>r[<span class="st">'n'</span>]<span class="sc">}</span><span class="ss">)"</span> <span class="cf">for</span> r <span class="kw">in</span> reasons]),</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>        ([<span class="st">"Sources of evidence included in the review"</span>, <span class="ss">f"(n = </span><span class="sc">{</span>inc[<span class="st">'sources'</span>]<span class="sc">}</span><span class="ss">)"</span>,</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Reports of included sources"</span>, <span class="ss">f"(n = </span><span class="sc">{</span>inc[<span class="st">'reports'</span>]<span class="sc">}</span><span class="ss">)"</span>], <span class="va">None</span>),</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw_flow(c, path):</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>    rows <span class="op">=</span> [(wrap(m), wrap(s, <span class="dv">38</span>) <span class="cf">if</span> s <span class="cf">else</span> <span class="va">None</span>) <span class="cf">for</span> m, s <span class="kw">in</span> flow_rows(c)]</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>    main_w, side_w, gap <span class="op">=</span> <span class="fl">4.4</span>, <span class="fl">5.0</span>, <span class="fl">0.8</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>    x_main, x_side <span class="op">=</span> <span class="fl">3.0</span>, <span class="fl">9.0</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>    heights <span class="op">=</span> [<span class="bu">max</span>(box_height(m), box_height(s) <span class="cf">if</span> s <span class="cf">else</span> <span class="dv">0</span>) <span class="cf">for</span> m, s <span class="kw">in</span> rows]</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="bu">sum</span>(heights) <span class="op">+</span> gap <span class="op">*</span> (<span class="bu">len</span>(rows) <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="fl">13.2</span> <span class="op">*</span> <span class="fl">0.7</span>, total <span class="op">*</span> <span class="fl">0.7</span>))</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>    ax.set_xlim(<span class="op">-</span><span class="fl">1.2</span>, <span class="dv">12</span>)</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>    ax.set_ylim(<span class="dv">0</span>, total)</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>    ax.set_aspect(<span class="st">"equal"</span>)</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>    ax.axis(<span class="st">"off"</span>)</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    y, previous, centers <span class="op">=</span> total <span class="op">-</span> <span class="fl">0.5</span>, <span class="va">None</span>, []</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (m, s), h <span class="kw">in</span> <span class="bu">zip</span>(rows, heights):</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>        cy <span class="op">=</span> y <span class="op">-</span> h <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>        mh <span class="op">=</span> draw_box(ax, x_main, cy, m, main_w)</span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> previous:</span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>            arrow(ax, previous, (x_main, cy <span class="op">+</span> mh <span class="op">/</span> <span class="dv">2</span>))</span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> s:</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>            draw_box(ax, x_side, cy, s, side_w)</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>            arrow(ax, (x_main <span class="op">+</span> main_w <span class="op">/</span> <span class="dv">2</span>, cy), (x_side <span class="op">-</span> side_w <span class="op">/</span> <span class="dv">2</span>, cy))</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>        previous <span class="op">=</span> (x_main, cy <span class="op">-</span> mh <span class="op">/</span> <span class="dv">2</span>)</span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>        centers.append((cy, h))</span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>        y <span class="op">-=</span> h <span class="op">+</span> gap</span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> label, (a, b) <span class="kw">in</span> {<span class="st">"Identification"</span>: (<span class="dv">0</span>, <span class="dv">0</span>), <span class="st">"Screening"</span>: (<span class="dv">1</span>, <span class="dv">3</span>), <span class="st">"Included"</span>: (<span class="dv">4</span>, <span class="dv">4</span>)}.items():</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>        top <span class="op">=</span> centers[a][<span class="dv">0</span>] <span class="op">+</span> centers[a][<span class="dv">1</span>] <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>        bottom <span class="op">=</span> centers[b][<span class="dv">0</span>] <span class="op">-</span> centers[b][<span class="dv">1</span>] <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>        ax.plot([<span class="op">-</span><span class="fl">0.4</span>, <span class="op">-</span><span class="fl">0.4</span>], [bottom, top], color<span class="op">=</span><span class="st">"black"</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>        ax.text(<span class="op">-</span><span class="fl">0.8</span>, (top <span class="op">+</span> bottom) <span class="op">/</span> <span class="dv">2</span>, label, rotation<span class="op">=</span><span class="dv">90</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">10</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>    fig.savefig(path, dpi<span class="op">=</span><span class="dv">200</span>, bbox_inches<span class="op">=</span><span class="st">"tight"</span>)</span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_flow:</span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>    draw_flow(counts, OUT <span class="op">/</span> <span class="st">"prisma_flow.png"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
 <section id="charted-sources" class="level2">
 <h2 class="anchored" data-anchor-id="charted-sources">Charted sources</h2>
-<div id="bc214df0" class="cell" data-execution_count="3">
+<div id="bc214df0" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>clean_path, bib_path <span class="op">=</span> OUT <span class="op">/</span> <span class="st">"included_sources_clean.csv"</span>, OUT <span class="op">/</span> <span class="st">"bibliography.csv"</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>have_sources <span class="op">=</span> clean_path.exists() <span class="kw">and</span> bib_path.exists()</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_sources:</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    clean <span class="op">=</span> pd.read_csv(clean_path, dtype<span class="op">=</span><span class="bu">str</span>).fillna(<span class="st">""</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    bib <span class="op">=</span> pd.read_csv(bib_path, dtype<span class="op">=</span><span class="bu">str</span>).fillna(<span class="st">""</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> clean.merge(bib[[<span class="st">"source_id"</span>, <span class="st">"year"</span>]].drop_duplicates(<span class="st">"source_id"</span>), on<span class="op">=</span><span class="st">"source_id"</span>, how<span class="op">=</span><span class="st">"left"</span>).fillna(<span class="st">""</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(data)<span class="sc">}</span><span class="ss"> charted source(s)."</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The charts need the output of notebook 03."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>clean_path, fac_path, bib_path <span class="op">=</span> OUT <span class="op">/</span> <span class="st">"included_sources_clean.csv"</span>, OUT <span class="op">/</span> <span class="st">"included_factors_clean.csv"</span>, OUT <span class="op">/</span> <span class="st">"bibliography.csv"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>have_sources <span class="op">=</span> clean_path.exists() <span class="kw">and</span> bib_path.exists()</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_sources:</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    clean <span class="op">=</span> pd.read_csv(clean_path, dtype<span class="op">=</span><span class="bu">str</span>).fillna(<span class="st">""</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    bib <span class="op">=</span> pd.read_csv(bib_path, dtype<span class="op">=</span><span class="bu">str</span>).fillna(<span class="st">""</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    factors <span class="op">=</span> pd.read_csv(fac_path, dtype<span class="op">=</span><span class="bu">str</span>).fillna(<span class="st">""</span>) <span class="cf">if</span> fac_path.exists() <span class="cf">else</span> pd.DataFrame(columns<span class="op">=</span>[<span class="st">"source_id"</span>, <span class="st">"factor_category"</span>])</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> clean.merge(bib[[<span class="st">"source_id"</span>, <span class="st">"year"</span>]].drop_duplicates(<span class="st">"source_id"</span>), on<span class="op">=</span><span class="st">"source_id"</span>, how<span class="op">=</span><span class="st">"left"</span>).fillna(<span class="st">""</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(data)<span class="sc">}</span><span class="ss"> charted source(s), </span><span class="sc">{</span><span class="bu">len</span>(factors)<span class="sc">}</span><span class="ss"> charted factor(s)."</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The charts need the output of notebook 03."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>The charts need the output of notebook 03.</code></pre>
 </div>
 </div>
-<div id="be89ab00" class="cell" data-execution_count="4">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_sources:</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">3.5</span>))</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    pd.crosstab(data[<span class="st">"year"</span>].replace(<span class="st">""</span>, <span class="st">"unknown"</span>), data[<span class="st">"field"</span>]).plot.bar(stacked<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>ax)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"Publication year"</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"Sources"</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="st">"Sources per year, by field"</span>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    ax.yaxis.set_major_locator(MaxNLocator(integer<span class="op">=</span><span class="va">True</span>))</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    ax.legend(title<span class="op">=</span><span class="st">"Field"</span>, loc<span class="op">=</span><span class="st">"upper left"</span>, bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<div id="150af548" class="cell" data-execution_count="5">
+<div id="be89ab00" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_sources:</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    exploded <span class="op">=</span> data.assign(category<span class="op">=</span>data[<span class="st">"factor_categories"</span>].<span class="bu">str</span>.split(<span class="st">"; "</span>)).explode(<span class="st">"category"</span>, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    exploded <span class="op">=</span> exploded[exploded[<span class="st">"category"</span>].fillna(<span class="st">""</span>) <span class="op">!=</span> <span class="st">""</span>]</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(exploded):</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">3.5</span>))</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        pd.crosstab(exploded[<span class="st">"category"</span>], exploded[<span class="st">"field"</span>]).plot.bar(ax<span class="op">=</span>ax)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        ax.set_xlabel(<span class="st">"Factor category"</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        ax.set_ylabel(<span class="st">"Sources"</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        ax.set_title(<span class="st">"Factor categories, by field"</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        ax.yaxis.set_major_locator(MaxNLocator(integer<span class="op">=</span><span class="va">True</span>))</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        ax.legend(title<span class="op">=</span><span class="st">"Field"</span>, loc<span class="op">=</span><span class="st">"upper left"</span>, bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        plt.xticks(rotation<span class="op">=</span><span class="dv">30</span>, ha<span class="op">=</span><span class="st">"right"</span>)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        plt.tight_layout()</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        plt.show()</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"No factor categories charted yet."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">3.5</span>))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    pd.crosstab(data[<span class="st">"year"</span>].replace(<span class="st">""</span>, <span class="st">"unknown"</span>), data[<span class="st">"field"</span>]).plot.bar(stacked<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>ax)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"Publication year"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"Sources"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="st">"Sources per year, by field"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    ax.yaxis.set_major_locator(MaxNLocator(integer<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    ax.legend(title<span class="op">=</span><span class="st">"Field"</span>, loc<span class="op">=</span><span class="st">"upper left"</span>, bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="e958efbb" class="cell" data-execution_count="6">
+<div id="150af548" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_sources:</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">2.5</span>))</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">"source_type"</span>].value_counts().sort_values().plot.barh(ax<span class="op">=</span>ax)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"Sources"</span>)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="st">"Source types"</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    ax.xaxis.set_major_locator(MaxNLocator(integer<span class="op">=</span><span class="va">True</span>))</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    coded <span class="op">=</span> factors[factors[<span class="st">"factor_category"</span>] <span class="op">!=</span> <span class="st">""</span>].merge(data[[<span class="st">"source_id"</span>, <span class="st">"field"</span>]], on<span class="op">=</span><span class="st">"source_id"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(coded):</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># A source counts once in a category, however many of its factors fall in it.</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        table <span class="op">=</span> coded.groupby([<span class="st">"factor_category"</span>, <span class="st">"field"</span>])[<span class="st">"source_id"</span>].nunique().unstack(fill_value<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">3.5</span>))</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        table.plot.bar(ax<span class="op">=</span>ax)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        ax.set_xlabel(<span class="st">"Factor category"</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        ax.set_ylabel(<span class="st">"Sources"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        ax.set_title(<span class="st">"Sources reporting each factor category, by field"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        ax.yaxis.set_major_locator(MaxNLocator(integer<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        ax.legend(title<span class="op">=</span><span class="st">"Field"</span>, loc<span class="op">=</span><span class="st">"upper left"</span>, bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        plt.xticks(rotation<span class="op">=</span><span class="dv">30</span>, ha<span class="op">=</span><span class="st">"right"</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        plt.tight_layout()</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        plt.show()</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"No factor categories charted yet."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="e958efbb" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_sources:</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">2.5</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">"source_type"</span>].value_counts().sort_values().plot.barh(ax<span class="op">=</span>ax)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"Sources"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="st">"Source types"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    ax.xaxis.set_major_locator(MaxNLocator(integer<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 

@@ -224,6 +224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#checks" id="toc-checks" class="nav-link active" data-scroll-target="#checks">Checks</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -249,66 +250,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This notebook cleans the charted data in <code>data/raw/included_sources_raw.csv</code> and checks it against the <a href="../codebook.html">codebook</a>. It writes <code>data/processed/included_sources_clean.csv</code> and <code>data/processed/bibliography.csv</code>, which holds the reference details of each included source, taken from the deduplicated records.</p>
-<p>Cleaning trims whitespace, lowercases the closed variables, and sorts and deduplicates the values of the multi-valued variables. A value outside the allowed lists is reported and left as entered.</p>
+<p>This notebook cleans the charted data and checks it against the <a href="../codebook.html">codebook</a>. The charting form has two tables. <code>data/raw/included_sources_raw.csv</code> has one row per included source. <code>data/raw/included_factors_raw.csv</code> has one row per factor that a source reports. The notebook writes <code>data/processed/included_sources_clean.csv</code>, <code>data/processed/included_factors_clean.csv</code>, and <code>data/processed/bibliography.csv</code>, which holds the reference details of each included source, taken from the deduplicated records.</p>
+<p>The variables, the closed value lists, and the required variables are read from <code>codebook.yml</code>, so this notebook holds no copy of them. Cleaning trims whitespace and lowercases the closed variables.</p>
+<p>The checks come first. If any check finds an error, the notebook stops and writes nothing. A warning is printed and does not stop the run. Errors are an empty required cell, a value outside the codebook, a repeated <code>source_id</code>, a factor whose <code>source_id</code> is not in the sources table, a <code>record_id</code> that is not in the deduplicated records, and a <code>source_id</code> that screening did not include. Warnings are sources with no factors, included sources not charted yet, repeated factor rows, and factors not yet coded to a category or level.</p>
 <div id="941a8e07" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ROOT <span class="op">=</span> <span class="bu">next</span>(p <span class="cf">for</span> p <span class="kw">in</span> [Path.cwd(), <span class="op">*</span>Path.cwd().parents] <span class="cf">if</span> (p <span class="op">/</span> <span class="st">"_quarto.yml"</span>).exists())</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>RAW <span class="op">=</span> ROOT <span class="op">/</span> <span class="st">"data"</span> <span class="op">/</span> <span class="st">"raw"</span> <span class="op">/</span> <span class="st">"included_sources_raw.csv"</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>DEDUP <span class="op">=</span> ROOT <span class="op">/</span> <span class="st">"data"</span> <span class="op">/</span> <span class="st">"processed"</span> <span class="op">/</span> <span class="st">"deduplicated_records.csv"</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>OUT <span class="op">=</span> ROOT <span class="op">/</span> <span class="st">"data"</span> <span class="op">/</span> <span class="st">"processed"</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>COLUMNS <span class="op">=</span> [</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"source_id"</span>, <span class="st">"record_id"</span>, <span class="st">"tier"</span>, <span class="st">"field"</span>, <span class="st">"field_detail"</span>, <span class="st">"source_type"</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"peer_reviewed"</span>, <span class="st">"data_origin"</span>, <span class="st">"factor_types"</span>, <span class="st">"factor_categories"</span>,</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"level"</span>, <span class="st">"factors"</span>, <span class="st">"region"</span>, <span class="st">"notes"</span>,</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>REQUIRED <span class="op">=</span> [<span class="st">"source_id"</span>, <span class="st">"record_id"</span>, <span class="st">"tier"</span>, <span class="st">"field"</span>, <span class="st">"source_type"</span>]</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># These lists mirror codebook.qmd. Change both together.</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>SINGLE <span class="op">=</span> {</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"tier"</span>: [<span class="st">"1"</span>, <span class="st">"2"</span>],</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"field"</span>: [<span class="st">"health"</span>, <span class="st">"other"</span>, <span class="st">"cross-disciplinary"</span>],</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"source_type"</span>: [<span class="st">"empirical"</span>, <span class="st">"review"</span>, <span class="st">"policy-guidance"</span>, <span class="st">"opinion"</span>, <span class="st">"other"</span>],</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"peer_reviewed"</span>: [<span class="st">"yes"</span>, <span class="st">"no"</span>],</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"data_origin"</span>: [<span class="st">"research"</span>, <span class="st">"routine-reused"</span>, <span class="st">"mixed"</span>, <span class="st">"unclear"</span>],</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>MULTI <span class="op">=</span> {</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"factor_types"</span>: [<span class="st">"barrier"</span>, <span class="st">"facilitator"</span>, <span class="st">"governance-mechanism"</span>],</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"factor_categories"</span>: [<span class="st">"technical"</span>, <span class="st">"motivational"</span>, <span class="st">"economic"</span>, <span class="st">"political"</span>, <span class="st">"legal"</span>, <span class="st">"ethical"</span>, <span class="st">"other"</span>],</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">"level"</span>: [<span class="st">"individual"</span>, <span class="st">"institutional"</span>, <span class="st">"system"</span>],</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> pd.read_csv(RAW, dtype<span class="op">=</span><span class="bu">str</span>).fillna(<span class="st">""</span>) <span class="cf">if</span> RAW.exists() <span class="cf">else</span> pd.DataFrame(columns<span class="op">=</span>COLUMNS)</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>absent <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> COLUMNS <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> raw.columns]</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> absent:</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"included_sources_raw.csv is missing column(s): "</span> <span class="op">+</span> <span class="st">", "</span>.join(absent))</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>have_data <span class="op">=</span> <span class="bu">len</span>(raw) <span class="op">&gt;</span> <span class="dv">0</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(raw)<span class="sc">}</span><span class="ss"> charted source(s)."</span> <span class="cf">if</span> have_data <span class="cf">else</span> <span class="st">"No charted sources yet. Add rows to data/raw/included_sources_raw.csv."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yaml</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>ROOT <span class="op">=</span> <span class="bu">next</span>(p <span class="cf">for</span> p <span class="kw">in</span> [Path.cwd(), <span class="op">*</span>Path.cwd().parents] <span class="cf">if</span> (p <span class="op">/</span> <span class="st">"_quarto.yml"</span>).exists())</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>PROC <span class="op">=</span> ROOT <span class="op">/</span> <span class="st">"data"</span> <span class="op">/</span> <span class="st">"processed"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>DEDUP <span class="op">=</span> PROC <span class="op">/</span> <span class="st">"deduplicated_records.csv"</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>INCLUDED <span class="op">=</span> PROC <span class="op">/</span> <span class="st">"included_reports.csv"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>TABLES <span class="op">=</span> yaml.safe_load((ROOT <span class="op">/</span> <span class="st">"codebook.yml"</span>).read_text(encoding<span class="op">=</span><span class="st">"utf-8"</span>))[<span class="st">"tables"</span>]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> TABLES.values():</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> v <span class="kw">in</span> t[<span class="st">"variables"</span>]:</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        v[<span class="st">"values"</span>] <span class="op">=</span> v.get(<span class="st">"values"</span>, [])</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> <span class="bu">all</span>(<span class="bu">isinstance</span>(x, <span class="bu">str</span>) <span class="cf">for</span> x <span class="kw">in</span> v[<span class="st">"values"</span>]):</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f'codebook.yml: the values of </span><span class="sc">{</span>v[<span class="st">"name"</span>]<span class="sc">}</span><span class="ss"> must be text. Put quotes around values such as "yes", "no", and "1".'</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load(name):</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> TABLES[name]</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    path <span class="op">=</span> ROOT <span class="op">/</span> t[<span class="st">"file"</span>]</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    cols <span class="op">=</span> [v[<span class="st">"name"</span>] <span class="cf">for</span> v <span class="kw">in</span> t[<span class="st">"variables"</span>]]</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> path.exists():</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> pd.DataFrame(columns<span class="op">=</span>cols)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.read_csv(path, dtype<span class="op">=</span><span class="bu">str</span>).fillna(<span class="st">""</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    df.columns <span class="op">=</span> [c.strip().lower() <span class="cf">for</span> c <span class="kw">in</span> df.columns]</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    absent <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> cols <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> df.columns]</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> absent:</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f"</span><span class="sc">{</span>path<span class="sc">.</span>name<span class="sc">}</span><span class="ss"> is missing column(s): </span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(absent)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df[cols].<span class="bu">apply</span>(<span class="kw">lambda</span> s: s.<span class="bu">str</span>.strip())</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sample(values, n<span class="op">=</span><span class="dv">5</span>):</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    values <span class="op">=</span> <span class="bu">sorted</span>(<span class="bu">set</span>(<span class="bu">map</span>(<span class="bu">str</span>, values)))</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">", "</span>.join(values[:n]) <span class="op">+</span> (<span class="ss">f" and </span><span class="sc">{</span><span class="bu">len</span>(values) <span class="op">-</span> n<span class="sc">}</span><span class="ss"> more"</span> <span class="cf">if</span> <span class="bu">len</span>(values) <span class="op">&gt;</span> n <span class="cf">else</span> <span class="st">""</span>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> lines(mask):</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Line numbers in the CSV file: the header is line 1.</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    numbers <span class="op">=</span> <span class="bu">sorted</span>(i <span class="op">+</span> <span class="dv">2</span> <span class="cf">for</span> i <span class="kw">in</span> mask[mask].index)</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">", "</span>.join(<span class="bu">map</span>(<span class="bu">str</span>, numbers[:<span class="dv">5</span>])) <span class="op">+</span> (<span class="ss">f" and </span><span class="sc">{</span><span class="bu">len</span>(numbers) <span class="op">-</span> <span class="dv">5</span><span class="sc">}</span><span class="ss"> more"</span> <span class="cf">if</span> <span class="bu">len</span>(numbers) <span class="op">&gt;</span> <span class="dv">5</span> <span class="cf">else</span> <span class="st">""</span>)</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>sources, factors <span class="op">=</span> load(<span class="st">"sources"</span>), load(<span class="st">"factors"</span>)</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>have_data <span class="op">=</span> <span class="bu">len</span>(sources) <span class="op">&gt;</span> <span class="dv">0</span> <span class="kw">or</span> <span class="bu">len</span>(factors) <span class="op">&gt;</span> <span class="dv">0</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(sources)<span class="sc">}</span><span class="ss"> charted source(s), </span><span class="sc">{</span><span class="bu">len</span>(factors)<span class="sc">}</span><span class="ss"> charted factor(s)."</span> <span class="cf">if</span> have_data <span class="cf">else</span> <span class="st">"Nothing charted yet. Add rows to the two charting files in data/raw/."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>No charted sources yet. Add rows to data/raw/included_sources_raw.csv.</code></pre>
+<pre><code>Nothing charted yet. Add rows to the two charting files in data/raw/.</code></pre>
 </div>
 </div>
 <div id="809420ea" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    clean <span class="op">=</span> raw[COLUMNS].<span class="bu">apply</span>(<span class="kw">lambda</span> s: s.<span class="bu">str</span>.strip())</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> col <span class="kw">in</span> SINGLE:</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        clean[col] <span class="op">=</span> clean[col].<span class="bu">str</span>.lower()</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> tidy(cell):</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        values <span class="op">=</span> [v.strip().lower() <span class="cf">for</span> v <span class="kw">in</span> cell.split(<span class="st">";"</span>) <span class="cf">if</span> v.strip()]</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"; "</span>.join(<span class="bu">sorted</span>(<span class="bu">set</span>(values)))</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> col <span class="kw">in</span> MULTI:</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        clean[col] <span class="op">=</span> clean[col].<span class="bu">map</span>(tidy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    clean <span class="op">=</span> {<span class="st">"sources"</span>: sources.copy(), <span class="st">"factors"</span>: factors.copy()}</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name, df <span class="kw">in</span> clean.items():</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> v <span class="kw">in</span> TABLES[name][<span class="st">"variables"</span>]:</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> v[<span class="st">"values"</span>]:</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                df[v[<span class="st">"name"</span>]] <span class="op">=</span> df[v[<span class="st">"name"</span>]].<span class="bu">str</span>.lower()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <section id="checks" class="level2">
@@ -317,46 +324,96 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    issues <span class="op">=</span> []</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> col, allowed <span class="kw">in</span> SINGLE.items():</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        bad <span class="op">=</span> clean.loc[(clean[col] <span class="op">!=</span> <span class="st">""</span>) <span class="op">&amp;</span> <span class="op">~</span>clean[col].isin(allowed), col]</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        issues <span class="op">+=</span> [(col, v, <span class="bu">int</span>(n)) <span class="cf">for</span> v, n <span class="kw">in</span> bad.value_counts().items()]</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> col, allowed <span class="kw">in</span> MULTI.items():</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        vals <span class="op">=</span> pd.Series([v <span class="cf">for</span> cell <span class="kw">in</span> clean[col] <span class="cf">for</span> v <span class="kw">in</span> cell.split(<span class="st">"; "</span>) <span class="cf">if</span> v], dtype<span class="op">=</span><span class="bu">str</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        bad <span class="op">=</span> vals[<span class="op">~</span>vals.isin(allowed)]</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        issues <span class="op">+=</span> [(col, v, <span class="bu">int</span>(n)) <span class="cf">for</span> v, n <span class="kw">in</span> bad.value_counts().items()]</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> issues:</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Values outside the codebook:"</span>)</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        display(pd.DataFrame(issues, columns<span class="op">=</span>[<span class="st">"variable"</span>, <span class="st">"value"</span>, <span class="st">"n"</span>]))</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"All closed values match the codebook."</span>)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    empty <span class="op">=</span> {c: <span class="bu">int</span>((clean[c] <span class="op">==</span> <span class="st">""</span>).<span class="bu">sum</span>()) <span class="cf">for</span> c <span class="kw">in</span> REQUIRED <span class="cf">if</span> (clean[c] <span class="op">==</span> <span class="st">""</span>).<span class="bu">any</span>()}</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> empty:</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Required variables with empty cells:"</span>, empty)</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> clean[<span class="st">"source_id"</span>].duplicated().<span class="bu">any</span>():</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Some source_id values are repeated."</span>)</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> DEDUP.exists():</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        dedup <span class="op">=</span> pd.read_csv(DEDUP, dtype<span class="op">=</span><span class="bu">str</span>).fillna(<span class="st">""</span>)</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        unknown <span class="op">=</span> <span class="bu">set</span>(clean[<span class="st">"record_id"</span>]) <span class="op">-</span> <span class="bu">set</span>(dedup[<span class="st">"record_id"</span>])</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> unknown:</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(unknown)<span class="sc">}</span><span class="ss"> record_id value(s) are not in deduplicated_records.csv."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    errors, warnings <span class="op">=</span> [], []</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    src, fac <span class="op">=</span> clean[<span class="st">"sources"</span>], clean[<span class="st">"factors"</span>]</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Each table against the codebook</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name, df <span class="kw">in</span> clean.items():</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">file</span> <span class="op">=</span> Path(TABLES[name][<span class="st">"file"</span>]).name</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> v <span class="kw">in</span> TABLES[name][<span class="st">"variables"</span>]:</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>            col <span class="op">=</span> df[v[<span class="st">"name"</span>]]</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> v.get(<span class="st">"required"</span>):</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>                empty <span class="op">=</span> col <span class="op">==</span> <span class="st">""</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> empty.<span class="bu">any</span>():</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                    errors.append(<span class="ss">f"</span><span class="sc">{</span><span class="bu">file</span><span class="sc">}</span><span class="ss">: </span><span class="sc">{</span><span class="bu">int</span>(empty.<span class="bu">sum</span>())<span class="sc">}</span><span class="ss"> row(s) have an empty </span><span class="sc">{</span>v[<span class="st">'name'</span>]<span class="sc">}</span><span class="ss"> (line </span><span class="sc">{</span>lines(empty)<span class="sc">}</span><span class="ss">)."</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> v[<span class="st">"values"</span>]:</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>                bad <span class="op">=</span> (col <span class="op">!=</span> <span class="st">""</span>) <span class="op">&amp;</span> <span class="op">~</span>col.isin(v[<span class="st">"values"</span>])</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> bad.<span class="bu">any</span>():</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                    found <span class="op">=</span> sample(col[bad])</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                    errors.append(<span class="ss">f"</span><span class="sc">{</span><span class="bu">file</span><span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>v[<span class="st">'name'</span>]<span class="sc">}</span><span class="ss"> has value(s) outside the codebook: </span><span class="sc">{</span>found<span class="sc">}</span><span class="ss"> (line </span><span class="sc">{</span>lines(bad)<span class="sc">}</span><span class="ss">). Allowed: </span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(v[<span class="st">'values'</span>])<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sources</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    repeated <span class="op">=</span> src[<span class="st">"source_id"</span>].duplicated(keep<span class="op">=</span><span class="va">False</span>) <span class="op">&amp;</span> (src[<span class="st">"source_id"</span>] <span class="op">!=</span> <span class="st">""</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> repeated.<span class="bu">any</span>():</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        errors.append(<span class="ss">f"included_sources_raw.csv: source_id values repeated: </span><span class="sc">{</span>sample(src.loc[repeated, <span class="st">'source_id'</span>])<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> DEDUP.exists():</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        dedup_ids <span class="op">=</span> <span class="bu">set</span>(pd.read_csv(DEDUP, dtype<span class="op">=</span><span class="bu">str</span>)[<span class="st">"record_id"</span>])</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        unknown <span class="op">=</span> <span class="bu">set</span>(src[<span class="st">"record_id"</span>]) <span class="op">-</span> dedup_ids <span class="op">-</span> {<span class="st">""</span>}</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> unknown:</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>            errors.append(<span class="ss">f"included_sources_raw.csv: </span><span class="sc">{</span><span class="bu">len</span>(unknown)<span class="sc">}</span><span class="ss"> record_id value(s) are not in deduplicated_records.csv: </span><span class="sc">{</span>sample(unknown)<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        warnings.append(<span class="st">"deduplicated_records.csv not found, so record_id values were not checked."</span>)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> INCLUDED.exists():</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>        included <span class="op">=</span> <span class="bu">set</span>(pd.read_csv(INCLUDED, dtype<span class="op">=</span><span class="bu">str</span>)[<span class="st">"source_id"</span>])</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>        unknown <span class="op">=</span> <span class="bu">set</span>(src[<span class="st">"source_id"</span>]) <span class="op">-</span> included <span class="op">-</span> {<span class="st">""</span>}</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> unknown:</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>            errors.append(<span class="ss">f"included_sources_raw.csv: </span><span class="sc">{</span><span class="bu">len</span>(unknown)<span class="sc">}</span><span class="ss"> source_id value(s) were not included in screening: </span><span class="sc">{</span>sample(unknown)<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>        waiting <span class="op">=</span> included <span class="op">-</span> <span class="bu">set</span>(src[<span class="st">"source_id"</span>])</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> waiting:</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>            warnings.append(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(waiting)<span class="sc">}</span><span class="ss"> included source(s) are not charted yet: </span><span class="sc">{</span>sample(waiting)<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>        warnings.append(<span class="st">"included_reports.csv not found, so source_id values were not checked against screening."</span>)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Factors</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    unknown <span class="op">=</span> <span class="bu">set</span>(fac[<span class="st">"source_id"</span>]) <span class="op">-</span> <span class="bu">set</span>(src[<span class="st">"source_id"</span>]) <span class="op">-</span> {<span class="st">""</span>}</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> unknown:</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>        errors.append(<span class="ss">f"included_factors_raw.csv: </span><span class="sc">{</span><span class="bu">len</span>(unknown)<span class="sc">}</span><span class="ss"> source_id value(s) are not in included_sources_raw.csv: </span><span class="sc">{</span>sample(unknown)<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    without <span class="op">=</span> <span class="bu">set</span>(src[<span class="st">"source_id"</span>]) <span class="op">-</span> <span class="bu">set</span>(fac[<span class="st">"source_id"</span>]) <span class="op">-</span> {<span class="st">""</span>}</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> without:</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>        warnings.append(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(without)<span class="sc">}</span><span class="ss"> charted source(s) have no factor rows: </span><span class="sc">{</span>sample(without)<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>    same <span class="op">=</span> fac.duplicated([<span class="st">"source_id"</span>, <span class="st">"factor"</span>, <span class="st">"factor_type"</span>, <span class="st">"level"</span>], keep<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> same.<span class="bu">any</span>():</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>        warnings.append(<span class="ss">f"included_factors_raw.csv: </span><span class="sc">{</span><span class="bu">int</span>(same.<span class="bu">sum</span>())<span class="sc">}</span><span class="ss"> row(s) repeat another row (line </span><span class="sc">{</span>lines(same)<span class="sc">}</span><span class="ss">)."</span>)</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> col <span class="kw">in</span> (<span class="st">"factor_category"</span>, <span class="st">"level"</span>):</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>        n <span class="op">=</span> <span class="bu">int</span>((fac[col] <span class="op">==</span> <span class="st">""</span>).<span class="bu">sum</span>())</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n:</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>            warnings.append(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> factor row(s) have no </span><span class="sc">{</span>col<span class="sc">}</span><span class="ss"> yet."</span>)</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> w <span class="kw">in</span> warnings:</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Warning:"</span>, w)</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> errors:</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Fix these problems in the charting files, then run this notebook again:</span><span class="ch">\n</span><span class="st">- "</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">- "</span>.join(errors))</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"No errors found."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div id="f6783f59" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    clean.to_csv(OUT <span class="op">/</span> <span class="st">"included_sources_clean.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Wrote data/processed/included_sources_clean.csv"</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> DEDUP.exists():</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        keep <span class="op">=</span> [<span class="st">"record_id"</span>, <span class="st">"authors"</span>, <span class="st">"year"</span>, <span class="st">"title"</span>, <span class="st">"journal"</span>, <span class="st">"doi"</span>]</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        bib <span class="op">=</span> clean[[<span class="st">"source_id"</span>, <span class="st">"record_id"</span>]].merge(dedup[keep], on<span class="op">=</span><span class="st">"record_id"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        bib.to_csv(OUT <span class="op">/</span> <span class="st">"bibliography.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Wrote data/processed/bibliography.csv"</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        display(bib.head(<span class="dv">20</span>))</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"deduplicated_records.csv not found, so bibliography.csv was not written."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    src.to_csv(PROC <span class="op">/</span> <span class="st">"included_sources_clean.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    fac.to_csv(PROC <span class="op">/</span> <span class="st">"included_factors_clean.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Wrote data/processed/included_sources_clean.csv and included_factors_clean.csv"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> DEDUP.exists():</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        dedup <span class="op">=</span> pd.read_csv(DEDUP, dtype<span class="op">=</span><span class="bu">str</span>).fillna(<span class="st">""</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        keep <span class="op">=</span> [<span class="st">"record_id"</span>, <span class="st">"authors"</span>, <span class="st">"year"</span>, <span class="st">"title"</span>, <span class="st">"journal"</span>, <span class="st">"doi"</span>]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        bib <span class="op">=</span> src[[<span class="st">"source_id"</span>, <span class="st">"record_id"</span>]].merge(dedup[keep], on<span class="op">=</span><span class="st">"record_id"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        bib.to_csv(PROC <span class="op">/</span> <span class="st">"bibliography.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Wrote data/processed/bibliography.csv"</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        display(bib.head(<span class="dv">20</span>))</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"deduplicated_records.csv not found, so bibliography.csv was not written."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<div id="c0f3a002" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    display(src.groupby([<span class="st">"tier"</span>, <span class="st">"field"</span>]).size().rename(<span class="st">"sources"</span>).reset_index())</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(fac):</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        display(fac.groupby([<span class="st">"factor_type"</span>, <span class="st">"factor_category"</span>], dropna<span class="op">=</span><span class="va">False</span>).size().rename(<span class="st">"factors"</span>).reset_index())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 

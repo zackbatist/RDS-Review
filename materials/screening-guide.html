@@ -281,10 +281,11 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+<p><a href="../analysis/02-screening.html">02-screening</a> stops with an error when a full-text exclusion has a reason code that is not in this list.</p>
 </section>
 <section id="export-formats" class="level2">
 <h2 class="anchored" data-anchor-id="export-formats">Export formats</h2>
-<p>Export decisions from the screening tool into <code>data/raw/screening_exports/</code> as two CSV files with lowercase values. <a href="../analysis/02-screening.html">02-screening</a> reads them.</p>
+<p>Export decisions from the screening tool into <code>data/raw/screening_exports/</code> as CSV files with lowercase values. <a href="../analysis/02-screening.html">02-screening</a> reads them. The final files hold one row per record, with disagreements between reviewers already settled.</p>
 <p><strong><code>title_abstract.csv</code></strong></p>
 <table class="caption-top table">
 <thead>
@@ -339,6 +340,8 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+<p><strong>Reviewer files</strong></p>
+<p>When more than one person screens, export each reviewer’s own decisions as well. Name them <code>title_abstract_&lt;reviewer&gt;.csv</code> and <code>full_text_&lt;reviewer&gt;.csv</code>, for example <code>title_abstract_r1.csv</code>. They have the columns <code>record_id</code> and <code>decision</code>, and they may cover only a sample, such as a calibration set. With two or more reviewer files for a stage, the notebook reports percent agreement and Cohen’s kappa for each pair of reviewers and lists the records they disagree on. Reviewer files do not change the counts. The final files do.</p>
 
 
 </section>

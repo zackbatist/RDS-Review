@@ -251,35 +251,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This notebook reads every export in <code>data/raw/search_exports/</code>, merges duplicate records, and writes <code>data/processed/deduplicated_records.csv</code>. It also writes the identification counts to <code>data/processed/screening_counts.yaml</code>, which <a href="../analysis/02-screening.html">02 Screening</a> extends.</p>
+<p>This notebook reads every export in <code>data/raw/search_exports/</code>, merges duplicate records, and writes <code>data/processed/deduplicated_records.csv</code>. It also writes the identification counts to <code>data/processed/screening_counts.yaml</code>, which <a href="../analysis/02-screening.html">02 Screening</a> extends. Two audit files show what happened. <code>duplicate_groups.csv</code> lists every exported record with the <code>record_id</code> it was merged into and the reason. <code>possible_duplicates.csv</code> lists pairs that look alike but were not merged.</p>
 <section id="method" class="level2">
 <h2 class="anchored" data-anchor-id="method">Method</h2>
-<p>Each export is parsed into title, abstract, authors, year, journal, and DOI. Two records are duplicates when they share a normalized DOI, or when they share a normalized title and a publication year. Matches are transitive, so a record without a DOI joins the group of a record with one when their titles and years agree. The DOI is lowercased and stripped of any resolver prefix. The title is reduced to lowercase letters and digits after accents are removed. From each group the record with the longest abstract is kept. The <code>record_id</code> is a hash of the smallest DOI or title key in the group, so it stays the same when the same exports are processed again.</p>
-<p>The merge is written in Python with pandas and no other deduplication software. The table at the end lists merged groups for a spot check.</p>
+<p>Each export is parsed into title, abstract, authors, year, journal, volume, issue, pages, and DOI. Two records are linked as duplicates in three ways.</p>
+<ul>
+<li>They share a normalized DOI. The DOI is lowercased and stripped of any resolver prefix.</li>
+<li>They share a normalized title and publication year, when the title has at least 20 characters. The title is reduced to lowercase letters and digits after accents are removed.</li>
+<li><a href="https://github.com/CoLRev-Environment/bib-dedupe">bib-dedupe</a> labels them duplicates. It compares authors, title, journal, volume, issue, pages, year, and DOI with fuzzy matching, so it also links records that lack a DOI or differ in punctuation, capitalization, or journal abbreviation. The version used is printed at the end of this page.</li>
+</ul>
+<p>Links are transitive. Pairs that bib-dedupe labels “maybe” are not merged. A reviewer settles any pair, merged or not, in <code>data/raw/dedup_decisions.csv</code>, with the columns <code>member_a</code>, <code>member_b</code>, and <code>decision</code> (<code>merge</code> or <code>separate</code>). The member identifiers are in <code>duplicate_groups.csv</code> and <code>possible_duplicates.csv</code>.</p>
+<p>From each group, the record with the longest abstract supplies the fields, and any field it lacks is filled from the other records in the group.</p>
+<p>The <code>record_id</code> is a hash of the key of the earliest record in the group. Records are ordered by search date, file name, and key. The identifier does not change when a later search adds records or finds the same records again, as long as the earlier exports stay in <code>search_exports/</code>. If a later export links two groups that were separate, the identifier of the earlier group is kept and the other is retired. The notebook lists every identifier that changed since the previous run.</p>
 <div id="778cc1a1" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> hashlib</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> unicodedata</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rispy</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yaml</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>ROOT <span class="op">=</span> <span class="bu">next</span>(p <span class="cf">for</span> p <span class="kw">in</span> [Path.cwd(), <span class="op">*</span>Path.cwd().parents] <span class="cf">if</span> (p <span class="op">/</span> <span class="st">"_quarto.yml"</span>).exists())</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>RAW <span class="op">=</span> ROOT <span class="op">/</span> <span class="st">"data"</span> <span class="op">/</span> <span class="st">"raw"</span> <span class="op">/</span> <span class="st">"search_exports"</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>OUT <span class="op">=</span> ROOT <span class="op">/</span> <span class="st">"data"</span> <span class="op">/</span> <span class="st">"processed"</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>OUT.mkdir(parents<span class="op">=</span><span class="va">True</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>NAME <span class="op">=</span> re.<span class="bu">compile</span>(<span class="vs">r"</span><span class="dv">^</span><span class="kw">(</span><span class="fu">?P&lt;database&gt;</span><span class="dv">.</span><span class="op">+?</span><span class="kw">)</span><span class="vs">_</span><span class="kw">(</span><span class="fu">?P&lt;date&gt;</span><span class="dv">\d</span><span class="op">{4}</span><span class="vs">-</span><span class="dv">\d</span><span class="op">{2}</span><span class="vs">-</span><span class="dv">\d</span><span class="op">{2}</span><span class="kw">)</span>(?:<span class="vs">_</span><span class="kw">(</span><span class="fu">?P&lt;block&gt;</span><span class="pp">[A-Za-z0-9]</span><span class="op">+</span><span class="kw">)</span>)<span class="op">?</span><span class="dv">$</span><span class="vs">"</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>files <span class="op">=</span> <span class="bu">sorted</span>(p <span class="cf">for</span> p <span class="kw">in</span> RAW.glob(<span class="st">"*"</span>) <span class="cf">if</span> p.suffix.lower() <span class="kw">in</span> {<span class="st">".ris"</span>, <span class="st">".csv"</span>})</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>have_data <span class="op">=</span> <span class="bu">bool</span>(files)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(files)<span class="sc">}</span><span class="ss"> export file(s) found."</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"No exports found in data/raw/search_exports/. Add exports and render this notebook again."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> importlib.metadata <span class="im">import</span> version</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rispy</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yaml</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ROOT <span class="op">=</span> <span class="bu">next</span>(p <span class="cf">for</span> p <span class="kw">in</span> [Path.cwd(), <span class="op">*</span>Path.cwd().parents] <span class="cf">if</span> (p <span class="op">/</span> <span class="st">"_quarto.yml"</span>).exists())</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>RAW <span class="op">=</span> ROOT <span class="op">/</span> <span class="st">"data"</span> <span class="op">/</span> <span class="st">"raw"</span> <span class="op">/</span> <span class="st">"search_exports"</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>DECISIONS <span class="op">=</span> ROOT <span class="op">/</span> <span class="st">"data"</span> <span class="op">/</span> <span class="st">"raw"</span> <span class="op">/</span> <span class="st">"dedup_decisions.csv"</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>OUT <span class="op">=</span> ROOT <span class="op">/</span> <span class="st">"data"</span> <span class="op">/</span> <span class="st">"processed"</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>OUT.mkdir(parents<span class="op">=</span><span class="va">True</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>NAME <span class="op">=</span> re.<span class="bu">compile</span>(<span class="vs">r"</span><span class="dv">^</span><span class="kw">(</span><span class="fu">?P&lt;database&gt;</span><span class="dv">.</span><span class="op">+?</span><span class="kw">)</span><span class="vs">_</span><span class="kw">(</span><span class="fu">?P&lt;date&gt;</span><span class="dv">\d</span><span class="op">{4}</span><span class="vs">-</span><span class="dv">\d</span><span class="op">{2}</span><span class="vs">-</span><span class="dv">\d</span><span class="op">{2}</span><span class="kw">)</span>(?:<span class="vs">_</span><span class="kw">(</span><span class="fu">?P&lt;block&gt;</span><span class="pp">[A-Za-z0-9]</span><span class="op">+</span><span class="kw">)</span>)<span class="op">?</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>files <span class="op">=</span> <span class="bu">sorted</span>(p <span class="cf">for</span> p <span class="kw">in</span> RAW.glob(<span class="st">"*"</span>) <span class="cf">if</span> p.suffix.lower() <span class="kw">in</span> {<span class="st">".ris"</span>, <span class="st">".csv"</span>})</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>have_data <span class="op">=</span> <span class="bu">bool</span>(files)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(files)<span class="sc">}</span><span class="ss"> export file(s) found."</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"No exports found in data/raw/search_exports/. Add exports and render this notebook again."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>No exports found in data/raw/search_exports/. Add exports and render this notebook again.</code></pre>
@@ -288,190 +297,384 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="4f821ce8" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>FIELDS <span class="op">=</span> [<span class="st">"title"</span>, <span class="st">"abstract"</span>, <span class="st">"authors"</span>, <span class="st">"year"</span>, <span class="st">"journal"</span>, <span class="st">"doi"</span>]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>FIELDS <span class="op">=</span> [<span class="st">"title"</span>, <span class="st">"abstract"</span>, <span class="st">"authors"</span>, <span class="st">"year"</span>, <span class="st">"journal"</span>, <span class="st">"volume"</span>, <span class="st">"number"</span>, <span class="st">"pages"</span>, <span class="st">"doi"</span>]</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>CSV_COLUMNS <span class="op">=</span> {</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"title"</span>: [<span class="st">"title"</span>, <span class="st">"article title"</span>, <span class="st">"document title"</span>],</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"abstract"</span>: [<span class="st">"abstract"</span>],</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"authors"</span>: [<span class="st">"authors"</span>, <span class="st">"author full names"</span>, <span class="st">"author(s)"</span>, <span class="st">"author"</span>],</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"year"</span>: [<span class="st">"year"</span>, <span class="st">"publication year"</span>, <span class="st">"py"</span>],</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"journal"</span>: [<span class="st">"journal"</span>, <span class="st">"source title"</span>, <span class="st">"journal/book"</span>, <span class="st">"publication title"</span>],</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"doi"</span>: [<span class="st">"doi"</span>],</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>RIS_KEYS <span class="op">=</span> {</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"title"</span>: [<span class="st">"primary_title"</span>, <span class="st">"title"</span>, <span class="st">"translated_title"</span>],</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"abstract"</span>: [<span class="st">"abstract"</span>, <span class="st">"notes_abstract"</span>],</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"authors"</span>: [<span class="st">"authors"</span>, <span class="st">"first_authors"</span>],</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"year"</span>: [<span class="st">"year"</span>, <span class="st">"publication_year"</span>, <span class="st">"date"</span>],</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"journal"</span>: [<span class="st">"secondary_title"</span>, <span class="st">"journal_name"</span>, <span class="st">"alternate_title3"</span>, <span class="st">"alternate_title2"</span>],</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"doi"</span>: [<span class="st">"doi"</span>],</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> first(record, keys):</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> key <span class="kw">in</span> keys:</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        value <span class="op">=</span> record.get(key)</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> value:</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">"; "</span>.join(<span class="bu">map</span>(<span class="bu">str</span>, value)) <span class="cf">if</span> <span class="bu">isinstance</span>(value, <span class="bu">list</span>) <span class="cf">else</span> <span class="bu">str</span>(value)</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">""</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read_export(path):</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> path.suffix.lower() <span class="op">==</span> <span class="st">".ris"</span>:</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(path, encoding<span class="op">=</span><span class="st">"utf-8-sig"</span>) <span class="im">as</span> fh:</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>            rows <span class="op">=</span> [{f: first(r, RIS_KEYS[f]) <span class="cf">for</span> f <span class="kw">in</span> FIELDS} <span class="cf">for</span> r <span class="kw">in</span> rispy.load(fh)]</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> pd.DataFrame(rows, columns<span class="op">=</span>FIELDS)</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.read_csv(path, encoding<span class="op">=</span><span class="st">"utf-8-sig"</span>, dtype<span class="op">=</span><span class="bu">str</span>).fillna(<span class="st">""</span>)</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    lower <span class="op">=</span> {c.lower().strip(): c <span class="cf">for</span> c <span class="kw">in</span> df.columns}</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> pd.DataFrame(index<span class="op">=</span>df.index)</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> f <span class="kw">in</span> FIELDS:</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        col <span class="op">=</span> <span class="bu">next</span>((lower[c] <span class="cf">for</span> c <span class="kw">in</span> CSV_COLUMNS[f] <span class="cf">if</span> c <span class="kw">in</span> lower), <span class="va">None</span>)</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>        out[f] <span class="op">=</span> df[col] <span class="cf">if</span> col <span class="cf">else</span> <span class="st">""</span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> out</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"volume"</span>: [<span class="st">"volume"</span>],</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"number"</span>: [<span class="st">"issue"</span>, <span class="st">"number"</span>],</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"pages"</span>: [<span class="st">"pages"</span>, <span class="st">"page range"</span>],</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"doi"</span>: [<span class="st">"doi"</span>],</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>RIS_KEYS <span class="op">=</span> {</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"title"</span>: [<span class="st">"primary_title"</span>, <span class="st">"title"</span>, <span class="st">"translated_title"</span>],</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"abstract"</span>: [<span class="st">"abstract"</span>, <span class="st">"notes_abstract"</span>],</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"authors"</span>: [<span class="st">"authors"</span>, <span class="st">"first_authors"</span>],</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"year"</span>: [<span class="st">"year"</span>, <span class="st">"publication_year"</span>, <span class="st">"date"</span>],</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"journal"</span>: [<span class="st">"secondary_title"</span>, <span class="st">"journal_name"</span>, <span class="st">"alternate_title3"</span>, <span class="st">"alternate_title2"</span>],</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"volume"</span>: [<span class="st">"volume"</span>],</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"number"</span>: [<span class="st">"number"</span>, <span class="st">"issue"</span>],</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"doi"</span>: [<span class="st">"doi"</span>],</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> first(record, keys):</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> key <span class="kw">in</span> keys:</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        value <span class="op">=</span> record.get(key)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> value:</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">"; "</span>.join(<span class="bu">map</span>(<span class="bu">str</span>, value)) <span class="cf">if</span> <span class="bu">isinstance</span>(value, <span class="bu">list</span>) <span class="cf">else</span> <span class="bu">str</span>(value)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">""</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read_export(path):</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> path.suffix.lower() <span class="op">==</span> <span class="st">".ris"</span>:</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(path, encoding<span class="op">=</span><span class="st">"utf-8-sig"</span>) <span class="im">as</span> fh:</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>            entries <span class="op">=</span> rispy.load(fh)</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        rows <span class="op">=</span> []</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> r <span class="kw">in</span> entries:</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>            row <span class="op">=</span> {f: first(r, RIS_KEYS[f]) <span class="cf">for</span> f <span class="kw">in</span> FIELDS <span class="cf">if</span> f <span class="op">!=</span> <span class="st">"pages"</span>}</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>            start, end <span class="op">=</span> first(r, [<span class="st">"start_page"</span>]), first(r, [<span class="st">"end_page"</span>])</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>            row[<span class="st">"pages"</span>] <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>start<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>end<span class="sc">}</span><span class="ss">"</span> <span class="cf">if</span> start <span class="kw">and</span> end <span class="cf">else</span> start</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>            rows.append(row)</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> pd.DataFrame(rows, columns<span class="op">=</span>FIELDS)</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.read_csv(path, encoding<span class="op">=</span><span class="st">"utf-8-sig"</span>, dtype<span class="op">=</span><span class="bu">str</span>).fillna(<span class="st">""</span>)</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    lower <span class="op">=</span> {c.lower().strip(): c <span class="cf">for</span> c <span class="kw">in</span> df.columns}</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> column(names):</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>        col <span class="op">=</span> <span class="bu">next</span>((lower[c] <span class="cf">for</span> c <span class="kw">in</span> names <span class="cf">if</span> c <span class="kw">in</span> lower), <span class="va">None</span>)</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> df[col] <span class="cf">if</span> col <span class="cf">else</span> pd.Series(<span class="st">""</span>, index<span class="op">=</span>df.index)</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> pd.DataFrame({f: column(CSV_COLUMNS[f]) <span class="cf">for</span> f <span class="kw">in</span> FIELDS})</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (out[<span class="st">"pages"</span>] <span class="op">==</span> <span class="st">""</span>).<span class="bu">all</span>():</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>        start, end <span class="op">=</span> column([<span class="st">"page start"</span>]), column([<span class="st">"page end"</span>])</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>        out[<span class="st">"pages"</span>] <span class="op">=</span> start.where(end <span class="op">==</span> <span class="st">""</span>, start <span class="op">+</span> <span class="st">"-"</span> <span class="op">+</span> end)</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> out</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div id="15bb5105" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    frames <span class="op">=</span> []</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> p <span class="kw">in</span> files:</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> NAME.match(p.stem)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> m:</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f"</span><span class="sc">{</span>p<span class="sc">.</span>name<span class="sc">}</span><span class="ss">: name the file &lt;database&gt;_&lt;YYYY-MM-DD&gt;[_&lt;block&gt;], for example scopus_2026-11-02_A.ris"</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> read_export(p)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">"database"</span>] <span class="op">=</span> m[<span class="st">"database"</span>]</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">"search_date"</span>] <span class="op">=</span> m[<span class="st">"date"</span>]</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">"block"</span>] <span class="op">=</span> m[<span class="st">"block"</span>] <span class="kw">or</span> <span class="st">""</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">"file"</span>] <span class="op">=</span> p.name</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        frames.append(df)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    records <span class="op">=</span> pd.concat(frames, ignore_index<span class="op">=</span><span class="va">True</span>).fillna(<span class="st">""</span>).astype(<span class="bu">str</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> clean_doi(x):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x.strip().lower()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> re.sub(<span class="vs">r"</span><span class="dv">^</span><span class="kw">(</span><span class="vs">https</span><span class="op">?</span><span class="vs">://</span><span class="kw">(</span><span class="vs">dx</span><span class="ch">\.</span><span class="kw">)</span><span class="op">?</span><span class="vs">doi</span><span class="ch">\.</span><span class="vs">org/</span><span class="cf">|</span><span class="vs">doi:</span><span class="dv">\s</span><span class="op">*</span><span class="kw">)</span><span class="vs">"</span>, <span class="st">""</span>, x)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> title_key(x):</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> unicodedata.normalize(<span class="st">"NFKD"</span>, x).encode(<span class="st">"ascii"</span>, <span class="st">"ignore"</span>).decode().lower()</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> re.sub(<span class="vs">r"</span><span class="pp">[^a-z0-9]</span><span class="op">+</span><span class="vs">"</span>, <span class="st">""</span>, x)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> year4(x):</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> re.search(<span class="vs">r"</span><span class="dv">\d</span><span class="op">{4}</span><span class="vs">"</span>, x)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> m.group(<span class="dv">0</span>) <span class="cf">if</span> m <span class="cf">else</span> <span class="st">""</span></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> clean_doi(x):</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x.strip().lower()</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> re.sub(<span class="vs">r"</span><span class="dv">^</span><span class="kw">(</span><span class="vs">https</span><span class="op">?</span><span class="vs">://</span><span class="kw">(</span><span class="vs">dx</span><span class="ch">\.</span><span class="kw">)</span><span class="op">?</span><span class="vs">doi</span><span class="ch">\.</span><span class="vs">org/</span><span class="cf">|</span><span class="vs">doi:</span><span class="dv">\s</span><span class="op">*</span><span class="kw">)</span><span class="vs">"</span>, <span class="st">""</span>, x)</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> title_key(x):</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> unicodedata.normalize(<span class="st">"NFKD"</span>, x).encode(<span class="st">"ascii"</span>, <span class="st">"ignore"</span>).decode().lower()</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> re.sub(<span class="vs">r"</span><span class="pp">[^a-z0-9]</span><span class="op">+</span><span class="vs">"</span>, <span class="st">""</span>, x)</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> year4(x):</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> re.search(<span class="vs">r"</span><span class="dv">\d</span><span class="op">{4}</span><span class="vs">"</span>, x)</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> m.group(<span class="dv">0</span>) <span class="cf">if</span> m <span class="cf">else</span> <span class="st">""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>MIN_TITLE_CHARS <span class="op">=</span> <span class="dv">20</span>  <span class="co"># shorter titles are linked only by bib-dedupe, which also checks authors and journal</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    frames <span class="op">=</span> []</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> p <span class="kw">in</span> files:</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> NAME.match(p.stem)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> m:</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f"</span><span class="sc">{</span>p<span class="sc">.</span>name<span class="sc">}</span><span class="ss">: name the file &lt;database&gt;_&lt;YYYY-MM-DD&gt;[_&lt;block&gt;], for example scopus_2026-11-02_A.ris"</span>)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> read_export(p)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(df) <span class="kw">and</span> (df[<span class="st">"title"</span>].<span class="bu">str</span>.strip() <span class="op">==</span> <span class="st">""</span>).<span class="bu">all</span>():</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f"</span><span class="sc">{</span>p<span class="sc">.</span>name<span class="sc">}</span><span class="ss">: no titles were read. CSV exports need a title column."</span>)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">"database"</span>] <span class="op">=</span> m[<span class="st">"database"</span>]</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">"search_date"</span>] <span class="op">=</span> m[<span class="st">"date"</span>]</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">"block"</span>] <span class="op">=</span> m[<span class="st">"block"</span>] <span class="kw">or</span> <span class="st">""</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">"file"</span>] <span class="op">=</span> p.name</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">"row"</span>] <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(df) <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>        frames.append(df)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    records <span class="op">=</span> pd.concat(frames, ignore_index<span class="op">=</span><span class="va">True</span>).fillna(<span class="st">""</span>).astype(<span class="bu">str</span>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> records.empty:</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"The exports contain no records."</span>)</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    records[<span class="st">"row"</span>] <span class="op">=</span> records[<span class="st">"row"</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    records[<span class="st">"member_id"</span>] <span class="op">=</span> records[<span class="st">"file"</span>] <span class="op">+</span> <span class="st">"#"</span> <span class="op">+</span> records[<span class="st">"row"</span>].astype(<span class="bu">str</span>)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    records[<span class="st">"doi"</span>] <span class="op">=</span> records[<span class="st">"doi"</span>].<span class="bu">map</span>(clean_doi)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    records[<span class="st">"year"</span>] <span class="op">=</span> records[<span class="st">"year"</span>].<span class="bu">map</span>(year4)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    records[<span class="st">"tkey"</span>] <span class="op">=</span> records[<span class="st">"title"</span>].<span class="bu">map</span>(title_key)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    records[<span class="st">"abstract_len"</span>] <span class="op">=</span> records[<span class="st">"abstract"</span>].<span class="bu">str</span>.<span class="bu">len</span>()</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    long_title <span class="op">=</span> records[<span class="st">"tkey"</span>].<span class="bu">str</span>.<span class="bu">len</span>() <span class="op">&gt;=</span> MIN_TITLE_CHARS</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    records[<span class="st">"key"</span>] <span class="op">=</span> [</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"doi:</span><span class="sc">{</span>d<span class="sc">}</span><span class="ss">"</span> <span class="cf">if</span> d <span class="cf">else</span> <span class="ss">f"title:</span><span class="sc">{</span>t<span class="sc">}</span><span class="ss">:</span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">"</span> <span class="cf">if</span> ok <span class="kw">and</span> y <span class="cf">else</span> <span class="ss">f"row:</span><span class="sc">{</span>f<span class="sc">}</span><span class="ss">:</span><span class="sc">{</span>r<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> d, t, y, ok, f, r <span class="kw">in</span> <span class="bu">zip</span>(records[<span class="st">"doi"</span>], records[<span class="st">"tkey"</span>], records[<span class="st">"year"</span>], long_title, records[<span class="st">"file"</span>], records[<span class="st">"row"</span>])</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(records)<span class="sc">}</span><span class="ss"> exported record(s)."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="e373b347" class="cell" data-execution_count="4">
+<div id="c0f1a001" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    records[<span class="st">"doi"</span>] <span class="op">=</span> records[<span class="st">"doi"</span>].<span class="bu">map</span>(clean_doi)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    records[<span class="st">"year"</span>] <span class="op">=</span> records[<span class="st">"year"</span>].<span class="bu">map</span>(year4)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    records[<span class="st">"tkey"</span>] <span class="op">=</span> records[<span class="st">"title"</span>].<span class="bu">map</span>(title_key)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    records[<span class="st">"abstract_len"</span>] <span class="op">=</span> records[<span class="st">"abstract"</span>].<span class="bu">str</span>.<span class="bu">len</span>()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> bib_dedupe.bib_dedupe <span class="im">as</span> bd</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    position <span class="op">=</span> {m: i <span class="cf">for</span> i, m <span class="kw">in</span> <span class="bu">enumerate</span>(records[<span class="st">"member_id"</span>])}</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    pairs <span class="op">=</span> {}  <span class="co"># (i, j) -&gt; the reasons the two records are linked</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    parent <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="bu">len</span>(records)))</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> find(i):</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> parent[i] <span class="op">!=</span> i:</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            parent[i] <span class="op">=</span> parent[parent[i]]</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>            i <span class="op">=</span> parent[i]</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> i</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    seen <span class="op">=</span> {}</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, r <span class="kw">in</span> <span class="bu">enumerate</span>(records.itertuples()):</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        keys <span class="op">=</span> []</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> r.doi:</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>            keys.append((<span class="st">"doi"</span>, r.doi))</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> r.tkey <span class="kw">and</span> r.year:</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>            keys.append((<span class="st">"title"</span>, r.tkey, r.year))</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> k <span class="kw">in</span> keys:</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> k <span class="kw">in</span> seen:</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>                parent[find(i)] <span class="op">=</span> find(seen[k])</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>                seen[k] <span class="op">=</span> i</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    records[<span class="st">"group"</span>] <span class="op">=</span> [find(i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(records))]</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> group_key(g):</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        keys <span class="op">=</span> {<span class="ss">f"doi:</span><span class="sc">{</span>d<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> d <span class="kw">in</span> g[<span class="st">"doi"</span>] <span class="cf">if</span> d}</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>        keys <span class="op">|=</span> {<span class="ss">f"title:</span><span class="sc">{</span>t<span class="sc">}</span><span class="ss">:</span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> t, y <span class="kw">in</span> <span class="bu">zip</span>(g[<span class="st">"tkey"</span>], g[<span class="st">"year"</span>]) <span class="cf">if</span> t <span class="kw">and</span> y}</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">min</span>(keys) <span class="cf">if</span> keys <span class="cf">else</span> <span class="ss">f"row:</span><span class="sc">{</span>g[<span class="st">'file'</span>]<span class="sc">.</span>iloc[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">:</span><span class="sc">{</span>g<span class="sc">.</span>index[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    rows <span class="op">=</span> []</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _, g <span class="kw">in</span> records.groupby(<span class="st">"group"</span>, sort<span class="op">=</span><span class="va">False</span>):</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>        best <span class="op">=</span> g.sort_values(<span class="st">"abstract_len"</span>, ascending<span class="op">=</span><span class="va">False</span>).iloc[<span class="dv">0</span>]</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>        rows.append({</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>            <span class="st">"record_id"</span>: <span class="st">"R"</span> <span class="op">+</span> hashlib.sha1(group_key(g).encode()).hexdigest()[:<span class="dv">10</span>],</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>            <span class="st">"title"</span>: best[<span class="st">"title"</span>],</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>            <span class="st">"abstract"</span>: best[<span class="st">"abstract"</span>],</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>            <span class="st">"authors"</span>: best[<span class="st">"authors"</span>],</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>            <span class="st">"year"</span>: best[<span class="st">"year"</span>],</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>            <span class="st">"journal"</span>: best[<span class="st">"journal"</span>],</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>            <span class="st">"doi"</span>: <span class="bu">next</span>((d <span class="cf">for</span> d <span class="kw">in</span> g[<span class="st">"doi"</span>] <span class="cf">if</span> d), <span class="st">""</span>),</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>            <span class="st">"databases"</span>: <span class="st">"; "</span>.join(<span class="bu">sorted</span>(<span class="bu">set</span>(g[<span class="st">"database"</span>]))),</span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>            <span class="st">"blocks"</span>: <span class="st">"; "</span>.join(<span class="bu">sorted</span>(b <span class="cf">for</span> b <span class="kw">in</span> <span class="bu">set</span>(g[<span class="st">"block"</span>]) <span class="cf">if</span> b)),</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>            <span class="st">"n_exports"</span>: <span class="bu">len</span>(g),</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>        })</span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>    dedup <span class="op">=</span> pd.DataFrame(rows).sort_values(<span class="st">"record_id"</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    dedup.to_csv(OUT <span class="op">/</span> <span class="st">"deduplicated_records.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> link(i, j, why):</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">!=</span> j:</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>            pairs.setdefault((<span class="bu">min</span>(i, j), <span class="bu">max</span>(i, j)), <span class="bu">set</span>()).add(why)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1. Exact keys</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    first_with <span class="op">=</span> {}</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, r <span class="kw">in</span> <span class="bu">enumerate</span>(records.itertuples()):</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        keys <span class="op">=</span> []</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> r.doi:</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>            keys.append((<span class="st">"doi"</span>, r.doi))</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(r.tkey) <span class="op">&gt;=</span> MIN_TITLE_CHARS <span class="kw">and</span> r.year:</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>            keys.append((<span class="st">"title-year"</span>, r.tkey, r.year))</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> k <span class="kw">in</span> keys:</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> k <span class="kw">in</span> first_with:</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>                link(first_with[k], i, k[<span class="dv">0</span>])</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>                first_with[k] <span class="op">=</span> i</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2. bib-dedupe. One process, so the result does not depend on the number of processors.</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    maybe_pairs <span class="op">=</span> []</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(records) <span class="op">&gt;</span> <span class="dv">1</span>:</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>        bd_input <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ID"</span>: [<span class="bu">str</span>(i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(records))],</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ENTRYTYPE"</span>: <span class="st">"article"</span>,</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>            <span class="st">"title"</span>: records[<span class="st">"title"</span>],</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>            <span class="st">"author"</span>: records[<span class="st">"authors"</span>].<span class="bu">str</span>.replace(<span class="st">"; "</span>, <span class="st">" and "</span>, regex<span class="op">=</span><span class="va">False</span>),</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>            <span class="st">"year"</span>: records[<span class="st">"year"</span>],</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>            <span class="st">"journal"</span>: records[<span class="st">"journal"</span>],</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>            <span class="st">"volume"</span>: records[<span class="st">"volume"</span>],</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>            <span class="st">"number"</span>: records[<span class="st">"number"</span>],</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>            <span class="st">"pages"</span>: records[<span class="st">"pages"</span>],</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>            <span class="st">"doi"</span>: records[<span class="st">"doi"</span>],</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>            <span class="st">"abstract"</span>: records[<span class="st">"abstract"</span>],</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>            <span class="st">"search_set"</span>: <span class="st">""</span>,</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>        prepared <span class="op">=</span> bd.prep(bd_input, verbosity_level<span class="op">=</span><span class="dv">0</span>, cpu<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>        blocked <span class="op">=</span> bd.block(prepared, verbosity_level<span class="op">=</span><span class="dv">0</span>, cpu<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(blocked):</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>            matched <span class="op">=</span> bd.match(blocked, verbosity_level<span class="op">=</span><span class="dv">0</span>, cpu<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> r <span class="kw">in</span> matched.itertuples():</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> r.duplicate_label <span class="op">==</span> <span class="st">"duplicate"</span>:</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>                    link(<span class="bu">int</span>(r.ID_1), <span class="bu">int</span>(r.ID_2), <span class="st">"bib-dedupe"</span>)</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>                <span class="cf">elif</span> r.duplicate_label <span class="op">==</span> <span class="st">"maybe"</span>:</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>                    maybe_pairs.append((<span class="bu">min</span>(<span class="bu">int</span>(r.ID_1), <span class="bu">int</span>(r.ID_2)), <span class="bu">max</span>(<span class="bu">int</span>(r.ID_1), <span class="bu">int</span>(r.ID_2))))</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. Reviewer decisions</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>    decided <span class="op">=</span> {}</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> DECISIONS.exists():</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>        dec <span class="op">=</span> pd.read_csv(DECISIONS, dtype<span class="op">=</span><span class="bu">str</span>).fillna(<span class="st">""</span>)</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>        dec.columns <span class="op">=</span> [c.strip().lower() <span class="cf">for</span> c <span class="kw">in</span> dec.columns]</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>        absent <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> (<span class="st">"member_a"</span>, <span class="st">"member_b"</span>, <span class="st">"decision"</span>) <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> dec.columns]</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> absent:</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"dedup_decisions.csv is missing column(s): "</span> <span class="op">+</span> <span class="st">", "</span>.join(absent))</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>        dec <span class="op">=</span> dec.<span class="bu">apply</span>(<span class="kw">lambda</span> s: s.<span class="bu">str</span>.strip())</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>        dec[<span class="st">"decision"</span>] <span class="op">=</span> dec[<span class="st">"decision"</span>].<span class="bu">str</span>.lower()</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>        errs <span class="op">=</span> []</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> n, r <span class="kw">in</span> <span class="bu">enumerate</span>(dec.itertuples(), start<span class="op">=</span><span class="dv">2</span>):</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> r.member_a <span class="kw">not</span> <span class="kw">in</span> position <span class="kw">or</span> r.member_b <span class="kw">not</span> <span class="kw">in</span> position:</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>                errs.append(<span class="ss">f"line </span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">: member id not found in the exports"</span>)</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> r.member_a <span class="op">==</span> r.member_b:</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>                errs.append(<span class="ss">f"line </span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">: member_a and member_b are the same record"</span>)</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> r.decision <span class="kw">not</span> <span class="kw">in</span> (<span class="st">"merge"</span>, <span class="st">"separate"</span>):</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>                errs.append(<span class="ss">f"line </span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">: decision must be merge or separate"</span>)</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> errs:</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"dedup_decisions.csv has problems:</span><span class="ch">\n</span><span class="st">- "</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">- "</span>.join(errs))</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> r <span class="kw">in</span> dec.itertuples():</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>            i, j <span class="op">=</span> position[r.member_a], position[r.member_b]</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>            decided[(<span class="bu">min</span>(i, j), <span class="bu">max</span>(i, j))] <span class="op">=</span> r.decision</span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> r.decision <span class="op">==</span> <span class="st">"merge"</span>:</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>                link(i, j, <span class="st">"manual"</span>)</span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>                pairs.pop((<span class="bu">min</span>(i, j), <span class="bu">max</span>(i, j)), <span class="va">None</span>)</span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Group the linked records</span></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>    parent <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="bu">len</span>(records)))</span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> find(i):</span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> parent[i] <span class="op">!=</span> i:</span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>            parent[i] <span class="op">=</span> parent[parent[i]]</span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>            i <span class="op">=</span> parent[i]</span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> i</span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, j <span class="kw">in</span> pairs:</span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>        parent[find(i)] <span class="op">=</span> find(j)</span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>    records[<span class="st">"group"</span>] <span class="op">=</span> [find(i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(records))]</span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>    <span class="co"># A group needs a look when records are joined only by fuzzy matching or a reviewer decision</span></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>    exact_parent <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="bu">len</span>(records)))</span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> exact_find(i):</span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> exact_parent[i] <span class="op">!=</span> i:</span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>            exact_parent[i] <span class="op">=</span> exact_parent[exact_parent[i]]</span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>            i <span class="op">=</span> exact_parent[i]</span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> i</span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i, j), reasons <span class="kw">in</span> pairs.items():</span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> reasons <span class="op">&amp;</span> {<span class="st">"doi"</span>, <span class="st">"title-year"</span>}:</span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>            exact_parent[exact_find(i)] <span class="op">=</span> exact_find(j)</span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>    records[<span class="st">"exact_group"</span>] <span class="op">=</span> [exact_find(i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(records))]</span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>    still_joined <span class="op">=</span> [k <span class="cf">for</span> k, d <span class="kw">in</span> decided.items() <span class="cf">if</span> d <span class="op">==</span> <span class="st">"separate"</span> <span class="kw">and</span> find(k[<span class="dv">0</span>]) <span class="op">==</span> find(k[<span class="dv">1</span>])]</span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> still_joined:</span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>        names <span class="op">=</span> [<span class="ss">f"</span><span class="sc">{</span>records[<span class="st">'member_id'</span>][i]<span class="sc">}</span><span class="ss"> and </span><span class="sc">{</span>records[<span class="st">'member_id'</span>][j]<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> i, j <span class="kw">in</span> still_joined]</span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"These records are marked separate in dedup_decisions.csv but other links still join them: "</span> <span class="op">+</span> <span class="st">"; "</span>.join(names))</span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>    why <span class="op">=</span> {}</span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i, j), reasons <span class="kw">in</span> pairs.items():</span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>        why.setdefault(find(i), <span class="bu">set</span>()).update(reasons)</span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>    records[<span class="st">"matched_by"</span>] <span class="op">=</span> records[<span class="st">"group"</span>].<span class="bu">map</span>(<span class="kw">lambda</span> g: <span class="st">"; "</span>.join(<span class="bu">sorted</span>(why.get(g, ()))))</span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(pairs)<span class="sc">}</span><span class="ss"> link(s) between records, </span><span class="sc">{</span>records[<span class="st">'group'</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss"> group(s)."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="e373b347" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pick(g, best, col):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> best[col] <span class="kw">or</span> <span class="bu">next</span>((v <span class="cf">for</span> v <span class="kw">in</span> g[col] <span class="cf">if</span> v), <span class="st">""</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    ordered <span class="op">=</span> records.sort_values([<span class="st">"search_date"</span>, <span class="st">"file"</span>, <span class="st">"key"</span>, <span class="st">"row"</span>], kind<span class="op">=</span><span class="st">"stable"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    rows, members, used <span class="op">=</span> [], [], <span class="bu">set</span>()</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _, g <span class="kw">in</span> ordered.groupby(<span class="st">"group"</span>, sort<span class="op">=</span><span class="va">False</span>):</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        earliest <span class="op">=</span> g.iloc[<span class="dv">0</span>]</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        basis <span class="op">=</span> earliest[<span class="st">"key"</span>] <span class="cf">if</span> earliest[<span class="st">"key"</span>] <span class="kw">not</span> <span class="kw">in</span> used <span class="cf">else</span> <span class="ss">f"</span><span class="sc">{</span>earliest[<span class="st">'key'</span>]<span class="sc">}</span><span class="ss">|</span><span class="sc">{</span>earliest[<span class="st">'member_id'</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        used.add(earliest[<span class="st">"key"</span>])</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        rid <span class="op">=</span> <span class="st">"R"</span> <span class="op">+</span> hashlib.sha1(basis.encode()).hexdigest()[:<span class="dv">10</span>]</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        best <span class="op">=</span> g.sort_values(<span class="st">"abstract_len"</span>, ascending<span class="op">=</span><span class="va">False</span>, kind<span class="op">=</span><span class="st">"stable"</span>).iloc[<span class="dv">0</span>]</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        rows.append({</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">"record_id"</span>: rid,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>            <span class="st">"title"</span>: pick(g, best, <span class="st">"title"</span>),</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"abstract"</span>: pick(g, best, <span class="st">"abstract"</span>),</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"authors"</span>: pick(g, best, <span class="st">"authors"</span>),</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"year"</span>: pick(g, best, <span class="st">"year"</span>),</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"journal"</span>: pick(g, best, <span class="st">"journal"</span>),</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"doi"</span>: <span class="bu">next</span>((d <span class="cf">for</span> d <span class="kw">in</span> g[<span class="st">"doi"</span>] <span class="cf">if</span> d), <span class="st">""</span>),</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"databases"</span>: <span class="st">"; "</span>.join(<span class="bu">sorted</span>(<span class="bu">set</span>(g[<span class="st">"database"</span>]))),</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"blocks"</span>: <span class="st">"; "</span>.join(<span class="bu">sorted</span>(b <span class="cf">for</span> b <span class="kw">in</span> <span class="bu">set</span>(g[<span class="st">"block"</span>]) <span class="cf">if</span> b)),</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"first_seen"</span>: g[<span class="st">"search_date"</span>].<span class="bu">min</span>(),</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"n_exports"</span>: <span class="bu">len</span>(g),</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        members.append(g.assign(record_id<span class="op">=</span>rid, needs_review<span class="op">=</span><span class="st">"yes"</span> <span class="cf">if</span> g[<span class="st">"exact_group"</span>].nunique() <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">""</span>))</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    dedup <span class="op">=</span> pd.DataFrame(rows).sort_values(<span class="st">"record_id"</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    membership <span class="op">=</span> (</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        pd.concat(members)[[<span class="st">"record_id"</span>, <span class="st">"member_id"</span>, <span class="st">"database"</span>, <span class="st">"block"</span>, <span class="st">"search_date"</span>, <span class="st">"doi"</span>, <span class="st">"year"</span>, <span class="st">"title"</span>, <span class="st">"matched_by"</span>, <span class="st">"needs_review"</span>]]</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>        .sort_values([<span class="st">"record_id"</span>, <span class="st">"search_date"</span>, <span class="st">"member_id"</span>])</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        .reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> dedup[<span class="st">"record_id"</span>].duplicated().<span class="bu">any</span>():</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Two groups received the same record_id."</span>)</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(membership) <span class="op">!=</span> <span class="bu">len</span>(records) <span class="kw">or</span> membership[<span class="st">"member_id"</span>].duplicated().<span class="bu">any</span>():</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Some exported records were lost or counted twice while grouping."</span>)</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">int</span>(dedup[<span class="st">"n_exports"</span>].<span class="bu">sum</span>()) <span class="op">!=</span> <span class="bu">len</span>(records):</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"The group sizes do not add up to the number of exported records."</span>)</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    undecided <span class="op">=</span> [</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>        (i, j) <span class="cf">for</span> i, j <span class="kw">in</span> <span class="bu">sorted</span>(<span class="bu">set</span>(maybe_pairs))</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> find(i) <span class="op">!=</span> find(j) <span class="kw">and</span> (i, j) <span class="kw">not</span> <span class="kw">in</span> decided</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>    pick_cols <span class="op">=</span> [<span class="st">"member_id"</span>, <span class="st">"database"</span>, <span class="st">"year"</span>, <span class="st">"doi"</span>, <span class="st">"title"</span>]</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>    left <span class="op">=</span> records.loc[[i <span class="cf">for</span> i, _ <span class="kw">in</span> undecided], pick_cols].add_suffix(<span class="st">"_a"</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>    right <span class="op">=</span> records.loc[[j <span class="cf">for</span> _, j <span class="kw">in</span> undecided], pick_cols].add_suffix(<span class="st">"_b"</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>    possible <span class="op">=</span> pd.concat([left, right], axis<span class="op">=</span><span class="dv">1</span>).rename(columns<span class="op">=</span>{<span class="st">"member_id_a"</span>: <span class="st">"member_a"</span>, <span class="st">"member_id_b"</span>: <span class="st">"member_b"</span>})</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(dedup)<span class="sc">}</span><span class="ss"> unique record(s). </span><span class="sc">{</span><span class="bu">len</span>(possible)<span class="sc">}</span><span class="ss"> possible duplicate pair(s) not merged."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="c0f1a002" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Identifiers that changed since the previous run</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    changed <span class="op">=</span> pd.DataFrame(columns<span class="op">=</span>[<span class="st">"previous_id"</span>, <span class="st">"record_id"</span>, <span class="st">"previous_id_still_used"</span>])</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    previous_members <span class="op">=</span> OUT <span class="op">/</span> <span class="st">"duplicate_groups.csv"</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> previous_members.exists():</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        before <span class="op">=</span> pd.read_csv(previous_members, dtype<span class="op">=</span><span class="bu">str</span>).fillna(<span class="st">""</span>)[[<span class="st">"member_id"</span>, <span class="st">"record_id"</span>]]</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        both <span class="op">=</span> before.rename(columns<span class="op">=</span>{<span class="st">"record_id"</span>: <span class="st">"previous_id"</span>}).merge(membership[[<span class="st">"member_id"</span>, <span class="st">"record_id"</span>]], on<span class="op">=</span><span class="st">"member_id"</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        changed <span class="op">=</span> both[both[<span class="st">"previous_id"</span>] <span class="op">!=</span> both[<span class="st">"record_id"</span>]][[<span class="st">"previous_id"</span>, <span class="st">"record_id"</span>]].drop_duplicates().sort_values(<span class="st">"previous_id"</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        changed[<span class="st">"previous_id_still_used"</span>] <span class="op">=</span> changed[<span class="st">"previous_id"</span>].isin(<span class="bu">set</span>(membership[<span class="st">"record_id"</span>])).<span class="bu">map</span>({<span class="va">True</span>: <span class="st">"yes"</span>, <span class="va">False</span>: <span class="st">"no"</span>})</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    dedup.to_csv(OUT <span class="op">/</span> <span class="st">"deduplicated_records.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    membership.to_csv(previous_members, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    possible.to_csv(OUT <span class="op">/</span> <span class="st">"possible_duplicates.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Wrote deduplicated_records.csv, duplicate_groups.csv, and possible_duplicates.csv in data/processed/"</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(changed):</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"WARNING: </span><span class="sc">{</span><span class="bu">len</span>(changed)<span class="sc">}</span><span class="ss"> change(s) of record_id since the previous run, because groups were joined or split."</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Where previous_id_still_used is no, screening decisions and charted data that use the previous_id must be updated. Where it is yes, check that they still apply."</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        display(changed)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
 <section id="records-per-search" class="level2">
 <h2 class="anchored" data-anchor-id="records-per-search">Records per search</h2>
-<div id="fc739907" class="cell" data-execution_count="5">
+<div id="fc739907" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    by_export <span class="op">=</span> (</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        records.groupby([<span class="st">"database"</span>, <span class="st">"block"</span>, <span class="st">"search_date"</span>], as_index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        .size()</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        .rename(columns<span class="op">=</span>{<span class="st">"size"</span>: <span class="st">"records"</span>})</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    display(by_export)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    total, unique <span class="op">=</span> <span class="bu">len</span>(records), <span class="bu">len</span>(dedup)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Records identified: </span><span class="sc">{</span>total<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Duplicate records removed: </span><span class="sc">{</span>total <span class="op">-</span> unique<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Unique records: </span><span class="sc">{</span>unique<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    by_export <span class="op">=</span> (</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        records.groupby([<span class="st">"database"</span>, <span class="st">"block"</span>, <span class="st">"search_date"</span>], as_index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        .size()</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        .rename(columns<span class="op">=</span>{<span class="st">"size"</span>: <span class="st">"records"</span>})</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    display(by_export)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    total, unique <span class="op">=</span> <span class="bu">len</span>(records), <span class="bu">len</span>(dedup)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Records identified: </span><span class="sc">{</span>total<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Duplicate records removed: </span><span class="sc">{</span>total <span class="op">-</span> unique<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Unique records: </span><span class="sc">{</span>unique<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="955af6d1" class="cell" data-execution_count="6">
+<div id="955af6d1" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    path <span class="op">=</span> OUT <span class="op">/</span> <span class="st">"screening_counts.yaml"</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    counts <span class="op">=</span> (yaml.safe_load(path.read_text()) <span class="kw">or</span> {}) <span class="cf">if</span> path.exists() <span class="cf">else</span> {}</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    previous <span class="op">=</span> counts.get(<span class="st">"identification"</span>, {})</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    is_other <span class="op">=</span> by_export[<span class="st">"database"</span>].<span class="bu">str</span>.startswith(<span class="st">"other-"</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> entry(r, strip<span class="op">=</span><span class="va">False</span>):</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        name <span class="op">=</span> r.database.removeprefix(<span class="st">"other-"</span>) <span class="cf">if</span> strip <span class="cf">else</span> r.database</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> {<span class="st">"name"</span>: name, <span class="st">"block"</span>: r.block <span class="kw">or</span> <span class="va">None</span>, <span class="st">"search_date"</span>: r.search_date, <span class="st">"n"</span>: <span class="bu">int</span>(r.records)}</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    counts[<span class="st">"identification"</span>] <span class="op">=</span> {</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"databases"</span>: [entry(r) <span class="cf">for</span> r <span class="kw">in</span> by_export[<span class="op">~</span>is_other].itertuples()],</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"other_methods"</span>: [entry(r, strip<span class="op">=</span><span class="va">True</span>) <span class="cf">for</span> r <span class="kw">in</span> by_export[is_other].itertuples()],</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"duplicates_removed"</span>: <span class="bu">int</span>(total <span class="op">-</span> unique),</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"marked_ineligible_by_automation"</span>: previous.get(<span class="st">"marked_ineligible_by_automation"</span>, <span class="dv">0</span>),</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"removed_other_reasons"</span>: previous.get(<span class="st">"removed_other_reasons"</span>, <span class="dv">0</span>),</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    path.write_text(yaml.safe_dump(counts, sort_keys<span class="op">=</span><span class="va">False</span>))</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Wrote data/processed/screening_counts.yaml"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    path <span class="op">=</span> OUT <span class="op">/</span> <span class="st">"screening_counts.yaml"</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    previous <span class="op">=</span> ((yaml.safe_load(path.read_text()) <span class="kw">or</span> {}) <span class="cf">if</span> path.exists() <span class="cf">else</span> {}).get(<span class="st">"identification"</span>, {})</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    is_other <span class="op">=</span> by_export[<span class="st">"database"</span>].<span class="bu">str</span>.startswith(<span class="st">"other-"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> entry(r, strip<span class="op">=</span><span class="va">False</span>):</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        name <span class="op">=</span> r.database.removeprefix(<span class="st">"other-"</span>) <span class="cf">if</span> strip <span class="cf">else</span> r.database</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> {<span class="st">"name"</span>: name, <span class="st">"block"</span>: r.block <span class="kw">or</span> <span class="va">None</span>, <span class="st">"search_date"</span>: r.search_date, <span class="st">"n"</span>: <span class="bu">int</span>(r.records)}</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The record set may have changed, so the later sections are dropped. Run notebook 02 again to rebuild them.</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    counts <span class="op">=</span> {</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"identification"</span>: {</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">"databases"</span>: [entry(r) <span class="cf">for</span> r <span class="kw">in</span> by_export[<span class="op">~</span>is_other].itertuples()],</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">"other_methods"</span>: [entry(r, strip<span class="op">=</span><span class="va">True</span>) <span class="cf">for</span> r <span class="kw">in</span> by_export[is_other].itertuples()],</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">"duplicates_removed"</span>: <span class="bu">int</span>(total <span class="op">-</span> unique),</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>            <span class="st">"marked_ineligible_by_automation"</span>: previous.get(<span class="st">"marked_ineligible_by_automation"</span>, <span class="dv">0</span>),</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"removed_other_reasons"</span>: previous.get(<span class="st">"removed_other_reasons"</span>, <span class="dv">0</span>),</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"deduplication"</span>: <span class="ss">f"bib-dedupe </span><span class="sc">{</span>version(<span class="st">'bib-dedupe'</span>)<span class="sc">}</span><span class="ss">, with exact DOI and title-year keys"</span>,</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    path.write_text(yaml.safe_dump(counts, sort_keys<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Wrote data/processed/screening_counts.yaml"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
 <section id="merged-records-for-a-spot-check" class="level2">
 <h2 class="anchored" data-anchor-id="merged-records-for-a-spot-check">Merged records, for a spot check</h2>
-<div id="8643c82e" class="cell" data-execution_count="7">
+<p>Groups that would fall apart without fuzzy matching or a reviewer decision are the ones to check, and they are listed in full. Groups held together by a DOI or an exact title and year are counted by the keys they share. Every group is in <code>duplicate_groups.csv</code>, with <code>needs_review</code> marked.</p>
+<div id="8643c82e" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    merged <span class="op">=</span> dedup[dedup[<span class="st">"n_exports"</span>] <span class="op">&gt;</span> <span class="dv">1</span>][[<span class="st">"record_id"</span>, <span class="st">"title"</span>, <span class="st">"year"</span>, <span class="st">"databases"</span>, <span class="st">"n_exports"</span>]]</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> merged.empty:</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"No records were merged."</span>)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        display(merged.head(<span class="dv">25</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> have_data:</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    sizes <span class="op">=</span> membership.groupby(<span class="st">"record_id"</span>)[<span class="st">"member_id"</span>].transform(<span class="st">"size"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    merged <span class="op">=</span> membership[sizes <span class="op">&gt;</span> <span class="dv">1</span>]</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    summary <span class="op">=</span> merged.drop_duplicates(<span class="st">"record_id"</span>)[<span class="st">"matched_by"</span>].value_counts().rename_axis(<span class="st">"Linked by"</span>).reset_index(name<span class="op">=</span><span class="st">"groups"</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> summary.empty:</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"No records were merged."</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        display(summary)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        fuzzy <span class="op">=</span> merged[merged[<span class="st">"needs_review"</span>] <span class="op">==</span> <span class="st">"yes"</span>]</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(fuzzy):</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>fuzzy[<span class="st">'record_id'</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss"> group(s) are joined only by fuzzy matching or a reviewer decision:"</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">with</span> pd.option_context(<span class="st">"display.max_rows"</span>, <span class="va">None</span>, <span class="st">"display.max_colwidth"</span>, <span class="dv">90</span>):</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                display(fuzzy[[<span class="st">"record_id"</span>, <span class="st">"matched_by"</span>, <span class="st">"database"</span>, <span class="st">"year"</span>, <span class="st">"title"</span>]])</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(possible):</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(possible)<span class="sc">}</span><span class="ss"> possible duplicate pair(s) were not merged. Review possible_duplicates.csv and record the decisions in data/raw/dedup_decisions.csv."</span>)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Matching used bib-dedupe </span><span class="sc">{</span>version(<span class="st">'bib-dedupe'</span>)<span class="sc">}</span><span class="ss">."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 

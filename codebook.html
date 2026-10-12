@@ -202,8 +202,15 @@ div.csl-indent {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sources" id="toc-sources" class="nav-link active" data-scroll-target="#sources">Sources</a></li>
+  <li><a href="#factors" id="toc-factors" class="nav-link" data-scroll-target="#factors">Factors</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -228,13 +235,17 @@ div.csl-indent {
 
 
 <p>The codebook defines the charting form. It lists every variable charted for each included source of evidence, as PRISMA-ScR item 11 requires. The form is a draft and will be revised after piloting on a sample of sources.</p>
-<p>Each source is one row in <code>data/raw/included_sources_raw.csv</code>. Variables that take several values hold them in one cell, separated by semicolons. Closed variables take only the values listed below, in lowercase.</p>
+<p>The form has two tables, both CSV files in <code>data/raw/</code>. The sources table has one row per included source. The factors table has one row per factor that a source reports, so a source with five factors has five rows there. The tables are linked by <code>source_id</code>. Closed variables take only the values listed below, in lowercase. This page and <a href="./analysis/03-charting.html">03-charting</a> both read the variables from <code>codebook.yml</code>, so a change is made there once.</p>
+<section id="sources" class="level2">
+<h2 class="anchored" data-anchor-id="sources">Sources</h2>
+<p><code>included_sources_raw.csv</code>. One row per included source of evidence.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th>Variable</th>
 <th>Definition</th>
 <th>Allowed values</th>
+<th>Required</th>
 </tr>
 </thead>
 <tbody>
@@ -242,82 +253,131 @@ div.csl-indent {
 <td><code>source_id</code></td>
 <td>Identifier of the source of evidence. Reports of the same study share one <code>source_id</code>.</td>
 <td>Free text</td>
+<td>yes</td>
 </tr>
 <tr class="even">
 <td><code>record_id</code></td>
 <td>Identifier of the primary report in <code>deduplicated_records.csv</code>.</td>
 <td>Free text</td>
+<td>yes</td>
 </tr>
 <tr class="odd">
 <td><code>tier</code></td>
 <td>Context tier from the <a href="./research-protocol.html">protocol</a>.</td>
 <td><code>1</code>, <code>2</code></td>
+<td>yes</td>
 </tr>
 <tr class="even">
 <td><code>field</code></td>
 <td>Field of research the source concerns.</td>
 <td><code>health</code>, <code>other</code>, <code>cross-disciplinary</code></td>
+<td>yes</td>
 </tr>
 <tr class="odd">
 <td><code>field_detail</code></td>
 <td>Specific field or subfield, such as genomics or archaeology.</td>
 <td>Free text</td>
+<td>no</td>
 </tr>
 <tr class="even">
 <td><code>source_type</code></td>
 <td>Type of source.</td>
 <td><code>empirical</code>, <code>review</code>, <code>policy-guidance</code>, <code>opinion</code>, <code>other</code></td>
+<td>yes</td>
 </tr>
 <tr class="odd">
 <td><code>peer_reviewed</code></td>
 <td>Whether the source was peer reviewed.</td>
 <td><code>yes</code>, <code>no</code></td>
+<td>no</td>
 </tr>
 <tr class="even">
 <td><code>data_origin</code></td>
 <td>Origin of the data the source concerns. <code>research</code> means collected for research. <code>routine-reused</code> means collected for operational or care purposes and reused for research.</td>
 <td><code>research</code>, <code>routine-reused</code>, <code>mixed</code>, <code>unclear</code></td>
-</tr>
-<tr class="odd">
-<td><code>factor_types</code></td>
-<td>Kinds of factor the source reports.</td>
-<td><code>barrier</code>, <code>facilitator</code>, <code>governance-mechanism</code></td>
-</tr>
-<tr class="even">
-<td><code>factor_categories</code></td>
-<td>Initial categories from <span class="citation" data-cites="vanpanhuis2014">Panhuis et al. (<a href="#ref-vanpanhuis2014" role="doc-biblioref">2014</a>)</span>, revised during synthesis.</td>
-<td><code>technical</code>, <code>motivational</code>, <code>economic</code>, <code>political</code>, <code>legal</code>, <code>ethical</code>, <code>other</code></td>
-</tr>
-<tr class="odd">
-<td><code>level</code></td>
-<td>Level at which the factor operates. <code>system</code> covers national, sectoral, and international levels.</td>
-<td><code>individual</code>, <code>institutional</code>, <code>system</code></td>
-</tr>
-<tr class="even">
-<td><code>factors</code></td>
-<td>The specific factors the source reports, in the source’s words or a close paraphrase.</td>
-<td>Free text, semicolon-separated</td>
+<td>no</td>
 </tr>
 <tr class="odd">
 <td><code>region</code></td>
 <td>Country or region of the data, institutions, or participants.</td>
 <td>Free text</td>
+<td>no</td>
 </tr>
 <tr class="even">
 <td><code>notes</code></td>
 <td>Anything that affects interpretation.</td>
 <td>Free text</td>
+<td>no</td>
 </tr>
 </tbody>
 </table>
-<p><code>03-charting.ipynb</code> checks charted values against the closed lists above and reports any value that is not allowed. The lists are written in that notebook as well, so a change here needs the same change there.</p>
+</section>
+<section id="factors" class="level2">
+<h2 class="anchored" data-anchor-id="factors">Factors</h2>
+<p><code>included_factors_raw.csv</code>. One row per factor that a source reports. A source that reports five factors has five rows, each with its own type, category, and level.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Definition</th>
+<th>Allowed values</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>source_id</code></td>
+<td>The source that reports the factor. It must appear in <code>included_sources_raw.csv</code>.</td>
+<td>Free text</td>
+<td>yes</td>
+</tr>
+<tr class="even">
+<td><code>factor</code></td>
+<td>The specific factor, in the source’s words or a close paraphrase.</td>
+<td>Free text</td>
+<td>yes</td>
+</tr>
+<tr class="odd">
+<td><code>factor_type</code></td>
+<td>Kind of factor.</td>
+<td><code>barrier</code>, <code>facilitator</code>, <code>governance-mechanism</code></td>
+<td>yes</td>
+</tr>
+<tr class="even">
+<td><code>factor_category</code></td>
+<td>Initial categories from <span class="citation" data-cites="vanpanhuis2014">van Panhuis et al. (<a href="#ref-vanpanhuis2014" role="doc-biblioref">2014</a>)</span>, revised during synthesis. Left empty until the factor is coded.</td>
+<td><code>technical</code>, <code>motivational</code>, <code>economic</code>, <code>political</code>, <code>legal</code>, <code>ethical</code>, <code>other</code></td>
+<td>no</td>
+</tr>
+<tr class="odd">
+<td><code>level</code></td>
+<td>Level at which the factor operates. <code>system</code> covers national, sectoral, and international levels. When a source reports the same factor at two levels, enter one row for each.</td>
+<td><code>individual</code>, <code>institutional</code>, <code>system</code></td>
+<td>no</td>
+</tr>
+<tr class="even">
+<td><code>notes</code></td>
+<td>Anything that affects interpretation.</td>
+<td>Free text</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<p><code>03-charting.ipynb</code> stops with an error when a charted value is not allowed, a required cell is empty, or a <code>source_id</code> or <code>record_id</code> does not match the other files.</p>
 
 
 
+</section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-vanpanhuis2014" class="csl-entry" role="listitem">
-Panhuis, Willem G. van, Proma Paul, Claudia Emerson, et al. 2014. <span>“A Systematic Review of Barriers to Data Sharing in Public Health.”</span> <em>BMC Public Health</em> 14: 1144. <a href="https://doi.org/10.1186/1471-2458-14-1144">https://doi.org/10.1186/1471-2458-14-1144</a>.
+van Panhuis, Willem G., Proma Paul, Claudia Emerson, et al. 2014. <span>“A Systematic Review of Barriers to Data Sharing in Public Health.”</span> <em>BMC Public Health</em> 14: 1144. <a href="https://doi.org/10.1186/1471-2458-14-1144">https://doi.org/10.1186/1471-2458-14-1144</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
