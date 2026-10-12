@@ -52,6 +52,7 @@ Thumbs.db
 .vscode/
 /.quarto/
 _site/
+site_libs/
 _extensions/
 _freeze/
 .gdsheet

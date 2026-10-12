@@ -8,6 +8,7 @@ project:
     - "*.qmd"
     - "*.ipynb"
 
+lang: en-CA
 bibliography: assets/RDS-Review.bib
 csl: assets/chicago-author-date.csl
 
@@ -58,6 +59,7 @@ number-sections: false
 format:
   html:
     theme: cosmo
+    css: styles.css
     code-copy: true
     code-overflow: wrap
     page-layout: article

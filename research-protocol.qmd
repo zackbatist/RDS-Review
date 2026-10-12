@@ -34,7 +34,7 @@ The review follows the scoping review framework of @arksey2005 as refined by @le
 The criteria follow the population, concept, and context (PCC) structure that JBI recommends for scoping reviews.
 
 | Element | Criterion |
-|---|---|
+|:--------|:---------------------------------|
 | Population | No restriction. Sources may concern researchers, data stewards, institutions, or governance bodies. |
 | Concept | Factors that influence the sharing and reuse of research data, including barriers, facilitators, and governance mechanisms. Research data are data collected for research purposes under ethics oversight. |
 | Context, tier 1 | Health research. All source types are eligible. |
