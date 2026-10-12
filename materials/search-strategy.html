@@ -207,9 +207,15 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#search-blocks" id="toc-search-blocks" class="nav-link active" data-scroll-target="#search-blocks">Search blocks</a></li>
+  <li><a href="#queries" id="toc-queries" class="nav-link active" data-scroll-target="#queries">Queries</a></li>
   <li><a href="#databases-and-searches" id="toc-databases-and-searches" class="nav-link" data-scroll-target="#databases-and-searches">Databases and searches</a></li>
-  <li><a href="#search-strings" id="toc-search-strings" class="nav-link" data-scroll-target="#search-strings">Search strings</a></li>
+  <li><a href="#search-strings" id="toc-search-strings" class="nav-link" data-scroll-target="#search-strings">Search strings</a>
+  <ul class="collapse">
+  <li><a href="#generic-query" id="toc-generic-query" class="nav-link" data-scroll-target="#generic-query">Generic query</a></li>
+  <li><a href="#scopus" id="toc-scopus" class="nav-link" data-scroll-target="#scopus">Scopus</a></li>
+  <li><a href="#web-of-science" id="toc-web-of-science" class="nav-link" data-scroll-target="#web-of-science">Web of Science</a></li>
+  <li><a href="#pubmed" id="toc-pubmed" class="nav-link" data-scroll-target="#pubmed">PubMed</a></li>
+  </ul></li>
   <li><a href="#other-sources" id="toc-other-sources" class="nav-link" data-scroll-target="#other-sources">Other sources</a></li>
   <li><a href="#known-item-test" id="toc-known-item-test" class="nav-link" data-scroll-target="#known-item-test">Known-item test</a></li>
   <li><a href="#export-file-names" id="toc-export-file-names" class="nav-link" data-scroll-target="#export-file-names">Export file names</a></li>
@@ -239,124 +245,200 @@ div.csl-indent {
 
 
 <p>This page records every search, as PRISMA-S requires <span class="citation" data-cites="rethlefsen2021">(<a href="#ref-rethlefsen2021" role="doc-biblioref">Rethlefsen et al. 2021</a>)</span>. Each database search gets one row in the table and one entry under search strings. The record counts below are written by <a href="../analysis/01-deduplication.html">01-deduplication</a> from the exports in <code>data/raw/search_exports/</code>.</p>
-<section id="search-blocks" class="level2">
-<h2 class="anchored" data-anchor-id="search-blocks">Search blocks</h2>
-<p>Two blocks run in each database.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Block</th>
-<th>Concepts combined</th>
-<th>Limit</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>A</td>
-<td>Research data sharing and reuse; factors, barriers, facilitators, and governance; health research</td>
-<td>None on source type</td>
-</tr>
-<tr class="even">
-<td>B</td>
-<td>Research data sharing and reuse; factors, barriers, facilitators, and governance</td>
-<td>Review or synthesis filter; no health terms</td>
-</tr>
-</tbody>
-</table>
-<p>The query terms of <span class="citation" data-cites="vanpanhuis2014">van Panhuis et al. (<a href="#ref-vanpanhuis2014" role="doc-biblioref">2014</a>)</span> are the starting point for the factor terms. Their public health terms are replaced by research data terms.</p>
+<section id="queries" class="level2">
+<h2 class="anchored" data-anchor-id="queries">Queries</h2>
+<p>One query runs in each database for 2015 to 2025. It joins two blocks with AND. The first block holds “research data sharing” and related data concepts. The second holds factor terms. The query uses no health terms. The term “research data sharing” alone seeds the screening ranking.</p>
 </section>
 <section id="databases-and-searches" class="level2">
 <h2 class="anchored" data-anchor-id="databases-and-searches">Databases and searches</h2>
-<p>Databases are not yet selected. Add one row per database search.</p>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-</colgroup>
+<caption>Records retrieved per database, 2015 to 2025, before deduplication.</caption>
 <thead>
 <tr class="header">
-<th>Block</th>
-<th>Platform</th>
-<th>Database</th>
-<th>Coverage dates</th>
-<th>Search date</th>
-<th>Limits and filters</th>
-<th>Records</th>
+<th style="text-align: left;">Database</th>
+<th style="text-align: right;">Query</th>
+<th style="text-align: right;">Seed term</th>
+<th style="text-align: right;">Seed / query</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td style="text-align: left;">Scopus</td>
+<td style="text-align: right;">5,410</td>
+<td style="text-align: right;">267</td>
+<td style="text-align: right;">4.9%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Web of Science</td>
+<td style="text-align: right;">4,528</td>
+<td style="text-align: right;">182</td>
+<td style="text-align: right;">4.0%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PubMed</td>
+<td style="text-align: right;">2,250</td>
+<td style="text-align: right;">86</td>
+<td style="text-align: right;">3.8%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Total</strong></td>
+<td style="text-align: right;"><strong>12,188</strong></td>
+<td style="text-align: right;"><strong>535</strong></td>
+<td style="text-align: right;"><strong>4.4%</strong></td>
 </tr>
 </tbody>
 </table>
+<p>Platforms and search dates are to be added.</p>
 </section>
 <section id="search-strings" class="level2">
 <h2 class="anchored" data-anchor-id="search-strings">Search strings</h2>
-<p>Paste each string exactly as run, with the platform and the date. One entry per database and block.</p>
-<pre class="text"><code>Database, platform, block, date
-(string to be added)</code></pre>
+<p>The generic query is the database-neutral core of the three strings below. Each database adds its own field tags, date limits, and document type filters. The seed term strings are to be added.</p>
+<section id="generic-query" class="level3">
+<h3 class="anchored" data-anchor-id="generic-query">Generic query</h3>
+<pre class="text"><code>(
+  "research data sharing" OR "research data-sharing"
+  OR "open data" OR "data reuse" OR "data re-use"
+  OR "data curation" OR "digital curation"
+  OR "data management plan*"
+)
+AND
+(
+  barrier* OR challenge* OR obstacle*
+  OR facilitator* OR enabler* OR motivat* OR incentive*
+  OR attitude* OR perception* OR willingness OR reluctan*
+  OR mandate* OR policy OR policies
+  OR ethic* OR privacy OR consent OR licens*
+  OR infrastructure OR repositor* OR interoperab* OR stewardship
+)</code></pre>
+</section>
+<section id="scopus" class="level3">
+<h3 class="anchored" data-anchor-id="scopus">Scopus</h3>
+<pre class="text"><code>TITLE-ABS (
+  (
+    "research data sharing" OR "research data-sharing"
+    OR "open data" OR "data reuse" OR "data re-use"
+    OR "data curation" OR "digital curation"
+    OR "data management plan*"
+  )
+  AND
+  (
+    barrier* OR challenge* OR obstacle*
+    OR facilitator* OR enabler* OR motivat* OR incentive*
+    OR attitude* OR perception* OR willingness OR reluctan*
+    OR mandate* OR "policy" OR "policies"
+    OR ethic* OR privacy OR consent OR licens*
+    OR "infrastructure" OR repositor* OR interoperab* OR "stewardship"
+  )
+)
+AND PUBYEAR &gt; 2014 AND PUBYEAR &lt; 2026
+AND SRCTYPE ( j )
+AND NOT DOCTYPE ( tb )</code></pre>
+</section>
+<section id="web-of-science" class="level3">
+<h3 class="anchored" data-anchor-id="web-of-science">Web of Science</h3>
+<pre class="text"><code>(
+  TI=(
+    "research data sharing" OR "research data-sharing"
+    OR "open data" OR "data reuse" OR "data re-use"
+    OR "data curation" OR "digital curation"
+    OR "data management plan*"
+  )
+  OR
+  AB=(
+    "research data sharing" OR "research data-sharing"
+    OR "open data" OR "data reuse" OR "data re-use"
+    OR "data curation" OR "digital curation"
+    OR "data management plan*"
+  )
+)
+AND
+(
+  TI=(
+    barrier* OR challenge* OR obstacle*
+    OR facilitator* OR enabler* OR motivat* OR incentive*
+    OR attitude* OR perception* OR willingness OR reluctan*
+    OR mandate* OR "policy" OR "policies"
+    OR ethic* OR privacy OR consent OR licens*
+    OR "infrastructure" OR repositor* OR interoperab* OR "stewardship"
+  )
+  OR
+  AB=(
+    barrier* OR challenge* OR obstacle*
+    OR facilitator* OR enabler* OR motivat* OR incentive*
+    OR attitude* OR perception* OR willingness OR reluctan*
+    OR mandate* OR "policy" OR "policies"
+    OR ethic* OR privacy OR consent OR licens*
+    OR "infrastructure" OR repositor* OR interoperab* OR "stewardship"
+  )
+)
+AND PY=(2015-2025)
+AND DT=(Article OR Review)</code></pre>
+</section>
+<section id="pubmed" class="level3">
+<h3 class="anchored" data-anchor-id="pubmed">PubMed</h3>
+<pre class="text"><code>(
+  "research data sharing"[tiab] OR "research data-sharing"[tiab]
+  OR "open data"[tiab] OR "data reuse"[tiab] OR "data re-use"[tiab]
+  OR "data curation"[tiab] OR "digital curation"[tiab]
+  OR "data management plan"[tiab] OR "data management plans"[tiab]
+)
+AND
+(
+  barrier*[tiab] OR challenge*[tiab] OR obstacle*[tiab]
+  OR facilitator*[tiab] OR enabler*[tiab] OR motivat*[tiab] OR incentive*[tiab]
+  OR attitude*[tiab] OR perception*[tiab] OR willingness[tiab] OR reluctan*[tiab]
+  OR mandate*[tiab] OR policy[tiab] OR policies[tiab]
+  OR ethic*[tiab] OR privacy[tiab] OR consent[tiab] OR licens*[tiab]
+  OR infrastructure[tiab] OR repositor*[tiab] OR interoperab*[tiab] OR stewardship[tiab]
+)
+AND 2015:2025[dp]
+AND "Journal Article"[pt]</code></pre>
+</section>
 </section>
 <section id="other-sources" class="level2">
 <h2 class="anchored" data-anchor-id="other-sources">Other sources</h2>
-<p>Describe each supplementary method and how records were identified: citation searching of the included sources and of <span class="citation" data-cites="vanpanhuis2014">van Panhuis et al. (<a href="#ref-vanpanhuis2014" role="doc-biblioref">2014</a>)</span>, registries, websites, and contacts. Name export files for these sources with the prefix <code>other-</code>.</p>
+<p>Describe each supplementary method and how records were identified: citation searching of the included sources, registries, websites, and contacts. Name export files for these sources with the prefix <code>other-</code>.</p>
 </section>
 <section id="known-item-test" class="level2">
 <h2 class="anchored" data-anchor-id="known-item-test">Known-item test</h2>
-<p>Before the full searches run, the final strings are tested against these sources. The first two groups are in scope, so both blocks together should retrieve them. The last two groups are comparators or adjacent work, and retrieving them is not required.</p>
+<p>The final strings are tested against these sources. The first two groups are in scope, so the query should retrieve them. The last two groups are comparators or adjacent work, and retrieving them is not required.</p>
 <p><strong>Health research data sharing (tier 1)</strong></p>
 <ul>
-<li>Rowhani-Farid, Allen, and Barnett (2017). What incentives increase data sharing in health and medical research? A systematic review. doi:10.1186/s41073-017-0028-9</li>
-<li>Devriendt, Shabani, and Borry (2021). Data sharing in biomedical sciences: a systematic review of incentives. doi:10.1089/bio.2020.0037</li>
-<li>Kalkman et al.&nbsp;(2019). Responsible data sharing in international health research: a systematic review of principles and norms. BMC Medical Ethics 20(21)</li>
-<li>Hamilton et al.&nbsp;(2023). Prevalence and predictors of data and code sharing in the medical and health sciences: systematic review with meta-analysis of individual participant data. PMC10334349</li>
-<li>A systematic literature review of researchers’ and healthcare professionals’ attitudes towards the secondary use and sharing of health administrative and clinical trial data (2020). doi:10.1186/s13643-020-01485-5</li>
-<li>Saulnier et al.&nbsp;(2019). Benefits and barriers in the design of harmonized access agreements for international data sharing. doi:10.1038/s41597-019-0310-4</li>
-<li>Regulatory frameworks for clinical trial data sharing: scoping review. PMC9118011</li>
-<li>The anatomy of a data transfer agreement for health research. PMC11383768</li>
-<li>Andanda and Mlotshwa (2024). Streamlining the ethical-legal governance of cross-border health data sharing during global health emergencies. doi:10.1177/17470161241261907</li>
-<li>Initiatives, concepts, and implementation practices of the FAIR data principles in health data stewardship: scoping review. PMC10495848</li>
-<li>Scheibner et al.&nbsp;(2023). Does legislation impede data sharing in Australia across institutions and jurisdictions? A scoping review. Journal of Medical Systems 47(1): 116</li>
+<li>Rowhani-Farid, Allen, and Barnett (2017). What incentives increase data sharing in health and medical research? A systematic review. Research Integrity and Peer Review 2: 4. doi:10.1186/s41073-017-0028-9</li>
+<li>Devriendt, Shabani, and Borry (2021). Data sharing in biomedical sciences: a systematic review of incentives. Biopreservation and Biobanking 19(3): 219-227. doi:10.1089/bio.2020.0037</li>
+<li>Kalkman et al.&nbsp;(2019). Responsible data sharing in international health research: a systematic review of principles and norms. BMC Medical Ethics 20: 21. doi:10.1186/s12910-019-0359-9</li>
+<li>Hamilton et al.&nbsp;(2023). Prevalence and predictors of data and code sharing in the medical and health sciences: systematic review with meta-analysis of individual participant data. BMJ 382: e075767. doi:10.1136/bmj-2023-075767</li>
+<li>Hutchings et al.&nbsp;(2020). A systematic literature review of researchers’ and healthcare professionals’ attitudes towards the secondary use and sharing of health administrative and clinical trial data. Systematic Reviews 9: 240. doi:10.1186/s13643-020-01485-5</li>
+<li>Saulnier et al.&nbsp;(2019). Benefits and barriers in the design of harmonized access agreements for international data sharing. Scientific Data 6: 297. doi:10.1038/s41597-019-0310-4</li>
+<li>Gudi et al.&nbsp;(2022). Regulatory frameworks for clinical trial data sharing: scoping review. Journal of Medical Internet Research 24(5): e33591. doi:10.2196/33591</li>
+<li>Swales, Gooden, and Thaldar (2024). The anatomy of a data transfer agreement for health research. Frontiers in Pharmacology 15: 1332700. doi:10.3389/fphar.2024.1332700</li>
+<li>Andanda and Mlotshwa (2024). Streamlining the ethical-legal governance of cross-border health data sharing during global health emergencies. Research Ethics 20: 812-834. doi:10.1177/17470161241261907</li>
+<li>Inau et al.&nbsp;(2023). Initiatives, concepts, and implementation practices of the findable, accessible, interoperable, and reusable data principles in health data stewardship: scoping review. Journal of Medical Internet Research 25: e45013. doi:10.2196/45013</li>
+<li>Scheibner et al.&nbsp;(2023). Does legislation impede data sharing in Australia across institutions and jurisdictions? A scoping review. Journal of Medical Systems 47(1): 116. doi:10.1007/s10916-023-02009-z</li>
 </ul>
 <p><strong>Cross-disciplinary reviews (tier 2)</strong></p>
 <ul>
-<li>Fecher, Friesike, and Hebing (2015). What drives academic data sharing? PLoS ONE 10</li>
-<li>Zuiderwijk, Shinde, and Jeng (2020). What drives and inhibits researchers to share and use open research data? doi:10.1371/journal.pone.0239283</li>
-<li>Perrier, Blondal, and MacDonald (2020). The views, perspectives, and experiences of academic researchers with data sharing and reuse: a meta-synthesis. doi:10.1371/journal.pone.0229182</li>
-<li>Chawinga and Zinn (2019). A systematic literature review of barriers to research data sharing. Full citation to be added.</li>
-<li>Researcher attitudes toward data sharing in public data repositories: a meta-evaluation of studies on researcher data sharing. Journal of Documentation 78(7)</li>
+<li>Fecher, Friesike, and Hebing (2015). What drives academic data sharing? PLoS ONE 10(2): e0118053. doi:10.1371/journal.pone.0118053</li>
+<li>Zuiderwijk, Shinde, and Jeng (2020). What drives and inhibits researchers to share and use open research data? A systematic literature review to analyze factors influencing open research data adoption. PLoS ONE 15(9): e0239283. doi:10.1371/journal.pone.0239283</li>
+<li>Perrier, Blondal, and MacDonald (2020). The views, perspectives, and experiences of academic researchers with data sharing and reuse: a meta-synthesis. PLoS ONE 15(2): e0229182. doi:10.1371/journal.pone.0229182</li>
+<li>Chawinga and Zinn (2019). Global perspectives of research data sharing: a systematic literature review. Library &amp; Information Science Research 41(2): 109-122. doi:10.1016/j.lisr.2019.04.004</li>
+<li>Thøgersen and Borlund (2022). Researcher attitudes toward data sharing in public data repositories: a meta-evaluation of studies on researcher data sharing. Journal of Documentation 78(7). doi:10.1108/JD-01-2021-0015</li>
 </ul>
 <p><strong>Personal health data and data subjects (adjacent)</strong></p>
 <ul>
-<li>Stakeholders’ perceptions of personal health data sharing: a scoping review. PMC11578505</li>
-<li>Patient and public willingness to share personal health data for third-party or secondary uses: systematic review (2024). Journal of Medical Internet Research, e50421</li>
-<li>Health data sharing attitudes towards primary and secondary use of data: a systematic review (2024). eClinicalMedicine</li>
+<li>Alam et al.&nbsp;(2024). Stakeholders’ perceptions of personal health data sharing: a scoping review. PLOS Digital Health 3(11): e0000652. doi:10.1371/journal.pdig.0000652</li>
+<li>Baines et al.&nbsp;(2024). Patient and public willingness to share personal health data for third-party or secondary uses: systematic review. Journal of Medical Internet Research 26: e50421. doi:10.2196/50421</li>
+<li>Cascini et al.&nbsp;(2024). Health data sharing attitudes towards primary and secondary use of data: a systematic review. eClinicalMedicine 71: 102551. doi:10.1016/j.eclinm.2024.102551</li>
 </ul>
 <p><strong>Public health data (comparator)</strong></p>
 <ul>
-<li><span class="citation" data-cites="vanpanhuis2014">van Panhuis et al. (<a href="#ref-vanpanhuis2014" role="doc-biblioref">2014</a>)</span></li>
+<li>van Panhuis et al.&nbsp;(2014). A systematic review of barriers to data sharing in public health. BMC Public Health 14: 1144. doi:10.1186/1471-2458-14-1144</li>
 <li>Yehudi et al.&nbsp;(2025). COVID-19: an exploration of consecutive systemic barriers to pathogen-related data sharing during a pandemic. Data &amp; Policy 7: e4. doi:10.1017/dap.2024.79</li>
 </ul>
 </section>
 <section id="export-file-names" class="level2">
 <h2 class="anchored" data-anchor-id="export-file-names">Export file names</h2>
-<p>Name each export <code>&lt;database&gt;_&lt;YYYY-MM-DD&gt;[_&lt;block&gt;].&lt;ext&gt;</code>, for example <code>scopus_2026-11-02_A.ris</code>. The date is the search date. Supported formats are RIS and CSV. See the README in <code>data/raw/search_exports/</code>.</p>
+<p>Name each export <code>&lt;database&gt;_&lt;YYYY-MM-DD&gt;[_&lt;query&gt;].&lt;ext&gt;</code>, for example <code>scopus_2026-11-02_full.ris</code>. The date is the search date. Supported formats are RIS and CSV. See the README in <code>data/raw/search_exports/</code>.</p>
 
 
 
@@ -365,9 +447,6 @@ div.csl-indent {
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-rethlefsen2021" class="csl-entry" role="listitem">
 Rethlefsen, Melissa L., Shona Kirtley, Siw Waffenschmidt, et al. 2021. <span>“<span>PRISMA-S</span>: An Extension to the <span>PRISMA</span> Statement for Reporting Literature Searches in Systematic Reviews.”</span> <em>Systematic Reviews</em> 10: 39. <a href="https://doi.org/10.1186/s13643-020-01542-z">https://doi.org/10.1186/s13643-020-01542-z</a>.
-</div>
-<div id="ref-vanpanhuis2014" class="csl-entry" role="listitem">
-van Panhuis, Willem G., Proma Paul, Claudia Emerson, et al. 2014. <span>“A Systematic Review of Barriers to Data Sharing in Public Health.”</span> <em>BMC Public Health</em> 14: 1144. <a href="https://doi.org/10.1186/1471-2458-14-1144">https://doi.org/10.1186/1471-2458-14-1144</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
