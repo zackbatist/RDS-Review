@@ -10,7 +10,7 @@
 <meta name="author" content="Melissa Ouellet">
 <meta name="dcterms.date" content="2026-10-09">
 
-<title>Updating a Global Scoping Review of Research Data Sharing with Machine Learning Methods – RDS-Review</title>
+<title>Updating a Scoping Review of Research Data Sharing with Machine Learning Methods – RDS-Review</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -3882,7 +3882,14 @@ vertical-align: -.125em;
 text-align: justify;
 hyphens: auto;
 }
-</style>
+.compact-table table {
+font-size: 0.8em;
+width: auto;
+}
+.compact-table .table > :not(caption) > * > * {
+padding: 0.1rem 0.5rem;
+line-height: 1.2;
+}</style>
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -3894,7 +3901,7 @@ hyphens: auto;
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Updating a Global Scoping Review of Research Data Sharing with Machine Learning Methods</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Updating a Scoping Review of Research Data Sharing with Machine Learning Methods</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -4005,14 +4012,15 @@ hyphens: auto;
   <li><a href="#aim" id="toc-aim" class="nav-link active" data-scroll-target="#aim">Aim</a></li>
   <li><a href="#frameworks-and-tools" id="toc-frameworks-and-tools" class="nav-link" data-scroll-target="#frameworks-and-tools">Frameworks and Tools</a></li>
   <li><a href="#search-and-seed" id="toc-search-and-seed" class="nav-link" data-scroll-target="#search-and-seed">Search and Seed</a></li>
+  <li><a href="#manual-annotation-of-seed-sample" id="toc-manual-annotation-of-seed-sample" class="nav-link" data-scroll-target="#manual-annotation-of-seed-sample">Manual annotation of seed sample</a></li>
   <li><a href="#tools-and-frameworks" id="toc-tools-and-frameworks" class="nav-link" data-scroll-target="#tools-and-frameworks">Tools and Frameworks</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   <li><a href="#appendix-full-search-queries" id="toc-appendix-full-search-queries" class="nav-link" data-scroll-target="#appendix-full-search-queries">Appendix: Full Search Queries</a>
   <ul class="collapse">
-  <li><a href="#generic-full-query" id="toc-generic-full-query" class="nav-link" data-scroll-target="#generic-full-query">Generic Full Query</a></li>
-  <li><a href="#scopus-5410-records" id="toc-scopus-5410-records" class="nav-link" data-scroll-target="#scopus-5410-records">Scopus (5,410 records)</a></li>
-  <li><a href="#web-of-science-4528-records" id="toc-web-of-science-4528-records" class="nav-link" data-scroll-target="#web-of-science-4528-records">Web of Science (4,528 records)</a></li>
-  <li><a href="#pubmed-2250-records" id="toc-pubmed-2250-records" class="nav-link" data-scroll-target="#pubmed-2250-records">PubMed (2,250 records)</a></li>
+  <li><a href="#generic-queries" id="toc-generic-queries" class="nav-link" data-scroll-target="#generic-queries">Generic Queries</a></li>
+  <li><a href="#scopus-1723-records" id="toc-scopus-1723-records" class="nav-link" data-scroll-target="#scopus-1723-records">Scopus (1,723 records)</a></li>
+  <li><a href="#web-of-science-1420-records" id="toc-web-of-science-1420-records" class="nav-link" data-scroll-target="#web-of-science-1420-records">Web of Science (1,420 records)</a></li>
+  <li><a href="#pubmed-1049-records" id="toc-pubmed-1049-records" class="nav-link" data-scroll-target="#pubmed-1049-records">PubMed (1,049 records)</a></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="2026-10-09-rds-report.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
@@ -4022,7 +4030,7 @@ hyphens: auto;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Updating a Global Scoping Review of Research Data Sharing with Machine Learning Methods</h1>
+<h1 class="title">Updating a Scoping Review of Research Data Sharing with Machine Learning Methods</h1>
 </div>
 
 
@@ -4060,54 +4068,371 @@ hyphens: auto;
 
 <section id="aim" class="level2">
 <h2 class="anchored" data-anchor-id="aim">Aim</h2>
-<p>We are updating the 2019 global perspectives review of research data sharing <span class="citation" data-cites="chawinga2019">(<a href="#ref-chawinga2019" role="doc-biblioref">Chawinga and Zinn 2019</a>)</span> with scoping review methods from <span class="citation" data-cites="cavallaro2026">Cavallaro et al. (<a href="#ref-cavallaro2026" role="doc-biblioref">2026</a>)</span>. The 2019 review matches our focus on research data sharing, which makes it a strong candidate for an update. Our method draws on the 2026 protocol, which pairs machine learning screening with automated deduplication, and improves on it in two places: deduplication and seed generation.</p>
+<p>We are updating the 2019 review of research data sharing <span class="citation" data-cites="chawinga2019">(<a href="#ref-chawinga2019" role="doc-biblioref">Chawinga and Zinn 2019</a>)</span> with scoping review methods from <span class="citation" data-cites="cavallaro2026">Cavallaro et al. (<a href="#ref-cavallaro2026" role="doc-biblioref">2026</a>)</span>. The 2019 review matches our focus on research data sharing, which makes it a strong candidate for an update. Where it looks at differences across countries, we look at differences across research domains, with special attention on healthcare. Our method draws on the 2026 protocol, which pairs machine learning screening with automated deduplication, and improves on it in two places: deduplication and seed generation.</p>
 </section>
 <section id="frameworks-and-tools" class="level2">
 <h2 class="anchored" data-anchor-id="frameworks-and-tools">Frameworks and Tools</h2>
 <p>We follow the PRISMA extension for scoping reviews (PRISMA-ScR) and the Joanna Briggs Institute scoping review (JBI) methodology. Both are standard for scoping reviews, make the work reproducible, and are supported by a broad ecosystem of tools and resources.</p>
-<p>For deduplication we use ASySD (also used by <span class="citation" data-cites="perrier2017">Perrier et al. (<a href="#ref-perrier2017" role="doc-biblioref">2017</a>)</span>), which is more reproducible than the Zotero workflow in <span class="citation" data-cites="cavallaro2026">Cavallaro et al. (<a href="#ref-cavallaro2026" role="doc-biblioref">2026</a>)</span> and performs much better. ASReview uses machine learning to rank records by predicted relevance, a task where LLMs struggle with reproducibility. It needs a seed sample to initialize the ranking. <span class="citation" data-cites="cavallaro2026">Cavallaro et al. (<a href="#ref-cavallaro2026" role="doc-biblioref">2026</a>)</span> select their seed sample ad-hoc from the first 5% of deduplicated records.</p>
+<p>For deduplication we use ASySD (also used by <span class="citation" data-cites="perrier2017">Perrier et al. (<a href="#ref-perrier2017" role="doc-biblioref">2017</a>)</span>), that, in contrast with Zotero workflow used by <span class="citation" data-cites="cavallaro2026">Cavallaro et al. (<a href="#ref-cavallaro2026" role="doc-biblioref">2026</a>)</span>, is scriptable for reproducibility purposes. ASReview uses machine learning to rank records by predicted relevance, leveraging Naive Bayes text classification. It needs a seed sample to initialize the ranking. <span class="citation" data-cites="cavallaro2026">Cavallaro et al. (<a href="#ref-cavallaro2026" role="doc-biblioref">2026</a>)</span> select their seed sample ad-hoc from the first 5% of deduplicated records.</p>
 </section>
 <section id="search-and-seed" class="level2">
 <h2 class="anchored" data-anchor-id="search-and-seed">Search and Seed</h2>
-<p>The base query is the single term “research data sharing” (RDS), adopted from <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span>. The term stands on its own as the core concept of our focus. We then decided to create a full query comprising separate key terms into two blocks that combine logically with AND. The first block adds data-related concepts such as open data, data reuse, curation and data management plans to the RDS term. The second holds barriers, facilitators, policy, ethics and infrastructure terms. Both queries cover 2015 to 2025, which brackets the 2019 review. The generic query combining, including the terms used in the two blocks, is included in the appendix.</p>
-<p>The base RDS query alone serves as the seed. It returned 535 records against 12,188 for the full query (4.4%), close to the conventional 5%. A seed derived from a fixed keyword is reproducible, and its size lands where a seed sample should.</p>
+<p>All four queries build on <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span>. The base query takes their core term, “research data sharing” (RDS). The three concept queries extend that term with the vocabulary the field uses around it. Each pairs one key term (open data, data governance or open science) with “research data” or “data sharing” using AND, so a record must name both the concept and the data practice in its title or abstract. All four queries cover 2015 to 2025, which brackets the 2019 review and picks up where it left off. We ran them in PubMed, Scopus and Web of Science, translating field tags, date limits and document types for each database, and the appendix lists the full strings.</p>
+<p>The base RDS query alone serves as the seed. It returned 308 records against 4,192 for the four queries combined (7.3%), modestly above the conventional 5%. A seed derived from a fixed keyword is reproducible, and its size stays near where a seed sample should land.</p>
 <table class="caption-top table">
-<caption>Records retrieved per database, 2015 to 2025, before deduplication.</caption>
+<caption>Records retrieved per query and database, 2015 to 2025, before deduplication. Percentages give each query’s share of the database’s summed hits.</caption>
+<colgroup>
+<col style="width: 40%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Database</th>
-<th style="text-align: right;">Full query</th>
-<th style="text-align: right;">Base RDS query</th>
-<th style="text-align: right;">Base / Full</th>
+<th style="text-align: left;">Query</th>
+<th style="text-align: right;">PubMed N (% of col.)</th>
+<th style="text-align: right;">Scopus N (% of col.)</th>
+<th style="text-align: right;">WoS N (% of col.)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Scopus</td>
-<td style="text-align: right;">5,410</td>
-<td style="text-align: right;">267</td>
-<td style="text-align: right;">4.9%</td>
+<td style="text-align: left;">Q1 research data sharing</td>
+<td style="text-align: right;">64 (6.1%)</td>
+<td style="text-align: right;">135 (7.8%)</td>
+<td style="text-align: right;">109 (7.7%)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Web of Science</td>
-<td style="text-align: right;">4,528</td>
-<td style="text-align: right;">182</td>
-<td style="text-align: right;">4.0%</td>
+<td style="text-align: left;">Q2 open data</td>
+<td style="text-align: right;">352 (33.6%)</td>
+<td style="text-align: right;">644 (37.4%)</td>
+<td style="text-align: right;">564 (39.7%)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">PubMed</td>
-<td style="text-align: right;">2,250</td>
-<td style="text-align: right;">86</td>
-<td style="text-align: right;">3.8%</td>
+<td style="text-align: left;">Q3 data governance</td>
+<td style="text-align: right;">219 (20.9%)</td>
+<td style="text-align: right;">348 (20.2%)</td>
+<td style="text-align: right;">255 (18.0%)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Total</strong></td>
-<td style="text-align: right;"><strong>12,188</strong></td>
-<td style="text-align: right;"><strong>535</strong></td>
-<td style="text-align: right;"><strong>4.4%</strong></td>
+<td style="text-align: left;">Q4 open science</td>
+<td style="text-align: right;">414 (39.5%)</td>
+<td style="text-align: right;">596 (34.6%)</td>
+<td style="text-align: right;">492 (34.6%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Column total</strong></td>
+<td style="text-align: right;"><strong>1,049</strong></td>
+<td style="text-align: right;"><strong>1,723</strong></td>
+<td style="text-align: right;"><strong>1,420</strong></td>
 </tr>
 </tbody>
 </table>
+<p><strong>Note:</strong> All terms searched in titles and abstracts. Database-specific strings appear in the appendix. Results presented above have not yet been deduplicated.</p>
+<p>Q1: <code>&quot;research data sharing&quot; OR &quot;research data-sharing&quot;</code><br>
+Q2: <code>&quot;open data&quot; AND (&quot;research data&quot; OR &quot;data sharing&quot;)</code><br>
+Q3: <code>&quot;data governance&quot; AND (&quot;research data&quot; OR &quot;data sharing&quot;)</code><br>
+Q4: <code>&quot;open science&quot; AND (&quot;research data&quot; OR &quot;data sharing&quot;)</code></p>
+<p>We also checked candidate terms from earlier drafts of the query against the seed. <a href="#tbl-relevance-checks" class="quarto-xref">Table 1</a> shows how often each term appears in the records the base RDS query returned, which guided the four queries above.</p>
+<div class="compact-table">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Rank</th>
+<th style="text-align: left;">Term</th>
+<th style="text-align: right;">Total</th>
+<th style="text-align: right;">PubMed</th>
+<th style="text-align: right;">WoS</th>
+<th style="text-align: right;">Scopus</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<div id="tbl-relevance-checks" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-relevance-checks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 1: Candidate terms ranked by records matched across the three databases. Ties share a rank (=).
+</figcaption>
+<div aria-describedby="tbl-relevance-checks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Rank</th>
+<th style="text-align: left;">Term</th>
+<th style="text-align: right;">Total</th>
+<th style="text-align: right;">PubMed</th>
+<th style="text-align: right;">WoS</th>
+<th style="text-align: right;">Scopus</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">policies</td>
+<td style="text-align: right;">88</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">41</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">challenge*</td>
+<td style="text-align: right;">73</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">policy</td>
+<td style="text-align: right;">69</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">33</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">repositor*</td>
+<td style="text-align: right;">68</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">33</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">ethic*</td>
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">privacy</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">22</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">infrastructure</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">barrier*</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">19</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">perception*</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">open science</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">motivat*</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">17</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">interoperab*</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">“open data”</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">open access</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">consent</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">open research</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">licens*</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">17</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">attitude*</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">incentive*</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">mandate*</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">willingness</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">obstacle*</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23=</td>
+<td style="text-align: left;">“data reuse”</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">23=</td>
+<td style="text-align: left;">stewardship</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">“data management plan*”</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">26=</td>
+<td style="text-align: left;">“data curation”</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">26=</td>
+<td style="text-align: left;">facilitator*</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">28</td>
+<td style="text-align: left;">“data re-use”</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">29</td>
+<td style="text-align: left;">enabler*</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30</td>
+<td style="text-align: left;">reluctan*</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">31</td>
+<td style="text-align: left;">“digital curation”</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="manual-annotation-of-seed-sample" class="level2">
+<h2 class="anchored" data-anchor-id="manual-annotation-of-seed-sample">Manual annotation of seed sample</h2>
+<p>Terms from the second block of the prior draft query were implicitly grouped around five themes:</p>
+<ul>
+<li>Factors that obstruct</li>
+<li>Factors that facilitate</li>
+<li>Stakeholder perspectives</li>
+<li>Policies and what drive them</li>
+<li>Mechanisms for implementation</li>
+</ul>
+<p>We repurposed these themes so that they may inform the screening strategy for annotating the seed.</p>
 </section>
 <section id="tools-and-frameworks" class="level2">
 <h2 class="anchored" data-anchor-id="tools-and-frameworks">Tools and Frameworks</h2>
@@ -4135,107 +4460,122 @@ Perrier, Laure, Erik Blondal, A. Patricia Ayala, et al. 2017. <span>“Research 
 </section>
 <section id="appendix-full-search-queries" class="level2">
 <h2 class="anchored" data-anchor-id="appendix-full-search-queries">Appendix: Full Search Queries</h2>
-<section id="generic-full-query" class="level3">
-<h3 class="anchored" data-anchor-id="generic-full-query">Generic Full Query</h3>
-<p>Database-neutral core shared by the three queries below. Each database adds its own field tags, date limits and document type filters.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">&quot;research data sharing&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;research data-sharing&quot;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> <span class="ot">&quot;open data&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data reuse&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data re-use&quot;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> <span class="ot">&quot;data curation&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;digital curation&quot;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> <span class="ot">&quot;data management plan*&quot;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  barrier<span class="op">*</span> <span class="kw">OR</span> challenge<span class="op">*</span> <span class="kw">OR</span> obstacle<span class="op">*</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> facilitator<span class="op">*</span> <span class="kw">OR</span> enabler<span class="op">*</span> <span class="kw">OR</span> motivat<span class="op">*</span> <span class="kw">OR</span> incentive<span class="op">*</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> attitude<span class="op">*</span> <span class="kw">OR</span> perception<span class="op">*</span> <span class="kw">OR</span> willingness <span class="kw">OR</span> reluctan<span class="op">*</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> mandate<span class="op">*</span> <span class="kw">OR</span> policy <span class="kw">OR</span> policies</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> ethic<span class="op">*</span> <span class="kw">OR</span> privacy <span class="kw">OR</span> consent <span class="kw">OR</span> licens<span class="op">*</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> infrastructure <span class="kw">OR</span> repositor<span class="op">*</span> <span class="kw">OR</span> interoperab<span class="op">*</span> <span class="kw">OR</span> stewardship</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="generic-queries" class="level3">
+<h3 class="anchored" data-anchor-id="generic-queries">Generic Queries</h3>
+<p>Database-neutral core of the four queries. Each database adds its own field tags, date limits and document type filters. All terms are searched in titles and abstracts.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Q1: research data sharing (base RDS query)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ot">&quot;research data sharing&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;research data-sharing&quot;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- Q2: open data</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ot">&quot;open data&quot;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> (<span class="ot">&quot;research data&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data sharing&quot;</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- Q3: data governance</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ot">&quot;data governance&quot;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> (<span class="ot">&quot;research data&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data sharing&quot;</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">-- Q4: open science</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ot">&quot;open science&quot;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> (<span class="ot">&quot;research data&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data sharing&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="scopus-5410-records" class="level3">
-<h3 class="anchored" data-anchor-id="scopus-5410-records">Scopus (5,410 records)</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>TITLE<span class="op">-</span><span class="fu">ABS</span> (</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  (</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="ot">&quot;research data sharing&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;research data-sharing&quot;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> <span class="ot">&quot;open data&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data reuse&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data re-use&quot;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> <span class="ot">&quot;data curation&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;digital curation&quot;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> <span class="ot">&quot;data management plan*&quot;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  (</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    barrier<span class="op">*</span> <span class="kw">OR</span> challenge<span class="op">*</span> <span class="kw">OR</span> obstacle<span class="op">*</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> facilitator<span class="op">*</span> <span class="kw">OR</span> enabler<span class="op">*</span> <span class="kw">OR</span> motivat<span class="op">*</span> <span class="kw">OR</span> incentive<span class="op">*</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> attitude<span class="op">*</span> <span class="kw">OR</span> perception<span class="op">*</span> <span class="kw">OR</span> willingness <span class="kw">OR</span> reluctan<span class="op">*</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> mandate<span class="op">*</span> <span class="kw">OR</span> <span class="ot">&quot;policy&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;policies&quot;</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> ethic<span class="op">*</span> <span class="kw">OR</span> privacy <span class="kw">OR</span> consent <span class="kw">OR</span> licens<span class="op">*</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> <span class="ot">&quot;infrastructure&quot;</span> <span class="kw">OR</span> repositor<span class="op">*</span> <span class="kw">OR</span> interoperab<span class="op">*</span> <span class="kw">OR</span> <span class="ot">&quot;stewardship&quot;</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> PUBYEAR <span class="op">&gt;</span> <span class="dv">2014</span> <span class="kw">AND</span> PUBYEAR <span class="op">&lt;</span> <span class="dv">2026</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> SRCTYPE ( j )</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> <span class="kw">NOT</span> DOCTYPE ( tb )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="scopus-1723-records" class="level3">
+<h3 class="anchored" data-anchor-id="scopus-1723-records">Scopus (1,723 records)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Q1 (135 records)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>TITLE<span class="op">-</span><span class="fu">ABS</span> ( <span class="ot">&quot;research data sharing&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;research data-sharing&quot;</span> )</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> PUBYEAR <span class="op">&gt;</span> <span class="dv">2014</span> <span class="kw">AND</span> PUBYEAR <span class="op">&lt;</span> <span class="dv">2026</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> DOCTYPE ( ar <span class="kw">OR</span> re )</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Q2 (644 records)</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>TITLE<span class="op">-</span><span class="fu">ABS</span> ( <span class="ot">&quot;open data&quot;</span> )</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> TITLE<span class="op">-</span><span class="fu">ABS</span> ( <span class="ot">&quot;research data&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data sharing&quot;</span> )</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> PUBYEAR <span class="op">&gt;</span> <span class="dv">2014</span> <span class="kw">AND</span> PUBYEAR <span class="op">&lt;</span> <span class="dv">2026</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> DOCTYPE ( ar <span class="kw">OR</span> re )</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">-- Q3 (348 records)</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>TITLE<span class="op">-</span><span class="fu">ABS</span> ( <span class="ot">&quot;data governance&quot;</span> )</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> TITLE<span class="op">-</span><span class="fu">ABS</span> ( <span class="ot">&quot;research data&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data sharing&quot;</span> )</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> PUBYEAR <span class="op">&gt;</span> <span class="dv">2014</span> <span class="kw">AND</span> PUBYEAR <span class="op">&lt;</span> <span class="dv">2026</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> DOCTYPE ( ar <span class="kw">OR</span> re )</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">-- Q4 (596 records)</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>TITLE<span class="op">-</span><span class="fu">ABS</span> ( <span class="ot">&quot;open science&quot;</span> )</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> TITLE<span class="op">-</span><span class="fu">ABS</span> ( <span class="ot">&quot;research data&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data sharing&quot;</span> )</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> PUBYEAR <span class="op">&gt;</span> <span class="dv">2014</span> <span class="kw">AND</span> PUBYEAR <span class="op">&lt;</span> <span class="dv">2026</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> DOCTYPE ( ar <span class="kw">OR</span> re )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="web-of-science-4528-records" class="level3">
-<h3 class="anchored" data-anchor-id="web-of-science-4528-records">Web of Science (4,528 records)</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  TI<span class="op">=</span>(</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="ot">&quot;research data sharing&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;research data-sharing&quot;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> <span class="ot">&quot;open data&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data reuse&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data re-use&quot;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> <span class="ot">&quot;data curation&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;digital curation&quot;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> <span class="ot">&quot;data management plan*&quot;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  AB<span class="op">=</span>(</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="ot">&quot;research data sharing&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;research data-sharing&quot;</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> <span class="ot">&quot;open data&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data reuse&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data re-use&quot;</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> <span class="ot">&quot;data curation&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;digital curation&quot;</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> <span class="ot">&quot;data management plan*&quot;</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  TI<span class="op">=</span>(</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    barrier<span class="op">*</span> <span class="kw">OR</span> challenge<span class="op">*</span> <span class="kw">OR</span> obstacle<span class="op">*</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> facilitator<span class="op">*</span> <span class="kw">OR</span> enabler<span class="op">*</span> <span class="kw">OR</span> motivat<span class="op">*</span> <span class="kw">OR</span> incentive<span class="op">*</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> attitude<span class="op">*</span> <span class="kw">OR</span> perception<span class="op">*</span> <span class="kw">OR</span> willingness <span class="kw">OR</span> reluctan<span class="op">*</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> mandate<span class="op">*</span> <span class="kw">OR</span> <span class="ot">&quot;policy&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;policies&quot;</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> ethic<span class="op">*</span> <span class="kw">OR</span> privacy <span class="kw">OR</span> consent <span class="kw">OR</span> licens<span class="op">*</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> <span class="ot">&quot;infrastructure&quot;</span> <span class="kw">OR</span> repositor<span class="op">*</span> <span class="kw">OR</span> interoperab<span class="op">*</span> <span class="kw">OR</span> <span class="ot">&quot;stewardship&quot;</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  AB<span class="op">=</span>(</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    barrier<span class="op">*</span> <span class="kw">OR</span> challenge<span class="op">*</span> <span class="kw">OR</span> obstacle<span class="op">*</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> facilitator<span class="op">*</span> <span class="kw">OR</span> enabler<span class="op">*</span> <span class="kw">OR</span> motivat<span class="op">*</span> <span class="kw">OR</span> incentive<span class="op">*</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> attitude<span class="op">*</span> <span class="kw">OR</span> perception<span class="op">*</span> <span class="kw">OR</span> willingness <span class="kw">OR</span> reluctan<span class="op">*</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> mandate<span class="op">*</span> <span class="kw">OR</span> <span class="ot">&quot;policy&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;policies&quot;</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> ethic<span class="op">*</span> <span class="kw">OR</span> privacy <span class="kw">OR</span> consent <span class="kw">OR</span> licens<span class="op">*</span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">OR</span> <span class="ot">&quot;infrastructure&quot;</span> <span class="kw">OR</span> repositor<span class="op">*</span> <span class="kw">OR</span> interoperab<span class="op">*</span> <span class="kw">OR</span> <span class="ot">&quot;stewardship&quot;</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> PY<span class="op">=</span>(<span class="dv">2015</span><span class="op">-</span><span class="dv">2025</span>)</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> DT<span class="op">=</span>(Article <span class="kw">OR</span> Review)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="web-of-science-1420-records" class="level3">
+<h3 class="anchored" data-anchor-id="web-of-science-1420-records">Web of Science (1,420 records)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Q1 (109 records)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  TI<span class="op">=</span>( <span class="ot">&quot;research data sharing&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;research data-sharing&quot;</span> )</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> AB<span class="op">=</span>( <span class="ot">&quot;research data sharing&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;research data-sharing&quot;</span> )</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> PY<span class="op">=</span>(<span class="dv">2015</span><span class="op">-</span><span class="dv">2025</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> DT<span class="op">=</span>(Article <span class="kw">OR</span> Review)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">-- Q2 (564 records)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  TI<span class="op">=</span>( <span class="ot">&quot;open data&quot;</span> )</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> AB<span class="op">=</span>( <span class="ot">&quot;open data&quot;</span> )</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  TI<span class="op">=</span>( <span class="ot">&quot;research data&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data sharing&quot;</span> )</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> AB<span class="op">=</span>( <span class="ot">&quot;research data&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data sharing&quot;</span> )</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> PY<span class="op">=</span>(<span class="dv">2015</span><span class="op">-</span><span class="dv">2025</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> DT<span class="op">=</span>(Article <span class="kw">OR</span> Review)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">-- Q3 (255 records)</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  TI<span class="op">=</span>( <span class="ot">&quot;data governance&quot;</span> )</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> AB<span class="op">=</span>( <span class="ot">&quot;data governance&quot;</span> )</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  TI<span class="op">=</span>( <span class="ot">&quot;research data&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data sharing&quot;</span> )</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> AB<span class="op">=</span>( <span class="ot">&quot;research data&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data sharing&quot;</span> )</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> PY<span class="op">=</span>(<span class="dv">2015</span><span class="op">-</span><span class="dv">2025</span>)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> DT<span class="op">=</span>(Article <span class="kw">OR</span> Review)</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co">-- Q4 (492 records)</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>  TI<span class="op">=</span>( <span class="ot">&quot;open science&quot;</span> )</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> AB<span class="op">=</span>( <span class="ot">&quot;open science&quot;</span> )</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>  TI<span class="op">=</span>( <span class="ot">&quot;research data&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data sharing&quot;</span> )</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> AB<span class="op">=</span>( <span class="ot">&quot;research data&quot;</span> <span class="kw">OR</span> <span class="ot">&quot;data sharing&quot;</span> )</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> PY<span class="op">=</span>(<span class="dv">2015</span><span class="op">-</span><span class="dv">2025</span>)</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> DT<span class="op">=</span>(Article <span class="kw">OR</span> Review)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="pubmed-2250-records" class="level3">
-<h3 class="anchored" data-anchor-id="pubmed-2250-records">PubMed (2,250 records)</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">&quot;research data sharing&quot;</span>[tiab] <span class="kw">OR</span> <span class="ot">&quot;research data-sharing&quot;</span>[tiab]</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> <span class="ot">&quot;open data&quot;</span>[tiab] <span class="kw">OR</span> <span class="ot">&quot;data reuse&quot;</span>[tiab] <span class="kw">OR</span> <span class="ot">&quot;data re-use&quot;</span>[tiab]</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> <span class="ot">&quot;data curation&quot;</span>[tiab] <span class="kw">OR</span> <span class="ot">&quot;digital curation&quot;</span>[tiab]</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> <span class="ot">&quot;data management plan&quot;</span>[tiab] <span class="kw">OR</span> <span class="ot">&quot;data management plans&quot;</span>[tiab]</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  barrier<span class="op">*</span>[tiab] <span class="kw">OR</span> challenge<span class="op">*</span>[tiab] <span class="kw">OR</span> obstacle<span class="op">*</span>[tiab]</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> facilitator<span class="op">*</span>[tiab] <span class="kw">OR</span> enabler<span class="op">*</span>[tiab] <span class="kw">OR</span> motivat<span class="op">*</span>[tiab] <span class="kw">OR</span> incentive<span class="op">*</span>[tiab]</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> attitude<span class="op">*</span>[tiab] <span class="kw">OR</span> perception<span class="op">*</span>[tiab] <span class="kw">OR</span> willingness[tiab] <span class="kw">OR</span> reluctan<span class="op">*</span>[tiab]</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> mandate<span class="op">*</span>[tiab] <span class="kw">OR</span> policy[tiab] <span class="kw">OR</span> policies[tiab]</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> ethic<span class="op">*</span>[tiab] <span class="kw">OR</span> privacy[tiab] <span class="kw">OR</span> consent[tiab] <span class="kw">OR</span> licens<span class="op">*</span>[tiab]</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> infrastructure[tiab] <span class="kw">OR</span> repositor<span class="op">*</span>[tiab] <span class="kw">OR</span> interoperab<span class="op">*</span>[tiab] <span class="kw">OR</span> stewardship[tiab]</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> <span class="dv">2015</span><span class="ch">:2025</span>[dp]</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> <span class="ot">&quot;Journal Article&quot;</span>[pt]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="pubmed-1049-records" class="level3">
+<h3 class="anchored" data-anchor-id="pubmed-1049-records">PubMed (1,049 records)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Q1 (64 records)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>( <span class="ot">&quot;research data sharing&quot;</span>[tiab] <span class="kw">OR</span> <span class="ot">&quot;research data-sharing&quot;</span>[tiab] )</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> <span class="dv">2015</span><span class="ch">:2025</span>[dp]</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> <span class="ot">&quot;Journal Article&quot;</span>[pt]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Q2 (352 records)</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ot">&quot;open data&quot;</span>[tiab]</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> ( <span class="ot">&quot;research data&quot;</span>[tiab] <span class="kw">OR</span> <span class="ot">&quot;data sharing&quot;</span>[tiab] )</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> <span class="dv">2015</span><span class="ch">:2025</span>[dp]</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> <span class="ot">&quot;Journal Article&quot;</span>[pt]</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">-- Q3 (219 records)</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="ot">&quot;data governance&quot;</span>[tiab]</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> ( <span class="ot">&quot;research data&quot;</span>[tiab] <span class="kw">OR</span> <span class="ot">&quot;data sharing&quot;</span>[tiab] )</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> <span class="dv">2015</span><span class="ch">:2025</span>[dp]</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> <span class="ot">&quot;Journal Article&quot;</span>[pt]</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">-- Q4 (414 records)</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="ot">&quot;open science&quot;</span>[tiab]</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> ( <span class="ot">&quot;research data&quot;</span>[tiab] <span class="kw">OR</span> <span class="ot">&quot;data sharing&quot;</span>[tiab] )</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> <span class="dv">2015</span><span class="ch">:2025</span>[dp]</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> <span class="ot">&quot;Journal Article&quot;</span>[pt]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>
