@@ -1,5 +1,5 @@
 ---
-title: "Updating a Global Scoping Review of Research Data Sharing with Machine Learning Methods"
+title: "Updating a Scoping Review of Research Data Sharing with Machine Learning Methods"
 author:
   - "Zack Batist"
   - "Melissa Ouellet"
@@ -22,28 +22,91 @@ format:
 
 ## Aim
 
-We are updating the 2019 global perspectives review of research data sharing [@chawinga2019] with scoping review methods from @cavallaro2026. The 2019 review matches our focus on research data sharing, which makes it a strong candidate for an update. Our method draws on the 2026 protocol, which pairs machine learning screening with automated deduplication, and improves on it in two places: deduplication and seed generation.
+We are updating the 2019 review of research data sharing [@chawinga2019] with scoping review methods from @cavallaro2026. The 2019 review matches our focus on research data sharing, which makes it a strong candidate for an update. Where it looks at differences across countries, we look at differences across research domains, with special attention on healthcare. Our method draws on the 2026 protocol, which pairs machine learning screening with automated deduplication, and improves on it in two places: deduplication and seed generation.
 
 ## Frameworks and Tools
 
 We follow the PRISMA extension for scoping reviews (PRISMA-ScR) and the Joanna Briggs Institute scoping review (JBI) methodology. Both are standard for scoping reviews, make the work reproducible, and are supported by a broad ecosystem of tools and resources.
 
-For deduplication we use ASySD (also used by @perrier2017), which is more reproducible than the Zotero workflow in @cavallaro2026 and performs much better. ASReview uses machine learning to rank records by predicted relevance, a task where LLMs struggle with reproducibility. It needs a seed sample to initialize the ranking. @cavallaro2026 select their seed sample ad-hoc from the first 5% of deduplicated records.
+For deduplication we use ASySD (also used by @perrier2017), that, in contrast with Zotero workflow used by @cavallaro2026, is scriptable for reproducibility purposes. ASReview uses machine learning to rank records by predicted relevance, leveraging Naive Bayes text classification. It needs a seed sample to initialize the ranking. @cavallaro2026 select their seed sample ad-hoc from the first 5% of deduplicated records.
 
 ## Search and Seed
 
-The base query is the single term "research data sharing" (RDS), adopted from @chawinga2019. The term stands on its own as the core concept of our focus. We then decided to create a full query comprising separate key terms into two blocks that combine logically with AND. The first block adds data-related concepts such as open data, data reuse, curation and data management plans to the RDS term. The second holds barriers, facilitators, policy, ethics and infrastructure terms. Both queries cover 2015 to 2025, which brackets the 2019 review. The generic query combining, including the terms used in the two blocks, is included in the appendix.
+All four queries build on @chawinga2019. The base query takes their core term, "research data sharing" (RDS). The three concept queries extend that term with the vocabulary the field uses around it. Each pairs one key term (open data, data governance or open science) with "research data" or "data sharing" using AND, so a record must name both the concept and the data practice in its title or abstract. All four queries cover 2015 to 2025, which brackets the 2019 review and picks up where it left off. We ran them in PubMed, Scopus and Web of Science, translating field tags, date limits and document types for each database, and the appendix lists the full strings.
 
-The base RDS query alone serves as the seed. It returned 535 records against 12,188 for the full query (4.4%), close to the conventional 5%. A seed derived from a fixed keyword is reproducible, and its size lands where a seed sample should.
+The base RDS query alone serves as the seed. It returned 308 records against 4,192 for the four queries combined (7.3%), modestly above the conventional 5%. A seed derived from a fixed keyword is reproducible, and its size stays near where a seed sample should land.
 
-| Database | Full query | Base RDS query | Base / Full |
-|:---------------|-----------:|---------:|-----------:|
-| Scopus | 5,410 | 267 | 4.9% |
-| Web of Science | 4,528 | 182 | 4.0% |
-| PubMed | 2,250 | 86 | 3.8% |
-| **Total** | **12,188** | **535** | **4.4%** |
+| Query | PubMed N (% of col.) | Scopus N (% of col.) | WoS N (% of col.) |
+|:---------------------------|-------------:|-------------:|-------------:|
+| Q1 research data sharing | 64 (6.1%) | 135 (7.8%) | 109 (7.7%) |
+| Q2 open data | 352 (33.6%) | 644 (37.4%) | 564 (39.7%) |
+| Q3 data governance | 219 (20.9%) | 348 (20.2%) | 255 (18.0%) |
+| Q4 open science | 414 (39.5%) | 596 (34.6%) | 492 (34.6%) |
+| **Column total** | **1,049** | **1,723** | **1,420** |
 
-: Records retrieved per database, 2015 to 2025, before deduplication.
+: Records retrieved per query and database, 2015 to 2025, before deduplication. Percentages give each query's share of the database's summed hits.
+
+**Note:** All terms searched in titles and abstracts. Database-specific strings appear in the appendix. Results presented above have not yet been deduplicated.
+
+Q1: `"research data sharing" OR "research data-sharing"`\
+Q2: `"open data" AND ("research data" OR "data sharing")`\
+Q3: `"data governance" AND ("research data" OR "data sharing")`\
+Q4: `"open science" AND ("research data" OR "data sharing")`
+
+We also checked candidate terms from earlier drafts of the query against the seed. @tbl-relevance-checks shows how often each term appears in the records the base RDS query returned, which guided the four queries above.
+
+::: {.compact-table}
+| Rank | Term | Total | PubMed | WoS | Scopus |
+|--:|:--|--:|--:|--:|--:|
+
+| Rank | Term | Total | PubMed | WoS | Scopus |
+|--:|:--|--:|--:|--:|--:|
+| 1 | policies | 88 | 16 | 31 | 41 |
+| 2 | challenge* | 73 | 21 | 23 | 29 |
+| 3 | policy | 69 | 14 | 22 | 33 |
+| 4 | repositor* | 68 | 15 | 20 | 33 |
+| 5 | ethic* | 62 | 19 | 20 | 23 |
+| 6 | privacy | 52 | 15 | 15 | 22 |
+| 7 | infrastructure | 46 | 9 | 14 | 23 |
+| 8 | barrier* | 45 | 10 | 16 | 19 |
+| 9 | perception* | 42 | 9 | 15 | 18 |
+| 10 | open science | 41 | 5 | 15 | 21 |
+| 11 | motivat* | 37 | 5 | 15 | 17 |
+| 12 | interoperab* | 36 | 10 | 11 | 15 |
+| 13 | "open data" | 34 | 7 | 12 | 15 |
+| 14 | open access | 32 | 3 | 9 | 20 |
+| 15 | consent | 31 | 9 | 10 | 12 |
+| 16 | open research | 27 | 6 | 9 | 12 |
+| 17 | licens* | 25 | 3 | 5 | 17 |
+| 18 | attitude* | 23 | 3 | 9 | 11 |
+| 19 | incentive* | 21 | 3 | 6 | 12 |
+| 20 | mandate* | 17 | 4 | 6 | 7 |
+| 21 | willingness | 15 | 3 | 5 | 7 |
+| 22 | obstacle* | 12 | 4 | 3 | 5 |
+| 23= | "data reuse" | 10 | 0 | 4 | 6 |
+| 23= | stewardship | 10 | 3 | 3 | 4 |
+| 25 | "data management plan*" | 9 | 2 | 3 | 4 |
+| 26= | "data curation" | 8 | 2 | 3 | 3 |
+| 26= | facilitator* | 8 | 2 | 3 | 3 |
+| 28 | "data re-use" | 5 | 1 | 1 | 3 |
+| 29 | enabler* | 4 | 1 | 1 | 2 |
+| 30 | reluctan* | 3 | 1 | 1 | 1 |
+| 31 | "digital curation" | 0 | 0 | 0 | 0 |
+
+: Candidate terms ranked by records matched across the three databases. Ties share a rank (=). {#tbl-relevance-checks}
+:::
+
+## Manual annotation of seed sample
+
+Terms from the second block of the prior draft query were implicitly grouped around five themes:
+
+- Factors that obstruct
+- Factors that facilitate
+- Stakeholder perspectives
+- Policies and what drive them
+- Mechanisms for implementation
+
+We repurposed these themes so that they may inform the screening strategy for annotating the seed.
 
 ## Tools and Frameworks
 
@@ -60,113 +123,128 @@ The base RDS query alone serves as the seed. It returned 535 records against 12,
 
 ## Appendix: Full Search Queries
 
-### Generic Full Query
+### Generic Queries
 
-Database-neutral core shared by the three queries below. Each database adds its own field tags, date limits and document type filters.
+Database-neutral core of the four queries. Each database adds its own field tags, date limits and document type filters. All terms are searched in titles and abstracts.
 
 ```sql
-(
-  "research data sharing" OR "research data-sharing"
-  OR "open data" OR "data reuse" OR "data re-use"
-  OR "data curation" OR "digital curation"
-  OR "data management plan*"
-)
-AND
-(
-  barrier* OR challenge* OR obstacle*
-  OR facilitator* OR enabler* OR motivat* OR incentive*
-  OR attitude* OR perception* OR willingness OR reluctan*
-  OR mandate* OR policy OR policies
-  OR ethic* OR privacy OR consent OR licens*
-  OR infrastructure OR repositor* OR interoperab* OR stewardship
-)
+-- Q1: research data sharing (base RDS query)
+"research data sharing" OR "research data-sharing"
+
+-- Q2: open data
+"open data"
+AND ("research data" OR "data sharing")
+
+-- Q3: data governance
+"data governance"
+AND ("research data" OR "data sharing")
+
+-- Q4: open science
+"open science"
+AND ("research data" OR "data sharing")
 ```
 
-### Scopus (5,410 records)
+### Scopus (1,723 records)
 
 ```sql
-TITLE-ABS (
-  (
-    "research data sharing" OR "research data-sharing"
-    OR "open data" OR "data reuse" OR "data re-use"
-    OR "data curation" OR "digital curation"
-    OR "data management plan*"
-  )
-  AND
-  (
-    barrier* OR challenge* OR obstacle*
-    OR facilitator* OR enabler* OR motivat* OR incentive*
-    OR attitude* OR perception* OR willingness OR reluctan*
-    OR mandate* OR "policy" OR "policies"
-    OR ethic* OR privacy OR consent OR licens*
-    OR "infrastructure" OR repositor* OR interoperab* OR "stewardship"
-  )
-)
+-- Q1 (135 records)
+TITLE-ABS ( "research data sharing" OR "research data-sharing" )
 AND PUBYEAR > 2014 AND PUBYEAR < 2026
-AND SRCTYPE ( j )
-AND NOT DOCTYPE ( tb )
+AND DOCTYPE ( ar OR re )
+
+-- Q2 (644 records)
+TITLE-ABS ( "open data" )
+AND TITLE-ABS ( "research data" OR "data sharing" )
+AND PUBYEAR > 2014 AND PUBYEAR < 2026
+AND DOCTYPE ( ar OR re )
+
+-- Q3 (348 records)
+TITLE-ABS ( "data governance" )
+AND TITLE-ABS ( "research data" OR "data sharing" )
+AND PUBYEAR > 2014 AND PUBYEAR < 2026
+AND DOCTYPE ( ar OR re )
+
+-- Q4 (596 records)
+TITLE-ABS ( "open science" )
+AND TITLE-ABS ( "research data" OR "data sharing" )
+AND PUBYEAR > 2014 AND PUBYEAR < 2026
+AND DOCTYPE ( ar OR re )
 ```
 
-### Web of Science (4,528 records)
+### Web of Science (1,420 records)
 
 ```sql
+-- Q1 (109 records)
 (
-  TI=(
-    "research data sharing" OR "research data-sharing"
-    OR "open data" OR "data reuse" OR "data re-use"
-    OR "data curation" OR "digital curation"
-    OR "data management plan*"
-  )
-  OR
-  AB=(
-    "research data sharing" OR "research data-sharing"
-    OR "open data" OR "data reuse" OR "data re-use"
-    OR "data curation" OR "digital curation"
-    OR "data management plan*"
-  )
+  TI=( "research data sharing" OR "research data-sharing" )
+  OR AB=( "research data sharing" OR "research data-sharing" )
+)
+AND PY=(2015-2025)
+AND DT=(Article OR Review)
+
+-- Q2 (564 records)
+(
+  TI=( "open data" )
+  OR AB=( "open data" )
 )
 AND
 (
-  TI=(
-    barrier* OR challenge* OR obstacle*
-    OR facilitator* OR enabler* OR motivat* OR incentive*
-    OR attitude* OR perception* OR willingness OR reluctan*
-    OR mandate* OR "policy" OR "policies"
-    OR ethic* OR privacy OR consent OR licens*
-    OR "infrastructure" OR repositor* OR interoperab* OR "stewardship"
-  )
-  OR
-  AB=(
-    barrier* OR challenge* OR obstacle*
-    OR facilitator* OR enabler* OR motivat* OR incentive*
-    OR attitude* OR perception* OR willingness OR reluctan*
-    OR mandate* OR "policy" OR "policies"
-    OR ethic* OR privacy OR consent OR licens*
-    OR "infrastructure" OR repositor* OR interoperab* OR "stewardship"
-  )
+  TI=( "research data" OR "data sharing" )
+  OR AB=( "research data" OR "data sharing" )
+)
+AND PY=(2015-2025)
+AND DT=(Article OR Review)
+
+-- Q3 (255 records)
+(
+  TI=( "data governance" )
+  OR AB=( "data governance" )
+)
+AND
+(
+  TI=( "research data" OR "data sharing" )
+  OR AB=( "research data" OR "data sharing" )
+)
+AND PY=(2015-2025)
+AND DT=(Article OR Review)
+
+-- Q4 (492 records)
+(
+  TI=( "open science" )
+  OR AB=( "open science" )
+)
+AND
+(
+  TI=( "research data" OR "data sharing" )
+  OR AB=( "research data" OR "data sharing" )
 )
 AND PY=(2015-2025)
 AND DT=(Article OR Review)
 ```
 
-### PubMed (2,250 records)
+### PubMed (1,049 records)
 
 ```sql
-(
-  "research data sharing"[tiab] OR "research data-sharing"[tiab]
-  OR "open data"[tiab] OR "data reuse"[tiab] OR "data re-use"[tiab]
-  OR "data curation"[tiab] OR "digital curation"[tiab]
-  OR "data management plan"[tiab] OR "data management plans"[tiab]
-)
-AND
-(
-  barrier*[tiab] OR challenge*[tiab] OR obstacle*[tiab]
-  OR facilitator*[tiab] OR enabler*[tiab] OR motivat*[tiab] OR incentive*[tiab]
-  OR attitude*[tiab] OR perception*[tiab] OR willingness[tiab] OR reluctan*[tiab]
-  OR mandate*[tiab] OR policy[tiab] OR policies[tiab]
-  OR ethic*[tiab] OR privacy[tiab] OR consent[tiab] OR licens*[tiab]
-  OR infrastructure[tiab] OR repositor*[tiab] OR interoperab*[tiab] OR stewardship[tiab]
-)
+-- Q1 (64 records)
+( "research data sharing"[tiab] OR "research data-sharing"[tiab] )
+AND 2015:2025[dp]
+AND "Journal Article"[pt]
+
+-- Q2 (352 records)
+"open data"[tiab]
+AND ( "research data"[tiab] OR "data sharing"[tiab] )
+AND 2015:2025[dp]
+AND "Journal Article"[pt]
+
+-- Q3 (219 records)
+"data governance"[tiab]
+AND ( "research data"[tiab] OR "data sharing"[tiab] )
+AND 2015:2025[dp]
+AND "Journal Article"[pt]
+
+-- Q4 (414 records)
+"open science"[tiab]
+AND ( "research data"[tiab] OR "data sharing"[tiab] )
 AND 2015:2025[dp]
 AND "Journal Article"[pt]
 ```
