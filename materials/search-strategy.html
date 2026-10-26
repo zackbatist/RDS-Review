@@ -210,12 +210,14 @@ div.csl-indent {
   <ul>
   <li><a href="#queries" id="toc-queries" class="nav-link active" data-scroll-target="#queries">Queries</a></li>
   <li><a href="#databases-and-searches" id="toc-databases-and-searches" class="nav-link" data-scroll-target="#databases-and-searches">Databases and searches</a></li>
+  <li><a href="#seed" id="toc-seed" class="nav-link" data-scroll-target="#seed">Seed</a></li>
+  <li><a href="#candidate-terms" id="toc-candidate-terms" class="nav-link" data-scroll-target="#candidate-terms">Candidate terms</a></li>
   <li><a href="#search-strings" id="toc-search-strings" class="nav-link" data-scroll-target="#search-strings">Search strings</a>
   <ul class="collapse">
-  <li><a href="#generic-query" id="toc-generic-query" class="nav-link" data-scroll-target="#generic-query">Generic query</a></li>
-  <li><a href="#scopus" id="toc-scopus" class="nav-link" data-scroll-target="#scopus">Scopus</a></li>
-  <li><a href="#web-of-science" id="toc-web-of-science" class="nav-link" data-scroll-target="#web-of-science">Web of Science</a></li>
-  <li><a href="#pubmed" id="toc-pubmed" class="nav-link" data-scroll-target="#pubmed">PubMed</a></li>
+  <li><a href="#generic-queries" id="toc-generic-queries" class="nav-link" data-scroll-target="#generic-queries">Generic queries</a></li>
+  <li><a href="#scopus-1723-records" id="toc-scopus-1723-records" class="nav-link" data-scroll-target="#scopus-1723-records">Scopus (1,723 records)</a></li>
+  <li><a href="#web-of-science-1420-records" id="toc-web-of-science-1420-records" class="nav-link" data-scroll-target="#web-of-science-1420-records">Web of Science (1,420 records)</a></li>
+  <li><a href="#pubmed-1049-records" id="toc-pubmed-1049-records" class="nav-link" data-scroll-target="#pubmed-1049-records">PubMed (1,049 records)</a></li>
   </ul></li>
   <li><a href="#other-sources" id="toc-other-sources" class="nav-link" data-scroll-target="#other-sources">Other sources</a></li>
   <li><a href="#known-item-test" id="toc-known-item-test" class="nav-link" data-scroll-target="#known-item-test">Known-item test</a></li>
@@ -245,153 +247,461 @@ div.csl-indent {
 </header>
 
 
-<p>This page records every search, as PRISMA-S requires <span class="citation" data-cites="rethlefsen2021">(<a href="#ref-rethlefsen2021" role="doc-biblioref">Rethlefsen et al. 2021</a>)</span>. Each database search gets one row in the table and one entry under search strings. The record counts below are written by <a href="../analysis/01-deduplication.html">01-deduplication</a> from the exports in <code>data/raw/search_exports/</code>.</p>
+<p>This page records every search, as PRISMA-S requires <span class="citation" data-cites="rethlefsen2021">(<a href="#ref-rethlefsen2021" role="doc-biblioref">Rethlefsen et al. 2021</a>)</span>. Each query gets one row in the table, and each database gets one entry under search strings. The table counts are the records each database returned before deduplication. <a href="../analysis/01-deduplication.html">01-deduplication</a> writes the identification counts for the flow diagram from the exports in <code>data/raw/search_exports/</code> once the exports are in.</p>
 <section id="queries" class="level2">
 <h2 class="anchored" data-anchor-id="queries">Queries</h2>
-<p>One query runs in each database for 2015 to 2025. It joins two blocks with AND. The first block holds “research data sharing” and related data concepts. The second holds factor terms. The query uses no health terms. The term “research data sharing” alone seeds the screening ranking.</p>
+<p>Four queries run in each database for 2015 to 2025. All four build on <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span>. Q1 takes their core term, “research data sharing”, and serves as the base RDS query. Q2 to Q4 extend that term with the vocabulary the field uses around it. Each pairs one key term with “research data” or “data sharing” using AND, so a record must name both the concept and the data practice in its title or abstract. The date range brackets the 2019 review and picks up where it left off. The queries use no health terms. All terms are searched in titles and abstracts.</p>
 </section>
 <section id="databases-and-searches" class="level2">
 <h2 class="anchored" data-anchor-id="databases-and-searches">Databases and searches</h2>
 <table class="caption-top table">
-<caption>Records retrieved per database, 2015 to 2025, before deduplication.</caption>
+<caption>Records retrieved per query and database, 2015 to 2025, before deduplication. Percentages give each query’s share of the database’s summed hits.</caption>
+<colgroup>
+<col style="width: 40%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Database</th>
-<th style="text-align: right;">Query</th>
-<th style="text-align: right;">Seed term</th>
-<th style="text-align: right;">Seed / query</th>
+<th style="text-align: left;">Query</th>
+<th style="text-align: right;">PubMed N (% of col.)</th>
+<th style="text-align: right;">Scopus N (% of col.)</th>
+<th style="text-align: right;">WoS N (% of col.)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Scopus</td>
-<td style="text-align: right;">5,410</td>
-<td style="text-align: right;">267</td>
-<td style="text-align: right;">4.9%</td>
+<td style="text-align: left;">Q1 research data sharing</td>
+<td style="text-align: right;">64 (6.1%)</td>
+<td style="text-align: right;">135 (7.8%)</td>
+<td style="text-align: right;">109 (7.7%)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Web of Science</td>
-<td style="text-align: right;">4,528</td>
-<td style="text-align: right;">182</td>
-<td style="text-align: right;">4.0%</td>
+<td style="text-align: left;">Q2 open data</td>
+<td style="text-align: right;">352 (33.6%)</td>
+<td style="text-align: right;">644 (37.4%)</td>
+<td style="text-align: right;">564 (39.7%)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">PubMed</td>
-<td style="text-align: right;">2,250</td>
-<td style="text-align: right;">86</td>
-<td style="text-align: right;">3.8%</td>
+<td style="text-align: left;">Q3 data governance</td>
+<td style="text-align: right;">219 (20.9%)</td>
+<td style="text-align: right;">348 (20.2%)</td>
+<td style="text-align: right;">255 (18.0%)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Total</strong></td>
-<td style="text-align: right;"><strong>12,188</strong></td>
-<td style="text-align: right;"><strong>535</strong></td>
-<td style="text-align: right;"><strong>4.4%</strong></td>
+<td style="text-align: left;">Q4 open science</td>
+<td style="text-align: right;">414 (39.5%)</td>
+<td style="text-align: right;">596 (34.6%)</td>
+<td style="text-align: right;">492 (34.6%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Column total</strong></td>
+<td style="text-align: right;"><strong>1,049</strong></td>
+<td style="text-align: right;"><strong>1,723</strong></td>
+<td style="text-align: right;"><strong>1,420</strong></td>
 </tr>
 </tbody>
 </table>
 <p>Platforms and search dates are to be added.</p>
 </section>
+<section id="seed" class="level2">
+<h2 class="anchored" data-anchor-id="seed">Seed</h2>
+<p>The base RDS query (Q1) alone serves as the seed for the screening ranking. It returned 308 records against 4,192 for the four queries combined (7.3%), modestly above the conventional 5%. A seed derived from a fixed keyword is reproducible, and its size stays near where a seed sample should land.</p>
+</section>
+<section id="candidate-terms" class="level2">
+<h2 class="anchored" data-anchor-id="candidate-terms">Candidate terms</h2>
+<p>Candidate terms from earlier drafts of the query were checked against the seed. <a href="#tbl-relevance-checks" class="quarto-xref">Table&nbsp;1</a> shows how often each term appears in the records the base RDS query returned, which guided the four queries above.</p>
+<div class="compact-table">
+<div id="tbl-relevance-checks" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-relevance-checks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Candidate terms ranked by records matched across the three databases. Ties share a rank (=).
+</figcaption>
+<div aria-describedby="tbl-relevance-checks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Rank</th>
+<th style="text-align: left;">Term</th>
+<th style="text-align: right;">Total</th>
+<th style="text-align: right;">PubMed</th>
+<th style="text-align: right;">WoS</th>
+<th style="text-align: right;">Scopus</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">policies</td>
+<td style="text-align: right;">88</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">41</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">challenge*</td>
+<td style="text-align: right;">73</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">policy</td>
+<td style="text-align: right;">69</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">33</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">repositor*</td>
+<td style="text-align: right;">68</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">33</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">ethic*</td>
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">privacy</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">22</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">infrastructure</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">barrier*</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">19</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">perception*</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">open science</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">motivat*</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">17</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">interoperab*</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">“open data”</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">open access</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">consent</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">open research</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">licens*</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">17</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">attitude*</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">incentive*</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">mandate*</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">willingness</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">obstacle*</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23=</td>
+<td style="text-align: left;">“data reuse”</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">23=</td>
+<td style="text-align: left;">stewardship</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">“data management plan*”</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">26=</td>
+<td style="text-align: left;">“data curation”</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">26=</td>
+<td style="text-align: left;">facilitator*</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">28</td>
+<td style="text-align: left;">“data re-use”</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">29</td>
+<td style="text-align: left;">enabler*</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30</td>
+<td style="text-align: left;">reluctan*</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">31</td>
+<td style="text-align: left;">“digital curation”</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+</section>
 <section id="search-strings" class="level2">
 <h2 class="anchored" data-anchor-id="search-strings">Search strings</h2>
-<p>The generic query is the database-neutral core of the three strings below. Each database adds its own field tags, date limits, and document type filters. The seed term strings are to be added.</p>
-<section id="generic-query" class="level3">
-<h3 class="anchored" data-anchor-id="generic-query">Generic query</h3>
-<pre class="text"><code>(
-  "research data sharing" OR "research data-sharing"
-  OR "open data" OR "data reuse" OR "data re-use"
-  OR "data curation" OR "digital curation"
-  OR "data management plan*"
-)
-AND
-(
-  barrier* OR challenge* OR obstacle*
-  OR facilitator* OR enabler* OR motivat* OR incentive*
-  OR attitude* OR perception* OR willingness OR reluctan*
-  OR mandate* OR policy OR policies
-  OR ethic* OR privacy OR consent OR licens*
-  OR infrastructure OR repositor* OR interoperab* OR stewardship
-)</code></pre>
+<p>The generic queries are the database-neutral core of the strings below. Each database adds its own field tags, date limits, and document type filters. All terms are searched in titles and abstracts.</p>
+<section id="generic-queries" class="level3">
+<h3 class="anchored" data-anchor-id="generic-queries">Generic queries</h3>
+<pre class="text"><code>-- Q1: research data sharing (base RDS query)
+"research data sharing" OR "research data-sharing"
+
+-- Q2: open data
+"open data"
+AND ("research data" OR "data sharing")
+
+-- Q3: data governance
+"data governance"
+AND ("research data" OR "data sharing")
+
+-- Q4: open science
+"open science"
+AND ("research data" OR "data sharing")</code></pre>
 </section>
-<section id="scopus" class="level3">
-<h3 class="anchored" data-anchor-id="scopus">Scopus</h3>
-<pre class="text"><code>TITLE-ABS (
-  (
-    "research data sharing" OR "research data-sharing"
-    OR "open data" OR "data reuse" OR "data re-use"
-    OR "data curation" OR "digital curation"
-    OR "data management plan*"
-  )
-  AND
-  (
-    barrier* OR challenge* OR obstacle*
-    OR facilitator* OR enabler* OR motivat* OR incentive*
-    OR attitude* OR perception* OR willingness OR reluctan*
-    OR mandate* OR "policy" OR "policies"
-    OR ethic* OR privacy OR consent OR licens*
-    OR "infrastructure" OR repositor* OR interoperab* OR "stewardship"
-  )
-)
+<section id="scopus-1723-records" class="level3">
+<h3 class="anchored" data-anchor-id="scopus-1723-records">Scopus (1,723 records)</h3>
+<pre class="text"><code>-- Q1 (135 records)
+TITLE-ABS ( "research data sharing" OR "research data-sharing" )
 AND PUBYEAR &gt; 2014 AND PUBYEAR &lt; 2026
-AND SRCTYPE ( j )
-AND NOT DOCTYPE ( tb )</code></pre>
+AND DOCTYPE ( ar OR re )
+
+-- Q2 (644 records)
+TITLE-ABS ( "open data" )
+AND TITLE-ABS ( "research data" OR "data sharing" )
+AND PUBYEAR &gt; 2014 AND PUBYEAR &lt; 2026
+AND DOCTYPE ( ar OR re )
+
+-- Q3 (348 records)
+TITLE-ABS ( "data governance" )
+AND TITLE-ABS ( "research data" OR "data sharing" )
+AND PUBYEAR &gt; 2014 AND PUBYEAR &lt; 2026
+AND DOCTYPE ( ar OR re )
+
+-- Q4 (596 records)
+TITLE-ABS ( "open science" )
+AND TITLE-ABS ( "research data" OR "data sharing" )
+AND PUBYEAR &gt; 2014 AND PUBYEAR &lt; 2026
+AND DOCTYPE ( ar OR re )</code></pre>
 </section>
-<section id="web-of-science" class="level3">
-<h3 class="anchored" data-anchor-id="web-of-science">Web of Science</h3>
-<pre class="text"><code>(
-  TI=(
-    "research data sharing" OR "research data-sharing"
-    OR "open data" OR "data reuse" OR "data re-use"
-    OR "data curation" OR "digital curation"
-    OR "data management plan*"
-  )
-  OR
-  AB=(
-    "research data sharing" OR "research data-sharing"
-    OR "open data" OR "data reuse" OR "data re-use"
-    OR "data curation" OR "digital curation"
-    OR "data management plan*"
-  )
+<section id="web-of-science-1420-records" class="level3">
+<h3 class="anchored" data-anchor-id="web-of-science-1420-records">Web of Science (1,420 records)</h3>
+<pre class="text"><code>-- Q1 (109 records)
+(
+  TI=( "research data sharing" OR "research data-sharing" )
+  OR AB=( "research data sharing" OR "research data-sharing" )
+)
+AND PY=(2015-2025)
+AND DT=(Article OR Review)
+
+-- Q2 (564 records)
+(
+  TI=( "open data" )
+  OR AB=( "open data" )
 )
 AND
 (
-  TI=(
-    barrier* OR challenge* OR obstacle*
-    OR facilitator* OR enabler* OR motivat* OR incentive*
-    OR attitude* OR perception* OR willingness OR reluctan*
-    OR mandate* OR "policy" OR "policies"
-    OR ethic* OR privacy OR consent OR licens*
-    OR "infrastructure" OR repositor* OR interoperab* OR "stewardship"
-  )
-  OR
-  AB=(
-    barrier* OR challenge* OR obstacle*
-    OR facilitator* OR enabler* OR motivat* OR incentive*
-    OR attitude* OR perception* OR willingness OR reluctan*
-    OR mandate* OR "policy" OR "policies"
-    OR ethic* OR privacy OR consent OR licens*
-    OR "infrastructure" OR repositor* OR interoperab* OR "stewardship"
-  )
+  TI=( "research data" OR "data sharing" )
+  OR AB=( "research data" OR "data sharing" )
+)
+AND PY=(2015-2025)
+AND DT=(Article OR Review)
+
+-- Q3 (255 records)
+(
+  TI=( "data governance" )
+  OR AB=( "data governance" )
+)
+AND
+(
+  TI=( "research data" OR "data sharing" )
+  OR AB=( "research data" OR "data sharing" )
+)
+AND PY=(2015-2025)
+AND DT=(Article OR Review)
+
+-- Q4 (492 records)
+(
+  TI=( "open science" )
+  OR AB=( "open science" )
+)
+AND
+(
+  TI=( "research data" OR "data sharing" )
+  OR AB=( "research data" OR "data sharing" )
 )
 AND PY=(2015-2025)
 AND DT=(Article OR Review)</code></pre>
 </section>
-<section id="pubmed" class="level3">
-<h3 class="anchored" data-anchor-id="pubmed">PubMed</h3>
-<pre class="text"><code>(
-  "research data sharing"[tiab] OR "research data-sharing"[tiab]
-  OR "open data"[tiab] OR "data reuse"[tiab] OR "data re-use"[tiab]
-  OR "data curation"[tiab] OR "digital curation"[tiab]
-  OR "data management plan"[tiab] OR "data management plans"[tiab]
-)
-AND
-(
-  barrier*[tiab] OR challenge*[tiab] OR obstacle*[tiab]
-  OR facilitator*[tiab] OR enabler*[tiab] OR motivat*[tiab] OR incentive*[tiab]
-  OR attitude*[tiab] OR perception*[tiab] OR willingness[tiab] OR reluctan*[tiab]
-  OR mandate*[tiab] OR policy[tiab] OR policies[tiab]
-  OR ethic*[tiab] OR privacy[tiab] OR consent[tiab] OR licens*[tiab]
-  OR infrastructure[tiab] OR repositor*[tiab] OR interoperab*[tiab] OR stewardship[tiab]
-)
+<section id="pubmed-1049-records" class="level3">
+<h3 class="anchored" data-anchor-id="pubmed-1049-records">PubMed (1,049 records)</h3>
+<pre class="text"><code>-- Q1 (64 records)
+( "research data sharing"[tiab] OR "research data-sharing"[tiab] )
+AND 2015:2025[dp]
+AND "Journal Article"[pt]
+
+-- Q2 (352 records)
+"open data"[tiab]
+AND ( "research data"[tiab] OR "data sharing"[tiab] )
+AND 2015:2025[dp]
+AND "Journal Article"[pt]
+
+-- Q3 (219 records)
+"data governance"[tiab]
+AND ( "research data"[tiab] OR "data sharing"[tiab] )
+AND 2015:2025[dp]
+AND "Journal Article"[pt]
+
+-- Q4 (414 records)
+"open science"[tiab]
+AND ( "research data"[tiab] OR "data sharing"[tiab] )
 AND 2015:2025[dp]
 AND "Journal Article"[pt]</code></pre>
 </section>
@@ -439,13 +749,16 @@ AND "Journal Article"[pt]</code></pre>
 </section>
 <section id="export-file-names" class="level2">
 <h2 class="anchored" data-anchor-id="export-file-names">Export file names</h2>
-<p>Name each export <code>&lt;database&gt;_&lt;YYYY-MM-DD&gt;[_&lt;query&gt;].&lt;ext&gt;</code>, for example <code>scopus_2026-11-02_full.ris</code>. The date is the search date. Supported formats are RIS and CSV. See the README in <code>data/raw/search_exports/</code>.</p>
+<p>Name each export <code>&lt;database&gt;_&lt;YYYY-MM-DD&gt;[_&lt;query&gt;].&lt;ext&gt;</code>, for example <code>scopus_2026-11-02_q1.ris</code>. The query label is <code>q1</code>, <code>q2</code>, <code>q3</code>, or <code>q4</code>. The date is the search date. Supported formats are RIS and CSV. See the README in <code>data/raw/search_exports/</code>.</p>
 
 
 
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-chawinga2019" class="csl-entry" role="listitem">
+Chawinga, Winner Dominic, and Sandy Zinn. 2019. <span>“Global Perspectives of Research Data Sharing: A Systematic Literature Review.”</span> <em>Library &amp; Information Science Research</em> 41 (2): 109–22. <a href="https://doi.org/10.1016/j.lisr.2019.04.004">https://doi.org/10.1016/j.lisr.2019.04.004</a>.
+</div>
 <div id="ref-rethlefsen2021" class="csl-entry" role="listitem">
 Rethlefsen, Melissa L., Shona Kirtley, Siw Waffenschmidt, et al. 2021. <span>“<span>PRISMA-S</span>: An Extension to the <span>PRISMA</span> Statement for Reporting Literature Searches in Systematic Reviews.”</span> <em>Systematic Reviews</em> 10: 39. <a href="https://doi.org/10.1186/s13643-020-01542-z">https://doi.org/10.1186/s13643-020-01542-z</a>.
 </div>
