@@ -2,134 +2,196 @@
 title: "Search strategy"
 ---
 
-This page records every search, as PRISMA-S requires [@rethlefsen2021]. Each database search gets one row in the table and one entry under search strings. The record counts below are written by [01-deduplication](../analysis/01-deduplication.ipynb) from the exports in `data/raw/search_exports/`.
+This page records every search, as PRISMA-S requires [@rethlefsen2021]. Each query gets one row in the table, and each database gets one entry under search strings. The table counts are the records each database returned before deduplication. [01-deduplication](../analysis/01-deduplication.ipynb) writes the identification counts for the flow diagram from the exports in `data/raw/search_exports/` once the exports are in.
 
 ## Queries
 
-One query runs in each database for 2015 to 2025. It joins two blocks with AND. The first block holds "research data sharing" and related data concepts. The second holds factor terms. The query uses no health terms. The term "research data sharing" alone seeds the screening ranking.
+Four queries run in each database for 2015 to 2025. All four build on @chawinga2019. Q1 takes their core term, "research data sharing", and serves as the base RDS query. Q2 to Q4 extend that term with the vocabulary the field uses around it. Each pairs one key term with "research data" or "data sharing" using AND, so a record must name both the concept and the data practice in its title or abstract. The date range brackets the 2019 review and picks up where it left off. The queries use no health terms. All terms are searched in titles and abstracts.
 
 ## Databases and searches
 
-| Database | Query | Seed term | Seed / query |
-|:---------------|-----------:|---------:|-----------:|
-| Scopus | 5,410 | 267 | 4.9% |
-| Web of Science | 4,528 | 182 | 4.0% |
-| PubMed | 2,250 | 86 | 3.8% |
-| **Total** | **12,188** | **535** | **4.4%** |
+| Query | PubMed N (% of col.) | Scopus N (% of col.) | WoS N (% of col.) |
+|:---------------------------|-------------:|-------------:|-------------:|
+| Q1 research data sharing | 64 (6.1%) | 135 (7.8%) | 109 (7.7%) |
+| Q2 open data | 352 (33.6%) | 644 (37.4%) | 564 (39.7%) |
+| Q3 data governance | 219 (20.9%) | 348 (20.2%) | 255 (18.0%) |
+| Q4 open science | 414 (39.5%) | 596 (34.6%) | 492 (34.6%) |
+| **Column total** | **1,049** | **1,723** | **1,420** |
 
-: Records retrieved per database, 2015 to 2025, before deduplication.
+: Records retrieved per query and database, 2015 to 2025, before deduplication. Percentages give each query's share of the database's summed hits.
 
 Platforms and search dates are to be added.
 
+## Seed
+
+The base RDS query (Q1) alone serves as the seed for the screening ranking. It returned 308 records against 4,192 for the four queries combined (7.3%), modestly above the conventional 5%. A seed derived from a fixed keyword is reproducible, and its size stays near where a seed sample should land.
+
+## Candidate terms
+
+Candidate terms from earlier drafts of the query were checked against the seed. @tbl-relevance-checks shows how often each term appears in the records the base RDS query returned, which guided the four queries above.
+
+::: {.compact-table}
+| Rank | Term | Total | PubMed | WoS | Scopus |
+|--:|:--|--:|--:|--:|--:|
+| 1 | policies | 88 | 16 | 31 | 41 |
+| 2 | challenge* | 73 | 21 | 23 | 29 |
+| 3 | policy | 69 | 14 | 22 | 33 |
+| 4 | repositor* | 68 | 15 | 20 | 33 |
+| 5 | ethic* | 62 | 19 | 20 | 23 |
+| 6 | privacy | 52 | 15 | 15 | 22 |
+| 7 | infrastructure | 46 | 9 | 14 | 23 |
+| 8 | barrier* | 45 | 10 | 16 | 19 |
+| 9 | perception* | 42 | 9 | 15 | 18 |
+| 10 | open science | 41 | 5 | 15 | 21 |
+| 11 | motivat* | 37 | 5 | 15 | 17 |
+| 12 | interoperab* | 36 | 10 | 11 | 15 |
+| 13 | "open data" | 34 | 7 | 12 | 15 |
+| 14 | open access | 32 | 3 | 9 | 20 |
+| 15 | consent | 31 | 9 | 10 | 12 |
+| 16 | open research | 27 | 6 | 9 | 12 |
+| 17 | licens* | 25 | 3 | 5 | 17 |
+| 18 | attitude* | 23 | 3 | 9 | 11 |
+| 19 | incentive* | 21 | 3 | 6 | 12 |
+| 20 | mandate* | 17 | 4 | 6 | 7 |
+| 21 | willingness | 15 | 3 | 5 | 7 |
+| 22 | obstacle* | 12 | 4 | 3 | 5 |
+| 23= | "data reuse" | 10 | 0 | 4 | 6 |
+| 23= | stewardship | 10 | 3 | 3 | 4 |
+| 25 | "data management plan*" | 9 | 2 | 3 | 4 |
+| 26= | "data curation" | 8 | 2 | 3 | 3 |
+| 26= | facilitator* | 8 | 2 | 3 | 3 |
+| 28 | "data re-use" | 5 | 1 | 1 | 3 |
+| 29 | enabler* | 4 | 1 | 1 | 2 |
+| 30 | reluctan* | 3 | 1 | 1 | 1 |
+| 31 | "digital curation" | 0 | 0 | 0 | 0 |
+
+: Candidate terms ranked by records matched across the three databases. Ties share a rank (=). {#tbl-relevance-checks}
+:::
+
 ## Search strings
 
-The generic query is the database-neutral core of the three strings below. Each database adds its own field tags, date limits, and document type filters. The seed term strings are to be added.
+The generic queries are the database-neutral core of the strings below. Each database adds its own field tags, date limits, and document type filters. All terms are searched in titles and abstracts.
 
-### Generic query
+### Generic queries
 
 ```text
-(
-  "research data sharing" OR "research data-sharing"
-  OR "open data" OR "data reuse" OR "data re-use"
-  OR "data curation" OR "digital curation"
-  OR "data management plan*"
-)
-AND
-(
-  barrier* OR challenge* OR obstacle*
-  OR facilitator* OR enabler* OR motivat* OR incentive*
-  OR attitude* OR perception* OR willingness OR reluctan*
-  OR mandate* OR policy OR policies
-  OR ethic* OR privacy OR consent OR licens*
-  OR infrastructure OR repositor* OR interoperab* OR stewardship
-)
+-- Q1: research data sharing (base RDS query)
+"research data sharing" OR "research data-sharing"
+
+-- Q2: open data
+"open data"
+AND ("research data" OR "data sharing")
+
+-- Q3: data governance
+"data governance"
+AND ("research data" OR "data sharing")
+
+-- Q4: open science
+"open science"
+AND ("research data" OR "data sharing")
 ```
 
-### Scopus
+### Scopus (1,723 records)
 
 ```text
-TITLE-ABS (
-  (
-    "research data sharing" OR "research data-sharing"
-    OR "open data" OR "data reuse" OR "data re-use"
-    OR "data curation" OR "digital curation"
-    OR "data management plan*"
-  )
-  AND
-  (
-    barrier* OR challenge* OR obstacle*
-    OR facilitator* OR enabler* OR motivat* OR incentive*
-    OR attitude* OR perception* OR willingness OR reluctan*
-    OR mandate* OR "policy" OR "policies"
-    OR ethic* OR privacy OR consent OR licens*
-    OR "infrastructure" OR repositor* OR interoperab* OR "stewardship"
-  )
-)
+-- Q1 (135 records)
+TITLE-ABS ( "research data sharing" OR "research data-sharing" )
 AND PUBYEAR > 2014 AND PUBYEAR < 2026
-AND SRCTYPE ( j )
-AND NOT DOCTYPE ( tb )
+AND DOCTYPE ( ar OR re )
+
+-- Q2 (644 records)
+TITLE-ABS ( "open data" )
+AND TITLE-ABS ( "research data" OR "data sharing" )
+AND PUBYEAR > 2014 AND PUBYEAR < 2026
+AND DOCTYPE ( ar OR re )
+
+-- Q3 (348 records)
+TITLE-ABS ( "data governance" )
+AND TITLE-ABS ( "research data" OR "data sharing" )
+AND PUBYEAR > 2014 AND PUBYEAR < 2026
+AND DOCTYPE ( ar OR re )
+
+-- Q4 (596 records)
+TITLE-ABS ( "open science" )
+AND TITLE-ABS ( "research data" OR "data sharing" )
+AND PUBYEAR > 2014 AND PUBYEAR < 2026
+AND DOCTYPE ( ar OR re )
 ```
 
-### Web of Science
+### Web of Science (1,420 records)
 
 ```text
+-- Q1 (109 records)
 (
-  TI=(
-    "research data sharing" OR "research data-sharing"
-    OR "open data" OR "data reuse" OR "data re-use"
-    OR "data curation" OR "digital curation"
-    OR "data management plan*"
-  )
-  OR
-  AB=(
-    "research data sharing" OR "research data-sharing"
-    OR "open data" OR "data reuse" OR "data re-use"
-    OR "data curation" OR "digital curation"
-    OR "data management plan*"
-  )
+  TI=( "research data sharing" OR "research data-sharing" )
+  OR AB=( "research data sharing" OR "research data-sharing" )
+)
+AND PY=(2015-2025)
+AND DT=(Article OR Review)
+
+-- Q2 (564 records)
+(
+  TI=( "open data" )
+  OR AB=( "open data" )
 )
 AND
 (
-  TI=(
-    barrier* OR challenge* OR obstacle*
-    OR facilitator* OR enabler* OR motivat* OR incentive*
-    OR attitude* OR perception* OR willingness OR reluctan*
-    OR mandate* OR "policy" OR "policies"
-    OR ethic* OR privacy OR consent OR licens*
-    OR "infrastructure" OR repositor* OR interoperab* OR "stewardship"
-  )
-  OR
-  AB=(
-    barrier* OR challenge* OR obstacle*
-    OR facilitator* OR enabler* OR motivat* OR incentive*
-    OR attitude* OR perception* OR willingness OR reluctan*
-    OR mandate* OR "policy" OR "policies"
-    OR ethic* OR privacy OR consent OR licens*
-    OR "infrastructure" OR repositor* OR interoperab* OR "stewardship"
-  )
+  TI=( "research data" OR "data sharing" )
+  OR AB=( "research data" OR "data sharing" )
+)
+AND PY=(2015-2025)
+AND DT=(Article OR Review)
+
+-- Q3 (255 records)
+(
+  TI=( "data governance" )
+  OR AB=( "data governance" )
+)
+AND
+(
+  TI=( "research data" OR "data sharing" )
+  OR AB=( "research data" OR "data sharing" )
+)
+AND PY=(2015-2025)
+AND DT=(Article OR Review)
+
+-- Q4 (492 records)
+(
+  TI=( "open science" )
+  OR AB=( "open science" )
+)
+AND
+(
+  TI=( "research data" OR "data sharing" )
+  OR AB=( "research data" OR "data sharing" )
 )
 AND PY=(2015-2025)
 AND DT=(Article OR Review)
 ```
 
-### PubMed
+### PubMed (1,049 records)
 
 ```text
-(
-  "research data sharing"[tiab] OR "research data-sharing"[tiab]
-  OR "open data"[tiab] OR "data reuse"[tiab] OR "data re-use"[tiab]
-  OR "data curation"[tiab] OR "digital curation"[tiab]
-  OR "data management plan"[tiab] OR "data management plans"[tiab]
-)
-AND
-(
-  barrier*[tiab] OR challenge*[tiab] OR obstacle*[tiab]
-  OR facilitator*[tiab] OR enabler*[tiab] OR motivat*[tiab] OR incentive*[tiab]
-  OR attitude*[tiab] OR perception*[tiab] OR willingness[tiab] OR reluctan*[tiab]
-  OR mandate*[tiab] OR policy[tiab] OR policies[tiab]
-  OR ethic*[tiab] OR privacy[tiab] OR consent[tiab] OR licens*[tiab]
-  OR infrastructure[tiab] OR repositor*[tiab] OR interoperab*[tiab] OR stewardship[tiab]
-)
+-- Q1 (64 records)
+( "research data sharing"[tiab] OR "research data-sharing"[tiab] )
+AND 2015:2025[dp]
+AND "Journal Article"[pt]
+
+-- Q2 (352 records)
+"open data"[tiab]
+AND ( "research data"[tiab] OR "data sharing"[tiab] )
+AND 2015:2025[dp]
+AND "Journal Article"[pt]
+
+-- Q3 (219 records)
+"data governance"[tiab]
+AND ( "research data"[tiab] OR "data sharing"[tiab] )
+AND 2015:2025[dp]
+AND "Journal Article"[pt]
+
+-- Q4 (414 records)
+"open science"[tiab]
+AND ( "research data"[tiab] OR "data sharing"[tiab] )
 AND 2015:2025[dp]
 AND "Journal Article"[pt]
 ```
@@ -177,4 +239,4 @@ The final strings are tested against these sources. The first two groups are in 
 
 ## Export file names
 
-Name each export `<database>_<YYYY-MM-DD>[_<query>].<ext>`, for example `scopus_2026-11-02_full.ris`. The date is the search date. Supported formats are RIS and CSV. See the README in `data/raw/search_exports/`.
+Name each export `<database>_<YYYY-MM-DD>[_<query>].<ext>`, for example `scopus_2026-11-02_q1.ris`. The query label is `q1`, `q2`, `q3`, or `q4`. The date is the search date. Supported formats are RIS and CSV. See the README in `data/raw/search_exports/`.

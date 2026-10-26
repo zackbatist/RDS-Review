@@ -2,7 +2,7 @@
 title: "Research data sharing: a scoping review (RDS-Review)"
 ---
 
-RDS-Review maps the factors reported to influence the sharing and reuse of research data, including barriers, facilitators, and governance mechanisms. It centres on health research data and compares it with research data sharing in other fields.
+RDS-Review maps the factors reported to influence the sharing and reuse of research data, including barriers, facilitators, and governance mechanisms. It centres on health research data and compares it with research data sharing in other fields. It updates the 2019 review of research data sharing by Chawinga and Zinn with scoping review methods.
 
 Its taxonomy of factors will support manual annotation for supervised machine learning in the [CITF-emails](https://zackbatist.info/CITF-emails/) study.
 

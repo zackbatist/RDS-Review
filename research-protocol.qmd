@@ -11,6 +11,8 @@ Draft. The eligibility criteria and limits can still change. The protocol will b
 
 This review maps the factors reported to influence the sharing and reuse of research data in health research, including barriers, facilitators, and governance mechanisms.
 
+This review updates the 2019 review of research data sharing [@chawinga2019] with the scoping review methods of @cavallaro2026. The 2019 review shares this review's focus on research data sharing, which makes it a strong candidate for an update. It looks at differences across countries. This review looks at differences across research domains, with special attention on healthcare.
+
 Earlier reviews address parts of this topic. Reviews in health and medical research examine incentives [@rowhanifarid2017], principles and norms [@kalkman2019], and governance mechanisms such as harmonized data access agreements [@saulnier2019]. Reviews in public health examine barriers to public health data sharing but exclude research data sharing [@vanpanhuis2014].
 
 This review compares health research data sharing with data sharing in general and in other fields. Beyond health, cross-disciplinary reviews cover what drives and inhibits researchers in sharing and reusing data [@fecher2015; @zuiderwijk2020; @perrier2020].
@@ -27,7 +29,7 @@ The objective is to map the factors reported to influence the sharing and reuse 
 
 ## Methods
 
-The review follows the scoping review framework of @arksey2005 as refined by @levac2010 and the JBI guidance [@peters2020]. It is reported according to PRISMA-ScR [@tricco2018]. The searches are reported according to PRISMA-S [@rethlefsen2021]. The flow diagram adapts the PRISMA 2020 template [@page2021], with "sources of evidence" in place of "studies".
+The review follows the scoping review framework of @arksey2005 as refined by @levac2010 and the JBI guidance [@peters2020]. The method draws on the protocol of @cavallaro2026, which pairs machine learning screening with automated deduplication. It improves on that protocol in deduplication and seed generation. The review is reported according to PRISMA-ScR [@tricco2018]. The searches are reported according to PRISMA-S [@rethlefsen2021]. The flow diagram adapts the PRISMA 2020 template [@page2021], with "sources of evidence" in place of "studies".
 
 ### Eligibility criteria
 
@@ -46,15 +48,15 @@ The search covers 2015 to 2025. Language limits are not yet set. Any limit will 
 
 ### Information sources and search
 
-One query runs in Scopus, Web of Science, and PubMed for 2015 to 2025. It joins two blocks with AND. The first block holds "research data sharing" and related data concepts such as open data, data reuse, curation, and data management plans. The second holds barriers, facilitators, policy, ethics, and infrastructure terms. The query uses no health terms. Each database applies its own journal filter: journal sources excluding trade publications in Scopus, articles and reviews in Web of Science, and journal articles in PubMed. The [search strategy](materials/search-strategy.qmd) page lists the strings.
+Four queries run in Scopus, Web of Science, and PubMed for 2015 to 2025. All four build on @chawinga2019. The base RDS query (Q1) takes their core term, "research data sharing". Three concept queries (Q2 to Q4) extend that term with the vocabulary the field uses around it. Each pairs its own key term with "research data" or "data sharing" using AND, so a record must name both the concept and the data practice in its title or abstract. The queries use no health terms. Each database applies its own document type filter. Scopus and Web of Science limit results to articles and reviews, and PubMed limits results to journal articles. The [search strategy](materials/search-strategy.qmd) page lists the key terms, the strings, and the counts.
 
 Citation searching of the included sources supplements the database searches. The final strings are tested against a list of known relevant sources. Every search is recorded on the [search strategy](materials/search-strategy.qmd) page.
 
 ### Selection of sources
 
-Records are deduplicated with [ASySD](https://github.com/camaradesuk/ASySD). They are then screened on title and abstract in [ASReview](https://asreview.nl), and again on full text, against the [screening guide](materials/screening-guide.qmd). Exclusion reasons are recorded at full text. Counts at every stage feed the flow diagram.
+Records are deduplicated with [ASySD](https://github.com/camaradesuk/ASySD), which, unlike the Zotero workflow of @cavallaro2026, runs from a script and makes the step reproducible. The records are then screened on title and abstract in [ASReview](https://asreview.nl), and again on full text, against the [screening guide](materials/screening-guide.qmd). Exclusion reasons are recorded at full text. Counts at every stage feed the flow diagram.
 
-ASReview ranks records by predicted relevance and starts from a seed sample. The seed is the term "research data sharing" alone, which returned 535 records against 12,188 for the query (4.4%). A seed from a fixed keyword is reproducible.
+ASReview ranks records by predicted relevance and starts from a seed sample. The seed is the base RDS query (Q1), which returned 308 records against 4,192 for the four queries combined (7.3%), modestly above the conventional 5%. A seed from a fixed keyword is reproducible. @cavallaro2026 select their seed sample ad hoc from the first 5% of deduplicated records.
 
 ### Data charting
 
