@@ -1,38 +1,39 @@
-term run data sharing 5260 23 36021
-term run sharing data 976 5 4146
-term run share data 1078 10 4476
-term run biodiversity data sharing 7 2 7
-term run research data sharing 17 1 260
-term run collaborative data sharing 37 0 172
-term run data commons 151 1 1022
-term run data sharing and reuse 24 2 197
-term run full disclosure 432 0 779
-term run genetic data sharing 1 0 38
-term run genomic data sharing 11 0 215
-term run online publication of data 2 0 5
-term run open access data sharing 8 1 48
+term run data reuse 694 0 2666
+term run data sharing 5260 23 30616
+term run sharing data 976 5 3864
+term run share data 1078 10 4155
+term run biodiversity data sharing 7 2 4
+term run research data sharing 17 1 223
+term run collaborative data sharing 37 0 141
+term run data commons 151 1 891
+term run data sharing and reuse 24 2 172
+term run full disclosure 432 0 710
+term run genetic data sharing 1 0 33
+term run genomic data sharing 11 0 185
+term run online publication of data 2 0 4
+term run open access data sharing 8 1 37
 term run open access to research results 4 0 7
-term run open data publishing 4 0 34
+term run open data publishing 4 0 32
 term run open sharing of research data 0 0 2
 term run openly archiving raw research data 1 1 0
-term run publish data 123 1 296
-term run re use 5213 2 8948
-term run scientific data sharing 55 1 133
-term run secondary data analysis 1687 1 10529
-term run shared data 1108 3 3520
-term run sharing and reuse 408 2 709
-term run sharing health information 32 0 179
-term run sharing information 2154 0 5271
-term run sharing of health data 11 1 95
+term run publish data 123 1 282
+term run re use 5213 2 8384
+term run scientific data sharing 55 1 122
+term run secondary data analysis 1687 1 9140
+term run shared data 1108 3 3164
+term run sharing and reuse 408 2 642
+term run sharing health information 32 0 163
+term run sharing information 2154 0 4985
+term run sharing of health data 11 1 87
 term run sharing of primary datasets 1 1 1
-term run sharing of raw data 7 1 84
-term run sharing research data 30 1 135
+term run sharing of raw data 7 1 55
+term run sharing research data 30 1 124
 term run sharing their primary biodiversity data 1 1 0
 term run use, compare, manipulate 0 0 0
-term run data reuse 653 0 2956
-term run reanalysis of published data 10 0 39
-term run research data reuse 3 0 20
+term run data reuse 653 0 2544
+term run reanalysis of published data 10 0 33
+term run research data reuse 3 0 19
 threshold 1.352
 added sharing of health data
-final query: (TITLE-ABS-KEY("data sharing")) OR (TITLE-ABS-KEY("sharing of health data"))
-load 36067 coverage (0.769, 0.579, 0.89) in scope (0.947, 0.754, 0.991)
+final query: (TITLE-ABS-KEY("data sharing")) OR (TITLE-ABS-KEY("sharing of health data")) OR (TITLE-ABS-KEY("data reuse" OR "data re-use"))
+load 32994 coverage (0.769, 0.579, 0.89) in scope (0.947, 0.754, 0.991)

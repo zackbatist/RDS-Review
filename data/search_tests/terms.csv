@@ -1,49 +1,49 @@
 term,type,database,field,pcc_part,sources_in_part,assignment_basis,count,sources_added,dois,development_yield,load_2015_2025,status
-Information Dissemination,MeSH,PubMed,[mh:noexp],sharing,49,MeSH heading matched by meaning to sharing (sharing); searched [mh:noexp]; NLM scope note not retrieved,16,,10.1007/s11948-011-9298-7;10.1016/j.neuroimage.2013.02.040;10.1186/1745-6215-14-201;10.1289/ehp.1103904;10.1016/j.neuroimage.2012.10.064;10.1371/journal.pone.0037552;10.1186/1476-069X-10-107;10.2471/BLT.09.074393;10.1111/tops.12006;10.1371/journal.pone.0018657;10.1016/j.neuroimage.2011.09.080;10.1136/bmj.b2160;10.1371/journal.pone.0021101;10.1016/j.neuroimage.2012.11.010;10.1007/s00267-014-0258-2;10.1371/journal.pone.0067332,1.952,10051,excluded by yield
-data sharing,recorded,PubMed,[tiab],sharing,49,recorded,16,17,10.2307/25594876;10.1007/s11948-011-9298-7;10.1186/1745-6215-14-201;cragin2010;delson2007;10.2218/ijdc.v8i1.256;10.1289/ehp.1103904;10.1002/aris.2011.1440450113;10.1038/461160a;10.1186/1476-069X-10-107;10.2471/BLT.09.074393;10.1080/02508060.2015.981783;10.1371/journal.pone.0007078;10.1007/s12021-008-9009-y;tucker2009;10.1007/s00267-014-0258-2,15.873,9150,in query
-data sharing,OpenAlex keyword,PubMed,[tiab],sharing,49,matches sharing (sharing),8,17,10.1007/s40014-012-1434-z;10.1525/bio.2012.62.11.16;10.2218/ijdc.v8i1.256;10.1016/j.im.2010.04.001;10.1002/aris.2011.1440450113;10.1002/humu.21013;10.1641/B570402;10.1080/02508060.2015.981783,15.873,9150,in query
-Access to Information,MeSH,PubMed,[mh:noexp],sharing,49,MeSH heading matched by meaning to sharing (sharing); searched [mh:noexp]; NLM scope note not retrieved,5,,10.1038/461160a;10.1186/1476-069X-10-107;10.1371/journal.pone.0007078;10.1007/s12021-008-9009-y;10.1371/journal.pone.0021101,1.172,2885,excluded by yield
-sharing data,recorded,PubMed,[tiab],sharing,49,recorded,4,3,bertzky2009;10.1371/journal.pmed.0050057;10.1525/jer.2007.2.1.3;10.1002/humu.21013,15.81,1036,in query
-share data,recorded,PubMed,[tiab],sharing,49,recorded,3,,10.1002/ajmg.a.33287;10.1186/2047-217X-1-10;10.1016/j.neuroimage.2012.11.010,40.609,960,excluded by yield
-biodiversity data sharing,recorded,PubMed,[tiab],sharing,49,recorded,2,,10.1016/j.ecoinf.2012.03.004;huang2013,0.0,4,excluded by yield
-biodiversity data sharing,OpenAlex keyword,PubMed,[tiab],sharing,49,matches sharing (sharing),2,,10.1016/j.ecoinf.2012.03.004;10.1111/j.1755-263X.2012.00259.x,0.0,4,excluded by yield
-research data sharing,OpenAlex keyword,PubMed,[tiab],sharing,49,matches sharing (sharing),2,,10.1002/asi.22634;10.1016/j.giq.2012.06.011,142.857,81,excluded by yield
-collaborative data sharing,recorded,PubMed,[tiab],sharing,49,recorded,1,,perrino2013,0.0,62,excluded by yield
-data commons,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1016/j.im.2010.04.001,0.0,407,excluded by yield
-data commons,OpenAlex keyword,PubMed,[tiab],sharing,49,matches sharing (sharing),1,,10.1016/j.im.2010.04.001,0.0,407,excluded by yield
-data sharing,author keyword,PubMed,[tiab],sharing,49,matches sharing (sharing),1,17,10.1016/j.neuroimage.2012.11.010,15.873,9150,in query
-data sharing and reuse,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1371/journal.pone.0067332,166.667,71,excluded by yield
-full disclosure,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.2307/20361332,0.0,298,excluded by yield
-genetic data sharing,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1007/s40014-012-1434-z,0.0,26,excluded by yield
-genomic data sharing,OpenAlex keyword,PubMed,[tiab],sharing,49,matches sharing (sharing),1,,10.1007/s40014-012-1434-z,0.0,181,excluded by yield
+Information Dissemination,MeSH,PubMed,[mh:noexp],sharing,49,MeSH heading matched by meaning to sharing (sharing); searched [mh:noexp]; NLM scope note not retrieved,16,,10.1007/s11948-011-9298-7;10.1016/j.neuroimage.2013.02.040;10.1186/1745-6215-14-201;10.1289/ehp.1103904;10.1016/j.neuroimage.2012.10.064;10.1371/journal.pone.0037552;10.1186/1476-069X-10-107;10.2471/BLT.09.074393;10.1111/tops.12006;10.1371/journal.pone.0018657;10.1016/j.neuroimage.2011.09.080;10.1136/bmj.b2160;10.1371/journal.pone.0021101;10.1016/j.neuroimage.2012.11.010;10.1007/s00267-014-0258-2;10.1371/journal.pone.0067332,1.952,9584,excluded by yield
+data sharing,recorded,PubMed,[tiab],sharing,49,recorded,16,17,10.2307/25594876;10.1007/s11948-011-9298-7;10.1186/1745-6215-14-201;cragin2010;delson2007;10.2218/ijdc.v8i1.256;10.1289/ehp.1103904;10.1002/aris.2011.1440450113;10.1038/461160a;10.1186/1476-069X-10-107;10.2471/BLT.09.074393;10.1080/02508060.2015.981783;10.1371/journal.pone.0007078;10.1007/s12021-008-9009-y;tucker2009;10.1007/s00267-014-0258-2,15.873,7915,in query
+data sharing,OpenAlex keyword,PubMed,[tiab],sharing,49,matches sharing (sharing),8,17,10.1007/s40014-012-1434-z;10.1525/bio.2012.62.11.16;10.2218/ijdc.v8i1.256;10.1016/j.im.2010.04.001;10.1002/aris.2011.1440450113;10.1002/humu.21013;10.1641/B570402;10.1080/02508060.2015.981783,15.873,7915,in query
+Access to Information,MeSH,PubMed,[mh:noexp],sharing,49,MeSH heading matched by meaning to sharing (sharing); searched [mh:noexp]; NLM scope note not retrieved,5,,10.1038/461160a;10.1186/1476-069X-10-107;10.1371/journal.pone.0007078;10.1007/s12021-008-9009-y;10.1371/journal.pone.0021101,1.172,2818,excluded by yield
+sharing data,recorded,PubMed,[tiab],sharing,49,recorded,4,3,bertzky2009;10.1371/journal.pmed.0050057;10.1525/jer.2007.2.1.3;10.1002/humu.21013,15.81,970,in query
+share data,recorded,PubMed,[tiab],sharing,49,recorded,3,,10.1002/ajmg.a.33287;10.1186/2047-217X-1-10;10.1016/j.neuroimage.2012.11.010,40.609,872,excluded by yield
+biodiversity data sharing,recorded,PubMed,[tiab],sharing,49,recorded,2,,10.1016/j.ecoinf.2012.03.004;huang2013,0.0,2,excluded by yield
+biodiversity data sharing,OpenAlex keyword,PubMed,[tiab],sharing,49,matches sharing (sharing),2,,10.1016/j.ecoinf.2012.03.004;10.1111/j.1755-263X.2012.00259.x,0.0,2,excluded by yield
+research data sharing,OpenAlex keyword,PubMed,[tiab],sharing,49,matches sharing (sharing),2,,10.1002/asi.22634;10.1016/j.giq.2012.06.011,142.857,72,excluded by yield
+collaborative data sharing,recorded,PubMed,[tiab],sharing,49,recorded,1,,perrino2013,0.0,48,excluded by yield
+data commons,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1016/j.im.2010.04.001,0.0,367,excluded by yield
+data commons,OpenAlex keyword,PubMed,[tiab],sharing,49,matches sharing (sharing),1,,10.1016/j.im.2010.04.001,0.0,367,excluded by yield
+data sharing,author keyword,PubMed,[tiab],sharing,49,matches sharing (sharing),1,17,10.1016/j.neuroimage.2012.11.010,15.873,7915,in query
+data sharing and reuse,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1371/journal.pone.0067332,166.667,65,excluded by yield
+full disclosure,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.2307/20361332,0.0,277,excluded by yield
+genetic data sharing,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1007/s40014-012-1434-z,0.0,22,excluded by yield
+genomic data sharing,OpenAlex keyword,PubMed,[tiab],sharing,49,matches sharing (sharing),1,,10.1007/s40014-012-1434-z,0.0,159,excluded by yield
 online publication of data,recorded,PubMed,[tiab],sharing,49,recorded,1,,costello2009,0,0,excluded by yield
-open access data sharing,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1016/j.neuroimage.2012.10.064,125.0,24,excluded by yield
+open access data sharing,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1016/j.neuroimage.2012.10.064,125.0,19,excluded by yield
 open access to research results,recorded,PubMed,[tiab],sharing,49,recorded,1,,ec2012,0,0,excluded by yield
 open data publishing,OpenAlex keyword,PubMed,[tiab],sharing,49,matches sharing (sharing),1,,10.1016/j.giq.2012.06.011,0,0,excluded by yield
 open sharing of research data,recorded,PubMed,[tiab],sharing,49,recorded,1,,fry2008,0,0,excluded by yield
 openly archiving raw research data,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1371/journal.pone.0018657,0,0,excluded by yield
-publish data,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1641/B570402,0.0,71,excluded by yield
-re use,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1371/journal.pone.0021101,2.045,1424,excluded by yield
-scientific data sharing,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1016/j.giq.2012.06.011,0.0,17,excluded by yield
-secondary data analysis,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1016/j.neuroimage.2013.02.040,0.844,6450,excluded by yield
-shared data,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1016/j.neuroimage.2011.09.080,20.202,706,excluded by yield
-sharing and reuse,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.2307/29734058,0,5,excluded by yield
-sharing health information,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1136/bmj.b2160,0.0,124,excluded by yield
-sharing information,recorded,PubMed,[tiab],sharing,49,recorded,1,,mundel2014,0.0,1219,excluded by yield
+publish data,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1641/B570402,0.0,64,excluded by yield
+re use,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1371/journal.pone.0021101,2.045,1354,excluded by yield
+scientific data sharing,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1016/j.giq.2012.06.011,0.0,16,excluded by yield
+secondary data analysis,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1016/j.neuroimage.2013.02.040,0.844,5913,excluded by yield
+shared data,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1016/j.neuroimage.2011.09.080,20.202,623,excluded by yield
+sharing and reuse,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.2307/29734058,0,4,excluded by yield
+sharing health information,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1136/bmj.b2160,0.0,115,excluded by yield
+sharing information,recorded,PubMed,[tiab],sharing,49,recorded,1,,mundel2014,0.0,1149,excluded by yield
 sharing of health data,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1111/j.1365-2753.2010.01488.x,0,0,excluded by yield
 sharing of primary datasets,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1371/journal.pone.0037552,0,0,excluded by yield
 sharing of raw data,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1111/tops.12006,0,0,excluded by yield
-sharing research data,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1002/asi.22634,0.0,45,excluded by yield
+sharing research data,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1002/asi.22634,0.0,41,excluded by yield
 sharing their primary biodiversity data,recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1111/j.1755-263X.2012.00259.x,0,0,excluded by yield
 "use, compare, manipulate",recorded,PubMed,[tiab],sharing,49,recorded,1,,10.1525/bio.2012.62.11.16,0,0,excluded by yield
-data reuse,OpenAlex keyword,PubMed,[tiab],reuse,6,matches reuse (reuse),2,,10.1002/aris.2011.1440450113;10.1641/B570402,0.0,586,excluded by yield
-biodiversity data sharing,recorded,PubMed,[tiab],reuse,6,recorded,1,,10.1016/j.ecoinf.2012.03.004,0.0,4,excluded by yield
-data sharing and reuse,recorded,PubMed,[tiab],reuse,6,recorded,1,,10.1371/journal.pone.0067332,166.667,71,excluded by yield
-re use,recorded,PubMed,[tiab],reuse,6,recorded,1,,10.1371/journal.pone.0021101,2.045,1424,excluded by yield
+data reuse,OpenAlex keyword,PubMed,[tiab],reuse,6,matches reuse (reuse),2,,10.1002/aris.2011.1440450113;10.1641/B570402,0.0,475,excluded by yield
+biodiversity data sharing,recorded,PubMed,[tiab],reuse,6,recorded,1,,10.1016/j.ecoinf.2012.03.004,0.0,2,excluded by yield
+data sharing and reuse,recorded,PubMed,[tiab],reuse,6,recorded,1,,10.1371/journal.pone.0067332,166.667,65,excluded by yield
+re use,recorded,PubMed,[tiab],reuse,6,recorded,1,,10.1371/journal.pone.0021101,2.045,1354,excluded by yield
 reanalysis of published data,OpenAlex keyword,PubMed,[tiab],reuse,6,matches reuse (reuse),1,,10.1641/B570402,0,0,excluded by yield
 research data reuse,OpenAlex keyword,PubMed,[tiab],reuse,6,matches reuse (reuse),1,,10.1016/j.ecoinf.2012.03.004,0,0,excluded by yield
-secondary data analysis,recorded,PubMed,[tiab],reuse,6,recorded,1,,10.1016/j.neuroimage.2013.02.040,0.844,6450,excluded by yield
-sharing and reuse,recorded,PubMed,[tiab],reuse,6,recorded,1,,10.2307/29734058,0,5,excluded by yield
+secondary data analysis,recorded,PubMed,[tiab],reuse,6,recorded,1,,10.1016/j.neuroimage.2013.02.040,0.844,5913,excluded by yield
+sharing and reuse,recorded,PubMed,[tiab],reuse,6,recorded,1,,10.2307/29734058,0,4,excluded by yield
 "use, compare, manipulate",recorded,PubMed,[tiab],reuse,6,recorded,1,,10.1525/bio.2012.62.11.16,0,0,excluded by yield
 Archives,MeSH,PubMed,[mh:noexp],factors that facilitate,19,MeSH heading matched by meaning to repositories (factors that facilitate); searched [mh:noexp]; NLM scope note not retrieved,2,2,10.1038/461160a;10.1371/journal.pone.0018657,,,to screening
 data sharing incentives,OpenAlex keyword,PubMed,[tiab],factors that facilitate,19,matches incentives (factors that facilitate),2,2,10.1002/asi.22634;10.1111/j.1755-263X.2012.00259.x,,,to screening
@@ -107,49 +107,49 @@ Public Opinion,MeSH,PubMed,[mh:noexp],stakeholder perspectives,6,MeSH heading ma
 perception of limited gains,recorded,PubMed,[tiab],stakeholder perspectives,6,recorded,1,1,10.1080/02508060.2015.981783,,,to screening
 researcher attitudes,OpenAlex keyword,PubMed,[tiab],stakeholder perspectives,6,matches attitudes (stakeholder perspectives),1,1,10.1111/j.1755-263X.2012.00259.x,,,to screening
 user's view,recorded,PubMed,[tiab],stakeholder perspectives,6,recorded,1,1,10.1016/j.ecoinf.2012.03.004,,,to screening
-data sharing,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,16,23,10.2307/25594876;10.1007/s11948-011-9298-7;10.1186/1745-6215-14-201;cragin2010;delson2007;10.2218/ijdc.v8i1.256;10.1289/ehp.1103904;10.1002/aris.2011.1440450113;10.1038/461160a;10.1186/1476-069X-10-107;10.2471/BLT.09.074393;10.1080/02508060.2015.981783;10.1371/journal.pone.0007078;10.1007/s12021-008-9009-y;tucker2009;10.1007/s00267-014-0258-2,4.373,36021,in query
-data sharing,OpenAlex keyword,Scopus,TITLE-ABS-KEY,sharing,49,matches sharing (sharing),8,23,10.1007/s40014-012-1434-z;10.1525/bio.2012.62.11.16;10.2218/ijdc.v8i1.256;10.1016/j.im.2010.04.001;10.1002/aris.2011.1440450113;10.1002/humu.21013;10.1641/B570402;10.1080/02508060.2015.981783,4.373,36021,in query
-sharing data,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,4,,bertzky2009;10.1371/journal.pmed.0050057;10.1525/jer.2007.2.1.3;10.1002/humu.21013,5.123,4146,excluded by yield
-share data,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,3,,10.1002/ajmg.a.33287;10.1186/2047-217X-1-10;10.1016/j.neuroimage.2012.11.010,9.276,4476,excluded by yield
-biodiversity data sharing,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,2,,10.1016/j.ecoinf.2012.03.004;huang2013,285.714,7,excluded by yield
-biodiversity data sharing,OpenAlex keyword,Scopus,TITLE-ABS-KEY,sharing,49,matches sharing (sharing),2,,10.1016/j.ecoinf.2012.03.004;10.1111/j.1755-263X.2012.00259.x,285.714,7,excluded by yield
-research data sharing,OpenAlex keyword,Scopus,TITLE-ABS-KEY,sharing,49,matches sharing (sharing),2,,10.1002/asi.22634;10.1016/j.giq.2012.06.011,58.824,260,excluded by yield
-collaborative data sharing,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,perrino2013,0.0,172,excluded by yield
-data commons,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1016/j.im.2010.04.001,6.623,1022,excluded by yield
-data commons,OpenAlex keyword,Scopus,TITLE-ABS-KEY,sharing,49,matches sharing (sharing),1,,10.1016/j.im.2010.04.001,6.623,1022,excluded by yield
-data sharing,author keyword,Scopus,TITLE-ABS-KEY,sharing,49,matches sharing (sharing),1,23,10.1016/j.neuroimage.2012.11.010,4.373,36021,in query
-data sharing and reuse,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1371/journal.pone.0067332,83.333,197,excluded by yield
-full disclosure,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.2307/20361332,0.0,779,excluded by yield
-genetic data sharing,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1007/s40014-012-1434-z,0.0,38,excluded by yield
-genomic data sharing,OpenAlex keyword,Scopus,TITLE-ABS-KEY,sharing,49,matches sharing (sharing),1,,10.1007/s40014-012-1434-z,0.0,215,excluded by yield
-online publication of data,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,costello2009,0.0,5,excluded by yield
-open access data sharing,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1016/j.neuroimage.2012.10.064,125.0,48,excluded by yield
+data sharing,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,16,23,10.2307/25594876;10.1007/s11948-011-9298-7;10.1186/1745-6215-14-201;cragin2010;delson2007;10.2218/ijdc.v8i1.256;10.1289/ehp.1103904;10.1002/aris.2011.1440450113;10.1038/461160a;10.1186/1476-069X-10-107;10.2471/BLT.09.074393;10.1080/02508060.2015.981783;10.1371/journal.pone.0007078;10.1007/s12021-008-9009-y;tucker2009;10.1007/s00267-014-0258-2,4.373,30616,in query
+data sharing,OpenAlex keyword,Scopus,TITLE-ABS-KEY,sharing,49,matches sharing (sharing),8,23,10.1007/s40014-012-1434-z;10.1525/bio.2012.62.11.16;10.2218/ijdc.v8i1.256;10.1016/j.im.2010.04.001;10.1002/aris.2011.1440450113;10.1002/humu.21013;10.1641/B570402;10.1080/02508060.2015.981783,4.373,30616,in query
+sharing data,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,4,,bertzky2009;10.1371/journal.pmed.0050057;10.1525/jer.2007.2.1.3;10.1002/humu.21013,5.123,3864,excluded by yield
+share data,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,3,,10.1002/ajmg.a.33287;10.1186/2047-217X-1-10;10.1016/j.neuroimage.2012.11.010,9.276,4155,excluded by yield
+biodiversity data sharing,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,2,,10.1016/j.ecoinf.2012.03.004;huang2013,285.714,4,excluded by yield
+biodiversity data sharing,OpenAlex keyword,Scopus,TITLE-ABS-KEY,sharing,49,matches sharing (sharing),2,,10.1016/j.ecoinf.2012.03.004;10.1111/j.1755-263X.2012.00259.x,285.714,4,excluded by yield
+research data sharing,OpenAlex keyword,Scopus,TITLE-ABS-KEY,sharing,49,matches sharing (sharing),2,,10.1002/asi.22634;10.1016/j.giq.2012.06.011,58.824,223,excluded by yield
+collaborative data sharing,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,perrino2013,0.0,141,excluded by yield
+data commons,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1016/j.im.2010.04.001,6.623,891,excluded by yield
+data commons,OpenAlex keyword,Scopus,TITLE-ABS-KEY,sharing,49,matches sharing (sharing),1,,10.1016/j.im.2010.04.001,6.623,891,excluded by yield
+data sharing,author keyword,Scopus,TITLE-ABS-KEY,sharing,49,matches sharing (sharing),1,23,10.1016/j.neuroimage.2012.11.010,4.373,30616,in query
+data sharing and reuse,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1371/journal.pone.0067332,83.333,172,excluded by yield
+full disclosure,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.2307/20361332,0.0,710,excluded by yield
+genetic data sharing,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1007/s40014-012-1434-z,0.0,33,excluded by yield
+genomic data sharing,OpenAlex keyword,Scopus,TITLE-ABS-KEY,sharing,49,matches sharing (sharing),1,,10.1007/s40014-012-1434-z,0.0,185,excluded by yield
+online publication of data,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,costello2009,0.0,4,excluded by yield
+open access data sharing,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1016/j.neuroimage.2012.10.064,125.0,37,excluded by yield
 open access to research results,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,ec2012,0.0,7,excluded by yield
-open data publishing,OpenAlex keyword,Scopus,TITLE-ABS-KEY,sharing,49,matches sharing (sharing),1,,10.1016/j.giq.2012.06.011,0.0,34,excluded by yield
+open data publishing,OpenAlex keyword,Scopus,TITLE-ABS-KEY,sharing,49,matches sharing (sharing),1,,10.1016/j.giq.2012.06.011,0.0,32,excluded by yield
 open sharing of research data,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,fry2008,0,2,excluded by yield
 openly archiving raw research data,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1371/journal.pone.0018657,1000.0,0,excluded by yield
-publish data,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1641/B570402,8.13,296,excluded by yield
-re use,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1371/journal.pone.0021101,0.384,8948,excluded by yield
-scientific data sharing,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1016/j.giq.2012.06.011,18.182,133,excluded by yield
-secondary data analysis,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1016/j.neuroimage.2013.02.040,0.593,10529,excluded by yield
-shared data,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1016/j.neuroimage.2011.09.080,2.708,3520,excluded by yield
-sharing and reuse,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.2307/29734058,4.902,709,excluded by yield
-sharing health information,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1136/bmj.b2160,0.0,179,excluded by yield
-sharing information,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,mundel2014,0.0,5271,excluded by yield
-sharing of health data,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,1,10.1111/j.1365-2753.2010.01488.x,90.909,95,in query
+publish data,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1641/B570402,8.13,282,excluded by yield
+re use,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1371/journal.pone.0021101,0.384,8384,excluded by yield
+scientific data sharing,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1016/j.giq.2012.06.011,18.182,122,excluded by yield
+secondary data analysis,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1016/j.neuroimage.2013.02.040,0.593,9140,excluded by yield
+shared data,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1016/j.neuroimage.2011.09.080,2.708,3164,excluded by yield
+sharing and reuse,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.2307/29734058,4.902,642,excluded by yield
+sharing health information,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1136/bmj.b2160,0.0,163,excluded by yield
+sharing information,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,mundel2014,0.0,4985,excluded by yield
+sharing of health data,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,1,10.1111/j.1365-2753.2010.01488.x,90.909,87,in query
 sharing of primary datasets,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1371/journal.pone.0037552,1000.0,1,excluded by yield
-sharing of raw data,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1111/tops.12006,142.857,84,excluded by yield
-sharing research data,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1002/asi.22634,33.333,135,excluded by yield
+sharing of raw data,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1111/tops.12006,142.857,55,excluded by yield
+sharing research data,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1002/asi.22634,33.333,124,excluded by yield
 sharing their primary biodiversity data,recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1111/j.1755-263X.2012.00259.x,1000.0,0,excluded by yield
 "use, compare, manipulate",recorded,Scopus,TITLE-ABS-KEY,sharing,49,recorded,1,,10.1525/bio.2012.62.11.16,0,0,excluded by yield
-data reuse,OpenAlex keyword,Scopus,TITLE-ABS-KEY,reuse,6,matches reuse (reuse),2,,10.1002/aris.2011.1440450113;10.1641/B570402,0.0,2956,excluded by yield
-biodiversity data sharing,recorded,Scopus,TITLE-ABS-KEY,reuse,6,recorded,1,,10.1016/j.ecoinf.2012.03.004,285.714,7,excluded by yield
-data sharing and reuse,recorded,Scopus,TITLE-ABS-KEY,reuse,6,recorded,1,,10.1371/journal.pone.0067332,83.333,197,excluded by yield
-re use,recorded,Scopus,TITLE-ABS-KEY,reuse,6,recorded,1,,10.1371/journal.pone.0021101,0.384,8948,excluded by yield
-reanalysis of published data,OpenAlex keyword,Scopus,TITLE-ABS-KEY,reuse,6,matches reuse (reuse),1,,10.1641/B570402,0.0,39,excluded by yield
-research data reuse,OpenAlex keyword,Scopus,TITLE-ABS-KEY,reuse,6,matches reuse (reuse),1,,10.1016/j.ecoinf.2012.03.004,0.0,20,excluded by yield
-secondary data analysis,recorded,Scopus,TITLE-ABS-KEY,reuse,6,recorded,1,,10.1016/j.neuroimage.2013.02.040,0.593,10529,excluded by yield
-sharing and reuse,recorded,Scopus,TITLE-ABS-KEY,reuse,6,recorded,1,,10.2307/29734058,4.902,709,excluded by yield
+data reuse,OpenAlex keyword,Scopus,TITLE-ABS-KEY,reuse,6,matches reuse (reuse),2,,10.1002/aris.2011.1440450113;10.1641/B570402,0.0,2544,excluded by yield
+biodiversity data sharing,recorded,Scopus,TITLE-ABS-KEY,reuse,6,recorded,1,,10.1016/j.ecoinf.2012.03.004,285.714,4,excluded by yield
+data sharing and reuse,recorded,Scopus,TITLE-ABS-KEY,reuse,6,recorded,1,,10.1371/journal.pone.0067332,83.333,172,excluded by yield
+re use,recorded,Scopus,TITLE-ABS-KEY,reuse,6,recorded,1,,10.1371/journal.pone.0021101,0.384,8384,excluded by yield
+reanalysis of published data,OpenAlex keyword,Scopus,TITLE-ABS-KEY,reuse,6,matches reuse (reuse),1,,10.1641/B570402,0.0,33,excluded by yield
+research data reuse,OpenAlex keyword,Scopus,TITLE-ABS-KEY,reuse,6,matches reuse (reuse),1,,10.1016/j.ecoinf.2012.03.004,0.0,19,excluded by yield
+secondary data analysis,recorded,Scopus,TITLE-ABS-KEY,reuse,6,recorded,1,,10.1016/j.neuroimage.2013.02.040,0.593,9140,excluded by yield
+sharing and reuse,recorded,Scopus,TITLE-ABS-KEY,reuse,6,recorded,1,,10.2307/29734058,4.902,642,excluded by yield
 "use, compare, manipulate",recorded,Scopus,TITLE-ABS-KEY,reuse,6,recorded,1,,10.1525/bio.2012.62.11.16,0,0,excluded by yield
 data sharing incentives,OpenAlex keyword,Scopus,TITLE-ABS-KEY,factors that facilitate,19,matches incentives (factors that facilitate),2,2,10.1002/asi.22634;10.1111/j.1755-263X.2012.00259.x,,,to screening
 motivating,recorded,Scopus,TITLE-ABS-KEY,factors that facilitate,19,recorded,2,2,costello2009;tucker2009,,,to screening
@@ -317,6 +317,6 @@ attitudes,recorded,Web of Science,TS,stakeholder perspectives,6,recorded,1,1,10.
 perception of limited gains,recorded,Web of Science,TS,stakeholder perspectives,6,recorded,1,1,10.1080/02508060.2015.981783,,,to screening
 researcher attitudes,OpenAlex keyword,Web of Science,TS,stakeholder perspectives,6,matches attitudes (stakeholder perspectives),1,1,10.1111/j.1755-263X.2012.00259.x,,,to screening
 user's view,recorded,Web of Science,TS,stakeholder perspectives,6,recorded,1,1,10.1016/j.ecoinf.2012.03.004,,,to screening
-data reuse,fallback,PubMed,[tiab],reuse,6,Candidate terms table on the search strategy page; fallback because every development set source coded reuse is also coded sharing,0,,,,,
-data reuse,fallback,Scopus,TITLE-ABS-KEY,reuse,6,Candidate terms table on the search strategy page; fallback because every development set source coded reuse is also coded sharing,0,,,,,
+data reuse,fallback,PubMed,[tiab],reuse,6,Candidate terms table on the search strategy page; fallback because every development set source coded reuse is also coded sharing,0,,,0.0,525,fallback in query
+data reuse,fallback,Scopus,TITLE-ABS-KEY,reuse,6,Candidate terms table on the search strategy page; fallback because every development set source coded reuse is also coded sharing,0,,,0.0,2666,fallback in query
 data reuse,fallback,Web of Science,TS,reuse,6,Candidate terms table on the search strategy page; fallback because every development set source coded reuse is also coded sharing,0,,,,,
