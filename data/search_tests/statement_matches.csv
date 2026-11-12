@@ -1,0 +1,17 @@
+statement,reading,text,matched,matched_in_scope,keys
+research data sharing AND researchers,phrase,titles and recorded passages,1,1,ross2016
+research data sharing AND researchers,phrase,"titles, recorded passages and keywords",4,4,he2016;peng2016;ross2016;elsayed2018
+research data sharing AND researchers,words,titles and recorded passages,13,5,chandramohan2008;teeters2008;pisani2010;harding2013;tenopir2011;doorn2013;wallis2013;volk2014;fecher2015;he2016;ross2016;elsayed2018;kaye2018
+research data sharing AND researchers,words,"titles, recorded passages and keywords",14,6,chandramohan2008;teeters2008;pisani2010;harding2013;tenopir2011;doorn2013;wallis2013;volk2014;fecher2015;he2016;peng2016;ross2016;elsayed2018;kaye2018
+digital curation AND data sharing,phrase,titles and recorded passages,0,0,
+digital curation AND data sharing,phrase,"titles, recorded passages and keywords",0,0,
+digital curation AND data sharing,words,titles and recorded passages,0,0,
+digital curation AND data sharing,words,"titles, recorded passages and keywords",0,0,
+research data sharing AND open science,phrase,titles and recorded passages,1,1,ross2016
+research data sharing AND open science,phrase,"titles, recorded passages and keywords",2,2,ross2016;dai2018
+research data sharing AND open science,words,titles and recorded passages,2,2,ross2016;dai2018
+research data sharing AND open science,words,"titles, recorded passages and keywords",4,4,peng2016;ross2016;rowhanifarid2017;dai2018
+research data sharing AND open data,phrase,titles and recorded passages,0,0,
+research data sharing AND open data,phrase,"titles, recorded passages and keywords",4,2,sayogo2013;dong2016;he2016;peng2016
+research data sharing AND open data,words,titles and recorded passages,9,4,fry2008;piwowar2011;milia2012;coady2013;dong2016;ross2016;schmidt2016;ananesarpong2017;dai2018
+research data sharing AND open data,words,"titles, recorded passages and keywords",16,9,parr2007;fry2008;piwowar2011;milia2012;sayogo2013;coady2013;dong2016;he2016;peng2016;ross2016;schmidt2016;ananesarpong2017;rowhanifarid2017;dai2018;schopfel2018;wiley2018

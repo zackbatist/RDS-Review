@@ -1,0 +1,381 @@
+key,doi,field,value,theme,term,location,passage
+ananesarpong2017,10.1111/dewb.12159,Practice,sharing,,data-sharing,abstract,Data-sharing is a desired default in the field of public health and a source of much ethical deliberation.
+ananesarpong2017,10.1111/dewb.12159,data_origin,reused,,research using public health data,abstract,(1) The role of HDSSs in research using public health data and data-sharing
+ananesarpong2017,10.1111/dewb.12159,Factors,barriers,factors that obstruct,discourage data-sharing,abstract,(3) Other factors discourage data-sharing
+ananesarpong2017,10.1111/dewb.12159,Factors,willingness,stakeholder perspectives,willingness,abstract,The themes reveal factors regarding the willingness or not to share and an intricate ethical system that current discourse could reflect.
+ananesarpong2017,10.1111/dewb.12159,Factors,ethics,mechanisms for implementation,ethical guidance,abstract,(5) Ethical guidance structures; and (6) Establishing effective guidance.
+volk2014,10.1007/s00267-014-0258-2,Practice,sharing,,data sharing,abstract,We surveyed natural resource scientists about common data-sharing problems.
+volk2014,10.1007/s00267-014-0258-2,data_origin,research,,datasets,abstract,"Increasingly, research and management in natural resource science rely on very large datasets compiled from multiple sources."
+volk2014,10.1007/s00267-014-0258-2,Factors,challenges,factors that obstruct,challenges,abstract,"While it is generally good to have more data, utilizing large, complex datasets has introduced challenges in data sharing, especially for collaborating researchers in disparate locations (""distributed research teams"")."
+volk2014,10.1007/s00267-014-0258-2,Factors,obstacles,factors that obstruct,central obstacle,abstract,"Since metadata, or ""information about the data,"" is a central obstacle in efficient data handling, we suggest documenting metadata through data dictionaries, protocols, read-me files, explicit null value documentation, and process metadata as essential to any large-scale research program."
+brakewood2013,10.1016/j.neuroimage.2013.02.040,Practice,both,,secondary data analysis,title,The ethics of secondary data analysis: considering the application of Belmont principles to the sharing of neuroimaging data.
+brakewood2013,10.1016/j.neuroimage.2013.02.040,data_origin,research,,human neuroimaging data,abstract,"However, the sharing of human neuroimaging data poses unique ethical concerns."
+brakewood2013,10.1016/j.neuroimage.2013.02.040,Factors,ethics,mechanisms for implementation,ethical concerns,abstract,"However, the sharing of human neuroimaging data poses unique ethical concerns."
+rohlfing2012,10.1016/j.neuroimage.2011.09.080,Practice,sharing,,shared data,abstract,We argue that the emerging practice of using the author byline to acknowledge shared data is incompatible with current established standards for academic authorship.
+rohlfing2012,10.1016/j.neuroimage.2011.09.080,data_origin,research,,shared data,abstract,"We briefly discuss viable alternatives for crediting contributors, such as citations of papers describing shared data, reference to dataset publications, inclusion in the Acknowledgments section, or credit of individuals for sharing data in an Appendix, a solution that has been used in academic evaluation."
+rohlfing2012,10.1016/j.neuroimage.2011.09.080,Factors,incentives,factors that facilitate,crediting contributors,abstract,"We briefly discuss viable alternatives for crediting contributors, such as citations of papers describing shared data, reference to dataset publications, inclusion in the Acknowledgments section, or credit of individuals for sharing data in an Appendix, a solution that has been used in academic evaluation."
+haddow2011,10.1111/j.1365-2753.2010.01488.x,Practice,sharing,,sharing of health data,title,'Nothing is really safe': a focus group study on the processes of anonymizing and sharing of health data for research purposes.
+haddow2011,10.1111/j.1365-2753.2010.01488.x,data_origin,reused,,anonymized data extracts for research from their health records,abstract,"Nonetheless, individuals varied in their attitudes to the use of anonymized data extracts for research from their health records (without consent); although some appeared positive wanted to be asked to consent for this use."
+haddow2011,10.1111/j.1365-2753.2010.01488.x,Factors,attitudes,stakeholder perspectives,attitudes,abstract,"Nonetheless, individuals varied in their attitudes to the use of anonymized data extracts for research from their health records (without consent); although some appeared positive wanted to be asked to consent for this use."
+haddow2011,10.1111/j.1365-2753.2010.01488.x,Factors,consent,mechanisms for implementation,consent,abstract,"Nonetheless, individuals varied in their attitudes to the use of anonymized data extracts for research from their health records (without consent); although some appeared positive wanted to be asked to consent for this use."
+haddow2011,10.1111/j.1365-2753.2010.01488.x,Factors,privacy,factors that obstruct,security breaches,abstract,"Furthermore, participants were acutely aware of security breaches of NHS information nevertheless, they continued to display a high level of trust in NHS staff."
+levenson2010,10.1002/ajmg.a.33287,Practice,sharing,,share data,title,When should pediatric biobanks share data?
+levenson2010,10.1002/ajmg.a.33287,data_origin,research,,pediatric biobanks,title,When should pediatric biobanks share data?
+levenson2010,10.1002/ajmg.a.33287,Factors,none,,,none,
+nelson2009,10.1038/461160a,Practice,sharing,,data sharing,title,Data sharing: Empty archives.
+nelson2009,10.1038/461160a,data_origin,unclear,,,none,
+nelson2009,10.1038/461160a,Factors,none,,,none,
+sheather2009,10.1136/bmj.b2160,Practice,sharing,,sharing health information,title,Confidentiality and sharing health information.
+sheather2009,10.1136/bmj.b2160,data_origin,not-research-data,,health information,title,Confidentiality and sharing health information.
+sheather2009,10.1136/bmj.b2160,Factors,privacy,factors that obstruct,confidentiality,title,Confidentiality and sharing health information.
+teeters2008,10.1007/s12021-008-9009-y,Practice,sharing,,data sharing,title,Data sharing for computational neuroscience.
+teeters2008,10.1007/s12021-008-9009-y,data_origin,research,,experimental data,abstract,"To constrain and test computational models, researchers need access to a wide variety of experimental data."
+teeters2008,10.1007/s12021-008-9009-y,Factors,motivation,factors that facilitate,not been motivated to provide data,abstract,Much of those data are not readily accessible because neuroscientists fall into separate communities that study the brain at different levels and have not been motivated to provide data to researchers outside their community.
+teeters2008,10.1007/s12021-008-9009-y,Factors,policies,policies and what drive them,policies,abstract,"Computational neuroscience was recommended as an ideal field for focusing data sharing, and specific methods, strategies and policies were suggested for achieving it."
+teeters2008,10.1007/s12021-008-9009-y,Factors,incentives,factors that facilitate,funding area,abstract,"A new funding area in the NSF/NIH Collaborative Research in Computational Neuroscience (CRCNS) program has been established to support data sharing, guided in part by the workshop recommendations."
+cooper2007,10.1525/jer.2007.2.1.3,Practice,sharing,,sharing data,title,Sharing Data and Results in Ethnographic Research: Why This Should not be an Ethical Imperative.
+cooper2007,10.1525/jer.2007.2.1.3,data_origin,research,,field materials,abstract,"Sharing results is discussed in relation to several issues, e.g., whether it occurs during or after completion of a project, whether the research is long-term, the complexities involved in depositing field materials in archives, the changing politics of ethnographic research, research not concerned with communities, situations in which participants and the anthropologist may be in danger, and changing styles of ethnographic research."
+cooper2007,10.1525/jer.2007.2.1.3,Factors,ethics,mechanisms for implementation,ethical requirement,abstract,"I argue that, ideally, sharing should be a regular component of ethnographic research but should not be an ethical requirement."
+peng2016,10.1002/ehs2.1225,Practice,sharing,,sharing of scientific data,abstract,full and open exchange and sharing of scientific data
+peng2016,10.1002/ehs2.1225,data_origin,research,,digital data,abstract,"preservation of, and access to, digital data"
+peng2016,10.1002/ehs2.1225,Factors,challenges,factors that obstruct,challenges,abstract,"cultural, policy, and technological challenges have prevented Chinese researchers"
+peng2016,10.1002/ehs2.1225,Factors,incentives,factors that facilitate,"incentives, and rewards",abstract,"better mechanisms, incentives, and rewards"
+peng2016,10.1002/ehs2.1225,Factors,attitudes,stakeholder perspectives,behavior and culture,abstract,change their behavior and culture
+plengsaeng2014,10.1080/02508060.2015.981783,Practice,sharing,,data sharing,abstract,The current extent of data sharing is quite limited.
+plengsaeng2014,10.1080/02508060.2015.981783,data_origin,unclear,,collected data amongst relevant organizations,abstract,sharing of collected data amongst relevant organizations
+plengsaeng2014,10.1080/02508060.2015.981783,Factors,barriers,factors that obstruct,non-technical barriers,abstract,non-technical barriers that influence IWRM-related data sharing
+plengsaeng2014,10.1080/02508060.2015.981783,Factors,perceptions,stakeholder perspectives,perception of limited gains,abstract,"a perception of limited gains, and concerns for national security"
+sayogo2013,10.1016/j.giq.2012.06.011,Practice,sharing,,scientific data sharing,title,Exploring the determinants of scientific data sharing: Understanding the motivation to publish research data
+sayogo2013,10.1016/j.giq.2012.06.011,data_origin,research,,research data,title,Exploring the determinants of scientific data sharing: Understanding the motivation to publish research data
+sayogo2013,10.1016/j.giq.2012.06.011,Factors,motivation,factors that facilitate,motivation,title,Exploring the determinants of scientific data sharing: Understanding the motivation to publish research data
+schopfel2018,10.1108/DTA-01-2017-0005,Practice,sharing,,availability of their data output,abstract,availability of their data output
+schopfel2018,10.1108/DTA-01-2017-0005,data_origin,research,,their data production and management,abstract,their data production and management
+schopfel2018,10.1108/DTA-01-2017-0005,Factors,infrastructure,factors that facilitate,"human resources, IT, funding, standards",abstract,"(human resources, IT, funding, standards)"
+schopfel2018,10.1108/DTA-01-2017-0005,Factors,policies,policies and what drive them,institutional policy,abstract,recommendations for an institutional policy
+schopfel2018,10.1108/DTA-01-2017-0005,Factors,open access,policies and what drive them,commitment to open access,abstract,RDM is not directly correlated with the commitment to open access
+scott2014,10.5258/SOTON/374711,Practice,sharing,,share this data,abstract,Increasingly they need to share this data as part of international collaborations.
+scott2014,10.5258/SOTON/374711,data_origin,research,,heterogeneous data,abstract,is a continuing problem in the management of heterogeneous data.
+scott2014,10.5258/SOTON/374711,Factors,challenges,factors that obstruct,continuing problem,abstract,is a continuing problem in the management of heterogeneous data.
+scott2014,10.5258/SOTON/374711,Factors,repositories,factors that facilitate,remote data repository,abstract,data can be published in a remote data repository
+wiley2018,10.1080/0194262X.2018.1516596,Practice,sharing,,data sharing,abstract,to better understand the current state of data sharing
+wiley2018,10.1080/0194262X.2018.1516596,data_origin,research,,research data,abstract,public access to research data
+wiley2018,10.1080/0194262X.2018.1516596,Factors,mandates,policies and what drive them,funding agency mandates,abstract,Funding agency mandates have issued memorandums requiring applicants to submit a data management plan
+wiley2018,10.1080/0194262X.2018.1516596,Factors,data management plans,mechanisms for implementation,data management plan,abstract,Funding agency mandates have issued memorandums requiring applicants to submit a data management plan
+wiley2018,10.1080/0194262X.2018.1516596,Factors,policies,policies and what drive them,editorial policies,abstract,as reflected in editorial policies and the instructions to authors
+zvyagintseva2015,10.7939/R3M66S,Practice,sharing,,making research data accessible,abstract,committing to making research data accessible and providing meaningful ways for the public to contribute
+zvyagintseva2015,10.7939/R3M66S,data_origin,research,,research data,abstract,committing to making research data accessible and providing meaningful ways for the public to contribute
+zvyagintseva2015,10.7939/R3M66S,Factors,data curation,mechanisms for implementation,data curation,title,Articulating a Vision for Community-Engaged Data Curation in the Digital Humanities
+zvyagintseva2015,10.7939/R3M66S,Factors,interoperability,factors that facilitate,metadata standards,abstract,adherence to established metadata standards
+wittenberg2017,10.1177/0340035216686982,Practice,neither,,,abstract,research data management program
+wittenberg2017,10.1177/0340035216686982,data_origin,research,,research data,abstract,research data management program
+wittenberg2017,10.1177/0340035216686982,Factors,obstacles,factors that obstruct,obstacles,abstract,the obstacles in implementing it
+yoon2017,10.5860/crl.78.7.920,Practice,neither,,,abstract,research data management services in academic libraries
+yoon2017,10.5860/crl.78.7.920,data_origin,research,,research data,abstract,research data management services in academic libraries
+yoon2017,10.5860/crl.78.7.920,Factors,none,,,abstract,
+brown2015,,Practice,neither,,,title,Directions for research data management in UK universities
+brown2015,,data_origin,research,,research data,title,Directions for research data management in UK universities
+brown2015,,Factors,none,,,title,
+davenport2012,,Practice,neither,,,title,Data scientist
+davenport2012,,data_origin,unclear,,,none,
+davenport2012,,Factors,none,,,none,
+ec2012,,Practice,sharing,,open access to research results,title,Scientific data: Open access to research results will boost Europe's innovation capacity
+ec2012,,data_origin,research,,scientific data,title,Scientific data: Open access to research results will boost Europe's innovation capacity
+ec2012,,Factors,open access,policies and what drive them,open access,title,Scientific data: Open access to research results will boost Europe's innovation capacity
+fry2008,,Practice,sharing,,open sharing of research data,title,Identifying benefits arising from the curation and open sharing of research data produced by UK higher education and research institutes
+fry2008,,data_origin,research,,research data,title,Identifying benefits arising from the curation and open sharing of research data produced by UK higher education and research institutes
+fry2008,,Factors,data curation,mechanisms for implementation,curation,title,Identifying benefits arising from the curation and open sharing of research data produced by UK higher education and research institutes
+guedon2015,,Practice,sharing,,open data,title,Open data and science: Towards optimizing the research process
+guedon2015,,data_origin,research,,open data,title,Open data and science: Towards optimizing the research process
+guedon2015,,Factors,open data,policies and what drive them,open data,title,Open data and science: Towards optimizing the research process
+mundel2014,,Practice,sharing,,sharing information,title,Knowledge is power: Sharing information can accelerate global health impact
+mundel2014,,data_origin,unclear,,,none,
+mundel2014,,Factors,none,,,none,
+parse2009,,Practice,neither,,,title,First insights into digital preservation of research output in Europe
+parse2009,,data_origin,research,,research output,title,First insights into digital preservation of research output in Europe
+parse2009,,Factors,none,,,title,
+walters2011,,Practice,neither,,,title,New roles for new times: Digital curation for preservation
+walters2011,,data_origin,unclear,,,none,
+walters2011,,Factors,data curation,mechanisms for implementation,digital curation,title,New roles for new times: Digital curation for preservation
+jeng2016,,Practice,sharing,,data sharing practices,title,Toward a conceptual framework for data sharing practices in social sciences: A profile approach
+jeng2016,,data_origin,research,,social sciences,title,Toward a conceptual framework for data sharing practices in social sciences: A profile approach
+jeng2016,,Factors,none,,,title,
+houtkoop2018,10.1177/2515245917751886,Practice,sharing,,public data sharing,abstract,public data sharing remains relatively uncommon
+houtkoop2018,10.1177/2515245917751886,data_origin,research,,psychology research,title,Data Sharing in Psychology: A Survey on Barriers and Preconditions
+houtkoop2018,10.1177/2515245917751886,Factors,barriers,factors that obstruct,perceived barriers,abstract,Perceived barriers included respondents' belief that sharing is not a common practice in their fields
+houtkoop2018,10.1177/2515245917751886,Factors,perceptions,stakeholder perspectives,belief,abstract,Perceived barriers included respondents' belief that sharing is not a common practice in their fields
+houtkoop2018,10.1177/2515245917751886,Factors,incentives,factors that facilitate,strong encouragement,abstract,"strong encouragement from institutions, journals, and funders will be particularly effective"
+bertzky2009,,Practice,sharing,,sharing data,title,Multi-level discrepancies with sharing data on protected areas: What we have and what we need for the global village
+bertzky2009,,data_origin,unclear,,,none,
+bertzky2009,,Factors,challenges,factors that obstruct,discrepancies,title,Multi-level discrepancies with sharing data on protected areas: What we have and what we need for the global village
+costello2009,,Practice,sharing,,online publication of data,title,Motivating online publication of data
+costello2009,,data_origin,unclear,,,none,
+costello2009,,Factors,motivation,factors that facilitate,motivating,title,Motivating online publication of data
+cragin2010,,Practice,sharing,,data sharing,title,"Data sharing, small science and institutional repositories"
+cragin2010,,data_origin,research,,small science,title,"Data sharing, small science and institutional repositories"
+cragin2010,,Factors,repositories,factors that facilitate,institutional repositories,title,"Data sharing, small science and institutional repositories"
+curty2015,,Practice,reuse,,research data reuse,title,"Beyond ""data thrifting"": An investigation of factors influencing research data reuse in the social sciences"
+curty2015,,data_origin,research,,research data,title,"Beyond ""data thrifting"": An investigation of factors influencing research data reuse in the social sciences"
+curty2015,,Factors,none,,,title,
+delson2007,,Practice,sharing,,data sharing,title,"Databases, data access, and data sharing in paleoanthropology: First steps"
+delson2007,,data_origin,research,,paleoanthropology,title,"Databases, data access, and data sharing in paleoanthropology: First steps"
+delson2007,,Factors,none,,,title,
+huang2013,,Practice,sharing,,biodiversity data sharing,title,Biodiversity data sharing: Will peer-reviewed data papers work?
+huang2013,,data_origin,research,,biodiversity data,title,Biodiversity data sharing: Will peer-reviewed data papers work?
+huang2013,,Factors,incentives,factors that facilitate,peer-reviewed data papers,title,Biodiversity data sharing: Will peer-reviewed data papers work?
+koopman2015,,Practice,neither,,,title,"Data archiving, management initiatives and expertise in the Biological Sciences Department"
+koopman2015,,data_origin,research,,biological sciences,title,"Data archiving, management initiatives and expertise in the Biological Sciences Department"
+koopman2015,,Factors,none,,,title,
+matlatse2016,,Practice,neither,,,title,An evaluation of a structured training event aimed at enhancing the research data management (RDM) knowledge and skills of library and information science (LIS) professionals in South African higher education institutions (HEIs)
+matlatse2016,,data_origin,research,,research data,title,An evaluation of a structured training event aimed at enhancing the research data management (RDM) knowledge and skills of library and information science (LIS) professionals in South African higher education institutions (HEIs)
+matlatse2016,,Factors,none,,,title,
+mccullough2009,,Practice,neither,,,title,Open access economics journals and the market for reproducible economic research
+mccullough2009,,data_origin,unclear,,,none,
+mccullough2009,,Factors,open access,policies and what drive them,open access,title,Open access economics journals and the market for reproducible economic research
+perrino2013,,Practice,sharing,,collaborative data sharing,title,Advancing science through collaborative data sharing and synthesis
+perrino2013,,data_origin,research,,data sharing and synthesis,title,Advancing science through collaborative data sharing and synthesis
+perrino2013,,Factors,none,,,title,
+schumacher2015,,Practice,neither,,,title,Intellectual capital at risk: Data management practices and data loss by faculty members at five American universities
+schumacher2015,,data_origin,research,,data,title,Intellectual capital at risk: Data management practices and data loss by faculty members at five American universities
+schumacher2015,,Factors,none,,,title,
+shakeri2013,,Practice,neither,,,title,Data curation perspectives and practices of researchers at Kent State University's Liquid Crystal Institute: A case study
+shakeri2013,,data_origin,research,,researchers,title,Data curation perspectives and practices of researchers at Kent State University's Liquid Crystal Institute: A case study
+shakeri2013,,Factors,data curation,mechanisms for implementation,data curation,title,Data curation perspectives and practices of researchers at Kent State University's Liquid Crystal Institute: A case study
+specht2015,,Practice,neither,,,title,Data management challenges in analysis and synthesis in the ecosystem sciences
+specht2015,,data_origin,research,,ecosystem sciences,title,Data management challenges in analysis and synthesis in the ecosystem sciences
+specht2015,,Factors,challenges,factors that obstruct,challenges,title,Data management challenges in analysis and synthesis in the ecosystem sciences
+tucker2009,,Practice,sharing,,data sharing,title,Motivating subjects: Data sharing in cancer research
+tucker2009,,data_origin,research,,cancer research,title,Motivating subjects: Data sharing in cancer research
+tucker2009,,Factors,motivation,factors that facilitate,motivating,title,Motivating subjects: Data sharing in cancer research
+woolfrey2009,,Practice,neither,,,title,Archiving social survey data in Africa: An overview of African microdata curation and the role of survey data archives in data management in Africa
+woolfrey2009,,data_origin,research,,social survey data,title,Archiving social survey data in Africa: An overview of African microdata curation and the role of survey data archives in data management in Africa
+woolfrey2009,,Factors,data curation,mechanisms for implementation,microdata curation,title,Archiving social survey data in Africa: An overview of African microdata curation and the role of survey data archives in data management in Africa
+yoon2015,,Practice,reuse,,data reuse,title,Data reuse and users' trust judgments: Toward trusted data curation
+yoon2015,,data_origin,unclear,,,none,
+yoon2015,,Factors,data curation,mechanisms for implementation,trusted data curation,title,Data reuse and users' trust judgments: Toward trusted data curation
+zimmerman2008,10.2307/29734058,Practice,both,,sharing and reuse,title,New knowledge from old data: The role of standards in the sharing and reuse of ecological data
+zimmerman2008,10.2307/29734058,data_origin,research,,ecological data,title,New knowledge from old data: The role of standards in the sharing and reuse of ecological data
+zimmerman2008,10.2307/29734058,Factors,interoperability,factors that facilitate,standards,title,New knowledge from old data: The role of standards in the sharing and reuse of ecological data
+bezuidenhout2013,10.1007/s11948-011-9298-7,Practice,sharing,,data sharing,abstract,This paper examines the tension between the obligation to share exemplified by data sharing principles and the concerns raised by the risk-cautious culture of the dual-use debates.
+bezuidenhout2013,10.1007/s11948-011-9298-7,data_origin,research,,scientific research,abstract,"The concept of dual-use encapsulates the potential for well-intentioned, beneficial scientific research to also be misused by a third party for malicious ends."
+bezuidenhout2013,10.1007/s11948-011-9298-7,Factors,ethics,mechanisms for implementation,ethical conflict,abstract,"As the dual-use debate has yet to make a significant impact on data sharing discussions (and vice versa) it is possible that these two areas of knowledge control may present areas of ethical conflict for scientists, and thus need to be more closely examined."
+bezuidenhout2013,10.1007/s11948-011-9298-7,Factors,governance,mechanisms for implementation,regulation,abstract,Since 2001 much attention has been paid to the possible need to regulate the dual-use potential of the life sciences.
+bull2015,10.1177/1556264615594606,Practice,sharing,,ethical data sharing,abstract,This article discusses the results of a systematic review and multisite qualitative study of key stakeholders' perspectives on best practices in ethical data sharing in low- and middle-income settings.
+bull2015,10.1177/1556264615594606,data_origin,research,,individual-level data from clinical and public health research,abstract,Sharing individual-level data from clinical and public health research is increasingly being seen as a core requirement for effective and efficient biomedical research.
+bull2015,10.1177/1556264615594606,Factors,ethics,mechanisms for implementation,ethical requirements,abstract,"Our research suggests that for data sharing to be effective and sustainable, multiple social and ethical requirements need to be met."
+bull2015,10.1177/1556264615594606,Factors,perceptions,stakeholder perspectives,stakeholders' perspectives,abstract,This article discusses the results of a systematic review and multisite qualitative study of key stakeholders' perspectives on best practices in ethical data sharing in low- and middle-income settings.
+chandramohan2008,10.1371/journal.pmed.0050057,Practice,sharing,,sharing data,abstract,"Basia Zaba and colleagues argue that the major obstacles to DSS sites sharing data are technical, managerial, and financial rather than proprietorial concerns about analysis and publication."
+chandramohan2008,10.1371/journal.pmed.0050057,data_origin,reused,,demographic surveillance,abstract,"Demographic surveillance--the process of monitoring births, deaths, causes of deaths, and migration in a population over time--is one of the cornerstones of public health research, particularly in investigating and tackling health disparities."
+chandramohan2008,10.1371/journal.pmed.0050057,Factors,obstacles,factors that obstruct,major obstacles,abstract,"Basia Zaba and colleagues argue that the major obstacles to DSS sites sharing data are technical, managerial, and financial rather than proprietorial concerns about analysis and publication."
+coady2013,10.1186/1745-6215-14-201,Practice,sharing,,data sharing,abstract,"There are numerous benefits to the research community from data sharing, and yet the open sharing of participant level data is not without potential pitfalls."
+coady2013,10.1186/1745-6215-14-201,data_origin,research,,clinical trials and observational studies,abstract,"The data repository presently includes individual level data on more than 560,000 participants from 100 Institute-supported clinical trials and observational studies."
+coady2013,10.1186/1745-6215-14-201,Factors,governance,mechanisms for implementation,independent oversight,abstract,"The National Heart, Lung, and Blood Institute (NHLBI) has developed a data-sharing protocol focused on balancing the interests of study participants, study investigators, and the research community with independent oversight by the NHLBI IRB."
+coady2013,10.1186/1745-6215-14-201,Factors,repositories,factors that facilitate,data repository,abstract,"The data repository presently includes individual level data on more than 560,000 participants from 100 Institute-supported clinical trials and observational studies."
+curty2017,10.1371/journal.pone.0189288,Practice,reuse,,data reuse,abstract,"Using the Theory of Reasoned Action, we test the relationship between the beliefs and attitudes of scientists towards data reuse, and their self-reported data reuse behaviour."
+curty2017,10.1371/journal.pone.0189288,data_origin,research,,scientific research data,abstract,"The value of sharing scientific research data is widely appreciated, but factors that hinder or prompt the reuse of data remain poorly understood."
+curty2017,10.1371/journal.pone.0189288,Factors,attitudes,stakeholder perspectives,attitudes,abstract,"Using the Theory of Reasoned Action, we test the relationship between the beliefs and attitudes of scientists towards data reuse, and their self-reported data reuse behaviour."
+curty2017,10.1371/journal.pone.0189288,Factors,perceptions,stakeholder perspectives,perceived efficacy,abstract,"Results show that the perceived efficacy and efficiency of data reuse are strong predictors of reuse behaviour, and that the perceived importance of data reuse corresponds to greater reuse."
+curty2017,10.1371/journal.pone.0189288,Factors,policies,policies and what drive them,policies,abstract,We offer some theoretical and practical suggestions that could help to legitimize investment and policies in favor of data sharing.
+fecher2015,10.1371/journal.pone.0118053,Practice,both,,reuse of old data,abstract,It allows the reproducibility of study results and the reuse of old data for new research questions.
+fecher2015,10.1371/journal.pone.0118053,data_origin,research,,research data,abstract,"Despite widespread support from policy makers, funding agencies, and scientific journals, academic researchers rarely make their research data available to others."
+fecher2015,10.1371/journal.pone.0118053,Factors,policies,policies and what drive them,research policies,abstract,"We conclude that research data cannot be regarded as knowledge commons, but research policies that better incentivise data sharing are needed to improve the quality of research results and foster scientific progress."
+fecher2015,10.1371/journal.pone.0118053,Factors,incentives,factors that facilitate,incentivise,abstract,"We conclude that research data cannot be regarded as knowledge commons, but research policies that better incentivise data sharing are needed to improve the quality of research results and foster scientific progress."
+fecher2015,10.1371/journal.pone.0118053,Factors,infrastructure,factors that facilitate,data infrastructure,abstract,"We show that this process can be divided into six descriptive categories: Data donor, research organization, research community, norms, data infrastructure, and data recipients."
+harding2013,10.1289/ehp.1103904,Practice,sharing,,data-sharing,title,"Conducting research with tribal communities: sovereignty, ethics, and data-sharing issues."
+harding2013,10.1289/ehp.1103904,data_origin,research,,community-based participatory research,abstract,"In this article, we review sovereignty, research ethics, and data-sharing considerations when doing community-based participatory health-related or natural-resource-related research with American Indian nations and present a model material and data-sharing agreement that meets tribal and university requirements."
+harding2013,10.1289/ehp.1103904,Factors,consent,mechanisms for implementation,informed consent,abstract,"When conducting research with American Indian tribes, informed consent beyond conventional institutional review board (IRB) review is needed because of the potential for adverse consequences at a community or governmental level that are unrecognized by academic researchers."
+harding2013,10.1289/ehp.1103904,Factors,governance,mechanisms for implementation,data-sharing agreement,abstract,"In this article, we review sovereignty, research ethics, and data-sharing considerations when doing community-based participatory health-related or natural-resource-related research with American Indian nations and present a model material and data-sharing agreement that meets tribal and university requirements."
+harding2013,10.1289/ehp.1103904,Factors,licensing,mechanisms for implementation,intellectual property rights,abstract,"Advances in protection of intellectual property rights (IPR) are also applicable to IRB reviews, as are principles of sovereignty and indigenous rights, all of which affect data ownership and control."
+harding2013,10.1289/ehp.1103904,Factors,ethics,mechanisms for implementation,research ethics,abstract,"In this article, we review sovereignty, research ethics, and data-sharing considerations when doing community-based participatory health-related or natural-resource-related research with American Indian nations and present a model material and data-sharing agreement that meets tribal and university requirements."
+kaye2018,10.1186/s40246-018-0143-9,Practice,sharing,,data-sharing,title,Including all voices in international data-sharing governance.
+kaye2018,10.1186/s40246-018-0143-9,data_origin,research,,biomedical research,abstract,The governance frameworks that have been developed to support biomedical research are not well equipped to deal with the complexities of international data sharing.
+kaye2018,10.1186/s40246-018-0143-9,Factors,governance,mechanisms for implementation,governance frameworks,abstract,The governance frameworks that have been developed to support biomedical research are not well equipped to deal with the complexities of international data sharing.
+kaye2018,10.1186/s40246-018-0143-9,Factors,policies,policies and what drive them,strategies to encourage researchers,abstract,"Governments, funding bodies, institutions, and publishers have developed a number of strategies to encourage researchers to facilitate access to datasets."
+kostkova2018,10.1186/s40504-018-0078-x,Practice,sharing,,public health data sharing,abstract,"Secondly, define the challenges to be addressed by the legal frameworks for public health data sharing to unlock the potential of population-level datasets for research with no impact on citizens privacy."
+kostkova2018,10.1186/s40504-018-0078-x,data_origin,reused,,population-level datasets for research,abstract,"Secondly, define the challenges to be addressed by the legal frameworks for public health data sharing to unlock the potential of population-level datasets for research with no impact on citizens privacy."
+kostkova2018,10.1186/s40504-018-0078-x,Factors,privacy,factors that obstruct,data privacy,abstract,"However, these opportunities created a double edge sword as access to data, quality monitoring and assurance, as well as governance and regulation frameworks for data privacy are lagging behind technological achievements."
+kostkova2018,10.1186/s40504-018-0078-x,Factors,governance,mechanisms for implementation,governance and regulation frameworks,abstract,"However, these opportunities created a double edge sword as access to data, quality monitoring and assurance, as well as governance and regulation frameworks for data privacy are lagging behind technological achievements."
+kostkova2018,10.1186/s40504-018-0078-x,Factors,ethics,mechanisms for implementation,ethical challenges,abstract,In this paper we identify three ethical challenges: sharing data across various early warning tools to support risk assessment.
+mbuagbaw2017,10.1186/s13063-017-1816-8,Practice,sharing,,data sharing,abstract,Data sharing from clinical trials is one way of promoting fair and transparent conduct of clinical trials.
+mbuagbaw2017,10.1186/s13063-017-1816-8,data_origin,mixed,,programmatic data collected as part of routine care,abstract,(5) using programmatic data collected as part of routine care
+mbuagbaw2017,10.1186/s13063-017-1816-8,Factors,barriers,factors that obstruct,impede,abstract,"In this paper, we discuss issues which impede the use of data even when sharing should be possible: (1) multicentre studies requiring consent from all the investigators in each centre; (2) remote access platforms with software limitations and Internet requirements; (3) on-site data analysis when data cannot be moved; (4) governing bodies for data generated in one jurisdiction and analysed in another; (5) using programmatic data collected as part of routine care; (6) data collected in multiple languages; (7) poor data quality."
+mbuagbaw2017,10.1186/s13063-017-1816-8,Factors,consent,mechanisms for implementation,consent from all the investigators,abstract,(1) multicentre studies requiring consent from all the investigators in each centre
+mbuagbaw2017,10.1186/s13063-017-1816-8,Factors,governance,mechanisms for implementation,governing bodies,abstract,(4) governing bodies for data generated in one jurisdiction and analysed in another
+mbuagbaw2017,10.1186/s13063-017-1816-8,Factors,willingness,stakeholder perspectives,willingness to share,abstract,We believe these issues apply to all primary data and cause undue difficulties in conducting analysis even when there is some willingness to share.
+mennes2013,10.1016/j.neuroimage.2012.10.064,Practice,sharing,,open-access data sharing,abstract,"Over a decade ago, the fMRI Data Center (fMRIDC) pioneered open-access data sharing in the task-based functional neuroimaging community."
+mennes2013,10.1016/j.neuroimage.2012.10.064,data_origin,research,,imaging datasets,abstract,"Beyond providing open access to thousands of clinical and non-clinical imaging datasets, the FCP and INDI have demonstrated the feasibility of large-scale data aggregation for hypothesis generation and testing."
+mennes2013,10.1016/j.neuroimage.2012.10.064,Factors,barriers,factors that obstruct,barriers,abstract,"Well ahead of its time, the fMRIDC effort encountered logistical, sociocultural and funding barriers that impeded the field-wise instantiation of open-access data sharing."
+mennes2013,10.1016/j.neuroimage.2012.10.064,Factors,privacy,factors that obstruct,participant privacy,abstract,"Reminiscent of the challenges faced by fMRIDC, key controversies persist and include participant privacy, the role of informatics, and the logistical and cultural challenges of establishing an open science ethos."
+mennes2013,10.1016/j.neuroimage.2012.10.064,Factors,open science,policies and what drive them,open science ethos,abstract,"Reminiscent of the challenges faced by fMRIDC, key controversies persist and include participant privacy, the role of informatics, and the logistical and cultural challenges of establishing an open science ethos."
+milia2012,10.1371/journal.pone.0037552,Practice,sharing,,sharing of primary datasets,abstract,Research concerning human genetic variation represents a potential forerunner in the establishment of widespread sharing of primary datasets.
+milia2012,10.1371/journal.pone.0037552,data_origin,research,,mitochondrial and Y chromosomal datasets,abstract,"To this aim, we analyzed a total of 543 mitochondrial and Y chromosomal datasets reported in 508 papers indexed in the Pubmed database from 2008 to 2011."
+milia2012,10.1371/journal.pone.0037552,Factors,policies,policies and what drive them,editorial policies,abstract,"A substantial portion of datasets (21.9%) was found to have been withheld, while neither strong editorial policies nor high impact factor proved to be effective in increasing the sharing rate beyond the current figure of 80.5%."
+milia2012,10.1371/journal.pone.0037552,Factors,reluctance,factors that obstruct,withheld,abstract,"A substantial portion of datasets (21.9%) was found to have been withheld, while neither strong editorial policies nor high impact factor proved to be effective in increasing the sharing rate beyond the current figure of 80.5%."
+milia2012,10.1371/journal.pone.0037552,Factors,repositories,factors that facilitate,open online databases,abstract,"The low rate of positive responses to e-mail requests sent to corresponding authors of withheld datasets (28.6%) suggests that sharing should be regarded as a prerequisite for final paper acceptance, while making authors deposit their results in open online databases which provide data quality control seems to provide the best-practice standard."
+pearce2011,10.1186/1476-069X-10-107,Practice,sharing,,data sharing,abstract,We believe that data sharing is a good idea.
+pearce2011,10.1186/1476-069X-10-107,data_origin,mixed,,anonymised hospital admission records,abstract,"The level of ethical concern will vary according to the nature of the information, and the way in which it is collected - analyses of anonymised hospital admission records may carry a quite different ethical burden than analyses of potentially identifiable health information collected directly from the study participants."
+pearce2011,10.1186/1476-069X-10-107,Factors,ethics,mechanisms for implementation,ethical concern,abstract,"The level of ethical concern will vary according to the nature of the information, and the way in which it is collected - analyses of anonymised hospital admission records may carry a quite different ethical burden than analyses of potentially identifiable health information collected directly from the study participants."
+pearce2011,10.1186/1476-069X-10-107,Factors,consent,mechanisms for implementation,informed consent,abstract,"Obtaining prior informed consent from the participants does not solve this problem, unless the informed consent process makes it completely clear what is being proposed, in which case most study participants would not agree."
+pisani2010,10.2471/BLT.09.074393,Practice,sharing,,data sharing,abstract,"Epidemiologists and public health researchers are moving very slowly in the data sharing revolution, and agencies that maintain global health databases are reluctant to share data too."
+pisani2010,10.2471/BLT.09.074393,data_origin,research,,public health research,abstract,"By refusing to share data, researchers are slowing progress towards reducing illness and death and are denying a public good to taxpayers who support most of the research."
+pisani2010,10.2471/BLT.09.074393,Factors,reluctance,factors that obstruct,reluctant to share,abstract,"Epidemiologists and public health researchers are moving very slowly in the data sharing revolution, and agencies that maintain global health databases are reluctant to share data too."
+pisani2010,10.2471/BLT.09.074393,Factors,obstacles,factors that obstruct,obstacles,abstract,However they are not yet adequately addressing the obstacles that underpin the failure to share data.
+pisani2010,10.2471/BLT.09.074393,Factors,policies,policies and what drive them,data sharing policies,abstract,Funders of public health research are beginning to call for change and developing data sharing policies.
+pisani2010,10.2471/BLT.09.074393,Factors,incentives,factors that facilitate,reward,abstract,"These include professional structures that reward publication of analysis but not of data, and funding streams and career paths that continue to undervalue critical data management work."
+pitt2013,10.1111/tops.12006,Practice,sharing,,sharing of raw data,abstract,There is a growing chorus of voices in the scientific community calling for greater openness in the sharing of raw data that lead to a publication.
+pitt2013,10.1111/tops.12006,data_origin,research,,raw data,abstract,There is a growing chorus of voices in the scientific community calling for greater openness in the sharing of raw data that lead to a publication.
+pitt2013,10.1111/tops.12006,Factors,policies,policies and what drive them,sharing policy,abstract,"In this commentary, we discuss the merits of sharing, common concerns that are raised, and practical issues that arise in developing a sharing policy."
+piwowar2011,10.1371/journal.pone.0018657,Practice,sharing,,openly archiving raw research data,title,Who shares? Who doesn't? Factors associated with openly archiving raw research data.
+piwowar2011,10.1371/journal.pone.0018657,data_origin,research,,gene expression microarray datasets,abstract,In this analysis I use bibliometric methods to identify patterns in the frequency with which investigators openly archive their raw gene expression microarray datasets after study publication.
+piwowar2011,10.1371/journal.pone.0018657,Factors,policies,policies and what drive them,data sharing policy,abstract,"In multivariate regression, authors were most likely to share data if they had prior experience sharing or reusing data, if their study was published in an open access journal or a journal with a relatively strong data sharing policy, or if the study was funded by a large number of NIH grants."
+piwowar2011,10.1371/journal.pone.0018657,Factors,open access,policies and what drive them,open access journal,abstract,"In multivariate regression, authors were most likely to share data if they had prior experience sharing or reusing data, if their study was published in an open access journal or a journal with a relatively strong data sharing policy, or if the study was funded by a large number of NIH grants."
+ross2016,10.1186/s13643-016-0334-1,Practice,sharing,,clinical research data sharing,title,Clinical research data sharing: what an open science world means for researchers involved in evidence synthesis.
+ross2016,10.1186/s13643-016-0334-1,data_origin,research,,interventional clinical trials,abstract,The International Committee of Medical Journal Editors (ICMJE) recently announced a bold step forward to require data generated by interventional clinical trials that are published in its member journals to be responsibly shared with external investigators.
+ross2016,10.1186/s13643-016-0334-1,Factors,mandates,policies and what drive them,require,abstract,The International Committee of Medical Journal Editors (ICMJE) recently announced a bold step forward to require data generated by interventional clinical trials that are published in its member journals to be responsibly shared with external investigators.
+ross2016,10.1186/s13643-016-0334-1,Factors,challenges,factors that obstruct,challenges,abstract,"While data sharing is likely to enhance the science of evidence synthesis, facilitating the identification and inclusion of all relevant research, it will also pose key challenges, such as requiring broader search strategies and more thorough scrutiny of identified research."
+ross2016,10.1186/s13643-016-0334-1,Factors,open science,policies and what drive them,open science,title,Clinical research data sharing: what an open science world means for researchers involved in evidence synthesis.
+rowhanifarid2017,10.1186/s41073-017-0028-9,Practice,sharing,,data sharing,abstract,Data sharing facilitates the progress of research and strengthens science.
+rowhanifarid2017,10.1186/s41073-017-0028-9,data_origin,research,,health and medical research,abstract,The foundation of health and medical research is data.
+rowhanifarid2017,10.1186/s41073-017-0028-9,Factors,incentives,factors that facilitate,incentives,title,What incentives increase data sharing in health and medical research? A systematic review.
+sansone2012,10.1186/2047-217X-1-10,Practice,sharing,,share data,abstract,"It is evident, however, that researchers and bioinformaticians struggle to navigate the various standards and to find the appropriate database to collect, manage, and share data."
+sansone2012,10.1186/2047-217X-1-10,data_origin,research,,bioscience investigations,abstract,"There are thousands of biology databases with hundreds of terminologies, reporting guidelines, representations models, and exchange formats to help annotate, report, and share bioscience investigations."
+sansone2012,10.1186/2047-217X-1-10,Factors,challenges,factors that obstruct,challenges,abstract,"In this paper, we highlight a number of key issues that can be used to turn these challenges into new opportunities."
+sansone2012,10.1186/2047-217X-1-10,Factors,policies,policies and what drive them,data sharing policies,title,On the evolving portfolio of community-standards and data sharing policies: turning challenges into new opportunities.
+savage2009,10.1371/journal.pone.0007078,Practice,sharing,,data sharing,title,Empirical study of data sharing by authors publishing in PLoS journals.
+savage2009,10.1371/journal.pone.0007078,data_origin,research,,raw data,abstract,We requested data from ten investigators who had published in either PLoS Medicine or PLoS Clinical Trials.
+savage2009,10.1371/journal.pone.0007078,Factors,policies,policies and what drive them,journal policies requiring data sharing,abstract,This suggests that journal policies requiring data sharing do not lead to authors making their data sets available to independent investigators.
+savage2009,10.1371/journal.pone.0007078,Factors,mandates,policies and what drive them,explicit requirement,abstract,A reminder of PLoS's explicit requirement that authors share data did not change the reply from the four authors who initially refused.
+savage2009,10.1371/journal.pone.0007078,Factors,reluctance,factors that obstruct,refused to share,abstract,"Following the ten requests for raw data, three investigators did not respond, four authors responded and refused to share their data, two email addresses were no longer valid, and one author requested further details."
+schmidt2016,10.1371/journal.pone.0146695,Practice,sharing,,sharing of data,abstract,"It highlights users' perceptions of the term ""open data"", expectations of infrastructure functionalities, and barriers and enablers for the sharing of data."
+schmidt2016,10.1371/journal.pone.0146695,data_origin,research,,global environmental research,title,Open Data in Global Environmental Research: The Belmont Forum's Open Data Survey.
+schmidt2016,10.1371/journal.pone.0146695,Factors,perceptions,stakeholder perspectives,perceptions,abstract,"It highlights users' perceptions of the term ""open data"", expectations of infrastructure functionalities, and barriers and enablers for the sharing of data."
+schmidt2016,10.1371/journal.pone.0146695,Factors,barriers,factors that obstruct,barriers,abstract,"It highlights users' perceptions of the term ""open data"", expectations of infrastructure functionalities, and barriers and enablers for the sharing of data."
+schmidt2016,10.1371/journal.pone.0146695,Factors,enablers,factors that facilitate,enablers,abstract,"It highlights users' perceptions of the term ""open data"", expectations of infrastructure functionalities, and barriers and enablers for the sharing of data."
+schmidt2016,10.1371/journal.pone.0146695,Factors,open data,policies and what drive them,open data,title,Open Data in Global Environmental Research: The Belmont Forum's Open Data Survey.
+schmidt2016,10.1371/journal.pone.0146695,Factors,policies,policies and what drive them,funder policies,abstract,"Among all policy responses, funder policies seem to be the most important motivator."
+schmidt2016,10.1371/journal.pone.0146695,Factors,mandates,policies and what drive them,stronger mandates,abstract,This supports the conclusion that stronger mandates will strengthen the case for data sharing.
+schmidt2016,10.1371/journal.pone.0146695,Factors,infrastructure,factors that facilitate,e-infrastructures,abstract,A wide range of good practice examples was pointed out by the respondents which demonstrates a substantial uptake of data sharing through e-infrastructures and a further need for enhancement and consolidation.
+takashima2018,10.1186/s12910-018-0310-5,Practice,sharing,,sharing genomic data,title,Ethical concerns on sharing genomic data including patients' family members.
+takashima2018,10.1186/s12910-018-0310-5,data_origin,research,,genomic and phenotype data,abstract,"Platforms for sharing genomic and phenotype data have been developed to promote genomic research, while maximizing the utility of existing datasets and minimizing the burden on participants."
+takashima2018,10.1186/s12910-018-0310-5,Factors,ethics,mechanisms for implementation,ethical tension,abstract,"Sharing patients' and family members' data collectively raises an ethical tension between the value of datasets and the rights of participants, and increases the risk of re-identification."
+takashima2018,10.1186/s12910-018-0310-5,Factors,privacy,factors that obstruct,risk of re-identification,abstract,"Sharing patients' and family members' data collectively raises an ethical tension between the value of datasets and the rights of participants, and increases the risk of re-identification."
+takashima2018,10.1186/s12910-018-0310-5,Factors,policies,policies and what drive them,data-sharing policies,abstract,"However, current data-sharing policies have no specific safeguards or provisions for familial data sharing."
+tenopir2011,10.1371/journal.pone.0021101,Practice,both,,re-use,abstract,"It is important to study the data practices of researchers--data accessibility, discovery, re-use, preservation and, particularly, data sharing."
+tenopir2011,10.1371/journal.pone.0021101,data_origin,research,,research data,abstract,"Most respondents are satisfied with their current processes for the initial and short-term parts of the data or research lifecycle (collecting their research data; searching for, describing or cataloging, analyzing, and short-term storage of their data) but are not satisfied with long-term data preservation."
+tenopir2011,10.1371/journal.pone.0021101,Factors,perceptions,stakeholder perspectives,perceptions,abstract,A total of 1329 scientists participated in this survey exploring current data sharing practices and perceptions of the barriers and enablers of data sharing.
+tenopir2011,10.1371/journal.pone.0021101,Factors,barriers,factors that obstruct,barriers,abstract,A total of 1329 scientists participated in this survey exploring current data sharing practices and perceptions of the barriers and enablers of data sharing.
+tenopir2011,10.1371/journal.pone.0021101,Factors,enablers,factors that facilitate,enablers,abstract,A total of 1329 scientists participated in this survey exploring current data sharing practices and perceptions of the barriers and enablers of data sharing.
+tenopir2011,10.1371/journal.pone.0021101,Factors,willingness,stakeholder perspectives,willing to share,abstract,If certain conditions are met (such as formal citation and sharing reprints) respondents agree they are willing to share their data.
+tenopir2011,10.1371/journal.pone.0021101,Factors,mandates,policies and what drive them,mandates,abstract,New mandates for data management plans from NSF and other federal agencies and world-wide attention to the need to share and preserve data could lead to changes.
+tenopir2011,10.1371/journal.pone.0021101,Factors,data management plans,mechanisms for implementation,data management plans,abstract,New mandates for data management plans from NSF and other federal agencies and world-wide attention to the need to share and preserve data could lead to changes.
+vanhorn2013,10.1016/j.neuroimage.2012.11.010,Practice,sharing,,share data,title,Why share data? Lessons learned from the fMRIDC.
+vanhorn2013,10.1016/j.neuroimage.2012.11.010,data_origin,research,,data sets from published research articles,abstract,"In this article, we discuss our own experience in the development of the fMRI Data Center (fMRIDC) - a large-scale effort to gather, curate, and openly share the complete data sets from published research articles of brain activation studies using fMRI."
+vanhorn2013,10.1016/j.neuroimage.2012.11.010,Factors,repositories,factors that facilitate,archive,abstract,"We outline the fMRIDC effort's beginnings, how it operated, note some of the sociological reactions we received, and provide several examples of prominent new studies performed using data drawn from the archive."
+vanhorn2013,10.1016/j.neuroimage.2012.11.010,Factors,data curation,mechanisms for implementation,curate,abstract,"In this article, we discuss our own experience in the development of the fMRI Data Center (fMRIDC) - a large-scale effort to gather, curate, and openly share the complete data sets from published research articles of brain activation studies using fMRI."
+wallis2013,10.1371/journal.pone.0067332,Practice,both,,data sharing and reuse,title,"If we share data, will anyone use them? Data sharing and reuse in the long tail of science and technology."
+wallis2013,10.1371/journal.pone.0067332,data_origin,research,,data collection,abstract,"Research on practices to share and reuse data will inform the design of infrastructure to support data collection, management, and discovery in the long tail of science and technology."
+wallis2013,10.1371/journal.pone.0067332,Factors,willingness,stakeholder perspectives,willing to share,abstract,"We found that CENS researchers are willing to share their data, but few are asked to do so, and in only a few domain areas do their funders or journals require them to deposit data."
+wallis2013,10.1371/journal.pone.0067332,Factors,mandates,policies and what drive them,require them to deposit data,abstract,"We found that CENS researchers are willing to share their data, but few are asked to do so, and in only a few domain areas do their funders or journals require them to deposit data."
+wallis2013,10.1371/journal.pone.0067332,Factors,repositories,factors that facilitate,repositories,abstract,Few repositories exist to accept data in CENS research areas..
+wallis2013,10.1371/journal.pone.0067332,Factors,incentives,factors that facilitate,receive credit,abstract,CENS researchers are willing to share data if they receive credit and retain first rights to publish their results.
+watson2015,10.1186/s13059-015-0669-2,Practice,sharing,,making the results of that research available to everyone,abstract,"Open science describes the practice of carrying out scientific research in a completely transparent manner, and making the results of that research available to everyone."
+watson2015,10.1186/s13059-015-0669-2,data_origin,research,,scientific research,abstract,"Open science describes the practice of carrying out scientific research in a completely transparent manner, and making the results of that research available to everyone."
+watson2015,10.1186/s13059-015-0669-2,Factors,open science,policies and what drive them,open science,title,When will 'open science' become simply 'science'?
+borgman2012,10.1002/asi.22634,Practice,sharing,,sharing research data,abstract,Data sharing is thus a conundrum.
+borgman2012,10.1002/asi.22634,data_origin,research,,research data,abstract,"Moreover, research data take many forms, are handled in many ways, using many approaches,"
+borgman2012,10.1002/asi.22634,Factors,incentives,factors that facilitate,incentives,abstract,"These rationales differ by the arguments for sharing, by beneficiaries, and by motivations and incentives for many stakeholders involved."
+borgman2012,10.1002/asi.22634,Factors,motivation,factors that facilitate,motivations,abstract,"These rationales differ by the arguments for sharing, by beneficiaries, and by motivations and incentives for many stakeholders involved."
+borgman2012,10.1002/asi.22634,Factors,policies,policies and what drive them,policy,abstract,Answers will inform policy and practice.
+borgman2012,10.1002/asi.22634,Factors,data curation,mechanisms for implementation,data curation,abstract,"and thus provide for, and justify the need for support of, much-improved data curation."
+albert2012,10.1007/s40014-012-1434-z,Practice,sharing,,genetic data sharing,title,Scientists encourage genetic data sharing
+albert2012,10.1007/s40014-012-1434-z,data_origin,unclear,,,none,
+albert2012,10.1007/s40014-012-1434-z,Factors,none,,,none,
+anderson2009,10.2307/25594876,Practice,sharing,,data-sharing,title,Data-sharing dilemmas: Allowing pharmaceutical company access to research data
+anderson2009,10.2307/25594876,data_origin,research,,research data,title,Data-sharing dilemmas: Allowing pharmaceutical company access to research data
+anderson2009,10.2307/25594876,Factors,challenges,factors that obstruct,dilemmas,title,Data-sharing dilemmas: Allowing pharmaceutical company access to research data
+bishoff2015,10.7710/2162-3309.1231,Practice,both,,reuse of their data,abstract,that will enable reuse of their data
+bishoff2015,10.7710/2162-3309.1231,data_origin,research,,digital research data,abstract,Sharing digital research data is increasingly common
+bishoff2015,10.7710/2162-3309.1231,Factors,data management plans,mechanisms for implementation,data management plans,abstract,data management plans (DMPs)
+bishoff2015,10.7710/2162-3309.1231,Factors,mandates,policies and what drive them,funding requirements,abstract,"propelled by funding requirements, journal publishers, local campus policies"
+bishoff2015,10.7710/2162-3309.1231,Factors,policies,policies and what drive them,local campus policies,abstract,"propelled by funding requirements, journal publishers, local campus policies"
+bondlamberty2018,10.1002/2018JG004502,Practice,sharing,,data sharing,abstract,examined how data sharing is related to scientific impact
+bondlamberty2018,10.1002/2018JG004502,data_origin,research,,eddy covariance,abstract,in the field of eddy covariance (EC)
+bondlamberty2018,10.1002/2018JG004502,Factors,incentives,factors that facilitate,incentivizing,abstract,Incentivizing data sharing and enhancing computational reproducibility
+bondlamberty2018,10.1002/2018JG004502,Factors,policies,policies and what drive them,policies and restrictions of journals and repositories,abstract,The current policies and restrictions of journals and repositories are highly uneven.
+bondlamberty2018,10.1002/2018JG004502,Factors,perceptions,stakeholder perspectives,perceived costs,abstract,Do the benefits of data sharing outweigh its perceived costs?
+bondlamberty2018,10.1002/2018JG004502,Factors,repositories,factors that facilitate,repositories,abstract,The current policies and restrictions of journals and repositories are highly uneven.
+burgi2017,10.1177/0340035216678238,Practice,neither,,,abstract,the most relevant researchers’ data life cycle management needs
+burgi2017,10.1177/0340035216678238,data_origin,research,,researchers’ data,abstract,the most relevant researchers’ data life cycle management needs
+burgi2017,10.1177/0340035216678238,Factors,data management plans,mechanisms for implementation,data management plan,abstract,guidelines for establishing a data management plan
+cahill2007,10.2307/20361332,Practice,sharing,,full disclosure,title,Full disclosure matters
+cahill2007,10.2307/20361332,data_origin,unclear,,,none,
+cahill2007,10.2307/20361332,Factors,none,,,none,
+charbonneau2013,10.1080/02763869.2013.807089,Practice,neither,,,abstract,to support data-intensive research
+charbonneau2013,10.1080/02763869.2013.807089,data_origin,research,,data-intensive research,abstract,to support data-intensive research
+charbonneau2013,10.1080/02763869.2013.807089,Factors,none,,,abstract,
+chen2017,10.1016/j.acalib.2017.06.006,Practice,sharing,,research data management and sharing,title,Survey on the Needs for Chemistry Research Data Management and Sharing
+chen2017,10.1016/j.acalib.2017.06.006,data_origin,research,,chemistry research data,title,Survey on the Needs for Chemistry Research Data Management and Sharing
+chen2017,10.1016/j.acalib.2017.06.006,Factors,none,,,none,
+chiware2016,10.7553/81-2-1563,Practice,neither,,,abstract,in the field of biomedical research
+chiware2016,10.7553/81-2-1563,data_origin,research,,biomedical research,abstract,in the field of biomedical research
+chiware2016,10.7553/81-2-1563,Factors,infrastructure,factors that facilitate,resources and infrastructures,abstract,availability of resources and infrastructures
+chiware2016,10.7553/81-2-1563,Factors,policies,policies and what drive them,policies,abstract,as policies are being formulated
+clement2016,10.1177/0340035216678239,Practice,neither,,,abstract,research data management services
+clement2016,10.1177/0340035216678239,data_origin,research,,research data,abstract,research data management services
+clement2016,10.1177/0340035216678239,Factors,data curation,mechanisms for implementation,curation workshop,abstract,librarians from the five schools collaborated to plan a data management and curation workshop
+cohn2012,10.1525/bio.2012.62.11.16,Practice,both,,"use, compare, manipulate",abstract,"lets researchers use, compare, manipulate, store, and back up data in new ways"
+cohn2012,10.1525/bio.2012.62.11.16,data_origin,research,,databases from different disciplines,abstract,lets users access databases from different disciplines
+cohn2012,10.1525/bio.2012.62.11.16,Factors,infrastructure,factors that facilitate,cyberinfrastructure,abstract,It uses cyberinfrastructure to connect researchers sitting at a computer
+cohn2012,10.1525/bio.2012.62.11.16,Factors,barriers,factors that obstruct,difficult to find,abstract,"Many of those databases were previously difficult to find, let alone access."
+dai2018,10.1002/2017JG004277,Practice,sharing,,data-sharing practices,abstract,"In this study, we investigated data-sharing practices in eddy covariance flux research as a typical case."
+dai2018,10.1002/2017JG004277,data_origin,research,,eddy covariance flux research,abstract,"In this study, we investigated data-sharing practices in eddy covariance flux research as a typical case."
+dai2018,10.1002/2017JG004277,Factors,policies,policies and what drive them,policies,abstract,How do scientific benefits and policies correlate with practical ecological data sharing?
+dai2018,10.1002/2017JG004277,Factors,open science,policies and what drive them,open model of science,abstract,"Differentiated policies should be proposed to encourage ecologists in the long tail of data sharers, and regions with little tradition of data sharing, to embrace a more open model of science."
+deng2016,10.1002/ehs2.1241,Practice,sharing,,data sharing,abstract,China has fallen behind in data sharing.
+deng2016,10.1002/ehs2.1241,data_origin,research,,ecological research,title,Urgent need for a data sharing platform to promote ecological research in china
+deng2016,10.1002/ehs2.1241,Factors,barriers,factors that obstruct,major barriers,abstract,data transparency and insecurity have been major barriers to data sharing and exchange
+deng2016,10.1002/ehs2.1241,Factors,privacy,factors that obstruct,data confidentiality and security,abstract,data confidentiality and security have to be taken into consideration by governmental organizations
+deng2016,10.1002/ehs2.1241,Factors,infrastructure,factors that facilitate,data sharing platform,abstract,a scientific data sharing platform is needed in China
+dong2016,10.1002/ehs2.1218,Practice,sharing,,open access to scientific data,abstract,Open access to scientific data now is essential to promote the regional and global research
+dong2016,10.1002/ehs2.1218,data_origin,research,,scientific data,abstract,Open access to scientific data now is essential to promote the regional and global research
+dong2016,10.1002/ehs2.1218,Factors,none,,,abstract,
+doorn2013,10.2218/ijdc.v8i1.256,Practice,sharing,,data sharing,abstract,the approach towards data sharing is improving gradually
+doorn2013,10.2218/ijdc.v8i1.256,data_origin,research,,research data,abstract,trustworthy treatment of research data
+doorn2013,10.2218/ijdc.v8i1.256,Factors,policies,policies and what drive them,stricter rules,abstract,stricter rules for data management and data sharing
+doorn2013,10.2218/ijdc.v8i1.256,Factors,governance,mechanisms for implementation,codes of conduct,abstract,adapt the codes of conduct for researchers
+elsayed2018,10.1177/0340035218785196,Practice,sharing,,shared their data,abstract,64.4% of researchers shared their data.
+elsayed2018,10.1177/0340035218785196,data_origin,research,,research data,title,Research data management and sharing among researchers in Arab universities: An exploratory study
+elsayed2018,10.1177/0340035218785196,Factors,privacy,factors that obstruct,confidentiality,abstract,confidentiality and data misuse were the main concerns among those who were reluctant to share.
+elsayed2018,10.1177/0340035218785196,Factors,reluctance,factors that obstruct,reluctant to share,abstract,confidentiality and data misuse were the main concerns among those who were reluctant to share.
+elsayed2018,10.1177/0340035218785196,Factors,incentives,factors that facilitate,research citations and visibility,abstract,Contributing to scientific progress and increasing research citations and visibility were the key factors
+enke2012,10.1016/j.ecoinf.2012.03.004,Practice,both,,biodiversity data sharing,title,The user's view on biodiversity data sharing: Investigating facts of acceptance and requirements to realize a sustainable use of research data
+enke2012,10.1016/j.ecoinf.2012.03.004,data_origin,research,,research data,title,The user's view on biodiversity data sharing: Investigating facts of acceptance and requirements to realize a sustainable use of research data
+enke2012,10.1016/j.ecoinf.2012.03.004,Factors,perceptions,stakeholder perspectives,user's view,title,The user's view on biodiversity data sharing: Investigating facts of acceptance and requirements to realize a sustainable use of research data
+he2016,10.13016/M2Z84M,Practice,sharing,,sharing data,abstract,sharing data is difficult even though an impressive effort has been made to solve issues within the research community
+he2016,10.13016/M2Z84M,data_origin,research,,research community,abstract,sharing data is difficult even though an impressive effort has been made to solve issues within the research community
+he2016,10.13016/M2Z84M,Factors,challenges,factors that obstruct,difficult,abstract,sharing data is difficult even though an impressive effort has been made to solve issues within the research community
+he2016,10.13016/M2Z84M,Factors,attitudes,stakeholder perspectives,"believe that sharing data is ""good""",abstract,"researchers to believe that sharing data is ""good"""
+huang2012,10.1111/j.1755-263X.2012.00259.x,Practice,sharing,,sharing their primary biodiversity data,abstract,many researchers resist sharing their primary biodiversity data
+huang2012,10.1111/j.1755-263X.2012.00259.x,data_origin,research,,primary biodiversity data,abstract,many researchers resist sharing their primary biodiversity data
+huang2012,10.1111/j.1755-263X.2012.00259.x,Factors,reluctance,factors that obstruct,resist sharing,abstract,many researchers resist sharing their primary biodiversity data
+huang2012,10.1111/j.1755-263X.2012.00259.x,Factors,willingness,stakeholder perspectives,unwilling to share,abstract,more than 60% of respondents are unwilling to share primary data before publishing
+huang2012,10.1111/j.1755-263X.2012.00259.x,Factors,barriers,factors that obstruct,barriers,abstract,Results indicate an underdeveloped culture of data sharing and several major technological and operational barriers
+huang2012,10.1111/j.1755-263X.2012.00259.x,Factors,incentives,factors that facilitate,appropriate benefits,abstract,A major concern for researchers is appropriate benefits from data sharing
+huang2012,10.1111/j.1755-263X.2012.00259.x,Factors,policies,policies and what drive them,data archiving policies of journals,abstract,Most respondents would accept data archiving policies of journals
+koltay2017,10.1177/0961000615616450,Practice,neither,,,abstract,the nature of research data management
+koltay2017,10.1177/0961000615616450,data_origin,research,,research data,abstract,the nature of research data management
+koltay2017,10.1177/0961000615616450,Factors,none,,,abstract,
+kowalczyk2011,10.1002/aris.2011.1440450113,Practice,sharing,,data sharing,title,Data sharing in the sciences
+kowalczyk2011,10.1002/aris.2011.1440450113,data_origin,unclear,,,none,
+kowalczyk2011,10.1002/aris.2011.1440450113,Factors,none,,,none,
+fisher2010,10.1016/j.im.2010.04.001,Practice,sharing,,data commons,title,"Governing the data commons: Policy, practice, and the advancement of science"
+fisher2010,10.1016/j.im.2010.04.001,data_origin,unclear,,,none,
+fisher2010,10.1016/j.im.2010.04.001,Factors,policies,policies and what drive them,policy,title,"Governing the data commons: Policy, practice, and the advancement of science"
+fisher2010,10.1016/j.im.2010.04.001,Factors,governance,mechanisms for implementation,governing,title,"Governing the data commons: Policy, practice, and the advancement of science"
+ostell2009,10.1002/humu.21013,Practice,sharing,,sharing data,abstract,issues related to sharing data between LSDBs and centralized databases
+ostell2009,10.1002/humu.21013,data_origin,research,,genome variants,abstract,genome variants with potential clinical relevance
+ostell2009,10.1002/humu.21013,Factors,incentives,factors that facilitate,attribution to submitters,abstract,NCBI's commitment to providing attribution to submitters
+ostell2009,10.1002/humu.21013,Factors,interoperability,factors that facilitate,standards,title,Data Sharing: Standards for Bioinformatic Cross-Talk
+parr2007,10.1641/B570402,Practice,sharing,,publish data,abstract,publish data as a requirement of publication
+parr2007,10.1641/B570402,data_origin,research,,ecological data,title,Open Sourcing Ecological Data
+parr2007,10.1641/B570402,Factors,mandates,policies and what drive them,requirement of publication,abstract,publish data as a requirement of publication
+parr2007,10.1641/B570402,Factors,incentives,factors that facilitate,reward system,abstract,at risk under the current reward system.

@@ -1,0 +1,2440 @@
+# Step 3 command blocks
+
+Paste each block into a terminal on citf-analysis. Each block moves into the repository, pulls, activates the environment, loads the keys and runs Python from a heredoc; nothing is saved as a `.py` file.
+
+**Check before running:** the blocks assume the repository is cloned at `~/RDS-Review`. If it lives elsewhere, change the `cd` line in every block.
+
+**Run the long blocks inside `tmux`** (`tmux new -s search`, then paste; detach with Ctrl-b d, reattach with `tmux attach -t search`), so a dropped connection doesn't stop them. Each block also writes its console output to `data/search_tests/`.
+
+Order: blocks 1 to 3 once; block 4 and check its output; blocks 5 to 7 (one per database, any order, one at a time); blocks 8 to 10 after the matching query block, once `load_<database>.csv` exists. The real review exports come later, from each database's own interface as RIS files named as `data/raw/search_exports/README.md` sets out.
+
+## 1. Keys file
+
+Prompts for each key without echoing it, writes `~/.rds-review-keys` outside the repository, readable by you only.
+
+```bash
+umask 077
+read -rsp "NCBI API key: " NCBI; echo
+read -rsp "Scopus API key: " SCOPUS; echo
+read -rsp "Web of Science Starter API key: " WOS; echo
+printf 'export NCBI_API_KEY=%s\nexport SCOPUS_API_KEY=%s\nexport WOS_API_KEY=%s\n' "$NCBI" "$SCOPUS" "$WOS" > ~/.rds-review-keys
+chmod 600 ~/.rds-review-keys
+unset NCBI SCOPUS WOS
+grep -q rds-review-keys ~/.bashrc || echo 'source ~/.rds-review-keys' >> ~/.bashrc
+ls -l ~/.rds-review-keys
+```
+
+## 2. Python environment
+
+```bash
+cd ~/RDS-Review
+git pull
+python3 -m venv ~/.venvs/rds-review
+source ~/.venvs/rds-review/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+python3 -c "import requests; print('requests', requests.__version__)"
+```
+
+## 3. Check the step 1 and 2 files
+
+Unzip `RDS-Review-search-development.zip` at the repository root, then check that `term_syntax.csv` and the other step 1 and 2 files sit in `data/search_tests/`:
+
+```bash
+cd ~/RDS-Review
+ls data/search_tests/
+python3 -c "import csv; print(sum(1 for _ in csv.DictReader(open('data/search_tests/term_syntax.csv'))), 'term_syntax rows')"
+```
+
+## 4. Test block
+
+Checks each API answers, the DOI and field tags behave, and shows the Scopus weekly quota left. Expect Fecher et al. (2015) found once in each database. If a line errors, stop and send me the output.
+
+```bash
+cd ~/RDS-Review
+git pull
+source ~/.venvs/rds-review/bin/activate
+source ~/.rds-review-keys
+mkdir -p data/search_tests
+timeout 1h python3 - 2>&1 <<'PYEOF' | tee data/search_tests/api_test_console.txt
+"""Search functions shared by the RDS-Review query and precision blocks.
+
+Each block in step3_blocks.md pastes this file's contents ahead of its own code,
+so nothing needs installing beyond requests.
+"""
+import csv, json, os, random, re, time, datetime
+from pathlib import Path
+import requests
+
+T = Path("data/search_tests")
+EMAIL = "zachary.batist@mcgill.ca"
+TODAY = datetime.date.today().isoformat()
+BATCH = 25
+
+
+def _get(url, params=None, headers=None, pause=0.0, tries=4):
+    for i in range(tries):
+        r = requests.get(url, params=params, headers=headers, timeout=60)
+        if r.status_code == 429 or r.status_code >= 500:
+            time.sleep(2 ** i)
+            continue
+        r.raise_for_status()
+        time.sleep(pause)
+        return r
+    r.raise_for_status()
+
+
+# ---------- PubMed ----------
+EU = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
+
+
+def pubmed_search(q, retmax=0):
+    p = dict(db="pubmed", term=q, retmax=retmax, retmode="json",
+             api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+    j = _get(EU + "esearch.fcgi", p, pause=0.11).json()["esearchresult"]
+    return int(j["count"]), j.get("idlist", [])
+
+
+def pubmed_all_ids(q):
+    n, _ = pubmed_search(q)
+    ids = []
+    for start in range(0, n, 9999):
+        p = dict(db="pubmed", term=q, retmax=9999, retstart=start, retmode="json",
+                 api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+        ids += _get(EU + "esearch.fcgi", p, pause=0.11).json()["esearchresult"]["idlist"]
+    return ids
+
+
+def pubmed_summary(ids):
+    out = {}
+    for i in range(0, len(ids), 200):
+        p = dict(db="pubmed", id=",".join(ids[i:i + 200]), retmode="json",
+                 api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+        res = _get(EU + "esummary.fcgi", p, pause=0.11).json()["result"]
+        for k in res.get("uids", []):
+            r = res[k]
+            doi = next((a["value"] for a in r.get("articleids", []) if a["idtype"] == "doi"), "")
+            out[k] = dict(id=k, doi=doi.lower(), title=r.get("title", ""), year=r.get("pubdate", "")[:4])
+    return out
+
+
+# ---------- Scopus ----------
+SC = "https://api.elsevier.com/content/search/scopus"
+
+
+def scopus_search(q, count=25, start=0, cursor=None):
+    h = {"X-ELS-APIKey": os.environ["SCOPUS_API_KEY"], "Accept": "application/json"}
+    p = dict(query=q, count=count, view="STANDARD", field="eid,doi,title,coverDate")
+    if cursor:
+        p["cursor"] = cursor
+    else:
+        p["start"] = start
+    r = _get(SC, p, h, pause=0.12)
+    j = r.json()["search-results"]
+    return j, r.headers
+
+
+def scopus_count(q):
+    j, _ = scopus_search(q, count=1)
+    return int(j["opensearch:totalResults"])
+
+
+def scopus_records(q, limit=None):
+    recs, cursor = [], "*"
+    while True:
+        j, _ = scopus_search(q, count=200, cursor=cursor)
+        ents = [e for e in j.get("entry", []) if "error" not in e]
+        for e in ents:
+            recs.append(dict(id=e.get("eid", ""), doi=e.get("prism:doi", "").lower(),
+                             title=e.get("dc:title", ""), year=e.get("prism:coverDate", "")[:4]))
+        nxt = j.get("cursor", {}).get("@next")
+        if not ents or not nxt or nxt == cursor or (limit and len(recs) >= limit):
+            return recs
+        cursor = nxt
+
+
+# ---------- Web of Science ----------
+WS = "https://api.clarivate.com/apis/wos-starter/v1/documents"
+
+
+def wos_search(q, limit=50, page=1):
+    h = {"X-ApiKey": os.environ["WOS_API_KEY"]}
+    p = dict(db="WOS", q=q, limit=limit, page=page)
+    return _get(WS, p, h, pause=0.21).json()
+
+
+def wos_count(q):
+    return int(wos_search(q, limit=1)["metadata"]["total"])
+
+
+def wos_records(q):
+    recs, page = [], 1
+    while True:
+        j = wos_search(q, limit=50, page=page)
+        for h in j.get("hits", []):
+            recs.append(dict(id=h.get("uid", ""), doi=h.get("identifiers", {}).get("doi", "").lower(),
+                             title=h.get("title", ""), year=str(h.get("source", {}).get("publishYear", ""))))
+        if page * 50 >= j["metadata"]["total"] or not j.get("hits"):
+            return recs
+        page += 1
+
+
+# ---------- database-neutral wrappers ----------
+def date_limit(db, a, b):
+    return {"PubMed": f"{a}:{b}[dp]",
+            "Scopus": f"PUBYEAR > {a - 1} AND PUBYEAR < {b + 1}",
+            "Web of Science": f"PY=({a}-{b})"}[db]
+
+
+def id_clause(db, sources):
+    """OR-joined identifier clause for a list of reference_sources rows."""
+    parts = []
+    for s in sources:
+        if db == "PubMed":
+            parts.append(f"{s['pmid']}[uid]" if s["pmid"] else f"{s['doi']}[doi]")
+        elif db == "Scopus":
+            parts.append(f"DOI({s['doi']})")
+        else:
+            parts.append(s["doi"])
+    if db == "Web of Science":
+        return "DO=(" + " OR ".join(parts) + ")"
+    return "(" + " OR ".join(parts) + ")"
+
+
+def testable(db, s):
+    return bool(s["doi"]) or (db == "PubMed" and bool(s["pmid"]))
+
+
+def count(db, q):
+    return {"PubMed": lambda: pubmed_search(q)[0], "Scopus": lambda: scopus_count(q),
+            "Web of Science": lambda: wos_count(q)}[db]()
+
+
+def retrieved(db, q, sources):
+    """Keys of sources in `sources` that query q retrieves, sending identifiers in batches."""
+    hit = set()
+    srcs = [s for s in sources if testable(db, s)]
+    for i in range(0, len(srcs), BATCH):
+        b = srcs[i:i + BATCH]
+        full = f"({q}) AND {id_clause(db, b)}"
+        if db == "PubMed":
+            _, ids = pubmed_search(full, retmax=BATCH * 2)
+            ids = set(ids)
+            hit |= {s["key"] for s in b if s["pmid"] in ids}
+            rest = [s for s in b if not s["pmid"]]
+            if rest and ids:
+                dois = {r["doi"] for r in pubmed_summary(list(ids)).values()}
+                hit |= {s["key"] for s in rest if s["doi"].lower() in dois}
+        elif db == "Scopus":
+            dois = {r["doi"] for r in scopus_records(full)}
+            hit |= {s["key"] for s in b if s["doi"].lower() in dois}
+        else:
+            dois = {r["doi"] for r in wos_records(full)}
+            hit |= {s["key"] for s in b if s["doi"].lower() in dois}
+    return hit
+
+
+def records(db, q):
+    if db == "PubMed":
+        ids = pubmed_all_ids(q)
+        return [dict(id=i) for i in ids]
+    if db == "Scopus":
+        return scopus_records(q)
+    return wos_records(q)
+
+
+def wilson(k, n, z=1.96):
+    if n == 0:
+        return ("", "", "")
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / d
+    return (round(p, 3), round(max(0, c - h), 3), round(min(1, c + h), 3))
+
+
+def read(name):
+    return list(csv.DictReader(open(T / name, encoding="utf-8")))
+
+
+def write(name, rows, folder=T):
+    folder.mkdir(parents=True, exist_ok=True)
+    if not rows:
+        (folder / name).write_text("")
+        return
+    with open(folder / name, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0]))
+        w.writeheader()
+        w.writerows(rows)
+
+DB = "PubMed"
+
+DOI = "10.1371/journal.pone.0118053"
+print("PubMed")
+print("  doi:", pubmed_search(f"{DOI}[doi]", retmax=5))
+print("  [tiab]:", pubmed_search(f'"data sharing"[tiab] AND {DOI}[doi]', retmax=5))
+print("  [mh:noexp]:", pubmed_search(f'"Information Dissemination"[mh:noexp] AND {DOI}[doi]', retmax=5))
+print("  date limit:", pubmed_search(f'"data sharing"[tiab] AND {date_limit("PubMed", 2007, 2014)}')[0])
+print("Scopus")
+j, h = scopus_search(f'TITLE-ABS-KEY("data sharing") AND DOI({DOI})')
+print("  hits:", j["opensearch:totalResults"], [e.get("dc:title") for e in j.get("entry", []) if "error" not in e])
+print("  date limit:", scopus_count(f'TITLE-ABS-KEY("data sharing") AND {date_limit("Scopus", 2007, 2014)}'))
+print("  X-RateLimit-Remaining:", h.get("X-RateLimit-Remaining"), "of", h.get("X-RateLimit-Limit"))
+print("Web of Science")
+j = wos_search(f'TS=("data sharing") AND DO=({DOI})')
+print("  hits:", j["metadata"]["total"], [x.get("title") for x in j.get("hits", [])])
+print("  date limit:", wos_count(f'TS=("data sharing") AND {date_limit("Web of Science", 2007, 2014)}'))
+
+PYEOF
+```
+
+## 5. Query block: PubMed
+
+Runs plan step 3, method items 3 to 9 for PubMed: term runs, yield threshold, draft, trim, index check, test set coverage and load. In `data/search_tests/`, it writes `query_runs_pubmed.csv` and `load_pubmed.csv`, replaces the PubMed rows of `query_tests.csv` and `query_misses.csv`, and fills the step 3 columns of the PubMed *sharing* and *reuse* rows in `terms.csv`. Expect one to several hours; each candidate costs one count, one load count and two or three identifier batches, and each draft round one query per remaining candidate.
+
+```bash
+cd ~/RDS-Review
+git pull
+source ~/.venvs/rds-review/bin/activate
+source ~/.rds-review-keys
+mkdir -p data/search_tests
+timeout 10h python3 - 2>&1 <<'PYEOF' | tee data/search_tests/query_console_pubmed.txt
+"""Search functions shared by the RDS-Review query and precision blocks.
+
+Each block in step3_blocks.md pastes this file's contents ahead of its own code,
+so nothing needs installing beyond requests.
+"""
+import csv, json, os, random, re, time, datetime
+from pathlib import Path
+import requests
+
+T = Path("data/search_tests")
+EMAIL = "zachary.batist@mcgill.ca"
+TODAY = datetime.date.today().isoformat()
+BATCH = 25
+
+
+def _get(url, params=None, headers=None, pause=0.0, tries=4):
+    for i in range(tries):
+        r = requests.get(url, params=params, headers=headers, timeout=60)
+        if r.status_code == 429 or r.status_code >= 500:
+            time.sleep(2 ** i)
+            continue
+        r.raise_for_status()
+        time.sleep(pause)
+        return r
+    r.raise_for_status()
+
+
+# ---------- PubMed ----------
+EU = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
+
+
+def pubmed_search(q, retmax=0):
+    p = dict(db="pubmed", term=q, retmax=retmax, retmode="json",
+             api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+    j = _get(EU + "esearch.fcgi", p, pause=0.11).json()["esearchresult"]
+    return int(j["count"]), j.get("idlist", [])
+
+
+def pubmed_all_ids(q):
+    n, _ = pubmed_search(q)
+    ids = []
+    for start in range(0, n, 9999):
+        p = dict(db="pubmed", term=q, retmax=9999, retstart=start, retmode="json",
+                 api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+        ids += _get(EU + "esearch.fcgi", p, pause=0.11).json()["esearchresult"]["idlist"]
+    return ids
+
+
+def pubmed_summary(ids):
+    out = {}
+    for i in range(0, len(ids), 200):
+        p = dict(db="pubmed", id=",".join(ids[i:i + 200]), retmode="json",
+                 api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+        res = _get(EU + "esummary.fcgi", p, pause=0.11).json()["result"]
+        for k in res.get("uids", []):
+            r = res[k]
+            doi = next((a["value"] for a in r.get("articleids", []) if a["idtype"] == "doi"), "")
+            out[k] = dict(id=k, doi=doi.lower(), title=r.get("title", ""), year=r.get("pubdate", "")[:4])
+    return out
+
+
+# ---------- Scopus ----------
+SC = "https://api.elsevier.com/content/search/scopus"
+
+
+def scopus_search(q, count=25, start=0, cursor=None):
+    h = {"X-ELS-APIKey": os.environ["SCOPUS_API_KEY"], "Accept": "application/json"}
+    p = dict(query=q, count=count, view="STANDARD", field="eid,doi,title,coverDate")
+    if cursor:
+        p["cursor"] = cursor
+    else:
+        p["start"] = start
+    r = _get(SC, p, h, pause=0.12)
+    j = r.json()["search-results"]
+    return j, r.headers
+
+
+def scopus_count(q):
+    j, _ = scopus_search(q, count=1)
+    return int(j["opensearch:totalResults"])
+
+
+def scopus_records(q, limit=None):
+    recs, cursor = [], "*"
+    while True:
+        j, _ = scopus_search(q, count=200, cursor=cursor)
+        ents = [e for e in j.get("entry", []) if "error" not in e]
+        for e in ents:
+            recs.append(dict(id=e.get("eid", ""), doi=e.get("prism:doi", "").lower(),
+                             title=e.get("dc:title", ""), year=e.get("prism:coverDate", "")[:4]))
+        nxt = j.get("cursor", {}).get("@next")
+        if not ents or not nxt or nxt == cursor or (limit and len(recs) >= limit):
+            return recs
+        cursor = nxt
+
+
+# ---------- Web of Science ----------
+WS = "https://api.clarivate.com/apis/wos-starter/v1/documents"
+
+
+def wos_search(q, limit=50, page=1):
+    h = {"X-ApiKey": os.environ["WOS_API_KEY"]}
+    p = dict(db="WOS", q=q, limit=limit, page=page)
+    return _get(WS, p, h, pause=0.21).json()
+
+
+def wos_count(q):
+    return int(wos_search(q, limit=1)["metadata"]["total"])
+
+
+def wos_records(q):
+    recs, page = [], 1
+    while True:
+        j = wos_search(q, limit=50, page=page)
+        for h in j.get("hits", []):
+            recs.append(dict(id=h.get("uid", ""), doi=h.get("identifiers", {}).get("doi", "").lower(),
+                             title=h.get("title", ""), year=str(h.get("source", {}).get("publishYear", ""))))
+        if page * 50 >= j["metadata"]["total"] or not j.get("hits"):
+            return recs
+        page += 1
+
+
+# ---------- database-neutral wrappers ----------
+def date_limit(db, a, b):
+    return {"PubMed": f"{a}:{b}[dp]",
+            "Scopus": f"PUBYEAR > {a - 1} AND PUBYEAR < {b + 1}",
+            "Web of Science": f"PY=({a}-{b})"}[db]
+
+
+def id_clause(db, sources):
+    """OR-joined identifier clause for a list of reference_sources rows."""
+    parts = []
+    for s in sources:
+        if db == "PubMed":
+            parts.append(f"{s['pmid']}[uid]" if s["pmid"] else f"{s['doi']}[doi]")
+        elif db == "Scopus":
+            parts.append(f"DOI({s['doi']})")
+        else:
+            parts.append(s["doi"])
+    if db == "Web of Science":
+        return "DO=(" + " OR ".join(parts) + ")"
+    return "(" + " OR ".join(parts) + ")"
+
+
+def testable(db, s):
+    return bool(s["doi"]) or (db == "PubMed" and bool(s["pmid"]))
+
+
+def count(db, q):
+    return {"PubMed": lambda: pubmed_search(q)[0], "Scopus": lambda: scopus_count(q),
+            "Web of Science": lambda: wos_count(q)}[db]()
+
+
+def retrieved(db, q, sources):
+    """Keys of sources in `sources` that query q retrieves, sending identifiers in batches."""
+    hit = set()
+    srcs = [s for s in sources if testable(db, s)]
+    for i in range(0, len(srcs), BATCH):
+        b = srcs[i:i + BATCH]
+        full = f"({q}) AND {id_clause(db, b)}"
+        if db == "PubMed":
+            _, ids = pubmed_search(full, retmax=BATCH * 2)
+            ids = set(ids)
+            hit |= {s["key"] for s in b if s["pmid"] in ids}
+            rest = [s for s in b if not s["pmid"]]
+            if rest and ids:
+                dois = {r["doi"] for r in pubmed_summary(list(ids)).values()}
+                hit |= {s["key"] for s in rest if s["doi"].lower() in dois}
+        elif db == "Scopus":
+            dois = {r["doi"] for r in scopus_records(full)}
+            hit |= {s["key"] for s in b if s["doi"].lower() in dois}
+        else:
+            dois = {r["doi"] for r in wos_records(full)}
+            hit |= {s["key"] for s in b if s["doi"].lower() in dois}
+    return hit
+
+
+def records(db, q):
+    if db == "PubMed":
+        ids = pubmed_all_ids(q)
+        return [dict(id=i) for i in ids]
+    if db == "Scopus":
+        return scopus_records(q)
+    return wos_records(q)
+
+
+def wilson(k, n, z=1.96):
+    if n == 0:
+        return ("", "", "")
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / d
+    return (round(p, 3), round(max(0, c - h), 3), round(min(1, c + h), 3))
+
+
+def read(name):
+    return list(csv.DictReader(open(T / name, encoding="utf-8")))
+
+
+def write(name, rows, folder=T):
+    folder.mkdir(parents=True, exist_ok=True)
+    if not rows:
+        (folder / name).write_text("")
+        return
+    with open(folder / name, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0]))
+        w.writeheader()
+        w.writerows(rows)
+
+DB = "PubMed"
+# ---------- query block: plan step 3, method items 3 to 9 ----------
+import collections
+src = read("reference_sources.csv")
+syn = {(r["term"], r["type"], r["database"]): r["written_form"] for r in read("term_syntax.csv")}
+terms = read("terms.csv")
+dev = [s for s in src if s["set"] == "development" and s["eligible_apart_from_year"] == "yes"]
+test = [s for s in src if s["set"] == "test"]
+log = []
+
+cand = [t for t in terms if t["database"] == DB and t["pcc_part"] in ("sharing", "reuse")]
+seen, uniq = set(), []
+for t in cand:
+    k = syn[(t["term"], t["type"], DB)]
+    if k not in seen:
+        seen.add(k)
+        uniq.append(t)
+cand = uniq
+fallback = [t for t in cand if t["type"] == "fallback"]
+regular = [t for t in cand if t["type"] != "fallback"]
+
+
+def wf(t):
+    return syn[(t["term"], t["type"], DB)]
+
+
+def q_of(ts):
+    return " OR ".join(f"({wf(t)})" for t in ts)
+
+
+DEV_SPAN = date_limit(DB, 2007, 2014)
+REVIEW_SPAN = date_limit(DB, 2015, 2026)
+
+
+def measure(ts):
+    q = q_of(ts)
+    recs = count(DB, f"({q}) AND {DEV_SPAN}")
+    hits = retrieved(DB, q, dev)
+    return q, recs, hits
+
+
+# item 3: term runs
+runs = {}
+for t in cand:
+    q, recs, hits = measure([t])
+    load = count(DB, f"({q}) AND {REVIEW_SPAN}")
+    y = round(1000 * len(hits) / recs, 3) if recs else 0
+    runs[(t["term"], t["type"])] = dict(t=t, recs=recs, hits=hits, load=load, y=y)
+    log.append(dict(step="term run", term=t["term"], type=t["type"], records_2007_2014=recs,
+                    dev_sources=len(hits), yield_per_1000=y, load_2015_2026=load, keys=";".join(sorted(hits))))
+    print("term run", t["term"], recs, len(hits), load, flush=True)
+
+# item 4: threshold
+q_all, recs_all, hits_all = measure(regular)
+threshold = round(1000 * len(hits_all) / recs_all, 3) if recs_all else 0
+log.append(dict(step="threshold", term="(all regular candidates)", type="", records_2007_2014=recs_all,
+                dev_sources=len(hits_all), yield_per_1000=threshold, load_2015_2026="", keys=";".join(sorted(hits_all))))
+print("threshold", threshold, flush=True)
+
+# item 5: draft
+status = {}
+start = max(regular, key=lambda t: (len(runs[(t["term"], t["type"])]["hits"]), -runs[(t["term"], t["type"])]["recs"], t["term"]))
+draft = [start]
+added_at_entry = {(start["term"], start["type"]): len(runs[(start["term"], start["type"])]["hits"])}
+_, d_recs, d_hits = measure(draft)
+log.append(dict(step="draft start", term=start["term"], type=start["type"], records_2007_2014=d_recs,
+                dev_sources=len(d_hits), yield_per_1000="", load_2015_2026="", keys=""))
+rest = [t for t in regular if t is not start]
+while rest:
+    options = []
+    for t in rest:
+        r = runs[(t["term"], t["type"])]
+        if not (r["hits"] - d_hits):
+            continue
+        _, recs, hits = measure(draft + [t])
+        s_add, r_add = len(hits - d_hits), max(recs - d_recs, 0)
+        y_add = 1000 * s_add / r_add if r_add else float("inf")
+        options.append((-y_add, r_add, t["term"], t, recs, hits, s_add))
+    options.sort(key=lambda o: (o[0], o[1], o[2]))
+    best = None
+    if options:
+        o = options[0]
+        best = (-o[0], None, None, o[3], o[4], o[5], o[6], o[1])
+    if not best or best[0] < threshold:
+        break
+    y_add, _, _, t, recs, hits, s_add, r_add = best
+    draft.append(t)
+    added_at_entry[(t["term"], t["type"])] = s_add
+    log.append(dict(step="draft add", term=t["term"], type=t["type"], records_2007_2014=recs,
+                    dev_sources=len(hits), yield_per_1000=round(y_add, 3) if y_add != float("inf") else "inf",
+                    load_2015_2026="", keys=f"added {s_add} sources for {r_add} records"))
+    d_recs, d_hits = recs, hits
+    rest = [x for x in rest if x is not t]
+    print("added", t["term"], flush=True)
+for t in rest:
+    status[(t["term"], t["type"])] = "excluded by yield"
+for t in fallback:
+    draft.append(t)
+    status[(t["term"], t["type"])] = "fallback in query"
+
+# item 6: trim
+for t in sorted([t for t in draft if t["type"] != "fallback"], key=lambda t: added_at_entry[(t["term"], t["type"])]):
+    if len(draft) == 1:
+        break
+    trial = [x for x in draft if x is not t]
+    hits = retrieved(DB, q_of(trial), dev)
+    if hits == d_hits:
+        draft = trial
+        status[(t["term"], t["type"])] = "excluded by yield"
+        log.append(dict(step="trim drop", term=t["term"], type=t["type"], records_2007_2014="", dev_sources=len(hits),
+                        yield_per_1000="", load_2015_2026="", keys=""))
+for t in draft:
+    status.setdefault((t["term"], t["type"]), "in query")
+final_q = q_of(draft)
+_, f_recs, f_hits = measure(draft)
+
+# items 7 and 8: index check and coverage on the test set
+idx = set()
+for i in range(0, len([s for s in test if testable(DB, s)]), BATCH):
+    b = [s for s in test if testable(DB, s)][i:i + BATCH]
+    clause = id_clause(DB, b)
+    if DB == "PubMed":
+        _, ids = pubmed_search(clause, retmax=BATCH * 2)
+        idx |= {s["key"] for s in b if s["pmid"] in set(ids)}
+        rest_b = [s for s in b if not s["pmid"]]
+        if rest_b and ids:
+            dois = {r["doi"] for r in pubmed_summary(ids).values()}
+            idx |= {s["key"] for s in rest_b if s["doi"].lower() in dois}
+    elif DB == "Scopus":
+        dois = {r["doi"] for r in scopus_records(clause)}
+        idx |= {s["key"] for s in b if s["doi"].lower() in dois}
+    else:
+        dois = {r["doi"] for r in wos_records(clause)}
+        idx |= {s["key"] for s in b if s["doi"].lower() in dois}
+untestable = [s["key"] for s in test if not testable(DB, s)]
+idx_src = [s for s in test if s["key"] in idx]
+cov = retrieved(DB, final_q, idx_src)
+in_scope_idx = [s for s in idx_src if s["in_scope"] == "yes"]
+cov_all = wilson(len(cov), len(idx_src))
+cov_in = wilson(len([s for s in in_scope_idx if s["key"] in cov]), len(in_scope_idx))
+
+# item 9: load
+slug = {"PubMed": "pubmed", "Scopus": "scopus", "Web of Science": "web-of-science"}[DB]
+load_q = f"({final_q}) AND {REVIEW_SPAN}"
+recs = records(DB, load_q)
+if DB == "PubMed":
+    meta = pubmed_summary([r["id"] for r in recs])
+    recs = [meta.get(r["id"], dict(id=r["id"], doi="", title="", year="")) for r in recs]
+write(f"load_{slug}.csv", recs)
+write(f"query_runs_{slug}.csv", log)
+
+
+def upsert(name, rows):
+    """Replace this database's rows in a file shared by the three databases."""
+    old = [r for r in read(name) if r["database"] != DB] if (T / name).exists() and (T / name).stat().st_size else []
+    write(name, old + rows)
+
+
+upsert("query_tests.csv", [dict(
+    database=DB, final_query=final_q, date_run=TODAY, yield_threshold=threshold,
+    development_yield=round(1000 * len(f_hits) / f_recs, 3) if f_recs else 0, load=len(recs),
+    test_indexed=len(idx_src), test_untestable=len(untestable), test_retrieved=len(cov),
+    coverage_test=cov_all[0], coverage_test_ci=f"{cov_all[1]}-{cov_all[2]}",
+    coverage_in_scope=cov_in[0], coverage_in_scope_ci=f"{cov_in[1]}-{cov_in[2]}",
+    seed="", sample_included="", sample_excluded="", sample_undecidable="", sample_title_only="",
+    precision_undecidable_included="", precision_undecidable_included_ci="",
+    precision_undecidable_left_out="", precision_undecidable_left_out_ci="",
+    note="test set ends in July 2018, so coverage of vocabulary from later years is untested")])
+
+# query_misses.csv: indexed test set sources not retrieved; development sources reached only by excluded terms
+codes = read("reference_codes.csv")
+pterms = collections.defaultdict(list)
+for c in codes:
+    if c["field"] == "Practice" and c["term"]:
+        pterms[c["key"]].append(c["term"])
+by_key = {s["key"]: s for s in src}
+excluded = [t for t in regular if status.get((t["term"], t["type"])) == "excluded by yield"]
+reach = collections.defaultdict(list)
+for t in excluded:
+    for k in runs[(t["term"], t["type"])]["hits"]:
+        reach[k].append(t["term"])
+miss = [s for s in idx_src if s["key"] not in cov] + [by_key[k] for k in sorted(set(reach) - f_hits)]
+upsert("query_misses.csv", [dict(
+    database=DB, doi=s["doi"], title=s["title"], set=s["set"], in_scope=s["in_scope"],
+    sharing_reuse_terms="; ".join(pterms[s["key"]]), excluded_term="; ".join(reach.get(s["key"], [])))
+    for s in miss])
+
+# terms.csv: fill the step 3 columns for this database's sharing and reuse rows
+by_form = {wf(t): (t["term"], t["type"]) for t in cand}
+rows = read("terms.csv")
+for r in rows:
+    if r["database"] != DB or r["pcc_part"] not in ("sharing", "reuse"):
+        continue
+    k = by_form[syn[(r["term"], r["type"], DB)]]
+    r["development_yield"] = runs[k]["y"]
+    r["load_2015_2026"] = runs[k]["load"]
+    r["sources_added"] = added_at_entry.get(k, "") if status.get(k) in ("in query", "fallback in query") else ""
+    r["status"] = status.get(k, "excluded by yield")
+write("terms.csv", rows)
+print("final query:", final_q)
+print("load", len(recs), "coverage", cov_all, "in scope", cov_in)
+
+PYEOF
+```
+
+## 6. Query block: Scopus
+
+Runs plan step 3, method items 3 to 9 for Scopus: term runs, yield threshold, draft, trim, index check, test set coverage and load. In `data/search_tests/`, it writes `query_runs_scopus.csv` and `load_scopus.csv`, replaces the Scopus rows of `query_tests.csv` and `query_misses.csv`, and fills the step 3 columns of the Scopus *sharing* and *reuse* rows in `terms.csv`. Expect one to several hours; each candidate costs one count, one load count and two or three identifier batches, and each draft round one query per remaining candidate.
+
+```bash
+cd ~/RDS-Review
+git pull
+source ~/.venvs/rds-review/bin/activate
+source ~/.rds-review-keys
+mkdir -p data/search_tests
+timeout 10h python3 - 2>&1 <<'PYEOF' | tee data/search_tests/query_console_scopus.txt
+"""Search functions shared by the RDS-Review query and precision blocks.
+
+Each block in step3_blocks.md pastes this file's contents ahead of its own code,
+so nothing needs installing beyond requests.
+"""
+import csv, json, os, random, re, time, datetime
+from pathlib import Path
+import requests
+
+T = Path("data/search_tests")
+EMAIL = "zachary.batist@mcgill.ca"
+TODAY = datetime.date.today().isoformat()
+BATCH = 25
+
+
+def _get(url, params=None, headers=None, pause=0.0, tries=4):
+    for i in range(tries):
+        r = requests.get(url, params=params, headers=headers, timeout=60)
+        if r.status_code == 429 or r.status_code >= 500:
+            time.sleep(2 ** i)
+            continue
+        r.raise_for_status()
+        time.sleep(pause)
+        return r
+    r.raise_for_status()
+
+
+# ---------- PubMed ----------
+EU = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
+
+
+def pubmed_search(q, retmax=0):
+    p = dict(db="pubmed", term=q, retmax=retmax, retmode="json",
+             api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+    j = _get(EU + "esearch.fcgi", p, pause=0.11).json()["esearchresult"]
+    return int(j["count"]), j.get("idlist", [])
+
+
+def pubmed_all_ids(q):
+    n, _ = pubmed_search(q)
+    ids = []
+    for start in range(0, n, 9999):
+        p = dict(db="pubmed", term=q, retmax=9999, retstart=start, retmode="json",
+                 api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+        ids += _get(EU + "esearch.fcgi", p, pause=0.11).json()["esearchresult"]["idlist"]
+    return ids
+
+
+def pubmed_summary(ids):
+    out = {}
+    for i in range(0, len(ids), 200):
+        p = dict(db="pubmed", id=",".join(ids[i:i + 200]), retmode="json",
+                 api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+        res = _get(EU + "esummary.fcgi", p, pause=0.11).json()["result"]
+        for k in res.get("uids", []):
+            r = res[k]
+            doi = next((a["value"] for a in r.get("articleids", []) if a["idtype"] == "doi"), "")
+            out[k] = dict(id=k, doi=doi.lower(), title=r.get("title", ""), year=r.get("pubdate", "")[:4])
+    return out
+
+
+# ---------- Scopus ----------
+SC = "https://api.elsevier.com/content/search/scopus"
+
+
+def scopus_search(q, count=25, start=0, cursor=None):
+    h = {"X-ELS-APIKey": os.environ["SCOPUS_API_KEY"], "Accept": "application/json"}
+    p = dict(query=q, count=count, view="STANDARD", field="eid,doi,title,coverDate")
+    if cursor:
+        p["cursor"] = cursor
+    else:
+        p["start"] = start
+    r = _get(SC, p, h, pause=0.12)
+    j = r.json()["search-results"]
+    return j, r.headers
+
+
+def scopus_count(q):
+    j, _ = scopus_search(q, count=1)
+    return int(j["opensearch:totalResults"])
+
+
+def scopus_records(q, limit=None):
+    recs, cursor = [], "*"
+    while True:
+        j, _ = scopus_search(q, count=200, cursor=cursor)
+        ents = [e for e in j.get("entry", []) if "error" not in e]
+        for e in ents:
+            recs.append(dict(id=e.get("eid", ""), doi=e.get("prism:doi", "").lower(),
+                             title=e.get("dc:title", ""), year=e.get("prism:coverDate", "")[:4]))
+        nxt = j.get("cursor", {}).get("@next")
+        if not ents or not nxt or nxt == cursor or (limit and len(recs) >= limit):
+            return recs
+        cursor = nxt
+
+
+# ---------- Web of Science ----------
+WS = "https://api.clarivate.com/apis/wos-starter/v1/documents"
+
+
+def wos_search(q, limit=50, page=1):
+    h = {"X-ApiKey": os.environ["WOS_API_KEY"]}
+    p = dict(db="WOS", q=q, limit=limit, page=page)
+    return _get(WS, p, h, pause=0.21).json()
+
+
+def wos_count(q):
+    return int(wos_search(q, limit=1)["metadata"]["total"])
+
+
+def wos_records(q):
+    recs, page = [], 1
+    while True:
+        j = wos_search(q, limit=50, page=page)
+        for h in j.get("hits", []):
+            recs.append(dict(id=h.get("uid", ""), doi=h.get("identifiers", {}).get("doi", "").lower(),
+                             title=h.get("title", ""), year=str(h.get("source", {}).get("publishYear", ""))))
+        if page * 50 >= j["metadata"]["total"] or not j.get("hits"):
+            return recs
+        page += 1
+
+
+# ---------- database-neutral wrappers ----------
+def date_limit(db, a, b):
+    return {"PubMed": f"{a}:{b}[dp]",
+            "Scopus": f"PUBYEAR > {a - 1} AND PUBYEAR < {b + 1}",
+            "Web of Science": f"PY=({a}-{b})"}[db]
+
+
+def id_clause(db, sources):
+    """OR-joined identifier clause for a list of reference_sources rows."""
+    parts = []
+    for s in sources:
+        if db == "PubMed":
+            parts.append(f"{s['pmid']}[uid]" if s["pmid"] else f"{s['doi']}[doi]")
+        elif db == "Scopus":
+            parts.append(f"DOI({s['doi']})")
+        else:
+            parts.append(s["doi"])
+    if db == "Web of Science":
+        return "DO=(" + " OR ".join(parts) + ")"
+    return "(" + " OR ".join(parts) + ")"
+
+
+def testable(db, s):
+    return bool(s["doi"]) or (db == "PubMed" and bool(s["pmid"]))
+
+
+def count(db, q):
+    return {"PubMed": lambda: pubmed_search(q)[0], "Scopus": lambda: scopus_count(q),
+            "Web of Science": lambda: wos_count(q)}[db]()
+
+
+def retrieved(db, q, sources):
+    """Keys of sources in `sources` that query q retrieves, sending identifiers in batches."""
+    hit = set()
+    srcs = [s for s in sources if testable(db, s)]
+    for i in range(0, len(srcs), BATCH):
+        b = srcs[i:i + BATCH]
+        full = f"({q}) AND {id_clause(db, b)}"
+        if db == "PubMed":
+            _, ids = pubmed_search(full, retmax=BATCH * 2)
+            ids = set(ids)
+            hit |= {s["key"] for s in b if s["pmid"] in ids}
+            rest = [s for s in b if not s["pmid"]]
+            if rest and ids:
+                dois = {r["doi"] for r in pubmed_summary(list(ids)).values()}
+                hit |= {s["key"] for s in rest if s["doi"].lower() in dois}
+        elif db == "Scopus":
+            dois = {r["doi"] for r in scopus_records(full)}
+            hit |= {s["key"] for s in b if s["doi"].lower() in dois}
+        else:
+            dois = {r["doi"] for r in wos_records(full)}
+            hit |= {s["key"] for s in b if s["doi"].lower() in dois}
+    return hit
+
+
+def records(db, q):
+    if db == "PubMed":
+        ids = pubmed_all_ids(q)
+        return [dict(id=i) for i in ids]
+    if db == "Scopus":
+        return scopus_records(q)
+    return wos_records(q)
+
+
+def wilson(k, n, z=1.96):
+    if n == 0:
+        return ("", "", "")
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / d
+    return (round(p, 3), round(max(0, c - h), 3), round(min(1, c + h), 3))
+
+
+def read(name):
+    return list(csv.DictReader(open(T / name, encoding="utf-8")))
+
+
+def write(name, rows, folder=T):
+    folder.mkdir(parents=True, exist_ok=True)
+    if not rows:
+        (folder / name).write_text("")
+        return
+    with open(folder / name, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0]))
+        w.writeheader()
+        w.writerows(rows)
+
+DB = "Scopus"
+# ---------- query block: plan step 3, method items 3 to 9 ----------
+import collections
+src = read("reference_sources.csv")
+syn = {(r["term"], r["type"], r["database"]): r["written_form"] for r in read("term_syntax.csv")}
+terms = read("terms.csv")
+dev = [s for s in src if s["set"] == "development" and s["eligible_apart_from_year"] == "yes"]
+test = [s for s in src if s["set"] == "test"]
+log = []
+
+cand = [t for t in terms if t["database"] == DB and t["pcc_part"] in ("sharing", "reuse")]
+seen, uniq = set(), []
+for t in cand:
+    k = syn[(t["term"], t["type"], DB)]
+    if k not in seen:
+        seen.add(k)
+        uniq.append(t)
+cand = uniq
+fallback = [t for t in cand if t["type"] == "fallback"]
+regular = [t for t in cand if t["type"] != "fallback"]
+
+
+def wf(t):
+    return syn[(t["term"], t["type"], DB)]
+
+
+def q_of(ts):
+    return " OR ".join(f"({wf(t)})" for t in ts)
+
+
+DEV_SPAN = date_limit(DB, 2007, 2014)
+REVIEW_SPAN = date_limit(DB, 2015, 2026)
+
+
+def measure(ts):
+    q = q_of(ts)
+    recs = count(DB, f"({q}) AND {DEV_SPAN}")
+    hits = retrieved(DB, q, dev)
+    return q, recs, hits
+
+
+# item 3: term runs
+runs = {}
+for t in cand:
+    q, recs, hits = measure([t])
+    load = count(DB, f"({q}) AND {REVIEW_SPAN}")
+    y = round(1000 * len(hits) / recs, 3) if recs else 0
+    runs[(t["term"], t["type"])] = dict(t=t, recs=recs, hits=hits, load=load, y=y)
+    log.append(dict(step="term run", term=t["term"], type=t["type"], records_2007_2014=recs,
+                    dev_sources=len(hits), yield_per_1000=y, load_2015_2026=load, keys=";".join(sorted(hits))))
+    print("term run", t["term"], recs, len(hits), load, flush=True)
+
+# item 4: threshold
+q_all, recs_all, hits_all = measure(regular)
+threshold = round(1000 * len(hits_all) / recs_all, 3) if recs_all else 0
+log.append(dict(step="threshold", term="(all regular candidates)", type="", records_2007_2014=recs_all,
+                dev_sources=len(hits_all), yield_per_1000=threshold, load_2015_2026="", keys=";".join(sorted(hits_all))))
+print("threshold", threshold, flush=True)
+
+# item 5: draft
+status = {}
+start = max(regular, key=lambda t: (len(runs[(t["term"], t["type"])]["hits"]), -runs[(t["term"], t["type"])]["recs"], t["term"]))
+draft = [start]
+added_at_entry = {(start["term"], start["type"]): len(runs[(start["term"], start["type"])]["hits"])}
+_, d_recs, d_hits = measure(draft)
+log.append(dict(step="draft start", term=start["term"], type=start["type"], records_2007_2014=d_recs,
+                dev_sources=len(d_hits), yield_per_1000="", load_2015_2026="", keys=""))
+rest = [t for t in regular if t is not start]
+while rest:
+    options = []
+    for t in rest:
+        r = runs[(t["term"], t["type"])]
+        if not (r["hits"] - d_hits):
+            continue
+        _, recs, hits = measure(draft + [t])
+        s_add, r_add = len(hits - d_hits), max(recs - d_recs, 0)
+        y_add = 1000 * s_add / r_add if r_add else float("inf")
+        options.append((-y_add, r_add, t["term"], t, recs, hits, s_add))
+    options.sort(key=lambda o: (o[0], o[1], o[2]))
+    best = None
+    if options:
+        o = options[0]
+        best = (-o[0], None, None, o[3], o[4], o[5], o[6], o[1])
+    if not best or best[0] < threshold:
+        break
+    y_add, _, _, t, recs, hits, s_add, r_add = best
+    draft.append(t)
+    added_at_entry[(t["term"], t["type"])] = s_add
+    log.append(dict(step="draft add", term=t["term"], type=t["type"], records_2007_2014=recs,
+                    dev_sources=len(hits), yield_per_1000=round(y_add, 3) if y_add != float("inf") else "inf",
+                    load_2015_2026="", keys=f"added {s_add} sources for {r_add} records"))
+    d_recs, d_hits = recs, hits
+    rest = [x for x in rest if x is not t]
+    print("added", t["term"], flush=True)
+for t in rest:
+    status[(t["term"], t["type"])] = "excluded by yield"
+for t in fallback:
+    draft.append(t)
+    status[(t["term"], t["type"])] = "fallback in query"
+
+# item 6: trim
+for t in sorted([t for t in draft if t["type"] != "fallback"], key=lambda t: added_at_entry[(t["term"], t["type"])]):
+    if len(draft) == 1:
+        break
+    trial = [x for x in draft if x is not t]
+    hits = retrieved(DB, q_of(trial), dev)
+    if hits == d_hits:
+        draft = trial
+        status[(t["term"], t["type"])] = "excluded by yield"
+        log.append(dict(step="trim drop", term=t["term"], type=t["type"], records_2007_2014="", dev_sources=len(hits),
+                        yield_per_1000="", load_2015_2026="", keys=""))
+for t in draft:
+    status.setdefault((t["term"], t["type"]), "in query")
+final_q = q_of(draft)
+_, f_recs, f_hits = measure(draft)
+
+# items 7 and 8: index check and coverage on the test set
+idx = set()
+for i in range(0, len([s for s in test if testable(DB, s)]), BATCH):
+    b = [s for s in test if testable(DB, s)][i:i + BATCH]
+    clause = id_clause(DB, b)
+    if DB == "PubMed":
+        _, ids = pubmed_search(clause, retmax=BATCH * 2)
+        idx |= {s["key"] for s in b if s["pmid"] in set(ids)}
+        rest_b = [s for s in b if not s["pmid"]]
+        if rest_b and ids:
+            dois = {r["doi"] for r in pubmed_summary(ids).values()}
+            idx |= {s["key"] for s in rest_b if s["doi"].lower() in dois}
+    elif DB == "Scopus":
+        dois = {r["doi"] for r in scopus_records(clause)}
+        idx |= {s["key"] for s in b if s["doi"].lower() in dois}
+    else:
+        dois = {r["doi"] for r in wos_records(clause)}
+        idx |= {s["key"] for s in b if s["doi"].lower() in dois}
+untestable = [s["key"] for s in test if not testable(DB, s)]
+idx_src = [s for s in test if s["key"] in idx]
+cov = retrieved(DB, final_q, idx_src)
+in_scope_idx = [s for s in idx_src if s["in_scope"] == "yes"]
+cov_all = wilson(len(cov), len(idx_src))
+cov_in = wilson(len([s for s in in_scope_idx if s["key"] in cov]), len(in_scope_idx))
+
+# item 9: load
+slug = {"PubMed": "pubmed", "Scopus": "scopus", "Web of Science": "web-of-science"}[DB]
+load_q = f"({final_q}) AND {REVIEW_SPAN}"
+recs = records(DB, load_q)
+if DB == "PubMed":
+    meta = pubmed_summary([r["id"] for r in recs])
+    recs = [meta.get(r["id"], dict(id=r["id"], doi="", title="", year="")) for r in recs]
+write(f"load_{slug}.csv", recs)
+write(f"query_runs_{slug}.csv", log)
+
+
+def upsert(name, rows):
+    """Replace this database's rows in a file shared by the three databases."""
+    old = [r for r in read(name) if r["database"] != DB] if (T / name).exists() and (T / name).stat().st_size else []
+    write(name, old + rows)
+
+
+upsert("query_tests.csv", [dict(
+    database=DB, final_query=final_q, date_run=TODAY, yield_threshold=threshold,
+    development_yield=round(1000 * len(f_hits) / f_recs, 3) if f_recs else 0, load=len(recs),
+    test_indexed=len(idx_src), test_untestable=len(untestable), test_retrieved=len(cov),
+    coverage_test=cov_all[0], coverage_test_ci=f"{cov_all[1]}-{cov_all[2]}",
+    coverage_in_scope=cov_in[0], coverage_in_scope_ci=f"{cov_in[1]}-{cov_in[2]}",
+    seed="", sample_included="", sample_excluded="", sample_undecidable="", sample_title_only="",
+    precision_undecidable_included="", precision_undecidable_included_ci="",
+    precision_undecidable_left_out="", precision_undecidable_left_out_ci="",
+    note="test set ends in July 2018, so coverage of vocabulary from later years is untested")])
+
+# query_misses.csv: indexed test set sources not retrieved; development sources reached only by excluded terms
+codes = read("reference_codes.csv")
+pterms = collections.defaultdict(list)
+for c in codes:
+    if c["field"] == "Practice" and c["term"]:
+        pterms[c["key"]].append(c["term"])
+by_key = {s["key"]: s for s in src}
+excluded = [t for t in regular if status.get((t["term"], t["type"])) == "excluded by yield"]
+reach = collections.defaultdict(list)
+for t in excluded:
+    for k in runs[(t["term"], t["type"])]["hits"]:
+        reach[k].append(t["term"])
+miss = [s for s in idx_src if s["key"] not in cov] + [by_key[k] for k in sorted(set(reach) - f_hits)]
+upsert("query_misses.csv", [dict(
+    database=DB, doi=s["doi"], title=s["title"], set=s["set"], in_scope=s["in_scope"],
+    sharing_reuse_terms="; ".join(pterms[s["key"]]), excluded_term="; ".join(reach.get(s["key"], [])))
+    for s in miss])
+
+# terms.csv: fill the step 3 columns for this database's sharing and reuse rows
+by_form = {wf(t): (t["term"], t["type"]) for t in cand}
+rows = read("terms.csv")
+for r in rows:
+    if r["database"] != DB or r["pcc_part"] not in ("sharing", "reuse"):
+        continue
+    k = by_form[syn[(r["term"], r["type"], DB)]]
+    r["development_yield"] = runs[k]["y"]
+    r["load_2015_2026"] = runs[k]["load"]
+    r["sources_added"] = added_at_entry.get(k, "") if status.get(k) in ("in query", "fallback in query") else ""
+    r["status"] = status.get(k, "excluded by yield")
+write("terms.csv", rows)
+print("final query:", final_q)
+print("load", len(recs), "coverage", cov_all, "in scope", cov_in)
+
+PYEOF
+```
+
+## 7. Query block: Web of Science
+
+Runs plan step 3, method items 3 to 9 for Web of Science: term runs, yield threshold, draft, trim, index check, test set coverage and load. In `data/search_tests/`, it writes `query_runs_web-of-science.csv` and `load_web-of-science.csv`, replaces the Web of Science rows of `query_tests.csv` and `query_misses.csv`, and fills the step 3 columns of the Web of Science *sharing* and *reuse* rows in `terms.csv`. Expect one to several hours; each candidate costs one count, one load count and two or three identifier batches, and each draft round one query per remaining candidate.
+
+```bash
+cd ~/RDS-Review
+git pull
+source ~/.venvs/rds-review/bin/activate
+source ~/.rds-review-keys
+mkdir -p data/search_tests
+timeout 10h python3 - 2>&1 <<'PYEOF' | tee data/search_tests/query_console_web-of-science.txt
+"""Search functions shared by the RDS-Review query and precision blocks.
+
+Each block in step3_blocks.md pastes this file's contents ahead of its own code,
+so nothing needs installing beyond requests.
+"""
+import csv, json, os, random, re, time, datetime
+from pathlib import Path
+import requests
+
+T = Path("data/search_tests")
+EMAIL = "zachary.batist@mcgill.ca"
+TODAY = datetime.date.today().isoformat()
+BATCH = 25
+
+
+def _get(url, params=None, headers=None, pause=0.0, tries=4):
+    for i in range(tries):
+        r = requests.get(url, params=params, headers=headers, timeout=60)
+        if r.status_code == 429 or r.status_code >= 500:
+            time.sleep(2 ** i)
+            continue
+        r.raise_for_status()
+        time.sleep(pause)
+        return r
+    r.raise_for_status()
+
+
+# ---------- PubMed ----------
+EU = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
+
+
+def pubmed_search(q, retmax=0):
+    p = dict(db="pubmed", term=q, retmax=retmax, retmode="json",
+             api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+    j = _get(EU + "esearch.fcgi", p, pause=0.11).json()["esearchresult"]
+    return int(j["count"]), j.get("idlist", [])
+
+
+def pubmed_all_ids(q):
+    n, _ = pubmed_search(q)
+    ids = []
+    for start in range(0, n, 9999):
+        p = dict(db="pubmed", term=q, retmax=9999, retstart=start, retmode="json",
+                 api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+        ids += _get(EU + "esearch.fcgi", p, pause=0.11).json()["esearchresult"]["idlist"]
+    return ids
+
+
+def pubmed_summary(ids):
+    out = {}
+    for i in range(0, len(ids), 200):
+        p = dict(db="pubmed", id=",".join(ids[i:i + 200]), retmode="json",
+                 api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+        res = _get(EU + "esummary.fcgi", p, pause=0.11).json()["result"]
+        for k in res.get("uids", []):
+            r = res[k]
+            doi = next((a["value"] for a in r.get("articleids", []) if a["idtype"] == "doi"), "")
+            out[k] = dict(id=k, doi=doi.lower(), title=r.get("title", ""), year=r.get("pubdate", "")[:4])
+    return out
+
+
+# ---------- Scopus ----------
+SC = "https://api.elsevier.com/content/search/scopus"
+
+
+def scopus_search(q, count=25, start=0, cursor=None):
+    h = {"X-ELS-APIKey": os.environ["SCOPUS_API_KEY"], "Accept": "application/json"}
+    p = dict(query=q, count=count, view="STANDARD", field="eid,doi,title,coverDate")
+    if cursor:
+        p["cursor"] = cursor
+    else:
+        p["start"] = start
+    r = _get(SC, p, h, pause=0.12)
+    j = r.json()["search-results"]
+    return j, r.headers
+
+
+def scopus_count(q):
+    j, _ = scopus_search(q, count=1)
+    return int(j["opensearch:totalResults"])
+
+
+def scopus_records(q, limit=None):
+    recs, cursor = [], "*"
+    while True:
+        j, _ = scopus_search(q, count=200, cursor=cursor)
+        ents = [e for e in j.get("entry", []) if "error" not in e]
+        for e in ents:
+            recs.append(dict(id=e.get("eid", ""), doi=e.get("prism:doi", "").lower(),
+                             title=e.get("dc:title", ""), year=e.get("prism:coverDate", "")[:4]))
+        nxt = j.get("cursor", {}).get("@next")
+        if not ents or not nxt or nxt == cursor or (limit and len(recs) >= limit):
+            return recs
+        cursor = nxt
+
+
+# ---------- Web of Science ----------
+WS = "https://api.clarivate.com/apis/wos-starter/v1/documents"
+
+
+def wos_search(q, limit=50, page=1):
+    h = {"X-ApiKey": os.environ["WOS_API_KEY"]}
+    p = dict(db="WOS", q=q, limit=limit, page=page)
+    return _get(WS, p, h, pause=0.21).json()
+
+
+def wos_count(q):
+    return int(wos_search(q, limit=1)["metadata"]["total"])
+
+
+def wos_records(q):
+    recs, page = [], 1
+    while True:
+        j = wos_search(q, limit=50, page=page)
+        for h in j.get("hits", []):
+            recs.append(dict(id=h.get("uid", ""), doi=h.get("identifiers", {}).get("doi", "").lower(),
+                             title=h.get("title", ""), year=str(h.get("source", {}).get("publishYear", ""))))
+        if page * 50 >= j["metadata"]["total"] or not j.get("hits"):
+            return recs
+        page += 1
+
+
+# ---------- database-neutral wrappers ----------
+def date_limit(db, a, b):
+    return {"PubMed": f"{a}:{b}[dp]",
+            "Scopus": f"PUBYEAR > {a - 1} AND PUBYEAR < {b + 1}",
+            "Web of Science": f"PY=({a}-{b})"}[db]
+
+
+def id_clause(db, sources):
+    """OR-joined identifier clause for a list of reference_sources rows."""
+    parts = []
+    for s in sources:
+        if db == "PubMed":
+            parts.append(f"{s['pmid']}[uid]" if s["pmid"] else f"{s['doi']}[doi]")
+        elif db == "Scopus":
+            parts.append(f"DOI({s['doi']})")
+        else:
+            parts.append(s["doi"])
+    if db == "Web of Science":
+        return "DO=(" + " OR ".join(parts) + ")"
+    return "(" + " OR ".join(parts) + ")"
+
+
+def testable(db, s):
+    return bool(s["doi"]) or (db == "PubMed" and bool(s["pmid"]))
+
+
+def count(db, q):
+    return {"PubMed": lambda: pubmed_search(q)[0], "Scopus": lambda: scopus_count(q),
+            "Web of Science": lambda: wos_count(q)}[db]()
+
+
+def retrieved(db, q, sources):
+    """Keys of sources in `sources` that query q retrieves, sending identifiers in batches."""
+    hit = set()
+    srcs = [s for s in sources if testable(db, s)]
+    for i in range(0, len(srcs), BATCH):
+        b = srcs[i:i + BATCH]
+        full = f"({q}) AND {id_clause(db, b)}"
+        if db == "PubMed":
+            _, ids = pubmed_search(full, retmax=BATCH * 2)
+            ids = set(ids)
+            hit |= {s["key"] for s in b if s["pmid"] in ids}
+            rest = [s for s in b if not s["pmid"]]
+            if rest and ids:
+                dois = {r["doi"] for r in pubmed_summary(list(ids)).values()}
+                hit |= {s["key"] for s in rest if s["doi"].lower() in dois}
+        elif db == "Scopus":
+            dois = {r["doi"] for r in scopus_records(full)}
+            hit |= {s["key"] for s in b if s["doi"].lower() in dois}
+        else:
+            dois = {r["doi"] for r in wos_records(full)}
+            hit |= {s["key"] for s in b if s["doi"].lower() in dois}
+    return hit
+
+
+def records(db, q):
+    if db == "PubMed":
+        ids = pubmed_all_ids(q)
+        return [dict(id=i) for i in ids]
+    if db == "Scopus":
+        return scopus_records(q)
+    return wos_records(q)
+
+
+def wilson(k, n, z=1.96):
+    if n == 0:
+        return ("", "", "")
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / d
+    return (round(p, 3), round(max(0, c - h), 3), round(min(1, c + h), 3))
+
+
+def read(name):
+    return list(csv.DictReader(open(T / name, encoding="utf-8")))
+
+
+def write(name, rows, folder=T):
+    folder.mkdir(parents=True, exist_ok=True)
+    if not rows:
+        (folder / name).write_text("")
+        return
+    with open(folder / name, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0]))
+        w.writeheader()
+        w.writerows(rows)
+
+DB = "Web of Science"
+# ---------- query block: plan step 3, method items 3 to 9 ----------
+import collections
+src = read("reference_sources.csv")
+syn = {(r["term"], r["type"], r["database"]): r["written_form"] for r in read("term_syntax.csv")}
+terms = read("terms.csv")
+dev = [s for s in src if s["set"] == "development" and s["eligible_apart_from_year"] == "yes"]
+test = [s for s in src if s["set"] == "test"]
+log = []
+
+cand = [t for t in terms if t["database"] == DB and t["pcc_part"] in ("sharing", "reuse")]
+seen, uniq = set(), []
+for t in cand:
+    k = syn[(t["term"], t["type"], DB)]
+    if k not in seen:
+        seen.add(k)
+        uniq.append(t)
+cand = uniq
+fallback = [t for t in cand if t["type"] == "fallback"]
+regular = [t for t in cand if t["type"] != "fallback"]
+
+
+def wf(t):
+    return syn[(t["term"], t["type"], DB)]
+
+
+def q_of(ts):
+    return " OR ".join(f"({wf(t)})" for t in ts)
+
+
+DEV_SPAN = date_limit(DB, 2007, 2014)
+REVIEW_SPAN = date_limit(DB, 2015, 2026)
+
+
+def measure(ts):
+    q = q_of(ts)
+    recs = count(DB, f"({q}) AND {DEV_SPAN}")
+    hits = retrieved(DB, q, dev)
+    return q, recs, hits
+
+
+# item 3: term runs
+runs = {}
+for t in cand:
+    q, recs, hits = measure([t])
+    load = count(DB, f"({q}) AND {REVIEW_SPAN}")
+    y = round(1000 * len(hits) / recs, 3) if recs else 0
+    runs[(t["term"], t["type"])] = dict(t=t, recs=recs, hits=hits, load=load, y=y)
+    log.append(dict(step="term run", term=t["term"], type=t["type"], records_2007_2014=recs,
+                    dev_sources=len(hits), yield_per_1000=y, load_2015_2026=load, keys=";".join(sorted(hits))))
+    print("term run", t["term"], recs, len(hits), load, flush=True)
+
+# item 4: threshold
+q_all, recs_all, hits_all = measure(regular)
+threshold = round(1000 * len(hits_all) / recs_all, 3) if recs_all else 0
+log.append(dict(step="threshold", term="(all regular candidates)", type="", records_2007_2014=recs_all,
+                dev_sources=len(hits_all), yield_per_1000=threshold, load_2015_2026="", keys=";".join(sorted(hits_all))))
+print("threshold", threshold, flush=True)
+
+# item 5: draft
+status = {}
+start = max(regular, key=lambda t: (len(runs[(t["term"], t["type"])]["hits"]), -runs[(t["term"], t["type"])]["recs"], t["term"]))
+draft = [start]
+added_at_entry = {(start["term"], start["type"]): len(runs[(start["term"], start["type"])]["hits"])}
+_, d_recs, d_hits = measure(draft)
+log.append(dict(step="draft start", term=start["term"], type=start["type"], records_2007_2014=d_recs,
+                dev_sources=len(d_hits), yield_per_1000="", load_2015_2026="", keys=""))
+rest = [t for t in regular if t is not start]
+while rest:
+    options = []
+    for t in rest:
+        r = runs[(t["term"], t["type"])]
+        if not (r["hits"] - d_hits):
+            continue
+        _, recs, hits = measure(draft + [t])
+        s_add, r_add = len(hits - d_hits), max(recs - d_recs, 0)
+        y_add = 1000 * s_add / r_add if r_add else float("inf")
+        options.append((-y_add, r_add, t["term"], t, recs, hits, s_add))
+    options.sort(key=lambda o: (o[0], o[1], o[2]))
+    best = None
+    if options:
+        o = options[0]
+        best = (-o[0], None, None, o[3], o[4], o[5], o[6], o[1])
+    if not best or best[0] < threshold:
+        break
+    y_add, _, _, t, recs, hits, s_add, r_add = best
+    draft.append(t)
+    added_at_entry[(t["term"], t["type"])] = s_add
+    log.append(dict(step="draft add", term=t["term"], type=t["type"], records_2007_2014=recs,
+                    dev_sources=len(hits), yield_per_1000=round(y_add, 3) if y_add != float("inf") else "inf",
+                    load_2015_2026="", keys=f"added {s_add} sources for {r_add} records"))
+    d_recs, d_hits = recs, hits
+    rest = [x for x in rest if x is not t]
+    print("added", t["term"], flush=True)
+for t in rest:
+    status[(t["term"], t["type"])] = "excluded by yield"
+for t in fallback:
+    draft.append(t)
+    status[(t["term"], t["type"])] = "fallback in query"
+
+# item 6: trim
+for t in sorted([t for t in draft if t["type"] != "fallback"], key=lambda t: added_at_entry[(t["term"], t["type"])]):
+    if len(draft) == 1:
+        break
+    trial = [x for x in draft if x is not t]
+    hits = retrieved(DB, q_of(trial), dev)
+    if hits == d_hits:
+        draft = trial
+        status[(t["term"], t["type"])] = "excluded by yield"
+        log.append(dict(step="trim drop", term=t["term"], type=t["type"], records_2007_2014="", dev_sources=len(hits),
+                        yield_per_1000="", load_2015_2026="", keys=""))
+for t in draft:
+    status.setdefault((t["term"], t["type"]), "in query")
+final_q = q_of(draft)
+_, f_recs, f_hits = measure(draft)
+
+# items 7 and 8: index check and coverage on the test set
+idx = set()
+for i in range(0, len([s for s in test if testable(DB, s)]), BATCH):
+    b = [s for s in test if testable(DB, s)][i:i + BATCH]
+    clause = id_clause(DB, b)
+    if DB == "PubMed":
+        _, ids = pubmed_search(clause, retmax=BATCH * 2)
+        idx |= {s["key"] for s in b if s["pmid"] in set(ids)}
+        rest_b = [s for s in b if not s["pmid"]]
+        if rest_b and ids:
+            dois = {r["doi"] for r in pubmed_summary(ids).values()}
+            idx |= {s["key"] for s in rest_b if s["doi"].lower() in dois}
+    elif DB == "Scopus":
+        dois = {r["doi"] for r in scopus_records(clause)}
+        idx |= {s["key"] for s in b if s["doi"].lower() in dois}
+    else:
+        dois = {r["doi"] for r in wos_records(clause)}
+        idx |= {s["key"] for s in b if s["doi"].lower() in dois}
+untestable = [s["key"] for s in test if not testable(DB, s)]
+idx_src = [s for s in test if s["key"] in idx]
+cov = retrieved(DB, final_q, idx_src)
+in_scope_idx = [s for s in idx_src if s["in_scope"] == "yes"]
+cov_all = wilson(len(cov), len(idx_src))
+cov_in = wilson(len([s for s in in_scope_idx if s["key"] in cov]), len(in_scope_idx))
+
+# item 9: load
+slug = {"PubMed": "pubmed", "Scopus": "scopus", "Web of Science": "web-of-science"}[DB]
+load_q = f"({final_q}) AND {REVIEW_SPAN}"
+recs = records(DB, load_q)
+if DB == "PubMed":
+    meta = pubmed_summary([r["id"] for r in recs])
+    recs = [meta.get(r["id"], dict(id=r["id"], doi="", title="", year="")) for r in recs]
+write(f"load_{slug}.csv", recs)
+write(f"query_runs_{slug}.csv", log)
+
+
+def upsert(name, rows):
+    """Replace this database's rows in a file shared by the three databases."""
+    old = [r for r in read(name) if r["database"] != DB] if (T / name).exists() and (T / name).stat().st_size else []
+    write(name, old + rows)
+
+
+upsert("query_tests.csv", [dict(
+    database=DB, final_query=final_q, date_run=TODAY, yield_threshold=threshold,
+    development_yield=round(1000 * len(f_hits) / f_recs, 3) if f_recs else 0, load=len(recs),
+    test_indexed=len(idx_src), test_untestable=len(untestable), test_retrieved=len(cov),
+    coverage_test=cov_all[0], coverage_test_ci=f"{cov_all[1]}-{cov_all[2]}",
+    coverage_in_scope=cov_in[0], coverage_in_scope_ci=f"{cov_in[1]}-{cov_in[2]}",
+    seed="", sample_included="", sample_excluded="", sample_undecidable="", sample_title_only="",
+    precision_undecidable_included="", precision_undecidable_included_ci="",
+    precision_undecidable_left_out="", precision_undecidable_left_out_ci="",
+    note="test set ends in July 2018, so coverage of vocabulary from later years is untested")])
+
+# query_misses.csv: indexed test set sources not retrieved; development sources reached only by excluded terms
+codes = read("reference_codes.csv")
+pterms = collections.defaultdict(list)
+for c in codes:
+    if c["field"] == "Practice" and c["term"]:
+        pterms[c["key"]].append(c["term"])
+by_key = {s["key"]: s for s in src}
+excluded = [t for t in regular if status.get((t["term"], t["type"])) == "excluded by yield"]
+reach = collections.defaultdict(list)
+for t in excluded:
+    for k in runs[(t["term"], t["type"])]["hits"]:
+        reach[k].append(t["term"])
+miss = [s for s in idx_src if s["key"] not in cov] + [by_key[k] for k in sorted(set(reach) - f_hits)]
+upsert("query_misses.csv", [dict(
+    database=DB, doi=s["doi"], title=s["title"], set=s["set"], in_scope=s["in_scope"],
+    sharing_reuse_terms="; ".join(pterms[s["key"]]), excluded_term="; ".join(reach.get(s["key"], [])))
+    for s in miss])
+
+# terms.csv: fill the step 3 columns for this database's sharing and reuse rows
+by_form = {wf(t): (t["term"], t["type"]) for t in cand}
+rows = read("terms.csv")
+for r in rows:
+    if r["database"] != DB or r["pcc_part"] not in ("sharing", "reuse"):
+        continue
+    k = by_form[syn[(r["term"], r["type"], DB)]]
+    r["development_yield"] = runs[k]["y"]
+    r["load_2015_2026"] = runs[k]["load"]
+    r["sources_added"] = added_at_entry.get(k, "") if status.get(k) in ("in query", "fallback in query") else ""
+    r["status"] = status.get(k, "excluded by yield")
+write("terms.csv", rows)
+print("final query:", final_q)
+print("load", len(recs), "coverage", cov_all, "in scope", cov_in)
+
+PYEOF
+```
+
+## 8. Precision block: PubMed
+
+Runs plan step 3, method item 10: draws 100 records from `load_pubmed.csv` with seed 20261112, fetches abstracts from PubMed for PubMed records, then from OpenAlex by DOI, then Crossref, records the seed in `query_tests.csv`, and writes `precision_sample_pubmed.csv` with empty `decision` and `exclusion_code` columns for screening. Records with no abstract are marked `none` in `abstract_source`.
+
+```bash
+cd ~/RDS-Review
+git pull
+source ~/.venvs/rds-review/bin/activate
+source ~/.rds-review-keys
+mkdir -p data/search_tests
+timeout 1h python3 - 2>&1 <<'PYEOF' | tee data/search_tests/precision_console_pubmed.txt
+"""Search functions shared by the RDS-Review query and precision blocks.
+
+Each block in step3_blocks.md pastes this file's contents ahead of its own code,
+so nothing needs installing beyond requests.
+"""
+import csv, json, os, random, re, time, datetime
+from pathlib import Path
+import requests
+
+T = Path("data/search_tests")
+EMAIL = "zachary.batist@mcgill.ca"
+TODAY = datetime.date.today().isoformat()
+BATCH = 25
+
+
+def _get(url, params=None, headers=None, pause=0.0, tries=4):
+    for i in range(tries):
+        r = requests.get(url, params=params, headers=headers, timeout=60)
+        if r.status_code == 429 or r.status_code >= 500:
+            time.sleep(2 ** i)
+            continue
+        r.raise_for_status()
+        time.sleep(pause)
+        return r
+    r.raise_for_status()
+
+
+# ---------- PubMed ----------
+EU = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
+
+
+def pubmed_search(q, retmax=0):
+    p = dict(db="pubmed", term=q, retmax=retmax, retmode="json",
+             api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+    j = _get(EU + "esearch.fcgi", p, pause=0.11).json()["esearchresult"]
+    return int(j["count"]), j.get("idlist", [])
+
+
+def pubmed_all_ids(q):
+    n, _ = pubmed_search(q)
+    ids = []
+    for start in range(0, n, 9999):
+        p = dict(db="pubmed", term=q, retmax=9999, retstart=start, retmode="json",
+                 api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+        ids += _get(EU + "esearch.fcgi", p, pause=0.11).json()["esearchresult"]["idlist"]
+    return ids
+
+
+def pubmed_summary(ids):
+    out = {}
+    for i in range(0, len(ids), 200):
+        p = dict(db="pubmed", id=",".join(ids[i:i + 200]), retmode="json",
+                 api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+        res = _get(EU + "esummary.fcgi", p, pause=0.11).json()["result"]
+        for k in res.get("uids", []):
+            r = res[k]
+            doi = next((a["value"] for a in r.get("articleids", []) if a["idtype"] == "doi"), "")
+            out[k] = dict(id=k, doi=doi.lower(), title=r.get("title", ""), year=r.get("pubdate", "")[:4])
+    return out
+
+
+# ---------- Scopus ----------
+SC = "https://api.elsevier.com/content/search/scopus"
+
+
+def scopus_search(q, count=25, start=0, cursor=None):
+    h = {"X-ELS-APIKey": os.environ["SCOPUS_API_KEY"], "Accept": "application/json"}
+    p = dict(query=q, count=count, view="STANDARD", field="eid,doi,title,coverDate")
+    if cursor:
+        p["cursor"] = cursor
+    else:
+        p["start"] = start
+    r = _get(SC, p, h, pause=0.12)
+    j = r.json()["search-results"]
+    return j, r.headers
+
+
+def scopus_count(q):
+    j, _ = scopus_search(q, count=1)
+    return int(j["opensearch:totalResults"])
+
+
+def scopus_records(q, limit=None):
+    recs, cursor = [], "*"
+    while True:
+        j, _ = scopus_search(q, count=200, cursor=cursor)
+        ents = [e for e in j.get("entry", []) if "error" not in e]
+        for e in ents:
+            recs.append(dict(id=e.get("eid", ""), doi=e.get("prism:doi", "").lower(),
+                             title=e.get("dc:title", ""), year=e.get("prism:coverDate", "")[:4]))
+        nxt = j.get("cursor", {}).get("@next")
+        if not ents or not nxt or nxt == cursor or (limit and len(recs) >= limit):
+            return recs
+        cursor = nxt
+
+
+# ---------- Web of Science ----------
+WS = "https://api.clarivate.com/apis/wos-starter/v1/documents"
+
+
+def wos_search(q, limit=50, page=1):
+    h = {"X-ApiKey": os.environ["WOS_API_KEY"]}
+    p = dict(db="WOS", q=q, limit=limit, page=page)
+    return _get(WS, p, h, pause=0.21).json()
+
+
+def wos_count(q):
+    return int(wos_search(q, limit=1)["metadata"]["total"])
+
+
+def wos_records(q):
+    recs, page = [], 1
+    while True:
+        j = wos_search(q, limit=50, page=page)
+        for h in j.get("hits", []):
+            recs.append(dict(id=h.get("uid", ""), doi=h.get("identifiers", {}).get("doi", "").lower(),
+                             title=h.get("title", ""), year=str(h.get("source", {}).get("publishYear", ""))))
+        if page * 50 >= j["metadata"]["total"] or not j.get("hits"):
+            return recs
+        page += 1
+
+
+# ---------- database-neutral wrappers ----------
+def date_limit(db, a, b):
+    return {"PubMed": f"{a}:{b}[dp]",
+            "Scopus": f"PUBYEAR > {a - 1} AND PUBYEAR < {b + 1}",
+            "Web of Science": f"PY=({a}-{b})"}[db]
+
+
+def id_clause(db, sources):
+    """OR-joined identifier clause for a list of reference_sources rows."""
+    parts = []
+    for s in sources:
+        if db == "PubMed":
+            parts.append(f"{s['pmid']}[uid]" if s["pmid"] else f"{s['doi']}[doi]")
+        elif db == "Scopus":
+            parts.append(f"DOI({s['doi']})")
+        else:
+            parts.append(s["doi"])
+    if db == "Web of Science":
+        return "DO=(" + " OR ".join(parts) + ")"
+    return "(" + " OR ".join(parts) + ")"
+
+
+def testable(db, s):
+    return bool(s["doi"]) or (db == "PubMed" and bool(s["pmid"]))
+
+
+def count(db, q):
+    return {"PubMed": lambda: pubmed_search(q)[0], "Scopus": lambda: scopus_count(q),
+            "Web of Science": lambda: wos_count(q)}[db]()
+
+
+def retrieved(db, q, sources):
+    """Keys of sources in `sources` that query q retrieves, sending identifiers in batches."""
+    hit = set()
+    srcs = [s for s in sources if testable(db, s)]
+    for i in range(0, len(srcs), BATCH):
+        b = srcs[i:i + BATCH]
+        full = f"({q}) AND {id_clause(db, b)}"
+        if db == "PubMed":
+            _, ids = pubmed_search(full, retmax=BATCH * 2)
+            ids = set(ids)
+            hit |= {s["key"] for s in b if s["pmid"] in ids}
+            rest = [s for s in b if not s["pmid"]]
+            if rest and ids:
+                dois = {r["doi"] for r in pubmed_summary(list(ids)).values()}
+                hit |= {s["key"] for s in rest if s["doi"].lower() in dois}
+        elif db == "Scopus":
+            dois = {r["doi"] for r in scopus_records(full)}
+            hit |= {s["key"] for s in b if s["doi"].lower() in dois}
+        else:
+            dois = {r["doi"] for r in wos_records(full)}
+            hit |= {s["key"] for s in b if s["doi"].lower() in dois}
+    return hit
+
+
+def records(db, q):
+    if db == "PubMed":
+        ids = pubmed_all_ids(q)
+        return [dict(id=i) for i in ids]
+    if db == "Scopus":
+        return scopus_records(q)
+    return wos_records(q)
+
+
+def wilson(k, n, z=1.96):
+    if n == 0:
+        return ("", "", "")
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / d
+    return (round(p, 3), round(max(0, c - h), 3), round(min(1, c + h), 3))
+
+
+def read(name):
+    return list(csv.DictReader(open(T / name, encoding="utf-8")))
+
+
+def write(name, rows, folder=T):
+    folder.mkdir(parents=True, exist_ok=True)
+    if not rows:
+        (folder / name).write_text("")
+        return
+    with open(folder / name, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0]))
+        w.writeheader()
+        w.writerows(rows)
+
+DB = "PubMed"
+# ---------- precision block: plan step 3, method item 10 ----------
+import xml.etree.ElementTree as ET
+SEED = 20261112
+slug = {"PubMed": "pubmed", "Scopus": "scopus", "Web of Science": "web-of-science"}[DB]
+recs = read(f"load_{slug}.csv")
+random.seed(SEED)
+sample = random.sample(recs, min(100, len(recs)))
+
+
+def pubmed_abstracts(ids):
+    out = {}
+    for i in range(0, len(ids), 200):
+        p = dict(db="pubmed", id=",".join(ids[i:i + 200]), retmode="xml",
+                 api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+        root = ET.fromstring(_get(EU + "efetch.fcgi", p, pause=0.11).content)
+        for a in root.iter("PubmedArticle"):
+            out[a.findtext(".//PMID")] = " ".join("".join(t.itertext()) for t in a.findall(".//AbstractText"))
+    return out
+
+
+pm_abs = pubmed_abstracts([r["id"] for r in sample]) if DB == "PubMed" else {}
+
+
+def openalex_abstract(doi):
+    if not doi:
+        return ""
+    try:
+        j = _get(f"https://api.openalex.org/works/doi:{doi}",
+                 dict(select="abstract_inverted_index", mailto=EMAIL), pause=0.1).json()
+    except requests.HTTPError:
+        return ""
+    inv = j.get("abstract_inverted_index") or {}
+    pos = {p: w for w, ps in inv.items() for p in ps}
+    return " ".join(pos[i] for i in sorted(pos))
+
+
+def crossref_abstract(doi):
+    if not doi:
+        return ""
+    try:
+        j = _get(f"https://api.crossref.org/works/{doi}", dict(mailto=EMAIL), pause=0.1).json()
+    except requests.HTTPError:
+        return ""
+    return re.sub(r"<[^>]+>", " ", j["message"].get("abstract", "")).strip()
+
+
+rows = []
+for r in sample:
+    a, srcname = pm_abs.get(r["id"], ""), "database"
+    if not a:
+        a = openalex_abstract(r.get("doi", ""))
+        srcname = "OpenAlex" if a else ""
+    if not a:
+        a = crossref_abstract(r.get("doi", ""))
+        srcname = "Crossref" if a else "none"
+    rows.append(dict(record_id=r["id"], doi=r.get("doi", ""), title=r.get("title", ""), year=r.get("year", ""),
+                     abstract_source=srcname, abstract=a, decision="", exclusion_code=""))
+    print(r["id"], srcname, flush=True)
+write(f"precision_sample_{slug}.csv", rows)
+tests = read("query_tests.csv")
+for t in tests:
+    if t["database"] == DB:
+        t["seed"] = SEED
+write("query_tests.csv", tests)
+print(f"seed {SEED}; {len(rows)} records; no abstract for {sum(r['abstract_source'] == 'none' for r in rows)}")
+
+PYEOF
+```
+
+## 9. Precision block: Scopus
+
+Runs plan step 3, method item 10: draws 100 records from `load_scopus.csv` with seed 20261112, fetches abstracts from PubMed for PubMed records, then from OpenAlex by DOI, then Crossref, records the seed in `query_tests.csv`, and writes `precision_sample_scopus.csv` with empty `decision` and `exclusion_code` columns for screening. Records with no abstract are marked `none` in `abstract_source`.
+
+```bash
+cd ~/RDS-Review
+git pull
+source ~/.venvs/rds-review/bin/activate
+source ~/.rds-review-keys
+mkdir -p data/search_tests
+timeout 1h python3 - 2>&1 <<'PYEOF' | tee data/search_tests/precision_console_scopus.txt
+"""Search functions shared by the RDS-Review query and precision blocks.
+
+Each block in step3_blocks.md pastes this file's contents ahead of its own code,
+so nothing needs installing beyond requests.
+"""
+import csv, json, os, random, re, time, datetime
+from pathlib import Path
+import requests
+
+T = Path("data/search_tests")
+EMAIL = "zachary.batist@mcgill.ca"
+TODAY = datetime.date.today().isoformat()
+BATCH = 25
+
+
+def _get(url, params=None, headers=None, pause=0.0, tries=4):
+    for i in range(tries):
+        r = requests.get(url, params=params, headers=headers, timeout=60)
+        if r.status_code == 429 or r.status_code >= 500:
+            time.sleep(2 ** i)
+            continue
+        r.raise_for_status()
+        time.sleep(pause)
+        return r
+    r.raise_for_status()
+
+
+# ---------- PubMed ----------
+EU = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
+
+
+def pubmed_search(q, retmax=0):
+    p = dict(db="pubmed", term=q, retmax=retmax, retmode="json",
+             api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+    j = _get(EU + "esearch.fcgi", p, pause=0.11).json()["esearchresult"]
+    return int(j["count"]), j.get("idlist", [])
+
+
+def pubmed_all_ids(q):
+    n, _ = pubmed_search(q)
+    ids = []
+    for start in range(0, n, 9999):
+        p = dict(db="pubmed", term=q, retmax=9999, retstart=start, retmode="json",
+                 api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+        ids += _get(EU + "esearch.fcgi", p, pause=0.11).json()["esearchresult"]["idlist"]
+    return ids
+
+
+def pubmed_summary(ids):
+    out = {}
+    for i in range(0, len(ids), 200):
+        p = dict(db="pubmed", id=",".join(ids[i:i + 200]), retmode="json",
+                 api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+        res = _get(EU + "esummary.fcgi", p, pause=0.11).json()["result"]
+        for k in res.get("uids", []):
+            r = res[k]
+            doi = next((a["value"] for a in r.get("articleids", []) if a["idtype"] == "doi"), "")
+            out[k] = dict(id=k, doi=doi.lower(), title=r.get("title", ""), year=r.get("pubdate", "")[:4])
+    return out
+
+
+# ---------- Scopus ----------
+SC = "https://api.elsevier.com/content/search/scopus"
+
+
+def scopus_search(q, count=25, start=0, cursor=None):
+    h = {"X-ELS-APIKey": os.environ["SCOPUS_API_KEY"], "Accept": "application/json"}
+    p = dict(query=q, count=count, view="STANDARD", field="eid,doi,title,coverDate")
+    if cursor:
+        p["cursor"] = cursor
+    else:
+        p["start"] = start
+    r = _get(SC, p, h, pause=0.12)
+    j = r.json()["search-results"]
+    return j, r.headers
+
+
+def scopus_count(q):
+    j, _ = scopus_search(q, count=1)
+    return int(j["opensearch:totalResults"])
+
+
+def scopus_records(q, limit=None):
+    recs, cursor = [], "*"
+    while True:
+        j, _ = scopus_search(q, count=200, cursor=cursor)
+        ents = [e for e in j.get("entry", []) if "error" not in e]
+        for e in ents:
+            recs.append(dict(id=e.get("eid", ""), doi=e.get("prism:doi", "").lower(),
+                             title=e.get("dc:title", ""), year=e.get("prism:coverDate", "")[:4]))
+        nxt = j.get("cursor", {}).get("@next")
+        if not ents or not nxt or nxt == cursor or (limit and len(recs) >= limit):
+            return recs
+        cursor = nxt
+
+
+# ---------- Web of Science ----------
+WS = "https://api.clarivate.com/apis/wos-starter/v1/documents"
+
+
+def wos_search(q, limit=50, page=1):
+    h = {"X-ApiKey": os.environ["WOS_API_KEY"]}
+    p = dict(db="WOS", q=q, limit=limit, page=page)
+    return _get(WS, p, h, pause=0.21).json()
+
+
+def wos_count(q):
+    return int(wos_search(q, limit=1)["metadata"]["total"])
+
+
+def wos_records(q):
+    recs, page = [], 1
+    while True:
+        j = wos_search(q, limit=50, page=page)
+        for h in j.get("hits", []):
+            recs.append(dict(id=h.get("uid", ""), doi=h.get("identifiers", {}).get("doi", "").lower(),
+                             title=h.get("title", ""), year=str(h.get("source", {}).get("publishYear", ""))))
+        if page * 50 >= j["metadata"]["total"] or not j.get("hits"):
+            return recs
+        page += 1
+
+
+# ---------- database-neutral wrappers ----------
+def date_limit(db, a, b):
+    return {"PubMed": f"{a}:{b}[dp]",
+            "Scopus": f"PUBYEAR > {a - 1} AND PUBYEAR < {b + 1}",
+            "Web of Science": f"PY=({a}-{b})"}[db]
+
+
+def id_clause(db, sources):
+    """OR-joined identifier clause for a list of reference_sources rows."""
+    parts = []
+    for s in sources:
+        if db == "PubMed":
+            parts.append(f"{s['pmid']}[uid]" if s["pmid"] else f"{s['doi']}[doi]")
+        elif db == "Scopus":
+            parts.append(f"DOI({s['doi']})")
+        else:
+            parts.append(s["doi"])
+    if db == "Web of Science":
+        return "DO=(" + " OR ".join(parts) + ")"
+    return "(" + " OR ".join(parts) + ")"
+
+
+def testable(db, s):
+    return bool(s["doi"]) or (db == "PubMed" and bool(s["pmid"]))
+
+
+def count(db, q):
+    return {"PubMed": lambda: pubmed_search(q)[0], "Scopus": lambda: scopus_count(q),
+            "Web of Science": lambda: wos_count(q)}[db]()
+
+
+def retrieved(db, q, sources):
+    """Keys of sources in `sources` that query q retrieves, sending identifiers in batches."""
+    hit = set()
+    srcs = [s for s in sources if testable(db, s)]
+    for i in range(0, len(srcs), BATCH):
+        b = srcs[i:i + BATCH]
+        full = f"({q}) AND {id_clause(db, b)}"
+        if db == "PubMed":
+            _, ids = pubmed_search(full, retmax=BATCH * 2)
+            ids = set(ids)
+            hit |= {s["key"] for s in b if s["pmid"] in ids}
+            rest = [s for s in b if not s["pmid"]]
+            if rest and ids:
+                dois = {r["doi"] for r in pubmed_summary(list(ids)).values()}
+                hit |= {s["key"] for s in rest if s["doi"].lower() in dois}
+        elif db == "Scopus":
+            dois = {r["doi"] for r in scopus_records(full)}
+            hit |= {s["key"] for s in b if s["doi"].lower() in dois}
+        else:
+            dois = {r["doi"] for r in wos_records(full)}
+            hit |= {s["key"] for s in b if s["doi"].lower() in dois}
+    return hit
+
+
+def records(db, q):
+    if db == "PubMed":
+        ids = pubmed_all_ids(q)
+        return [dict(id=i) for i in ids]
+    if db == "Scopus":
+        return scopus_records(q)
+    return wos_records(q)
+
+
+def wilson(k, n, z=1.96):
+    if n == 0:
+        return ("", "", "")
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / d
+    return (round(p, 3), round(max(0, c - h), 3), round(min(1, c + h), 3))
+
+
+def read(name):
+    return list(csv.DictReader(open(T / name, encoding="utf-8")))
+
+
+def write(name, rows, folder=T):
+    folder.mkdir(parents=True, exist_ok=True)
+    if not rows:
+        (folder / name).write_text("")
+        return
+    with open(folder / name, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0]))
+        w.writeheader()
+        w.writerows(rows)
+
+DB = "Scopus"
+# ---------- precision block: plan step 3, method item 10 ----------
+import xml.etree.ElementTree as ET
+SEED = 20261112
+slug = {"PubMed": "pubmed", "Scopus": "scopus", "Web of Science": "web-of-science"}[DB]
+recs = read(f"load_{slug}.csv")
+random.seed(SEED)
+sample = random.sample(recs, min(100, len(recs)))
+
+
+def pubmed_abstracts(ids):
+    out = {}
+    for i in range(0, len(ids), 200):
+        p = dict(db="pubmed", id=",".join(ids[i:i + 200]), retmode="xml",
+                 api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+        root = ET.fromstring(_get(EU + "efetch.fcgi", p, pause=0.11).content)
+        for a in root.iter("PubmedArticle"):
+            out[a.findtext(".//PMID")] = " ".join("".join(t.itertext()) for t in a.findall(".//AbstractText"))
+    return out
+
+
+pm_abs = pubmed_abstracts([r["id"] for r in sample]) if DB == "PubMed" else {}
+
+
+def openalex_abstract(doi):
+    if not doi:
+        return ""
+    try:
+        j = _get(f"https://api.openalex.org/works/doi:{doi}",
+                 dict(select="abstract_inverted_index", mailto=EMAIL), pause=0.1).json()
+    except requests.HTTPError:
+        return ""
+    inv = j.get("abstract_inverted_index") or {}
+    pos = {p: w for w, ps in inv.items() for p in ps}
+    return " ".join(pos[i] for i in sorted(pos))
+
+
+def crossref_abstract(doi):
+    if not doi:
+        return ""
+    try:
+        j = _get(f"https://api.crossref.org/works/{doi}", dict(mailto=EMAIL), pause=0.1).json()
+    except requests.HTTPError:
+        return ""
+    return re.sub(r"<[^>]+>", " ", j["message"].get("abstract", "")).strip()
+
+
+rows = []
+for r in sample:
+    a, srcname = pm_abs.get(r["id"], ""), "database"
+    if not a:
+        a = openalex_abstract(r.get("doi", ""))
+        srcname = "OpenAlex" if a else ""
+    if not a:
+        a = crossref_abstract(r.get("doi", ""))
+        srcname = "Crossref" if a else "none"
+    rows.append(dict(record_id=r["id"], doi=r.get("doi", ""), title=r.get("title", ""), year=r.get("year", ""),
+                     abstract_source=srcname, abstract=a, decision="", exclusion_code=""))
+    print(r["id"], srcname, flush=True)
+write(f"precision_sample_{slug}.csv", rows)
+tests = read("query_tests.csv")
+for t in tests:
+    if t["database"] == DB:
+        t["seed"] = SEED
+write("query_tests.csv", tests)
+print(f"seed {SEED}; {len(rows)} records; no abstract for {sum(r['abstract_source'] == 'none' for r in rows)}")
+
+PYEOF
+```
+
+## 10. Precision block: Web of Science
+
+Runs plan step 3, method item 10: draws 100 records from `load_web-of-science.csv` with seed 20261112, fetches abstracts from PubMed for PubMed records, then from OpenAlex by DOI, then Crossref, records the seed in `query_tests.csv`, and writes `precision_sample_web-of-science.csv` with empty `decision` and `exclusion_code` columns for screening. Records with no abstract are marked `none` in `abstract_source`.
+
+```bash
+cd ~/RDS-Review
+git pull
+source ~/.venvs/rds-review/bin/activate
+source ~/.rds-review-keys
+mkdir -p data/search_tests
+timeout 1h python3 - 2>&1 <<'PYEOF' | tee data/search_tests/precision_console_web-of-science.txt
+"""Search functions shared by the RDS-Review query and precision blocks.
+
+Each block in step3_blocks.md pastes this file's contents ahead of its own code,
+so nothing needs installing beyond requests.
+"""
+import csv, json, os, random, re, time, datetime
+from pathlib import Path
+import requests
+
+T = Path("data/search_tests")
+EMAIL = "zachary.batist@mcgill.ca"
+TODAY = datetime.date.today().isoformat()
+BATCH = 25
+
+
+def _get(url, params=None, headers=None, pause=0.0, tries=4):
+    for i in range(tries):
+        r = requests.get(url, params=params, headers=headers, timeout=60)
+        if r.status_code == 429 or r.status_code >= 500:
+            time.sleep(2 ** i)
+            continue
+        r.raise_for_status()
+        time.sleep(pause)
+        return r
+    r.raise_for_status()
+
+
+# ---------- PubMed ----------
+EU = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
+
+
+def pubmed_search(q, retmax=0):
+    p = dict(db="pubmed", term=q, retmax=retmax, retmode="json",
+             api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+    j = _get(EU + "esearch.fcgi", p, pause=0.11).json()["esearchresult"]
+    return int(j["count"]), j.get("idlist", [])
+
+
+def pubmed_all_ids(q):
+    n, _ = pubmed_search(q)
+    ids = []
+    for start in range(0, n, 9999):
+        p = dict(db="pubmed", term=q, retmax=9999, retstart=start, retmode="json",
+                 api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+        ids += _get(EU + "esearch.fcgi", p, pause=0.11).json()["esearchresult"]["idlist"]
+    return ids
+
+
+def pubmed_summary(ids):
+    out = {}
+    for i in range(0, len(ids), 200):
+        p = dict(db="pubmed", id=",".join(ids[i:i + 200]), retmode="json",
+                 api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+        res = _get(EU + "esummary.fcgi", p, pause=0.11).json()["result"]
+        for k in res.get("uids", []):
+            r = res[k]
+            doi = next((a["value"] for a in r.get("articleids", []) if a["idtype"] == "doi"), "")
+            out[k] = dict(id=k, doi=doi.lower(), title=r.get("title", ""), year=r.get("pubdate", "")[:4])
+    return out
+
+
+# ---------- Scopus ----------
+SC = "https://api.elsevier.com/content/search/scopus"
+
+
+def scopus_search(q, count=25, start=0, cursor=None):
+    h = {"X-ELS-APIKey": os.environ["SCOPUS_API_KEY"], "Accept": "application/json"}
+    p = dict(query=q, count=count, view="STANDARD", field="eid,doi,title,coverDate")
+    if cursor:
+        p["cursor"] = cursor
+    else:
+        p["start"] = start
+    r = _get(SC, p, h, pause=0.12)
+    j = r.json()["search-results"]
+    return j, r.headers
+
+
+def scopus_count(q):
+    j, _ = scopus_search(q, count=1)
+    return int(j["opensearch:totalResults"])
+
+
+def scopus_records(q, limit=None):
+    recs, cursor = [], "*"
+    while True:
+        j, _ = scopus_search(q, count=200, cursor=cursor)
+        ents = [e for e in j.get("entry", []) if "error" not in e]
+        for e in ents:
+            recs.append(dict(id=e.get("eid", ""), doi=e.get("prism:doi", "").lower(),
+                             title=e.get("dc:title", ""), year=e.get("prism:coverDate", "")[:4]))
+        nxt = j.get("cursor", {}).get("@next")
+        if not ents or not nxt or nxt == cursor or (limit and len(recs) >= limit):
+            return recs
+        cursor = nxt
+
+
+# ---------- Web of Science ----------
+WS = "https://api.clarivate.com/apis/wos-starter/v1/documents"
+
+
+def wos_search(q, limit=50, page=1):
+    h = {"X-ApiKey": os.environ["WOS_API_KEY"]}
+    p = dict(db="WOS", q=q, limit=limit, page=page)
+    return _get(WS, p, h, pause=0.21).json()
+
+
+def wos_count(q):
+    return int(wos_search(q, limit=1)["metadata"]["total"])
+
+
+def wos_records(q):
+    recs, page = [], 1
+    while True:
+        j = wos_search(q, limit=50, page=page)
+        for h in j.get("hits", []):
+            recs.append(dict(id=h.get("uid", ""), doi=h.get("identifiers", {}).get("doi", "").lower(),
+                             title=h.get("title", ""), year=str(h.get("source", {}).get("publishYear", ""))))
+        if page * 50 >= j["metadata"]["total"] or not j.get("hits"):
+            return recs
+        page += 1
+
+
+# ---------- database-neutral wrappers ----------
+def date_limit(db, a, b):
+    return {"PubMed": f"{a}:{b}[dp]",
+            "Scopus": f"PUBYEAR > {a - 1} AND PUBYEAR < {b + 1}",
+            "Web of Science": f"PY=({a}-{b})"}[db]
+
+
+def id_clause(db, sources):
+    """OR-joined identifier clause for a list of reference_sources rows."""
+    parts = []
+    for s in sources:
+        if db == "PubMed":
+            parts.append(f"{s['pmid']}[uid]" if s["pmid"] else f"{s['doi']}[doi]")
+        elif db == "Scopus":
+            parts.append(f"DOI({s['doi']})")
+        else:
+            parts.append(s["doi"])
+    if db == "Web of Science":
+        return "DO=(" + " OR ".join(parts) + ")"
+    return "(" + " OR ".join(parts) + ")"
+
+
+def testable(db, s):
+    return bool(s["doi"]) or (db == "PubMed" and bool(s["pmid"]))
+
+
+def count(db, q):
+    return {"PubMed": lambda: pubmed_search(q)[0], "Scopus": lambda: scopus_count(q),
+            "Web of Science": lambda: wos_count(q)}[db]()
+
+
+def retrieved(db, q, sources):
+    """Keys of sources in `sources` that query q retrieves, sending identifiers in batches."""
+    hit = set()
+    srcs = [s for s in sources if testable(db, s)]
+    for i in range(0, len(srcs), BATCH):
+        b = srcs[i:i + BATCH]
+        full = f"({q}) AND {id_clause(db, b)}"
+        if db == "PubMed":
+            _, ids = pubmed_search(full, retmax=BATCH * 2)
+            ids = set(ids)
+            hit |= {s["key"] for s in b if s["pmid"] in ids}
+            rest = [s for s in b if not s["pmid"]]
+            if rest and ids:
+                dois = {r["doi"] for r in pubmed_summary(list(ids)).values()}
+                hit |= {s["key"] for s in rest if s["doi"].lower() in dois}
+        elif db == "Scopus":
+            dois = {r["doi"] for r in scopus_records(full)}
+            hit |= {s["key"] for s in b if s["doi"].lower() in dois}
+        else:
+            dois = {r["doi"] for r in wos_records(full)}
+            hit |= {s["key"] for s in b if s["doi"].lower() in dois}
+    return hit
+
+
+def records(db, q):
+    if db == "PubMed":
+        ids = pubmed_all_ids(q)
+        return [dict(id=i) for i in ids]
+    if db == "Scopus":
+        return scopus_records(q)
+    return wos_records(q)
+
+
+def wilson(k, n, z=1.96):
+    if n == 0:
+        return ("", "", "")
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / d
+    return (round(p, 3), round(max(0, c - h), 3), round(min(1, c + h), 3))
+
+
+def read(name):
+    return list(csv.DictReader(open(T / name, encoding="utf-8")))
+
+
+def write(name, rows, folder=T):
+    folder.mkdir(parents=True, exist_ok=True)
+    if not rows:
+        (folder / name).write_text("")
+        return
+    with open(folder / name, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0]))
+        w.writeheader()
+        w.writerows(rows)
+
+DB = "Web of Science"
+# ---------- precision block: plan step 3, method item 10 ----------
+import xml.etree.ElementTree as ET
+SEED = 20261112
+slug = {"PubMed": "pubmed", "Scopus": "scopus", "Web of Science": "web-of-science"}[DB]
+recs = read(f"load_{slug}.csv")
+random.seed(SEED)
+sample = random.sample(recs, min(100, len(recs)))
+
+
+def pubmed_abstracts(ids):
+    out = {}
+    for i in range(0, len(ids), 200):
+        p = dict(db="pubmed", id=",".join(ids[i:i + 200]), retmode="xml",
+                 api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
+        root = ET.fromstring(_get(EU + "efetch.fcgi", p, pause=0.11).content)
+        for a in root.iter("PubmedArticle"):
+            out[a.findtext(".//PMID")] = " ".join("".join(t.itertext()) for t in a.findall(".//AbstractText"))
+    return out
+
+
+pm_abs = pubmed_abstracts([r["id"] for r in sample]) if DB == "PubMed" else {}
+
+
+def openalex_abstract(doi):
+    if not doi:
+        return ""
+    try:
+        j = _get(f"https://api.openalex.org/works/doi:{doi}",
+                 dict(select="abstract_inverted_index", mailto=EMAIL), pause=0.1).json()
+    except requests.HTTPError:
+        return ""
+    inv = j.get("abstract_inverted_index") or {}
+    pos = {p: w for w, ps in inv.items() for p in ps}
+    return " ".join(pos[i] for i in sorted(pos))
+
+
+def crossref_abstract(doi):
+    if not doi:
+        return ""
+    try:
+        j = _get(f"https://api.crossref.org/works/{doi}", dict(mailto=EMAIL), pause=0.1).json()
+    except requests.HTTPError:
+        return ""
+    return re.sub(r"<[^>]+>", " ", j["message"].get("abstract", "")).strip()
+
+
+rows = []
+for r in sample:
+    a, srcname = pm_abs.get(r["id"], ""), "database"
+    if not a:
+        a = openalex_abstract(r.get("doi", ""))
+        srcname = "OpenAlex" if a else ""
+    if not a:
+        a = crossref_abstract(r.get("doi", ""))
+        srcname = "Crossref" if a else "none"
+    rows.append(dict(record_id=r["id"], doi=r.get("doi", ""), title=r.get("title", ""), year=r.get("year", ""),
+                     abstract_source=srcname, abstract=a, decision="", exclusion_code=""))
+    print(r["id"], srcname, flush=True)
+write(f"precision_sample_{slug}.csv", rows)
+tests = read("query_tests.csv")
+for t in tests:
+    if t["database"] == DB:
+        t["seed"] = SEED
+write("query_tests.csv", tests)
+print(f"seed {SEED}; {len(rows)} records; no abstract for {sum(r['abstract_source'] == 'none' for r in rows)}")
+
+PYEOF
+```
