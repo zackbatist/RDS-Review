@@ -6,7 +6,7 @@ This page records every search, as PRISMA-S requires [@rethlefsen2021]. Each que
 
 ## Queries
 
-Four queries run in each database for 2015 to 2025. All four build on @chawinga2019. Q1 takes their core term, "research data sharing", and serves as the base RDS query. Q2 to Q4 extend that term with the vocabulary the field uses around it. Each pairs one key term with "research data" or "data sharing" using AND, so a record must name both the concept and the data practice in its title or abstract. The date range brackets the 2019 review and picks up where it left off. The queries use no health terms. All terms are searched in titles and abstracts.
+Four queries run in each database for 2015 to 2025. All four build on @chawinga2019. Q1 takes their core term, "research data sharing", and serves as the base RDS query. Q2 to Q4 extend that term with the vocabulary the field uses around it. Each pairs one key term with "research data" or "data sharing" using AND, so a record must name both the concept and the data practice in its title or abstract. The date range brackets the 2019 review and picks up where it left off. The queries use no health terms. All terms are searched in titles and abstracts. The searches apply no language limit.
 
 ## Databases and searches
 

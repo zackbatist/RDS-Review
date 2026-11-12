@@ -38,7 +38,7 @@ tables:
         definition: Whether the source was peer reviewed.
         values: ["yes", "no"]
       - name: data_origin
-        definition: Origin of the data the source concerns. `research` means collected for research. `routine-reused` means collected for operational or care purposes and reused for research.
+        definition: Origin of the data the source concerns. `research` means collected for research. `routine-reused` means collected for surveillance, service delivery, or patient care and reused for research.
         values: [research, routine-reused, mixed, unclear]
       - name: region
         definition: Country or region of the data, institutions, or participants.
@@ -56,8 +56,12 @@ tables:
         definition: The specific factor, in the source's words or a close paraphrase.
         required: true
       - name: factor_type
-        definition: Kind of factor.
-        values: [barrier, facilitator, governance-mechanism]
+        definition: How the source says the factor affects sharing or reuse. `unclear` means the source reports the factor without saying how it affects sharing or reuse.
+        values: [barrier, facilitator, unclear]
+        required: true
+      - name: governance
+        definition: Whether the factor is a governance mechanism, as defined in the [protocol](research-protocol.qmd).
+        values: ["yes", "no"]
         required: true
       - name: factor_category
         definition: Initial categories from @vanpanhuis2014, revised during synthesis. Left empty until the factor is coded.
@@ -75,11 +79,11 @@ exclusion_reasons:
   - code: not-factors
     reason: Reports no barriers, facilitators, or governance mechanisms
   - code: not-research-data
-    reason: Concerns only public health, other health systems, or clinical care data
+    reason: Concerns public health, health systems, or clinical care data used only for surveillance, service delivery, or patient care
   - code: tier2-not-review
     reason: Research in other fields, and not a review or synthesis
   - code: language
-    reason: Outside the language limit, if one is set
+    reason: Not in English or French
   - code: date
     reason: Outside the date limit, if one is set
   - code: other

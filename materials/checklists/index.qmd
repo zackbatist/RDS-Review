@@ -22,7 +22,7 @@ Two checklists apply. Download the fillable versions, complete them for the manu
 | 9 | Selection of sources of evidence | [Screening guide](../screening-guide.qmd) |
 | 10 | Data charting process | [Codebook](../../codebook.qmd) |
 | 11 | Data items | [Codebook](../../codebook.qmd) |
-| 12 | Critical appraisal of individual sources of evidence (optional) | Open decision in the [protocol](../../research-protocol.qmd#open-decisions) |
+| 12 | Critical appraisal of individual sources of evidence (optional) | Not done; see [Protocol, data charting](../../research-protocol.qmd#data-charting) |
 | 13 | Synthesis of results | [Protocol, synthesis](../../research-protocol.qmd#synthesis) |
 | 14 | Selection of sources of evidence | [04-synthesis](../../analysis/04-synthesis.ipynb), flow diagram |
 | 15 | Characteristics of sources of evidence | [03-charting](../../analysis/03-charting.ipynb), manuscript |

@@ -38,13 +38,13 @@ The criteria follow the population, concept, and context (PCC) structure that JB
 | Element | Criterion |
 |:--------|:---------------------------------|
 | Population | No restriction. Sources may concern researchers, data stewards, institutions, or governance bodies. |
-| Concept | Factors that influence the sharing and reuse of research data, including barriers, facilitators, and governance mechanisms. Research data are data collected for research purposes under ethics oversight. |
+| Concept | Factors that influence the sharing and reuse of research data, including barriers, facilitators, and governance mechanisms. Research data are data used for research, whether collected for a study or collected for another purpose and reused for research. Data governance comprises the strategies and tools employed to identify, manage, and disseminate data [@leonelli2019]. In health research, data access governance manages who has access to data, for what purposes, and under what conditions, through data access committees, data access agreements, policies, and monitoring [@shabani2021]. |
 | Context, tier 1 | Health research. All source types are eligible. |
 | Context, tier 2 | Research in other fields and cross-disciplinary research. Reviews and syntheses only. |
 
-Sources are excluded when they concern only public health data or other health systems data, or only clinical care data. The rule for routine or clinical data reused for research is not yet set. Each source is assigned a tier at screening from its field.
+Sources are excluded when they concern public health data, health systems data, or clinical care data used only for surveillance, service delivery, or patient care. Sources that concern these data reused for research are eligible. The `data_origin` variable in the codebook records whether a source concerns data collected for research or data reused for research after collection for surveillance, service delivery, or patient care. Each source is assigned a tier at screening from its field.
 
-The search covers 2015 to 2025. Language limits are not yet set. Any limit will be stated and justified, as PRISMA-S item 9 requires.
+The search covers 2015 to 2025 and applies no language limit. Screening includes sources in English and French, the languages the reviewers read.
 
 ### Information sources and search
 
@@ -54,27 +54,28 @@ Citation searching of the included sources supplements the database searches. Th
 
 ### Selection of sources
 
-Records are deduplicated with [ASySD](https://github.com/camaradesuk/ASySD), which, unlike the Zotero workflow of @cavallaro2026, runs from a script and makes the step reproducible. The records are then screened on title and abstract in [ASReview](https://asreview.nl), and again on full text, against the [screening guide](materials/screening-guide.qmd). Exclusion reasons are recorded at full text. Counts at every stage feed the flow diagram.
+Records are deduplicated with [bib-dedupe](https://github.com/CoLRev-Environment/bib-dedupe) [@wagner2024], which, unlike the Zotero workflow of @cavallaro2026, runs from a script and makes the step reproducible. The records are then screened on title and abstract in [ASReview](https://asreview.nl), and again on full text, against the [screening guide](materials/screening-guide.qmd). Exclusion reasons are recorded at full text. Counts at every stage feed the flow diagram.
 
-ASReview ranks records by predicted relevance and starts from a seed sample. The seed is the base RDS query (Q1), which returned 308 records against 4,192 for the four queries combined (7.3%), modestly above the conventional 5%. A seed from a fixed keyword is reproducible. @cavallaro2026 select their seed sample ad hoc from the first 5% of deduplicated records.
+ASReview ranks records by predicted relevance with its default model, ELAS u5, which pairs TF-IDF features with a support vector machine, and starts from a seed sample. The seed is the base RDS query (Q1), which returned 308 records against 4,192 for the four queries combined (7.3%), modestly above the conventional 5%. A seed from a fixed keyword is reproducible. @cavallaro2026 select their seed sample ad hoc from the first 5% of deduplicated records.
+
+Two reviewers independently screen the titles and abstracts of all records in the seed sample and resolve disagreements through discussion. The annotated seed sample initializes the ASReview ranking. One reviewer screens the ranked records until the stopping rule applies. Both reviewers then independently screen the full texts of the included records and resolve disagreements through discussion.
+
+Screening in ASReview stops on the statistical criterion of @callaghan2020. At intervals during ranked screening, a hypergeometric test on the screening decisions checks whether recall has reached a target of 95% at a confidence level of 95%, and screening stops when the test rejects the hypothesis that recall falls below the target. In an evaluation of 15 stopping methods on 81 datasets, this criterion alone never stopped before its recall target [@repke2026], while fixed stopping rules in ASReview fail to generalize across datasets [@kempny2026]. These evaluations draw on systematic reviews and on random initial samples, so the criterion's performance with a keyword seed sample in a scoping review remains untested. Recall counts relevant records, so the criterion cannot show whether the unscreened records report factors that the screened records do not. Citation searching of the included sources checks for relevant sources that screening missed.
 
 ### Data charting
 
 Each included source is charted once into the form defined in the [codebook](codebook.qmd), with one row for the source and one row for each factor it reports. The form is piloted on a sample of sources and revised before full charting begins.
 
+The review does not appraise the included sources, following JBI guidance for scoping reviews [@peters2020]. It maps the factors that sources report, and its eligible source types share no common appraisal tool.
+
 ### Synthesis
 
 The review codes factors inductively. The resulting taxonomy is a primary output. Counts by tier, field, source type, and year describe the evidence base, and the factor categories are compared across fields.
 
+### Artificial intelligence
+
+No large language model makes or suggests eligibility, charting, or synthesis decisions. ASReview ranks records by predicted relevance, and the reviewers make every screening decision. The analysis reruns from the search exports without invoking any language model. Reporting of AI use follows the joint position statement of Cochrane, the Campbell Collaboration, JBI, and the Collaboration for Environmental Evidence [@flemyng2025].
+
 ### Reporting and data
 
 The checklists for PRISMA-ScR and PRISMA-S record where each item is reported. The flow diagram is generated from the screening counts. Search exports, screening decisions, charted data, and all code are in the repository.
-
-## Open decisions
-
-- Language limits.
-- The rule for routine or clinical data reused for research.
-- The definition of research data, by purpose or by consent.
-- The number of screeners, calibration on a sample, and the handling of disagreement.
-- Critical appraisal of included sources, which PRISMA-ScR treats as optional.
-- Whether any step uses a large language model. Any such step will be reported following the PRISMA 2020 guidance on automation tools and the RAISE guidance.
