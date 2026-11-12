@@ -75,6 +75,21 @@ All seven PCC parts are *covered*. Reuse rests on 6 development and 4 test sourc
 - **`data_origin` values.** `codebook.yml` now lists the plan's values, `research`, `not-research-data`, `reused`, `mixed` and `unclear`, with their definitions. `codebook.qmd` and `materials/screening-guide.qmd` print the codebook, so both need rendering again.
 - **Plengsaeng et al. (2014)** recoded, as noted under Judgments worth checking; `counts.csv` regenerated. The verdict and the in-scope count are unchanged.
 
+## Step 3, first run: PubMed and Scopus, 12 November 2026
+
+- **Results** (commit ffd382a). PubMed: `("data sharing"[tiab]) OR ("sharing data"[tiab])`, load 9,857, coverage 11 of 12 indexed test set sources. Scopus: `(TITLE-ABS-KEY("data sharing")) OR (TITLE-ABS-KEY("sharing of health data"))`, load 36,067, coverage 20 of 26, and 18 of 19 In scope. Web of Science waits on Clarivate's approval of the key.
+- **No reuse term passed the yield rule.** Every development set source coded *reuse* is coded *both*, so "data sharing" retrieves them and no reuse term adds sources. The test set holds one testable source coded *reuse* alone (Curty 2017), too few to test reuse coverage.
+- **Recorded phrases favoured by the yield rule.** A recorded phrase always finds the source it came from, so a narrow phrase can pass the threshold on one source at almost no cost: "sharing of health data" entered the Scopus query on Haddow (2011) for 10 records.
+- **Loads included all of 2026.** PubMed returned 1,403 records dated 2026 and Scopus 5,409, all outside the review period.
+- **Scopus abstracts.** OpenAlex and Crossref had no abstract for 34 of the 100 sampled Scopus records; the Scopus Abstract Retrieval API supplied all 34.
+
+## Changes after the first run
+
+- **Reuse fallback.** The fallback rule now also covers a Practice value whose development set sources all carry the other value too. *Reuse* takes "data reuse" and "data re-use" from the Candidate terms table, the two terms the plan names, as one fallback term per database in `terms.csv` and `term_syntax.csv`. A fallback term enters the query without the yield test.
+- **Date limit ends at 2025.** The load and the term runs' load column now cover 2015 to 2025 (`load_2015_2025`). Citation searching of the included sources catches 2025 work that databases date by a 2026 issue.
+- **Scopus precision abstracts.** The precision block now asks the Scopus Abstract Retrieval API for any Scopus record OpenAlex and Crossref lack.
+- **Rerun needed.** The PubMed and Scopus query and precision blocks run again with these changes, then Web of Science once its key arrives.
+
 ## To do
 
 - **Artificial intelligence section of `research-protocol.qmd`.** The sentence "The query terms come from those codes." oversimplifies how the terms were selected. Rewrite it once step 3 has run, so it states the exact outcomes: which terms entered each query and how the yield, coverage and precision tests decided them.

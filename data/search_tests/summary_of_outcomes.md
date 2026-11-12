@@ -28,11 +28,11 @@ Outcomes of the plan in `notes/2026-11-11-search-development-plan.qmd`, as of 12
 
 `step3_blocks.md` holds the paste-ready blocks for citf-analysis. They have not run. They write:
 
-- `query_tests.csv`: per database, the final query, development yield, load for 2015 to 2026, test set coverage with 95% CI, and the precision sample's seed
+- `query_tests.csv`: per database, the final query, development yield, load for 2015 to 2025, test set coverage with 95% CI, and the precision sample's seed
 - `query_misses.csv`: indexed test set sources each final query misses, and development set sources reached only by terms excluded by yield
 - `terms.csv`: development yield, load, sources added and status for every *sharing* and *reuse* term
 - `query_runs_<database>.csv`: every term run, the threshold, each draft addition and each trim drop
-- `load_<database>.csv`: the records each final query returns for 2015 to 2026
+- `load_<database>.csv`: the records each final query returns for 2015 to 2025
 - `precision_sample_<database>.csv`: 100 records per database, which the reviewers screen for precision
 
 *Reuse* carries the main risk. Few reference sources support it, so a query the reference set judges complete can still miss reuse-heavy records.

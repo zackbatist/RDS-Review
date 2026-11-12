@@ -411,3 +411,6 @@ non technical barriers,OpenAlex keyword,Web of Science,non technical barriers,"T
 open data publishing,OpenAlex keyword,Web of Science,open data publishing,"TS=(""open data publishing"")"
 data standards,OpenAlex keyword,Web of Science,data standards,"TS=(""data standards"")"
 researcher motivation,OpenAlex keyword,Web of Science,researcher motivation,"TS=(""researcher motivation"")"
+data reuse,fallback,PubMed,data re-use; data reuse,"""data reuse""[tiab] OR ""data re-use""[tiab]"
+data reuse,fallback,Scopus,data re-use; data reuse,"TITLE-ABS-KEY(""data reuse"" OR ""data re-use"")"
+data reuse,fallback,Web of Science,data re-use; data reuse,"TS=(""data reuse"" OR ""data re-use"")"

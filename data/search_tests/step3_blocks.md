@@ -520,6 +520,7 @@ test = [s for s in src if s["set"] == "test"]
 log = []
 
 cand = [t for t in terms if t["database"] == DB and t["pcc_part"] in ("sharing", "reuse")]
+cand.sort(key=lambda t: t["type"] != "fallback")  # a fallback term keeps its status when another term writes the same string
 seen, uniq = set(), []
 for t in cand:
     k = syn[(t["term"], t["type"], DB)]
@@ -540,7 +541,7 @@ def q_of(ts):
 
 
 DEV_SPAN = date_limit(DB, 2007, 2014)
-REVIEW_SPAN = date_limit(DB, 2015, 2026)
+REVIEW_SPAN = date_limit(DB, 2015, 2025)
 
 
 def measure(ts):
@@ -558,14 +559,14 @@ for t in cand:
     y = round(1000 * len(hits) / recs, 3) if recs else 0
     runs[(t["term"], t["type"])] = dict(t=t, recs=recs, hits=hits, load=load, y=y)
     log.append(dict(step="term run", term=t["term"], type=t["type"], records_2007_2014=recs,
-                    dev_sources=len(hits), yield_per_1000=y, load_2015_2026=load, keys=";".join(sorted(hits))))
+                    dev_sources=len(hits), yield_per_1000=y, load_2015_2025=load, keys=";".join(sorted(hits))))
     print("term run", t["term"], recs, len(hits), load, flush=True)
 
 # item 4: threshold
 q_all, recs_all, hits_all = measure(regular)
 threshold = round(1000 * len(hits_all) / recs_all, 3) if recs_all else 0
 log.append(dict(step="threshold", term="(all regular candidates)", type="", records_2007_2014=recs_all,
-                dev_sources=len(hits_all), yield_per_1000=threshold, load_2015_2026="", keys=";".join(sorted(hits_all))))
+                dev_sources=len(hits_all), yield_per_1000=threshold, load_2015_2025="", keys=";".join(sorted(hits_all))))
 print("threshold", threshold, flush=True)
 
 # item 5: draft
@@ -575,7 +576,7 @@ draft = [start]
 added_at_entry = {(start["term"], start["type"]): len(runs[(start["term"], start["type"])]["hits"])}
 _, d_recs, d_hits = measure(draft)
 log.append(dict(step="draft start", term=start["term"], type=start["type"], records_2007_2014=d_recs,
-                dev_sources=len(d_hits), yield_per_1000="", load_2015_2026="", keys=""))
+                dev_sources=len(d_hits), yield_per_1000="", load_2015_2025="", keys=""))
 rest = [t for t in regular if t is not start]
 while rest:
     options = []
@@ -599,7 +600,7 @@ while rest:
     added_at_entry[(t["term"], t["type"])] = s_add
     log.append(dict(step="draft add", term=t["term"], type=t["type"], records_2007_2014=recs,
                     dev_sources=len(hits), yield_per_1000=round(y_add, 3) if y_add != float("inf") else "inf",
-                    load_2015_2026="", keys=f"added {s_add} sources for {r_add} records"))
+                    load_2015_2025="", keys=f"added {s_add} sources for {r_add} records"))
     d_recs, d_hits = recs, hits
     rest = [x for x in rest if x is not t]
     print("added", t["term"], flush=True)
@@ -619,7 +620,7 @@ for t in sorted([t for t in draft if t["type"] != "fallback"], key=lambda t: add
         draft = trial
         status[(t["term"], t["type"])] = "excluded by yield"
         log.append(dict(step="trim drop", term=t["term"], type=t["type"], records_2007_2014="", dev_sources=len(hits),
-                        yield_per_1000="", load_2015_2026="", keys=""))
+                        yield_per_1000="", load_2015_2025="", keys=""))
 for t in draft:
     status.setdefault((t["term"], t["type"]), "in query")
 final_q = q_of(draft)
@@ -704,7 +705,7 @@ for r in rows:
         continue
     k = by_form[syn[(r["term"], r["type"], DB)]]
     r["development_yield"] = runs[k]["y"]
-    r["load_2015_2026"] = runs[k]["load"]
+    r["load_2015_2025"] = runs[k]["load"]
     r["sources_added"] = added_at_entry.get(k, "") if status.get(k) in ("in query", "fallback in query") else ""
     r["status"] = status.get(k, "excluded by yield")
 write("terms.csv", rows)
@@ -946,6 +947,7 @@ test = [s for s in src if s["set"] == "test"]
 log = []
 
 cand = [t for t in terms if t["database"] == DB and t["pcc_part"] in ("sharing", "reuse")]
+cand.sort(key=lambda t: t["type"] != "fallback")  # a fallback term keeps its status when another term writes the same string
 seen, uniq = set(), []
 for t in cand:
     k = syn[(t["term"], t["type"], DB)]
@@ -966,7 +968,7 @@ def q_of(ts):
 
 
 DEV_SPAN = date_limit(DB, 2007, 2014)
-REVIEW_SPAN = date_limit(DB, 2015, 2026)
+REVIEW_SPAN = date_limit(DB, 2015, 2025)
 
 
 def measure(ts):
@@ -984,14 +986,14 @@ for t in cand:
     y = round(1000 * len(hits) / recs, 3) if recs else 0
     runs[(t["term"], t["type"])] = dict(t=t, recs=recs, hits=hits, load=load, y=y)
     log.append(dict(step="term run", term=t["term"], type=t["type"], records_2007_2014=recs,
-                    dev_sources=len(hits), yield_per_1000=y, load_2015_2026=load, keys=";".join(sorted(hits))))
+                    dev_sources=len(hits), yield_per_1000=y, load_2015_2025=load, keys=";".join(sorted(hits))))
     print("term run", t["term"], recs, len(hits), load, flush=True)
 
 # item 4: threshold
 q_all, recs_all, hits_all = measure(regular)
 threshold = round(1000 * len(hits_all) / recs_all, 3) if recs_all else 0
 log.append(dict(step="threshold", term="(all regular candidates)", type="", records_2007_2014=recs_all,
-                dev_sources=len(hits_all), yield_per_1000=threshold, load_2015_2026="", keys=";".join(sorted(hits_all))))
+                dev_sources=len(hits_all), yield_per_1000=threshold, load_2015_2025="", keys=";".join(sorted(hits_all))))
 print("threshold", threshold, flush=True)
 
 # item 5: draft
@@ -1001,7 +1003,7 @@ draft = [start]
 added_at_entry = {(start["term"], start["type"]): len(runs[(start["term"], start["type"])]["hits"])}
 _, d_recs, d_hits = measure(draft)
 log.append(dict(step="draft start", term=start["term"], type=start["type"], records_2007_2014=d_recs,
-                dev_sources=len(d_hits), yield_per_1000="", load_2015_2026="", keys=""))
+                dev_sources=len(d_hits), yield_per_1000="", load_2015_2025="", keys=""))
 rest = [t for t in regular if t is not start]
 while rest:
     options = []
@@ -1025,7 +1027,7 @@ while rest:
     added_at_entry[(t["term"], t["type"])] = s_add
     log.append(dict(step="draft add", term=t["term"], type=t["type"], records_2007_2014=recs,
                     dev_sources=len(hits), yield_per_1000=round(y_add, 3) if y_add != float("inf") else "inf",
-                    load_2015_2026="", keys=f"added {s_add} sources for {r_add} records"))
+                    load_2015_2025="", keys=f"added {s_add} sources for {r_add} records"))
     d_recs, d_hits = recs, hits
     rest = [x for x in rest if x is not t]
     print("added", t["term"], flush=True)
@@ -1045,7 +1047,7 @@ for t in sorted([t for t in draft if t["type"] != "fallback"], key=lambda t: add
         draft = trial
         status[(t["term"], t["type"])] = "excluded by yield"
         log.append(dict(step="trim drop", term=t["term"], type=t["type"], records_2007_2014="", dev_sources=len(hits),
-                        yield_per_1000="", load_2015_2026="", keys=""))
+                        yield_per_1000="", load_2015_2025="", keys=""))
 for t in draft:
     status.setdefault((t["term"], t["type"]), "in query")
 final_q = q_of(draft)
@@ -1130,7 +1132,7 @@ for r in rows:
         continue
     k = by_form[syn[(r["term"], r["type"], DB)]]
     r["development_yield"] = runs[k]["y"]
-    r["load_2015_2026"] = runs[k]["load"]
+    r["load_2015_2025"] = runs[k]["load"]
     r["sources_added"] = added_at_entry.get(k, "") if status.get(k) in ("in query", "fallback in query") else ""
     r["status"] = status.get(k, "excluded by yield")
 write("terms.csv", rows)
@@ -1372,6 +1374,7 @@ test = [s for s in src if s["set"] == "test"]
 log = []
 
 cand = [t for t in terms if t["database"] == DB and t["pcc_part"] in ("sharing", "reuse")]
+cand.sort(key=lambda t: t["type"] != "fallback")  # a fallback term keeps its status when another term writes the same string
 seen, uniq = set(), []
 for t in cand:
     k = syn[(t["term"], t["type"], DB)]
@@ -1392,7 +1395,7 @@ def q_of(ts):
 
 
 DEV_SPAN = date_limit(DB, 2007, 2014)
-REVIEW_SPAN = date_limit(DB, 2015, 2026)
+REVIEW_SPAN = date_limit(DB, 2015, 2025)
 
 
 def measure(ts):
@@ -1410,14 +1413,14 @@ for t in cand:
     y = round(1000 * len(hits) / recs, 3) if recs else 0
     runs[(t["term"], t["type"])] = dict(t=t, recs=recs, hits=hits, load=load, y=y)
     log.append(dict(step="term run", term=t["term"], type=t["type"], records_2007_2014=recs,
-                    dev_sources=len(hits), yield_per_1000=y, load_2015_2026=load, keys=";".join(sorted(hits))))
+                    dev_sources=len(hits), yield_per_1000=y, load_2015_2025=load, keys=";".join(sorted(hits))))
     print("term run", t["term"], recs, len(hits), load, flush=True)
 
 # item 4: threshold
 q_all, recs_all, hits_all = measure(regular)
 threshold = round(1000 * len(hits_all) / recs_all, 3) if recs_all else 0
 log.append(dict(step="threshold", term="(all regular candidates)", type="", records_2007_2014=recs_all,
-                dev_sources=len(hits_all), yield_per_1000=threshold, load_2015_2026="", keys=";".join(sorted(hits_all))))
+                dev_sources=len(hits_all), yield_per_1000=threshold, load_2015_2025="", keys=";".join(sorted(hits_all))))
 print("threshold", threshold, flush=True)
 
 # item 5: draft
@@ -1427,7 +1430,7 @@ draft = [start]
 added_at_entry = {(start["term"], start["type"]): len(runs[(start["term"], start["type"])]["hits"])}
 _, d_recs, d_hits = measure(draft)
 log.append(dict(step="draft start", term=start["term"], type=start["type"], records_2007_2014=d_recs,
-                dev_sources=len(d_hits), yield_per_1000="", load_2015_2026="", keys=""))
+                dev_sources=len(d_hits), yield_per_1000="", load_2015_2025="", keys=""))
 rest = [t for t in regular if t is not start]
 while rest:
     options = []
@@ -1451,7 +1454,7 @@ while rest:
     added_at_entry[(t["term"], t["type"])] = s_add
     log.append(dict(step="draft add", term=t["term"], type=t["type"], records_2007_2014=recs,
                     dev_sources=len(hits), yield_per_1000=round(y_add, 3) if y_add != float("inf") else "inf",
-                    load_2015_2026="", keys=f"added {s_add} sources for {r_add} records"))
+                    load_2015_2025="", keys=f"added {s_add} sources for {r_add} records"))
     d_recs, d_hits = recs, hits
     rest = [x for x in rest if x is not t]
     print("added", t["term"], flush=True)
@@ -1471,7 +1474,7 @@ for t in sorted([t for t in draft if t["type"] != "fallback"], key=lambda t: add
         draft = trial
         status[(t["term"], t["type"])] = "excluded by yield"
         log.append(dict(step="trim drop", term=t["term"], type=t["type"], records_2007_2014="", dev_sources=len(hits),
-                        yield_per_1000="", load_2015_2026="", keys=""))
+                        yield_per_1000="", load_2015_2025="", keys=""))
 for t in draft:
     status.setdefault((t["term"], t["type"]), "in query")
 final_q = q_of(draft)
@@ -1556,7 +1559,7 @@ for r in rows:
         continue
     k = by_form[syn[(r["term"], r["type"], DB)]]
     r["development_yield"] = runs[k]["y"]
-    r["load_2015_2026"] = runs[k]["load"]
+    r["load_2015_2025"] = runs[k]["load"]
     r["sources_added"] = added_at_entry.get(k, "") if status.get(k) in ("in query", "fallback in query") else ""
     r["status"] = status.get(k, "excluded by yield")
 write("terms.csv", rows)
@@ -1834,6 +1837,15 @@ def crossref_abstract(doi):
     return re.sub(r"<[^>]+>", " ", j["message"].get("abstract", "")).strip()
 
 
+def scopus_abstract(eid):
+    h = {"X-ELS-APIKey": os.environ["SCOPUS_API_KEY"], "Accept": "application/json"}
+    try:
+        j = _get(f"https://api.elsevier.com/content/abstract/eid/{eid}", dict(view="META_ABS"), h, pause=0.2).json()
+    except requests.HTTPError:
+        return ""
+    return (j.get("abstracts-retrieval-response", {}).get("coredata", {}).get("dc:description") or "").strip()
+
+
 rows = []
 for r in sample:
     a, srcname = pm_abs.get(r["id"], ""), "database"
@@ -1842,7 +1854,11 @@ for r in sample:
         srcname = "OpenAlex" if a else ""
     if not a:
         a = crossref_abstract(r.get("doi", ""))
-        srcname = "Crossref" if a else "none"
+        srcname = "Crossref" if a else ""
+    if not a and DB == "Scopus":
+        a = scopus_abstract(r["id"])
+        srcname = "database" if a else ""
+    srcname = srcname or "none"
     rows.append(dict(record_id=r["id"], doi=r.get("doi", ""), title=r.get("title", ""), year=r.get("year", ""),
                      abstract_source=srcname, abstract=a, decision="", exclusion_code=""))
     print(r["id"], srcname, flush=True)
@@ -2125,6 +2141,15 @@ def crossref_abstract(doi):
     return re.sub(r"<[^>]+>", " ", j["message"].get("abstract", "")).strip()
 
 
+def scopus_abstract(eid):
+    h = {"X-ELS-APIKey": os.environ["SCOPUS_API_KEY"], "Accept": "application/json"}
+    try:
+        j = _get(f"https://api.elsevier.com/content/abstract/eid/{eid}", dict(view="META_ABS"), h, pause=0.2).json()
+    except requests.HTTPError:
+        return ""
+    return (j.get("abstracts-retrieval-response", {}).get("coredata", {}).get("dc:description") or "").strip()
+
+
 rows = []
 for r in sample:
     a, srcname = pm_abs.get(r["id"], ""), "database"
@@ -2133,7 +2158,11 @@ for r in sample:
         srcname = "OpenAlex" if a else ""
     if not a:
         a = crossref_abstract(r.get("doi", ""))
-        srcname = "Crossref" if a else "none"
+        srcname = "Crossref" if a else ""
+    if not a and DB == "Scopus":
+        a = scopus_abstract(r["id"])
+        srcname = "database" if a else ""
+    srcname = srcname or "none"
     rows.append(dict(record_id=r["id"], doi=r.get("doi", ""), title=r.get("title", ""), year=r.get("year", ""),
                      abstract_source=srcname, abstract=a, decision="", exclusion_code=""))
     print(r["id"], srcname, flush=True)
@@ -2416,6 +2445,15 @@ def crossref_abstract(doi):
     return re.sub(r"<[^>]+>", " ", j["message"].get("abstract", "")).strip()
 
 
+def scopus_abstract(eid):
+    h = {"X-ELS-APIKey": os.environ["SCOPUS_API_KEY"], "Accept": "application/json"}
+    try:
+        j = _get(f"https://api.elsevier.com/content/abstract/eid/{eid}", dict(view="META_ABS"), h, pause=0.2).json()
+    except requests.HTTPError:
+        return ""
+    return (j.get("abstracts-retrieval-response", {}).get("coredata", {}).get("dc:description") or "").strip()
+
+
 rows = []
 for r in sample:
     a, srcname = pm_abs.get(r["id"], ""), "database"
@@ -2424,7 +2462,11 @@ for r in sample:
         srcname = "OpenAlex" if a else ""
     if not a:
         a = crossref_abstract(r.get("doi", ""))
-        srcname = "Crossref" if a else "none"
+        srcname = "Crossref" if a else ""
+    if not a and DB == "Scopus":
+        a = scopus_abstract(r["id"])
+        srcname = "database" if a else ""
+    srcname = srcname or "none"
     rows.append(dict(record_id=r["id"], doi=r.get("doi", ""), title=r.get("title", ""), year=r.get("year", ""),
                      abstract_source=srcname, abstract=a, decision="", exclusion_code=""))
     print(r["id"], srcname, flush=True)
