@@ -1,0 +1,9 @@
+database,doi,title,set,in_scope,sharing_reuse_terms,excluded_term
+PubMed,10.1186/s13059-015-0669-2,When will 'open science' become simply 'science'?,test,yes,making the results of that research available to everyone,
+Scopus,10.1186/s13059-015-0669-2,When will 'open science' become simply 'science'?,test,yes,making the results of that research available to everyone,
+Scopus,10.1177/0340035216678238,Research data management in Switzerland,test,no,,
+Scopus,10.1016/j.acalib.2017.06.006,Survey on the Needs for Chemistry Research Data Management and Sharing,test,no,research data management and sharing,
+Scopus,10.1177/0340035216678239,Team-based data management instruction at small liberal arts colleges,test,no,,
+Scopus,10.1177/0340035216686982,"Building a Research Data Management Service at the University of California, Berkeley",test,no,,
+Scopus,10.5860/crl.78.7.920,Research Data Management Services in Academic Libraries in the US: A Content Analysis of Libraries' Websites,test,no,,
+Scopus,10.1371/journal.pmed.0050057,Should data from demographic surveillance systems be made more widely available to researchers?,development,no,sharing data,sharing data

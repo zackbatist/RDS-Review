@@ -1,0 +1,40 @@
+term run Information Dissemination 7683 15 10051
+term run data sharing 1071 17 9150
+term run Access to Information 3412 4 2885
+term run sharing data 253 4 1036
+term run share data 197 8 960
+term run biodiversity data sharing 1 0 4
+term run research data sharing 7 1 81
+term run collaborative data sharing 5 0 62
+term run data commons 3 0 407
+term run data sharing and reuse 6 1 71
+term run full disclosure 218 0 298
+term run genetic data sharing 2 0 26
+term run genomic data sharing 13 0 181
+term run online publication of data 0 0 0
+term run open access data sharing 8 1 24
+term run open access to research results 0 0 0
+term run open data publishing 0 0 0
+term run open sharing of research data 0 0 0
+term run openly archiving raw research data 0 0 0
+term run publish data 21 0 71
+term run re use 489 1 1424
+term run scientific data sharing 3 0 17
+term run secondary data analysis 1185 1 6450
+term run shared data 99 2 706
+term run sharing and reuse 0 0 5
+term run sharing health information 16 0 124
+term run sharing information 372 0 1219
+term run sharing of health data 0 0 0
+term run sharing of primary datasets 0 0 0
+term run sharing of raw data 0 0 0
+term run sharing research data 9 0 45
+term run sharing their primary biodiversity data 0 0 0
+term run use, compare, manipulate 0 0 0
+term run data reuse 54 0 586
+term run reanalysis of published data 0 0 0
+term run research data reuse 0 0 0
+threshold 1.428
+added sharing data
+final query: ("data sharing"[tiab]) OR ("sharing data"[tiab])
+load 9857 coverage (0.917, 0.646, 0.985) in scope (0.917, 0.646, 0.985)
