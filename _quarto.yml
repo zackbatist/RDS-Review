@@ -46,7 +46,10 @@ website:
       - section: Analysis
         href: analysis/index.qmd
         contents:
-          - analysis/00-search-development.ipynb
+          - section: Search development
+            href: analysis/00_search-development/index.qmd
+            contents:
+              - analysis/00_search-development/00-search-development.ipynb
           - analysis/01-deduplication.ipynb
           - analysis/02-screening.ipynb
           - analysis/03-charting.ipynb

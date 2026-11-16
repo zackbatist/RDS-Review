@@ -30,9 +30,11 @@ Run `quarto publish gh-pages`.
 | `index.qmd`, `research-protocol.qmd`, `codebook.qmd` | Home page, protocol, and charting form |
 | `codebook.yml` | The charting variables, their allowed values, and the exclusion reason codes. The codebook page and the notebooks read it. |
 | `materials/` | Search strategy, screening guide, and checklists |
-| `data/raw/` | Search exports, screening exports, and charted data as entered. Notebooks never change these. |
+| `data/raw/` | Search exports, screening exports, and charted data as entered, and in `search-development/` what the search development scripts and the local model return. Notebooks never change these. |
 | `data/processed/` | Files written by the notebooks |
-| `analysis/` | The four notebooks and their index page |
+| `analysis/` | The notebooks and their index page |
+| `analysis/00_search-development/` | The search development plan, notebook 00, the scripts that call the database APIs, the local model's prompts, the log, and the summary of outcomes |
+| `scripts/` | The launch script for a local language model |
 | `assets/` | Bibliography and citation style |
 
 Notebook inputs, outputs, and run order are on the Analysis page of the site.

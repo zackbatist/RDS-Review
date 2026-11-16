@@ -1,6 +1,6 @@
 # Search development outcomes
 
-Outcomes of the plan in `notes/search-development-plan.qmd`, as of 12 November 2026. Steps 1 and 2 are done; step 3 has not run yet. `log.md` records every judgment call behind these figures.
+Outcomes of the plan in `index.qmd`, as of 12 November 2026. Steps 1 and 2 are done; step 3 has not run yet. `log.md` records every judgment call behind these figures.
 
 ## Step 1. Comparability assessment
 
@@ -26,7 +26,7 @@ Outcomes of the plan in `notes/search-development-plan.qmd`, as of 12 November 2
 
 ## Step 3. Query tests
 
-`server_blocks.md` holds the paste-ready blocks for the analysis server. They have not run. They write:
+The scripts in `retrieval/` run on the analysis server. They have not run. They write:
 
 - `query_tests.csv`: per database, the final query, development yield, load for 2015 to 2025, test set coverage with 95% CI, and the precision sample's seed
 - `query_misses.csv`: indexed test set sources each final query misses, and development set sources reached only by terms excluded by yield
@@ -39,4 +39,4 @@ Outcomes of the plan in `notes/search-development-plan.qmd`, as of 12 November 2
 
 ## Notebook
 
-`analysis/00-search-development.ipynb` reads every file in `data/search_tests/` and shows these outcomes, with step 3 and precision once their files exist.
+`00-search-development.ipynb` reads every file in `data/raw/search-development/` and `data/processed/search-development/` and shows these outcomes, with step 3 and precision once their files exist.

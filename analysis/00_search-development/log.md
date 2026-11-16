@@ -1,6 +1,6 @@
 # Search development log
 
-Work on the plan in `notes/search-development-plan.qmd`, run unattended on the night of 11 to 12 November 2026.
+Work on the plan in `index.qmd`, run unattended on the night of 11 to 12 November 2026.
 
 ## Step 1. Comparability assessment: done
 
@@ -49,14 +49,14 @@ All seven PCC parts are *covered*. Reuse rests on 6 development and 4 test sourc
 
 ## Step 3. Command blocks: written, not run
 
-- **File.** `server_blocks.md`: 1 keys file, 2 environment, 3 check files, 4 API test, 5 to 7 query blocks (one per database), 8 to 10 precision blocks.
+- **File.** `step3_blocks.md`, since replaced by the scripts in `retrieval/`: 1 keys file, 2 environment, 3 check files, 4 API test, 5 to 7 query blocks (one per database), 8 to 10 precision blocks.
 - **Repository path assumed** to be `~/RDS-Review`. Change the `cd` line in every block if not.
 - **Environment.** The blocks use the environment the RDS-Review README sets out, `~/.venvs/rds-review`, installed from `requirements.txt`, which now includes `requests==2.34.2`.
 - **Outputs follow the plan.** Each query block writes `query_runs_<database>.csv` and `load_<database>.csv`, replaces its database's rows in `query_tests.csv` and `query_misses.csv`, and fills the step 3 columns of its database's *sharing* and *reuse* rows in `terms.csv`. Each precision block writes `precision_sample_<database>.csv` and records the seed in `query_tests.csv`. The precision columns of `query_tests.csv` stay empty until the screened samples come back; `analysis/00-search-development.ipynb` computes precision from the screened samples.
 - **Database names in file names** are `pubmed`, `scopus` and `web-of-science`, the names `data/raw/search_exports/README.md` uses.
 - **No API exports in `data/raw/search_exports/`.** The API loads hold identifiers, DOIs, titles and years only, and `01-deduplication.ipynb` needs full records exactly as exported. The review's exports come from each database's own interface as RIS files once the queries are settled.
 - **README to update.** `data/raw/search_exports/README.md` still names the `query` part of a file name as `q1` to `q4`, the four queries this work replaces.
-- **Checks done here.** Every embedded Python block compiles. The query and precision logic ran end to end against mocked API responses, and `analysis/00-search-development.ipynb` ran on the mocked results; the real APIs are untested until block 4 runs on the analysis server.
+- **Checks done here.** Every embedded Python block compiles. The query and precision logic ran end to end against mocked API responses, and `00-search-development.ipynb` ran on the mocked results; the real APIs are untested until block 4 runs on the analysis server.
 - **Candidates deduplicated on written form.** Where two terms write the same search string in a database (a recorded term and an author keyword, say), the query block tests it once, and both rows in `terms.csv` get its results.
 - **Draft ties.** Highest added yield first, then fewer records added, then alphabetical.
 - **Precision seed** 20261112, fixed in the block. PubMed records take their abstracts from PubMed, then OpenAlex, then Crossref; Scopus and Web of Science records from OpenAlex, then Crossref.
@@ -65,7 +65,7 @@ All seven PCC parts are *covered*. Reuse rests on 6 development and 4 test sourc
 
 ## Notebooks
 
-- **`analysis/00-search-development.ipynb`** reads every file in `data/search_tests/` and shows the outcomes of steps 1 to 3, in the form of notebooks 01 to 04. It checks that the files agree with each other before it shows anything, and shows step 3 once `query_tests.csv` exists. It writes nothing.
+- **`00-search-development.ipynb`** reads every file in `data/raw/search-development/` and `data/processed/search-development/` and shows the outcomes of steps 1 to 3, in the form of notebooks 01 to 04. It checks that the files agree with each other before it shows anything, and shows step 3 once `query_tests.csv` exists. It writes nothing.
 - **`search-development-hybrid.ipynb`**, kept outside the repo, runs steps 1 to 3 with the API calls and computation in code, and three marked hand-offs: I code the sources and assign indexing terms to PCC parts by meaning, and the reviewers screen the precision samples. It adds a Crossref check of every DOI, OpenAlex keywords for every source and NLM scope notes for every MeSH heading (`mesh_scope_notes.csv`). Run offline on the overnight files, it reproduces `counts.csv`, `verdict.csv` and `term_syntax.csv` exactly. Its API cells have not run.
 - **New input.** `reference_candidates.csv`: the 97 candidates with `cited_at`, which the hybrid notebook starts from.
 
@@ -103,6 +103,15 @@ All seven PCC parts are *covered*. Reuse rests on 6 development and 4 test sourc
   - *Years:* the reference set does not match Fig. 4 year by year (2007: 4 against 3; 2008: 4 against 3; 2010: 4 against 6; 2012: 10 against 14; 2014: 4 against 6; 2017: 10 against 12). Fig. 4 dates sources differently from the reference list or miscounts, so it can't identify the missing sources.
 - **The missing three.** References cited only in sections 1, 2, 6 or 7 and dated 2007 to 2018, besides the two section 4.3 supplies: Corti et al. (2014), Housewright et al. (2013), Kambatla et al. (2014), Pryor (2012), Rowhani-Farid and Barnett (2016), the Royal Society (2012) and Wicherts and Bakker (2012). By the counts, one is a journal article (Kambatla, Rowhani-Farid and Barnett, or Wicherts and Bakker) and two are books or reports (two of Corti, Housewright, Pryor and the Royal Society). Nothing in the paper decides which.
 - **Change from the earlier set.** The earlier reference set held 97 references selected by reading each citation. The reconstruction holds all 97 and adds Gupta, Steen, Higgins, Chigwada and Ng'eno. All files built on the earlier set are rebuilt from `reference_candidates.csv`.
+
+## Folder layout, 16 November 2026
+
+- **Search development folder.** The plan, notebook 00, the log and the summary of outcomes moved into `analysis/00_search-development/`. The plan became its `index.qmd`, and the site shows it as the Search development section under Analysis.
+- **Data split.** The files in `data/search_tests/` moved by who produces them. Files from the APIs, the local model and the precision screening went to `data/raw/search-development/`. Files notebook 00 builds went to `data/processed/search-development/`: `reference_sources.csv`, `counts.csv`, `verdict.csv`, `statement_matches.csv`, `terms.csv` and `term_syntax.csv`. Until notebook 00 is rebuilt, those six files are still the ones I built by hand, and `reference_codes.csv` holds my codes, not the local model's.
+- **Scripts.** The Markdown file of paste-ready blocks, renamed from `step3_blocks.md` to `server_blocks.md` earlier the same day, became one Python script per block in `retrieval/`. `query.py` and `precision.py` take the database as `pubmed`, `scopus` or `web-of-science`, which replaces three copies of each block. The plan's Runs section gives the commands.
+- **Prompts.** The coding and indexing prompts moved to `prompts/`. The launch script stays in `scripts/` at the repo root, so other work can use it.
+- **Query writes into a processed file.** `query.py` still fills the step 3 columns of `terms.csv`. The plan has it write `term_results.csv` in raw; that change comes with the step 3 rerun.
+- **Notebook 00 stops at its fourth cell.** Its code reads a `key` column that `reference_candidates.csv` lost when the reference set was rebuilt. This predates the move and gets fixed in the notebook 00 rebuild.
 
 ## To do
 

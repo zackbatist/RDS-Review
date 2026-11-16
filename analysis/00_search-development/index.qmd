@@ -8,18 +8,18 @@ format:
 
 **Goal:** PubMed, Scopus and Web of Science queries for RDS-Review, built from the Research Protocol's PCC table, with terms drawn from the sources Chawinga and Zinn (2019) included.
 
-**Location:** the work lives in the RDS-Review repo. All files go in `data/search_tests/`. The review's search exports come later, from each database's own interface, and go in `data/raw/search_exports/` as that folder's README sets out. The work runs in three places:
+**Location:** the work lives in the RDS-Review repo, in `analysis/00_search-development/`. Files the APIs, the local model and the precision screening produce go in `data/raw/search-development/`; files notebook 00 builds go in `data/processed/search-development/`. The review's search exports come later, from each database's own interface, and go in `data/raw/search_exports/` as that folder's README sets out. The work runs in three places:
 
-- *An analysis server:* paste-ready Python blocks in `data/search_tests/server_blocks.md`, each starting with `git pull`, for everything that calls an API: the lookups in step 1 and the searches in step 3.
-- *A GPU server:* the local model that codes the reference set in step 1 and assigns indexing terms in step 2, started by `scripts/launch_rds_llm.sh` with the prompts in `scripts/`.
-- *`analysis/00-search-development.ipynb`:* ahead of `01-deduplication`, it builds every file that follows by fixed rules from the files above (`reference_sources.csv`, `counts.csv`, `verdict.csv`, `statement_matches.csv`, `terms.csv`, `term_syntax.csv`, `precision_screening.html`) and shows the outcomes of all three steps. It rebuilds them each time it runs.
+- *An analysis server:* the Python scripts in `retrieval/`, for everything that calls an API: the reference set and lookups in step 1 and the searches in step 3. Run order and commands are under Runs, below.
+- *A GPU server:* the local model that codes the reference set in step 1 and assigns indexing terms in step 2, started by `scripts/launch_rds_llm.sh` at the repo root, with the prompts in `prompts/`.
+- *`00-search-development.ipynb`:* ahead of `01-deduplication`, it builds every file that follows by fixed rules from the files above (`reference_sources.csv`, `counts.csv`, `verdict.csv`, `statement_matches.csv`, `terms.csv`, `term_syntax.csv`, `precision_screening.html`) and shows the outcomes of all three steps. It rebuilds them each time it runs.
 
 **Reproducibility:** every file comes from code in the repo, except two judgments, each recorded so it can be checked:
 
 - the comparison of their criteria with the RDS-Review criteria, with page references, in `comparison.csv`
 - the precision screening, in `precision_sample_<database>.csv`
 
-The reference set block reads the full text of Chawinga and Zinn (2019) through Elsevier's Article Retrieval API, which needs an Elsevier API key with full-text entitlement for the journal; it writes only bibliographic details and citation locations, never the paper's text. The coding and the assignment of indexing terms are made by a local model, pinned to one version, with fixed prompts and settings, so anyone with the same model can rerun them. The run records the model, its digest, the Ollama version and the settings with its output. The databases keep indexing new records, so a rerun of step 3 months later returns somewhat different counts; the committed outputs and run dates record what each search returned.
+The reference set script reads the full text of Chawinga and Zinn (2019) through Elsevier's Article Retrieval API, which needs an Elsevier API key with full-text entitlement for the journal; it writes only bibliographic details and citation locations, never the paper's text. The coding and the assignment of indexing terms are made by a local model, pinned to one version, with fixed prompts and settings, so anyone with the same model can rerun them. The run records the model, its digest, the Ollama version and the settings with its output. The databases keep indexing new records, so a rerun of step 3 months later returns somewhat different counts; the committed outputs and run dates record what each search returned.
 
 ## Step 1. Comparability assessment
 
@@ -39,17 +39,17 @@ The reference set block reads the full text of Chawinga and Zinn (2019) through 
   - *Date range, language limit and exclusions* in the Research Protocol set the In scope criteria below.
   - *Candidate terms table* on the search strategy page supplies fallback terms for a Practice value with no development set sources, in step 2.
 - **Reference set:**
-  1. **Select.** The paper's list of included sources was not published: the Crossref record lists no supplementary material, and the first author's thesis, data deposits and profiles hold no list. The reference set block reads the paper's full text and reference list from Elsevier and selects every reference the paper identifies as an included source, by three rules:
+  1. **Select.** The paper's list of included sources was not published: the Crossref record lists no supplementary material, and the first author's thesis, data deposits and profiles hold no list. The reference set script reads the paper's full text and reference list from Elsevier and selects every reference the paper identifies as an included source, by three rules:
      - *Table 2:* references Table 2 names as sources for its themes, matched by first author and year, allowing a year either way only where the reference list holds no reference by that author with Table 2's year.
      - *Sections 4 and 5:* references cited in the Results or the Discussion.
      - *Section 4.3:* section 4.3 lists the countries with one included publication each; a listed country that no reference selected by the first two rules names in its title is supplied by the reference, dated 2007 to 2018, whose title names it.
 
      It writes `reference_citations.csv`, with every reference in the paper, where it is cited, its type and the rule that selected it, and `reference_candidates.csv`, with the selected references.
-  2. **Look up.** The lookups block checks each DOI against Crossref and OpenAlex, finds the PMID, and pulls the earliest publication date, the title, the abstract (from PubMed, then OpenAlex, then Crossref, then the Scopus Abstract Retrieval API), the MeSH headings with their NLM scope notes, the author keywords and the OpenAlex keywords. It writes `reference_lookups.csv` and `reference_indexing.csv`. Where a reference has no DOI, the lookups block searches by title, authors, year and venue. A reference whose DOI or metadata can't be verified is dropped and listed with the reason.
-  3. **Size.** The reference set block reports the size of the reference set against their 105, by type against their 83 journal articles, 10 theses, 8 reports and 4 books, and by year against Fig. 4.
+  2. **Look up.** The lookups script checks each DOI against Crossref and OpenAlex, finds the PMID, and pulls the earliest publication date, the title, the abstract (from PubMed, then OpenAlex, then Crossref, then the Scopus Abstract Retrieval API), the MeSH headings with their NLM scope notes, the author keywords and the OpenAlex keywords. It writes `reference_lookups.csv` and `reference_indexing.csv`. Where a reference has no DOI, the lookups script searches by title, authors, year and venue. A reference whose DOI or metadata can't be verified is dropped and listed with the reason.
+  3. **Size.** The reference set script reports the size of the reference set against their 105, by type against their 83 journal articles, 10 theses, 8 reports and 4 books, and by year against Fig. 4.
   4. **Split.** The reference set sources published 2007 to 2014 form the *development set*, which supplies terms in step 2. Those published 2015 to July 2018 form the *test set*, which measures coverage in step 3, so coverage is measured on sources the terms weren't drawn from.
-- **Local model:** runs on a GPU server with ten 24 GB GPUs. `scripts/launch_rds_llm.sh` starts an Ollama container on the GPUs it is given and loads the model; a model too large for one GPU is split across several. Models are stored in the folder `MODELS_DIR` names. The model is chosen before the coding run and pinned by its digest; `scripts/README.md` describes the launch script and the prompts.
-- **Coding:** the coding block sends each reference set source's title and abstract from `reference_lookups.csv` to the local model with `scripts/coding_prompt.md`, which holds the definitions below, at temperature 0 with a fixed seed. A source with no abstract is coded on its title, and its codes are marked so. Each coded value carries two things: the **passage** that supports it (the sentence from the title or abstract, or *none* where no sentence supports it), and the **term** in that passage that expresses the value, such as *secondary use* for *reuse* or *unwilling to share* for *reluctance* (*none* where the passage expresses the value without a distinct term).
+- **Local model:** runs on a GPU server with ten 24 GB GPUs. `scripts/launch_rds_llm.sh` starts an Ollama container on the GPUs it is given and loads the model; a model too large for one GPU is split across several. Models are stored in the folder `MODELS_DIR` names. The model is chosen before the coding run and pinned by its digest; `scripts/README.md` describes the launch script.
+- **Coding:** the coding script sends each reference set source's title and abstract from `reference_lookups.csv` to the local model with `prompts/coding_prompt.md`, which holds the definitions below, at temperature 0 with a fixed seed. A source with no abstract is coded on its title, and its codes are marked so. Each coded value carries two things: the **passage** that supports it (the sentence from the title or abstract, or *none* where no sentence supports it), and the **term** in that passage that expresses the value, such as *secondary use* for *reuse* or *unwilling to share* for *reluctance* (*none* where the passage expresses the value without a distinct term).
   - **Practice:** *sharing*, *reuse*, *both* or *neither*.
   - **`data_origin`:**
     - *research:* data that researchers generate through procedures designed for a specific study, such as a trial, cohort, survey, experiment, interview study or fieldwork. Examples: trial measurements, survey responses, interview transcripts, sequencing data from study participants.
@@ -98,9 +98,9 @@ The reference set block reads the full text of Chawinga and Zinn (2019) through 
   - *author keyword:* the keywords the authors list on the paper, from PubMed's `OT` field, for sources PubMed indexes. Sources outside PubMed contribute no author keywords.
   - *OpenAlex keyword:* the keywords OpenAlex assigns to the work (its `keywords` field), pulled by DOI.
 
-  The lookups block in step 1 pulls all three into `reference_indexing.csv`.
+  The lookups script in step 1 pulls all three into `reference_indexing.csv`.
 - **Normalisation:** all terms are lowercased. Variants that differ only by hyphen, plural or word ending merge into one term, written with truncation (*reus\**) where every word the truncation matches is a variant of the term, and as a list of variants joined with OR otherwise. MeSH headings keep NLM's exact form.
-- **Assignment:** MeSH headings, author keywords and OpenAlex keywords attach to a whole source, so each is placed under a PCC part by meaning. The indexing block sends every distinct term in `reference_indexing.csv`, MeSH headings with their NLM scope notes, to the local model with `scripts/indexing_prompt.md`, at temperature 0 with a fixed seed, and writes the value it gives each term to `term_assignments.csv`:
+- **Assignment:** MeSH headings, author keywords and OpenAlex keywords attach to a whole source, so each is placed under a PCC part by meaning. The indexing script sends every distinct term in `reference_indexing.csv`, MeSH headings with their NLM scope notes, to the local model with `prompts/indexing_prompt.md`, at temperature 0 with a fixed seed, and writes the value it gives each term to `term_assignments.csv`:
   1. A term takes a Practice value or a factor from the list in step 1 when its meaning matches, judged by meaning and not by the words the term contains.
   2. MeSH headings are judged by their NLM scope note.
   3. A term that matches no PCC part, such as "Humans" or "Surveys and Questionnaires", takes *none* and is left out of `terms.csv`.
@@ -113,7 +113,7 @@ The reference set block reads the full text of Chawinga and Zinn (2019) through 
   - *Factor themes:* run separately for each database. Within each theme, taking terms in descending count, keep each one that matches a development set source no kept term matches. A source counts as matched by a MeSH term only if PubMed lists that heading for it, and by an author keyword only if it carries that keyword. A theme with no kept term takes its terms from `screening-guide.qmd`.
   - *Fallback:* a Practice value with no development set source, or whose development set sources all carry the other Practice value too (*both*), takes its matching terms from the Candidate terms table on the search strategy page, such as "data reuse" and "data re-use" for *reuse*.
   - Codes with the term *none* contribute no terms.
-- **Output:** `term_assignments.csv` from the indexing block; `term_syntax.csv` and `terms.csv`, built by notebook 00 from `reference_codes.csv`, `reference_indexing.csv` and `term_assignments.csv`.
+- **Output:** `term_assignments.csv` from the indexing script; `term_syntax.csv` and `terms.csv`, built by notebook 00 from `reference_codes.csv`, `reference_indexing.csv` and `term_assignments.csv`.
   - `term_assignments.csv`: one row per distinct indexing term, with its type, the value the model gave it, and the model, digest, Ollama version, temperature and seed of the run.
   - `term_syntax.csv`: one row per normalised term per database, with the term, the variants it merges, and its written form.
   - `terms.csv`: one row per term per database, with these columns:
@@ -139,18 +139,18 @@ The reference set block reads the full text of Chawinga and Zinn (2019) through 
   5. **Factors belong to screening.** The query finds sources on the topic; whether they report factors is decided at screening, against `screening-guide.qmd`.
   6. **No limit the eligibility criteria don't impose.** No document type or field filters; the date limit follows the Research Protocol, judged on first publication.
   7. **One method, three databases.** The same method runs in PubMed, Scopus and Web of Science, translated to each database's syntax and tested the same way.
-- **API setup:** done once, before the first search, on the analysis server. Items 2 to 4 are blocks 1, 2 and 4 in `server_blocks.md`.
+- **API setup:** done once, before the first search, on the analysis server. The commands for items 2 to 4 are under Runs, below.
   1. **Register the API keys.**
      - *PubMed:* at ncbi.nlm.nih.gov, sign in with an NCBI account under zachary.batist@mcgill.ca, open **Account Settings**, and under **API Key Management** click **Create an API Key**. The key raises the E-utilities limit from 3 to 10 requests a second.
      - *Scopus:* at dev.elsevier.com, click **I want an API Key**, sign in with an Elsevier account under zachary.batist@mcgill.ca (creating one if needed), click **Create API Key**, label it `RDS-Review` with the website URL `https://zackbatist.info/RDS-Review`, accept the terms, and copy the key. The key gets full Scopus Search access only from McGill's network. The Scopus Search API allows 20,000 requests a week, at up to 200 records per request.
      - *Web of Science:* at developer.clarivate.com, sign up with zachary.batist@mcgill.ca and verify the account. Under **Applications**, register an application named `RDS-Review`, then on the **Web of Science Starter API** page click **Subscribe** for it and choose the **Free Institutional Member Plan** (5 requests a second, 5,000 a day; the Free Trial Plan's 1 a second and 50 a day are too few). Once Clarivate approves it, which can take up to two days, the key shows on the API page.
   2. **Store the keys.** Create `~/.rds-review-keys`, outside the RDS-Review repo, holding three lines that export `NCBI_API_KEY`, `SCOPUS_API_KEY` and `WOS_API_KEY`. Set its permissions to 600, so only your account can read it, and add a line to `~/.bashrc` that sources it, so every new shell has the three variables.
-  3. **Create the Python environment.** Create the virtual environment the RDS-Review README sets out, at `~/.venvs/rds-review`, and install `requirements.txt`, which includes `requests`, the one package the search blocks add. No sudo is needed.
-  4. **Test each API.** Search each database for one source all three index, Fecher, Friesike and Hebing (2015), doi:10.1371/journal.pone.0118053, by DOI. Each test passes when the database returns exactly one record with that DOI. The same block then runs one known phrase, "data sharing", in each field tag the plan uses: `[tiab]`, `[mh:noexp]` (as "Information Dissemination") and `[doi]` in PubMed; `TITLE-ABS-KEY` and `DOI()` in Scopus; `TS` and `DO` in Web of Science. Each tag passes when it returns results without an error, so an unsupported tag fails at setup, not mid-run. The Scopus test also prints the weekly quota remaining from the `X-RateLimit-Remaining` response header; an authorization error there means the request isn't coming from McGill's network.
-- **Database access:** PubMed, Scopus and Web of Science searches run through the PubMed E-utilities, the Scopus Search API and the Web of Science Starter API from the analysis server. Each block changes into the RDS-Review folder, runs `git pull`, activates `~/.venvs/rds-review`, and reads your API keys from the environment variables. Searches that include source identifiers send them in batches of 25 and sum the results, since longer lists exceed the APIs' URL limits. File names carry the database as `pubmed`, `scopus` or `web-of-science`, the names `data/raw/search_exports/README.md` uses.
-- **Runs:** two blocks per database, so the draft needs no round trip per iteration.
-  - *Query block:* carries out method items 3 to 9 in one pass, reading `term_syntax.csv` and the reference set identifiers from `data/search_tests/`, and writes every intermediate result there: each term run, the threshold, each draft iteration with the candidates' added yields, each trim decision, the index check, the coverage test and the load.
-  - *Precision block:* carries out method item 10, drawing the sample from the query block's `load_<database>.csv` and pulling abstracts.
+  3. **Create the Python environment.** Create the virtual environment the RDS-Review README sets out, at `~/.venvs/rds-review`, and install `requirements.txt`, which includes `requests`, the one package the search scripts add. No sudo is needed.
+  4. **Test each API.** Search each database for one source all three index, Fecher, Friesike and Hebing (2015), doi:10.1371/journal.pone.0118053, by DOI. Each test passes when the database returns exactly one record with that DOI. The same script then runs one known phrase, "data sharing", in each field tag the plan uses: `[tiab]`, `[mh:noexp]` (as "Information Dissemination") and `[doi]` in PubMed; `TITLE-ABS-KEY` and `DOI()` in Scopus; `TS` and `DO` in Web of Science. Each tag passes when it returns results without an error, so an unsupported tag fails at setup, not mid-run. The Scopus test also prints the weekly quota remaining from the `X-RateLimit-Remaining` response header; an authorization error there means the request isn't coming from McGill's network.
+- **Database access:** PubMed, Scopus and Web of Science searches run through the PubMed E-utilities, the Scopus Search API and the Web of Science Starter API from the analysis server. Each run changes into the RDS-Review folder, runs `git pull`, activates `~/.venvs/rds-review`, and reads your API keys from the environment variables. Searches that include source identifiers send them in batches of 25 and sum the results, since longer lists exceed the APIs' URL limits. File names carry the database as `pubmed`, `scopus` or `web-of-science`, the names `data/raw/search_exports/README.md` uses.
+- **Scripts:** two per database, each given the database as `pubmed`, `scopus` or `web-of-science`, so the draft needs no round trip per iteration.
+  - *`query.py`:* carries out method items 3 to 9 in one pass, reading `term_syntax.csv` and the reference set identifiers, and writes every intermediate result to `data/raw/search-development/`: each term run, the threshold, each draft iteration with the candidates' added yields, each trim decision, the index check, the coverage test and the load.
+  - *`precision.py`:* carries out method item 10, drawing the sample from the query's `load_<database>.csv` and pulling abstracts.
 - **Method:**
   1. **Candidate terms.** The rows of `terms.csv` for *sharing* and *reuse*, fallback terms included. Factor terms get the status *to screening* (principle 5).
   2. **Identifiers.** Each source is searched by DOI, as `[doi]` in PubMed, `DOI()` in Scopus and `DO=` in Web of Science, and by PMID in PubMed where it lacks a DOI. A source with neither can't be tested and is counted as untestable.
@@ -161,7 +161,7 @@ The reference set block reads the full text of Chawinga and Zinn (2019) through 
   7. **Index check.** Run the test set identifiers alone in each database and record which test set sources each database indexes.
   8. **Coverage test.** Run the trimmed query AND the test set identifiers, with no date limit, and record which indexed test set sources it retrieves. Report coverage with its 95% Wilson confidence interval, since the test set is small.
   9. **Load.** Run the trimmed query with a date limit of 2015 to 2025, save the returned records' identifiers, DOIs, titles and years to `load_<database>.csv`, and record the count and the date run. Citation searching of the included sources catches 2025 work that databases date by a 2026 issue.
-  10. **Precision.** Draw 100 returned records per database with a fixed random seed, recorded with the sample. The Web of Science Starter API returns no abstracts and the Scopus Search API returns them only in its COMPLETE view, so the block pulls each sampled record's abstract from PubMed for PubMed records, then by DOI from OpenAlex, then Crossref, then, for Scopus records, the Scopus Abstract Retrieval API. You screen each record on title and abstract against the Criteria in `screening-guide.qmd`, on `precision_screening.html`, recording the exclusion code for each exclusion; a record with no abstract from either source is screened on its title and flagged. Records first published after 2025 count as excluded with `date`. Records whose title and abstract don't allow a decision are recorded as *undecidable*, and precision is reported with them counted as included and with them left out, each with its 95% Wilson confidence interval.
+  10. **Precision.** Draw 100 returned records per database with a fixed random seed, recorded with the sample. The Web of Science Starter API returns no abstracts and the Scopus Search API returns them only in its COMPLETE view, so `precision.py` pulls each sampled record's abstract from PubMed for PubMed records, then by DOI from OpenAlex, then Crossref, then, for Scopus records, the Scopus Abstract Retrieval API. You screen each record on title and abstract against the Criteria in `screening-guide.qmd`, on `precision_screening.html`, recording the exclusion code for each exclusion; a record with no abstract from either source is screened on its title and flagged. Records first published after 2025 count as excluded with `date`. Records whose title and abstract don't allow a decision are recorded as *undecidable*, and precision is reported with them counted as included and with them left out, each with its 95% Wilson confidence interval.
   11. **Factor terms.** Add the factor terms in `terms.csv`, with their counts, to the Manual annotation of seed sample section of `screening-guide.qmd`, under their themes.
 - **Output:**
   - `query_tests.csv`, one row per database, with these columns: database; the final query; the date run; the yield threshold; the final query's development yield; load; the number of test set sources the database indexes; the number untestable for lack of an identifier; the number the query retrieves; coverage for the whole test set, with its 95% confidence interval; coverage for the In scope test set sources, with its 95% confidence interval; the random seed; included, excluded and *undecidable* counts in the sample; the number screened on title alone; precision with *undecidable* records counted as included, and with them left out, each with its 95% confidence interval. A note column states that the test set ends in July 2018, so coverage of vocabulary from later years is untested.
@@ -171,3 +171,56 @@ The reference set block reads the full text of Chawinga and Zinn (2019) through 
   - `precision_sample_<database>.csv`, one per database, one row per sampled record, with these columns: record identifier (PMID, Scopus EID or Web of Science UID); DOI; title; abstract source (*database*, *OpenAlex*, *Crossref* or *none*); decision (*include*, *exclude* or *undecidable*); exclusion code for each exclusion.
   - `term_results.csv`, one row per *sharing* and *reuse* term per database, with term, type, database, development yield, load 2015 to 2025, sources added when it entered the draft, and status (*in query*, *excluded by yield* or *fallback in query*).
   - `screening-guide.qmd`, with the factor terms from `terms.csv` and their counts added to the Manual annotation of seed sample section under their themes.
+
+## Runs
+
+Every command runs on the analysis server from a terminal. Run the long ones inside `tmux` (`tmux new -s search`, then paste; detach with Ctrl-b d, reattach with `tmux attach -t search`), so a dropped connection doesn't stop them. The commands assume the repo is cloned at `~/RDS-Review`.
+
+1. **Keys file.** Prompts for each key without echoing it and writes `~/.rds-review-keys` outside the repo, readable by you only.
+
+   ```bash
+   umask 077
+   read -rsp "NCBI API key: " NCBI; echo
+   read -rsp "Scopus API key: " SCOPUS; echo
+   read -rsp "Web of Science Starter API key: " WOS; echo
+   printf 'export NCBI_API_KEY=%s\nexport SCOPUS_API_KEY=%s\nexport WOS_API_KEY=%s\n' "$NCBI" "$SCOPUS" "$WOS" > ~/.rds-review-keys
+   chmod 600 ~/.rds-review-keys
+   unset NCBI SCOPUS WOS
+   grep -q rds-review-keys ~/.bashrc || echo 'source ~/.rds-review-keys' >> ~/.bashrc
+   ls -l ~/.rds-review-keys
+   ```
+
+2. **Python environment.**
+
+   ```bash
+   cd ~/RDS-Review
+   git pull
+   python3 -m venv ~/.venvs/rds-review
+   source ~/.venvs/rds-review/bin/activate
+   pip install --upgrade pip
+   pip install -r requirements.txt
+   ```
+
+3. **Each script.** Every script runs from the repo root. Paste the block below, with its last line swapped for the step's command from the table.
+
+   ```bash
+   cd ~/RDS-Review
+   git pull
+   source ~/.venvs/rds-review/bin/activate
+   source ~/.rds-review-keys
+   R=analysis/00_search-development/retrieval
+   O=data/raw/search-development
+   python3 $R/api_test.py 2>&1 | tee $O/api_test_console.txt
+   ```
+
+   In order:
+
+   | Step | Command |
+   | --- | --- |
+   | API test | `python3 $R/api_test.py 2>&1 \| tee $O/api_test_console.txt` |
+   | Step 1, reference set | `python3 $R/reference_set.py 2>&1 \| tee $O/reference_set_console.txt` |
+   | Step 1, lookups | `python3 $R/lookups.py 2>&1 \| tee $O/lookups_console.txt` |
+   | Step 3, query, per database | `python3 $R/query.py pubmed 2>&1 \| tee $O/query_console_pubmed.txt` |
+   | Step 3, precision, per database, after its query | `python3 $R/precision.py pubmed 2>&1 \| tee $O/precision_console_pubmed.txt` |
+
+   For Scopus and Web of Science, replace `pubmed` with `scopus` or `web-of-science` in both places. Notebook 00 runs between the lookups and step 3, to build `term_syntax.csv` and the other processed files, and again after step 3, to show its results.
