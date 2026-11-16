@@ -1,0 +1,109 @@
+Albert 2012: Crossref, PMID -, abstract none
+Anane-Sarpong 2017: Crossref, PMID 28745008, abstract PubMed
+Anderson 2009: not found, PMID -, abstract none
+Bertzky 2009: found by title, PMID 18207633, abstract PubMed
+Bezuidenhout 2013: no DOI, PMID -, abstract none
+Bishoff 2015: Crossref, PMID -, abstract OpenAlex
+Bond-Lamberty 2018: Crossref, PMID -, abstract OpenAlex
+Borgman 2012: Crossref, PMID -, abstract OpenAlex
+Brakewood 2013: Crossref, PMID 23466937, abstract PubMed
+Brown 2015: no DOI, PMID -, abstract OpenAlex
+Bull 2015: Crossref, PMID 26297751, abstract PubMed
+Burgi 2017: found by title, PMID -, abstract OpenAlex
+Cahill 2007: Crossref, PMID -, abstract none
+Chandramohan 2008: found by title, PMID 18303944, abstract PubMed
+Charbonneau 2013: Crossref, PMID 23869641, abstract PubMed
+Chen 2017: Crossref, PMID -, abstract Scopus
+Chigwada 2017: Crossref, PMID -, abstract OpenAlex
+Chiware 2016: Crossref, PMID -, abstract OpenAlex
+Clement 2016: Crossref, PMID -, abstract OpenAlex
+Coady 2013: Crossref, PMID 23837497, abstract PubMed
+Cohn 2012: Crossref, PMID -, abstract OpenAlex
+Cooper 2007: Crossref, PMID 19385888, abstract PubMed
+Costello 2009: found by title, PMID -, abstract OpenAlex
+Cragin 2010: found by title, PMID 20679120, abstract PubMed
+Curty 2015: no DOI, PMID -, abstract none
+Curty 2017: Crossref, PMID 29281658, abstract PubMed
+Dai 2018: Crossref, PMID -, abstract OpenAlex
+Davenport 2012: no DOI, PMID -, abstract none
+Delson 2007: found by title, PMID -, abstract none
+Deng 2016: Crossref, PMID -, abstract OpenAlex
+Dong 2016: Crossref, PMID -, abstract OpenAlex
+Doorn 2013: Crossref, PMID -, abstract OpenAlex
+Elsayed 2018: Crossref, PMID -, abstract OpenAlex
+Enke 2012: Crossref, PMID -, abstract Scopus
+European Commission 2012: no DOI, PMID -, abstract none
+Fecher 2015: Crossref, PMID 25714752, abstract PubMed
+Fisher 2010: Crossref, PMID -, abstract Scopus
+Fry 2008: no DOI, PMID -, abstract OpenAlex
+Guedon 2015: no DOI, PMID -, abstract none
+Gupta 2013: Crossref, PMID 23833741, abstract PubMed
+Haddow 2011: Crossref, PMID 20629997, abstract PubMed
+Harding 2013: Crossref, PMID 21890450, abstract PubMed
+He 2016: found by title, PMID -, abstract OpenAlex
+Higgins 2011: Crossref, PMID -, abstract OpenAlex
+Houtkoop 2018: found by title, PMID -, abstract OpenAlex
+Huang 2012: Crossref, PMID -, abstract OpenAlex
+Huang 2013: found by title, PMID -, abstract OpenAlex
+Jeng 2016: found by title, PMID -, abstract OpenAlex
+Kaye 2018: Crossref, PMID 29514717, abstract PubMed
+Koltay 2017: Crossref, PMID -, abstract OpenAlex
+Koopman 2015: no DOI, PMID -, abstract none
+Kostkova 2018: Crossref, PMID 29971516, abstract PubMed
+Kowalczyk 2011: Crossref, PMID -, abstract none
+Levenson 2010: Crossref, PMID 20186787, abstract OpenAlex
+Matlatse 2016: no DOI, PMID -, abstract none
+Mbuagbaw 2017: Crossref, PMID 28196540, abstract PubMed
+McCullough 2009: found by title, PMID -, abstract Scopus
+Mennes 2013: Crossref, PMID 23123682, abstract PubMed
+Milia 2012: Crossref, PMID 22679483, abstract PubMed
+Mundel 2014: no DOI, PMID -, abstract none
+Nelson 2009: found by title, PMID 19741679, abstract none
+Ng'eno 2018: no DOI, PMID -, abstract none
+Ostell 2009: found by title, PMID -, abstract OpenAlex
+Parr 2007: Crossref, PMID -, abstract OpenAlex
+Pearce 2011: Crossref, PMID 22188646, abstract PubMed
+Peng 2016: Crossref, PMID -, abstract OpenAlex
+Permanent Access to the Records in Europe 2009: no DOI, PMID -, abstract none
+Perrino 2013: found by title, PMID 24244216, abstract PubMed
+Pisani 2010: Crossref, PMID 20539861, abstract PubMed
+Pitt 2013: Crossref, PMID 23335581, abstract PubMed
+Piwowar 2011: Crossref, PMID 21765886, abstract PubMed
+Plengsaeng 2014: found by title, PMID -, abstract OpenAlex
+Rohlfing 2012: found by title, PMID 22008368, abstract PubMed
+Ross 2016: Crossref, PMID 27649796, abstract PubMed
+Rowhani-Farid 2017: Crossref, PMID 29451561, abstract PubMed
+Sansone 2012: Crossref, PMID 23587326, abstract PubMed
+Savage 2009: Crossref, PMID 19763261, abstract PubMed
+Sayogo 2013: Crossref, PMID -, abstract Scopus
+Schmidt 2016: Crossref, PMID 26771577, abstract PubMed
+Schöpfel 2018: Crossref, PMID -, abstract OpenAlex
+Schumacher 2015: found by title, PMID -, abstract OpenAlex
+Scott 2014: OpenAlex, PMID -, abstract OpenAlex
+Shakeri 2013: no DOI, PMID -, abstract none
+Sheather 2009: Crossref, PMID 19528107, abstract OpenAlex
+Specht 2015: found by title, PMID 25891686, abstract PubMed
+Steen 2011: Crossref, PMID 21186208, abstract PubMed
+Takashima 2018: Crossref, PMID 29914459, abstract PubMed
+Teeters 2008: Crossref, PMID 18259695, abstract PubMed
+Tenopir 2011: Crossref, PMID 21738610, abstract PubMed
+Tucker 2009: no DOI, PMID -, abstract none
+Van Horn 2013: Crossref, PMID 23160115, abstract PubMed
+Volk 2014: Crossref, PMID 24604667, abstract PubMed
+Wallis 2013: Crossref, PMID 23935830, abstract PubMed
+Walters 2011: no DOI, PMID -, abstract OpenAlex
+Watson 2015: Crossref, PMID 25986601, abstract PubMed
+Wiley 2018: Crossref, PMID -, abstract OpenAlex
+Wittenberg 2017: Crossref, PMID -, abstract OpenAlex
+Woolfrey 2009: no DOI, PMID -, abstract none
+Yoon 2015: no DOI, PMID -, abstract none
+Yoon 2017: found by title, PMID -, abstract OpenAlex
+Zimmerman 2008: not found, PMID -, abstract none
+Zvyagintseva 2015: OpenAlex, PMID -, abstract OpenAlex
+
+references: 102
+DOI status: {'Crossref': 62, 'OpenAlex': 2, 'found by title': 19, 'no DOI': 17, 'not found': 2}
+with PMID: 42
+abstract source: {'OpenAlex': 37, 'PubMed': 39, 'Scopus': 5, 'none': 21}
+indexing terms: {'MeSH': 299, 'author keyword': 66, 'OpenAlex keyword': 685}
+MeSH headings with a scope note: 144 of 144
