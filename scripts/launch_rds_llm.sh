@@ -7,14 +7,14 @@
 #   bash launch_rds_llm.sh --stop
 # Model files are downloaded from Hugging Face at a fixed revision, checked against their SHA-256,
 # and stored in MODELS_DIR, by default $HOME/models.
-# The llama.cpp build is LLAMACPP_BUILD, by default b12380, so a rerun uses the same server.
+# The llama.cpp build is LLAMACPP_BUILD, by default b12375, so a rerun uses the same server.
 # The context length is CTX, by default 16384 tokens.
 set -e
 GPUS=""
 MODEL=""
 PORT=""
 MODELS_DIR="${MODELS_DIR:-$HOME/models}"
-LLAMACPP_BUILD="${LLAMACPP_BUILD:-b12380}"
+LLAMACPP_BUILD="${LLAMACPP_BUILD:-b12375}"
 CTX="${CTX:-16384}"
 STOP=false
 while [[ $# -gt 0 ]]; do
@@ -80,7 +80,7 @@ docker run -d \
     --name "$NAME" \
     "$IMAGE" \
     -m "/models/$FIRST" --host 0.0.0.0 --port 8080 \
-    --ctx-size "$CTX" --n-gpu-layers 999 --parallel 1 --no-mmap --jinja
+    --ctx-size "$CTX" --n-gpu-layers 999 --parallel 1 --load-mode none --jinja
 
 echo "Loading into VRAM..."
 until curl -sf "http://localhost:$PORT/health" > /dev/null; do

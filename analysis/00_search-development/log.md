@@ -117,7 +117,7 @@ All seven PCC parts are *covered*. Reuse rests on 6 development and 4 test sourc
 
 - **llama.cpp in place of Ollama.** `scripts/launch_rds_llm.sh` now runs llama.cpp's server. Ollama serves models from its own registry, which keeps only the file a tag points to now, so a recorded digest can show a model changed but can't bring the old one back. The model is now a GGUF file on Hugging Face, fixed by repository, revision and SHA-256, and Hugging Face keeps every revision.
 - **Models.** `qwen3.5-122b` is unsloth's Q4_K_M build of Qwen3.5-122B-A10B, revision `51eab4d59d53f573fb9206cb3ce613f1d0aa392b`, three files totalling 76.5 GB, for GPUs 5 to 8. `qwen3.8-27b` is unsloth's UD-Q4_K_M build of Qwen3.8-27B, revision `4af51b3542f775b0a8e4b310bfb3f17e01c306c9`, 16.6 GB, for one GPU. The checksums are in the script.
-- **Server.** The llama.cpp image is pinned to build b12380, the newest on 16 November. The server runs one request at a time, loads the model fully into memory, and uses each model's own chat template. Temperature, seed and thinking are set per request by the scripts that call it.
+- **Server.** The llama.cpp image is pinned to build b12375, the newest CUDA 12 server image on 16 November. Build b12380, the newest release, has no CUDA 12 image, and the CUDA 13 images need a 580-series NVIDIA driver; the GPU server has 565.57, which supports CUDA up to 12.7. The server runs one request at a time, loads the model fully into memory, and uses each model's own chat template. Temperature, seed and thinking are set per request by the scripts that call it.
 
 ## To do
 
