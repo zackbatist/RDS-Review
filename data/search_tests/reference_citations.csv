@@ -1,0 +1,125 @@
+ref_id,label,first_author,year,title,doi,type,cited_in,in_table_2,basis,in_reference_set
+bb0005,"Ahmed et al., 2018",Ahmed,2018,Social media for knowledge-sharing: A systematic literature review,10.1016/j.tele.2018.01.015,journal article,3.3,no,,no
+bb0010,"Albert, 2012",Albert,2012,Scientists encourage genetic data sharing,10.1007/s40014-012-1434-z,journal article,5.5.1.3,no,section 4 or 5,yes
+bb0015,"Anane-Sarpong et al., 2017",Anane-Sarpong,2017,“You cannot collect data using your own resources and put it on open access”: Perspectives from Africa about public health data-sharing,10.1111/dewb.12159,journal article,2.3;5.5.3.3,yes,Table 2; section 4 or 5,yes
+bb0020,"Anderson and Schonfeld, 2009",Anderson,2009,Data-sharing dilemmas: Allowing pharmaceutical company access to research data,10.2307/25594876,journal article,5.5.3.4,yes,Table 2; section 4 or 5,yes
+bb0025,"Bertzky and Stoll-Kleemann, 2009",Bertzky,2009,Multi-level discrepancies with sharing data on protected areas: What we have and what we need for the global village,,journal article,5.5.1.3,no,section 4 or 5,yes
+bb2030,Bezuidenhout (2013),Bezuidenhout,2013,Data sharing and dual-use issues,,journal article,,yes,Table 2,yes
+bb3000,Bishoff and Johnston (2015),Bishoff,2015,Approaches to data sharing: An analysis of NSF Data Management plans from a large research university,10.7710/2162-3309.1231,journal article,,yes,Table 2,yes
+bb0030,"Bond-Lamberty, 2018",Bond-Lamberty,2018,Data sharing and scientific impact in eddy covariance research,10.1002/2018jg004502,journal article,5.2;5.4.2;5.5.3.2,yes,Table 2; section 4 or 5,yes
+bb0035,"Borgman, 2012",Borgman,2012,The conundrum of sharing research data,10.1002/asi.22634,journal article,4.1;5.4.2;5.5.3.1,no,section 4 or 5,yes
+bb0040,"Brakewood and Poldrack, 2013",Brakewood,2013,The ethics of secondary data analysis: Considering the application of Belmont principles to the sharing of neuroimaging data,10.1016/j.neuroimage.2013.02.040,journal article,5.5.3.4,yes,Table 2; section 4 or 5,yes
+bb0045,"Brettle, 2009",Brettle,2009,Reviews and evidence based library and information practice,10.18438/b8n613,journal article,3.2,no,,no
+bb0050,"Brown et al., 2015",Brown,2015,Directions for research data management in UK universities,,report,5.4.2;5.5.2.1;5.5.3.1;5.5.3.3,yes,Table 2; section 4 or 5,yes
+bb0055,"Bull et al., 2015",Bull,2015,Best practices for ethical sharing of individual-level health research data from low- and middle-income settings,10.1177/1556264615594606,journal article,5.2;5.5.1.3;5.5.2.1;5.5.3.1;5.5.3.4,yes,Table 2; section 4 or 5,yes
+bb9000,Burgi et al. (2016),Burgi,2017,Research data management in Switzerland: National efforts to guarantee the sustainability of research outputs,,journal article,,yes,Table 2,yes
+bb0060,"Cahill and Passamano, 2007",Cahill,2007,Full disclosure matters,10.2307/20361332,journal article,5.5.1.2,no,section 4 or 5,yes
+bb2080,Chandramohan et al. (2008),Chandramohan,2008,Should data from demographic surveillance systems be made more widely available to researchers?,,journal article,,yes,Table 2,yes
+bb0065,"Charbonneau, 2013",Charbonneau,2013,Strategies for data management engagement,10.1080/02763869.2013.807089,journal article,1.1,yes,Table 2,yes
+bb0070,"Chen and Wu, 2017",Chen,2017,Survey on the needs for chemistry research data management and sharing,10.1016/j.acalib.2017.06.006,journal article,1.1;5.2;5.5.2.1;5.5.4.1,yes,Table 2; section 4 or 5,yes
+bb0075,"Chigwada et al., 2017",Chigwada,2017,Research data management in research institutions in Zimbabwe,10.5334/dsj-2017-031,journal article,2.3,no,section 4.3 country: zimbabwe,yes
+bb0080,"Chiware and Mathe, 2016",Chiware,2016,Academic libraries' role in research data management services: A south African perspective,10.7553/81-2-1563,journal article,2.2;2.3;3.1;5.2;5.3;5.5.3.3,no,section 4 or 5,yes
+bb0085,"Clement et al., 2016",Clement,2016,Team-based data management instruction at small liberal arts colleges,10.1177/0340035216678239,journal article,5.5.2.1,yes,Table 2; section 4 or 5,yes
+bb0090,"Coady and Wagner, 2013",Coady,2013,Sharing individual level data from observational studies and clinical trials: A perspective from NHLBI,10.1186/1745-6215-14-201,journal article,5.5.3.3,yes,Table 2; section 4 or 5,yes
+bb0095,"Cohn, 2012",Cohn,2012,Dataone opens doors to scientists across disciplines,10.1525/bio.2012.62.11.16,journal article,2.2;3.1;5.2;5.4.2;5.5.3.1,no,section 4 or 5,yes
+bb0100,"Cook et al., 1997",Cook,1997,Systematic reviews: Synthesis of best evidence for clinical decisions,10.7326/0003-4819-126-5-199703010-00006,journal article,3;3.1;3.3,no,,no
+bb0105,"Cooper, 2007",Cooper,2007,Sharing data and results in ethnographic research: Why this should not be an ethical imperative,10.1525/jer.2007.2.1.3,journal article,5.5.1.3;5.5.3.4,yes,Table 2; section 4 or 5,yes
+bb0110,"Corti et al., 2014",Corti,2014,Managing and sharing research data: A guide to good practice,,book,2.1,no,,no
+bb0115,"Costello, 2009",Costello,2009,Motivating online publication of data,,journal article,5.5.1.2;5.5.3.2,yes,Table 2; section 4 or 5,yes
+bb0120,"Cragin et al., 2010",Cragin,2010,"Data sharing, small science and institutional repositories",,journal article,1;5.5.1.3,no,section 4 or 5,yes
+bb2020,Curty (2015),Curty,2015,Beyond “data thrifting”: An investigation of factors influencing research data reuse in the social sciences (unpublished doctoral dissertation),,thesis,,yes,Table 2,yes
+bb0125,"Curty et al., 2017",Curty,2017,Attitudes and norms affecting scientists' data reuse,10.1371/journal.pone.0189288,journal article,2.3;5.2;5.5.2.1,yes,Table 2; section 4 or 5,yes
+bb0130,"Dai et al., 2018",Dai,2018,Assessing the extent and impact of online data sharing in eddy covariance flux research,10.1002/2017jg004277,journal article,5.2;5.4.2,yes,Table 2; section 4 or 5,yes
+bb0135,"Davenport and Patil, 2012",Davenport,2012,Data scientist,,journal article,1;1.1,yes,Table 2,yes
+bb0140,"Delson et al., 2007",Delson,2007,"Databases, data access, and data sharing in paleoanthropology: First steps",,journal article,5.5.1.2,no,section 4 or 5,yes
+bb0145,"Deng, 2016",Deng,2016,Urgent need for a data sharing platform to promote ecological research in China,10.1002/ehs2.1241,journal article,5.5.3.4,yes,Table 2; section 4 or 5,yes
+bb0150,"Dong and Li, 2016",Dong,2016,Let scientific data sharing become the new normal for Chinese ecologists,10.1002/ehs2.1218,journal article,2.1;5.2,yes,Table 2; section 4 or 5,yes
+bb0155,"Doorn et al., 2013",Doorn,2013,"Lies, damned lies and research data: Can data sharing prevent data fraud?",10.2218/ijdc.v8i1.256,journal article,2.2,yes,Table 2,yes
+bb0160,"Dubé and Paré, 2003",Dubé,2003,"Rigor in information systems positivist case research: Current practices, trends, and recommendations",,journal article,3.3,no,,no
+bb0165,"Elsayed and Saleh, 2018",Elsayed,2018,Research data management and sharing among researchers in Arab universities: An exploratory study,10.1177/0340035218785196,journal article,4.4;5.5.1.3,yes,Table 2; section 4 or 5,yes
+bb0170,"Enke et al., 2012",Enke,2012,The user's view on biodiversity data sharing - investigating facts of acceptance and requirements to realize a sustainable use of research data,10.1016/j.ecoinf.2012.03.004,journal article,1.1;5.5.1.2;5.5.1.3;5.5.2.1;5.5.3.1;5.5.3.2;5.5.3.4;5.5.4,yes,Table 2; section 4 or 5,yes
+bb0175,"European Commission, 2012",European Commission,2012,Scientific data: Open access to research results will boost Europe's innovation capacity,,other,2.2;5.2,no,section 4 or 5,yes
+bb0180,"Fecher et al., 2015",Fecher,2015,What drives academic data sharing?,10.1371/journal.pone.0118053,journal article,1;1.1;2.2;2.3;3.1;4.4;5.2;5.4.1;5.5.1.2;5.5.1.3;5.5.2.2;5.5.3.1;5.5.3.2;5.5.3.3;5.5.3.4,yes,Table 2; section 4 or 5,yes
+bb0185,"Fienberg et al., 1985",Fienberg,1985,Sharing research data,,book,2.1,no,,no
+bb2000,"Fisher and Fortmann, 2010",Fisher,2010,"Governing the data commons: Policy, practice, and the advancement of science",10.1016/j.im.2010.04.001,journal article,,yes,Table 2,yes
+bb0190,"Friedlander and Adler, 2006",Friedlander,2006,To stand the test of time: Long-term stewardship of digital data sets in science and engineering,,book,3.1,no,,no
+bb0195,"Fry et al., 2008",Fry,2008,Identifying benefits arising from the curation and open sharing of research data produced by UK higher education and research institutes,,book,4.4,yes,Table 2; section 4 or 5,yes
+bb0200,"Glaeser, 1990",Glaeser,1990,Scientific and technical data in a new era,,book,2.1,no,,no
+bb0205,"Guedon, 2015",Guedon,2015,Open data and science: Towards optimizing the research process,,other,1;1.1,yes,Table 2,yes
+bb0210,"Gupta, 2013",Gupta,2013,Fraud and misconduct in clinical research: A concern,10.4103/2229-3485.111800,journal article,5.4.1,no,section 4 or 5,yes
+bb0215,"Haddow et al., 2011",Haddow,2011,‘Nothing is really safe’: A focus group study on the processes of anonymizing and sharing of health data for research purposes,10.1111/j.1365-2753.2010.01488.x,journal article,5.5.3.4,no,section 4 or 5,yes
+bb0220,"Harding et al., 2013",Harding,2013,"Conducting research with tribal communities: Sovereignty, ethics, and data-sharing issues",10.1289/ehp.1103904,journal article,5.5.3.4,no,section 4 or 5,yes
+bb2070,"He, 2016",He,2016,Data sharing across research and public communities,,thesis,,yes,Table 2,yes
+bb0225,"Heidorn, 2008",Heidorn,2008,Shedding light on the dark data in the long tail of science,10.1353/lib.0.003,journal article,3.1,no,,no
+bb0230,"Heidorn, 2011",Heidorn,2011,The emerging role of libraries in data curation and E-science,10.1080/01930826.2011.601269,journal article,3.1,no,,no
+bb0235,"Higgins, 2011",Higgins,2011,Digital curation: The emergence of a new discipline,10.2218/ijdc.v6i2.191,journal article,4.7;5.5.1.1,no,section 4 or 5,yes
+bb0240,"Housewright et al., 2013",Housewright,2013,Ithaka S+ R US faculty survey 2012,,book,1.1,no,,no
+bb0245,"Houtkoop et al., 2018",Houtkoop,2018,Data sharing in psychology: A survey on barriers and preconditions,,journal article,5.2;5.5.2.1,yes,Table 2; section 4 or 5,yes
+bb0250,"Huang et al., 2012",Huang,2012,Willing or unwilling to share primary biodiversity data: Results and implications of an international survey,10.1111/j.1755-263x.2012.00259.x,journal article,5.5.2.3;5.5.3.1,yes,Table 2; section 4 or 5,yes
+bb0255,"Huang et al., 2013",Huang,2013,Biodiversity data sharing: Will peer- reviewed data papers work?,,journal article,5.5.3.1,no,section 4 or 5,yes
+bb0260,"Jeng et al., 2016",Jeng,2016,Toward a conceptual framework for data sharing practices in social sciences: A profile approach,,book chapter,5.5.3.2,yes,Table 2; section 4 or 5,yes
+bb0265,"Kambatla et al., 2014",Kambatla,2014,Trends in big data analytics,,journal article,2.1,no,,no
+bb0270,"Kaye et al., 2018",Kaye,2018,Including all voices in international data-sharing governance,10.1186/s40246-018-0143-9,journal article,2.1;5.2;5.4.2;5.5.3.1,yes,Table 2; section 4 or 5,yes
+bb0275,"Kitchenham, 2007",Kitchenham,2007,Guidelines for performing systematic literature reviews in software engineering,,book,3.3,no,,no
+bb0280,"Koltay, 2017",Koltay,2017,Data literacy for researchers and data librarians,10.1177/0961000615616450,journal article,5.5.2.1,no,section 4 or 5,yes
+bb0285,"Koopman, 2015",Koopman,2015,"Data archiving, management initiatives and expertise in the Biological Sciences Department (Master's thesis)",,thesis,1.1;2.2;2.3;3.1;5.2;5.3;5.5.3.3,no,section 4 or 5,yes
+bb0290,"Kostkova, 2018",Kostkova,2018,Disease surveillance data sharing for public health: The next ethical frontiers,10.1186/s40504-018-0078-x,journal article,5.5.3.4,yes,Table 2; section 4 or 5,yes
+bb0295,"Kowalczyk and Shankar, 2011",Kowalczyk,2011,Data sharing in the sciences,10.1002/aris.2011.1440450113,journal article,5.5.3.4,no,section 4 or 5,yes
+bb0300,"Levenson, 2010",Levenson,2010,When should pediatric biobanks share data?,10.1002/ajmg.a.33287,journal article,5.5.3.4,yes,Table 2; section 4 or 5,yes
+bb0305,"Matlatse, 2016",Matlatse,2016,An evaluation of a structured training event aimed at enhancing the research data management (RDM) knowledge and skills of library and information science (LIS) professionals in South African higher education institutions (HEIs) (Unpublished master's thesis),,thesis,1;1.1;2.2;2.3;3.1;5.2;5.3;5.5.1.1;5.5.3.3,yes,Table 2; section 4 or 5,yes
+bb0310,"Matteson et al., 2011",Matteson,2011,A systematic review of research on live chat service,10.5860/rusq.51n2.172,journal article,3.1,no,,no
+bb0315,"Mbuagbaw et al., 2017",Mbuagbaw,2017,Challenges to complete and useful data sharing,10.1186/s13063-017-1816-8,journal article,5.5.3.4,yes,Table 2; section 4 or 5,yes
+bb0320,"McCullough, 2009",McCullough,2009,Open access economics journals and the market for reproducible economic research,,journal article,4.4,yes,Table 2; section 4 or 5,yes
+bb0325,"McKibbon, 2006",McKibbon,2006,Systematic reviews and librarians,10.1353/lib.2006.0049,journal article,3;3.1;3.2;3.3,no,,no
+bb0330,"Mennes et al., 2013",Mennes,2013,Making data sharing work: The FCP/INDIexperience,10.1016/j.neuroimage.2012.10.064,journal article,5.5.3.4,yes,Table 2; section 4 or 5,yes
+bb0335,"Milia et al., 2012",Milia,2012,"Mine, yours, ours? Sharing data on human genetic variation",10.1371/journal.pone.0037552,journal article,5.5.1.2;5.5.1.4,no,section 4 or 5,yes
+bb0340,"Moher et al., 2009",Moher,2009,Preferred reporting items for systematic reviews and meta-analyses: The PRISMA statement,10.1136/bmj.b2535,journal article,,no,,no
+bb4000,"Mundel, 2014",Mundel,2014,Knowledge is power: Sharing information can accelerate global health impact,,book,,yes,Table 2,yes
+bb2040,Nelson (2009),Nelson,2009,Data sharing: Empty archives,,journal article,,yes,Table 2,yes
+bb0345,"Ng'eno, 2018",Ng'eno,2018,Research data management in Kenya's agricultural research institutes (unpublished D. Phil. Thesis),,thesis,2.3,no,section 4.3 country: kenya,yes
+bb0350,"Okoli and Schabram, 2010",Okoli,2010,A guide to conducting a systematic literature review of information systems research,,journal article,3.3,no,,no
+bb3010,"Ostell, 2009",Ostell,2009,Data sharing: Standards for bioinformatic cross-talk,,other,,yes,Table 2,yes
+bb0355,"Parr, 2007",Parr,2007,Open sourcing ecological data,10.1641/b570402,journal article,1.1;5.5.3.1;5.5.3.2,no,section 4 or 5,yes
+bb0360,"Pearce and Smith, 2011",Pearce,2011,Data sharing: Not as simple as it seems,10.1186/1476-069x-10-107,journal article,5.5.3.1,no,section 4 or 5,yes
+bb0365,"Peng et al., 2016",Peng,2016,Towards a paradigm for open and free sharing of scientific data on global change science in China,10.1002/ehs2.1225,journal article,5.2;5.3;5.5.3.3,yes,Table 2; section 4 or 5,yes
+bb0370,"Permanent Access to the Records in Europe, 2009",Permanent Access to the Records in Europe,2009,First insights into digital preservation of research output in Europe,,report,5.5.3.3,no,section 4 or 5,yes
+bb0375,"Perrino et al., 2013",Perrino,2013,Advancing science through collaborative data sharing and synthesis,,journal article,5.5.1.3,no,section 4 or 5,yes
+bb0380,"Pisani and AbouZahr, 2010",Pisani,2010,Sharing health data: Good intentions are not enough,10.2471/blt.09.074393,journal article,2.1;4.4,yes,Table 2; section 4 or 5,yes
+bb5000,"Pitt and Tang, 2013",Pitt,2013,What should be the data sharing policy of cognitive science?,10.1111/tops.12006,journal article,,yes,Table 2,yes
+bb0385,"Piwowar, 2011",Piwowar,2011,Who shares? Who doesn't? Factors associated with openly archiving raw research data,10.1371/journal.pone.0018657,journal article,5.5.2.1;5.5.3.1;5.5.3.2,no,section 4 or 5,yes
+bb2050,"Plengsaeng, Wehn and van der Zaag, 2014",Plengsaeng,2014,Data-sharing bottlenecks in transboundary integrated water resources management: A case study of the Mekong River Commission’s procedures for data sharing in the Thai context,,journal article,,yes,Table 2,yes
+bb0390,"Pryor, 2012",Pryor,2012,Managing research data,,book,2.1,no,,no
+bb3030,"Rohlfing and Poline, 2012",Rohlfing,2012,Why shared data should not be acknowledged on the author byline,,journal article,,yes,Table 2,yes
+bb0395,"Ross, 2016",Ross,2016,Clinical research data sharing: What an open science world means for researchers involved in evidence synthesis,10.1186/s13643-016-0334-1,journal article,2.1;2.2;5.2;5.4.2;5.5.3.2,yes,Table 2; section 4 or 5,yes
+bb0400,"Rowhani-Farid and Barnett, 2016",Rowhani-Farid,2016,Has open data arrived at the British medical journal (BMJ)? An observational study,10.1136/bmjopen-2016-011784,journal article,2.3,no,,no
+bb0405,"Rowhani-Farid et al., 2017",Rowhani-Farid,2017,What incentives increase data sharing in health and medical research? A systematic review,10.1186/s41073-017-0028-9,journal article,2.1,yes,Table 2,yes
+bb0410,"Royal Society, 2012",Royal Society,2012,Science as an open enterprise: Open data for open science,,book,2.1,no,,no
+bb0415,"Sansone and Rocca-Serra, 2012",Sansone,2012,On the evolving portfolio of community-standards and data sharing policies: Turning challenges into new opportunities,10.1186/2047-217x-1-10,journal article,1.1,yes,Table 2,yes
+bb0420,"Savage and Vickers, 2009",Savage,2009,Empirical study of data sharing by authors publishing in PLOS journals,10.1371/journal.pone.0007078,journal article,5.5.3.2,no,section 4 or 5,yes
+bb0425,"Sayogo and Pardo, 2013",Sayogo,2013,Exploring the determinants of scientific data sharing: Understanding the motivation to publish research data,10.1016/j.giq.2012.06.011,journal article,5.5.3.4,no,section 4 or 5,yes
+bb0430,"Schmidt et al., 2016",Schmidt,2016,Open data in global environmental research: The Belmont Forum's open data survey,10.1371/journal.pone.0146695,journal article,2.1;5.2;5.5.3.1,yes,Table 2; section 4 or 5,yes
+bb0435,"Schöpfel et al., 2018",Schöpfel,2018,Research data management in the French National Research Center (CNRS),10.1108/dta-01-2017-0005,journal article,5.2;5.5.3.3,yes,Table 2; section 4 or 5,yes
+bb0440,"Schumacher and VandeCreek, 2015",Schumacher,2015,Intellectual capital at risk: Data management practices and data loss by faculty members at five American universities,,journal article,1.1;5.5.2.1;5.5.3.3,no,section 4 or 5,yes
+bb0445,"Scott, 2014",Scott,2014,Research data management,10.5258/soton/374711,thesis,1.1,yes,Table 2,yes
+bb0450,"Shakeri, 2013",Shakeri,2013,Data curation perspectives and practices of researchers at Kent State University's Liquid Crystal Institute: A case study (Doctoral dissertation),,thesis,1.1;5.4.2;5.5.3.3;5.5.4.1,yes,Table 2; section 4 or 5,yes
+bb0455,"Sheather, 2009",Sheather,2009,Confidentiality and sharing health information,10.1136/bmj.b2160,journal article,5.5.3.4,no,section 4 or 5,yes
+bb0460,"Specht et al., 2015",Specht,2015,Data management challenges in analysis and synthesis in the ecosystem sciences,,journal article,5.5.2.1;5.5.3.2,no,section 4 or 5,yes
+bb0465,"Steen, 2011",Steen,2011,Retractions in the scientific literature: Is the incidence of research fraud increasing?,10.1136/jme.2010.040923,journal article,5.4.1,no,section 4 or 5,yes
+bb0470,"Takashima et al., 2018",Takashima,2018,Ethical concerns on sharing genomic data including patients' family members,10.1186/s12910-018-0310-5,journal article,5.5.3.4,yes,Table 2; section 4 or 5,yes
+bb0475,"Teeters et al., 2008",Teeters,2008,Data sharing for computational neuroscience,10.1007/s12021-008-9009-y,journal article,1.1;5.5.2.1,yes,Table 2; section 4 or 5,yes
+bb0480,"Tenopir et al., 2011",Tenopir,2011,Data sharing by scientists: Practices and perceptions,10.1371/journal.pone.0021101,journal article,2.3;4.1;5.4.2;5.5.1.1;5.5.1.4;5.5.2.2;5.5.3.3;5.5.4.1,yes,Table 2; section 4 or 5,yes
+bb0485,"Tucker, 2009",Tucker,2009,Motivating subjects: Data sharing in cancer research (unpublished doctoral dissertation). Virginia Polytechnic Institute and State University,,thesis,,yes,Table 2,yes
+bb0490,"Ullah and Ameen, 2018",Ullah,2018,Account of methodologies and methods applied in LIS research: A systematic review,10.1016/j.lisr.2018.03.002,journal article,3,no,,no
+bb0495,"Van Horn and Gazzaniga, 2013",Van Horn,2013,Why share data? Lessons learned from the fMRIDC,10.1016/j.neuroimage.2012.11.010,journal article,5.5.3.2,yes,Table 2; section 4 or 5,yes
+bb0500,"Volk et al., 2014",Volk,2014,Why is data sharing in collaborative natural resource efforts so hard and what can we do to improve it?,10.1007/s00267-014-0258-2,journal article,5.5.2.1;5.5.2.3;5.5.3.3,yes,Table 2; section 4 or 5,yes
+bb0505,"Wallis et al., 2013",Wallis,2013,"If we share data, will anyone use them? Data sharing and reuse in the long tail of science and technology",10.1371/journal.pone.0067332,journal article,1;1.1;2.1;5.5.2.1;5.5.3.1;5.5.3.3,yes,Table 2; section 4 or 5,yes
+bb0510,"Walters and Skinner, 2011",Walters,2011,New roles for new times: Digital curation for preservation,,book,1.1;5.5.2.3;5.5.4.1,yes,Table 2; section 4 or 5,yes
+bb0515,"Watson, 2015",Watson,2015,When will ‘open science’ become simply ‘science’?,10.1186/s13059-015-0669-2,journal article,2.1;4.4,yes,Table 2; section 4 or 5,yes
+bb0520,"Wicherts and Bakker, 2012",Wicherts,2012,Publish (your data) or (let the data) perish! Why not publish your data too?,,journal article,1,no,,no
+bb0525,"Wiley, 2018",Wiley,2018,Data sharing and engineering faculty: An analysis of selected publications,10.1080/0194262x.2018.1516596,journal article,5.2;5.5.3.1;5.5.3.2,yes,Table 2; section 4 or 5,yes
+bb0530,"Wittenberg and Elings, 2017",Wittenberg,2017,"Building a research data management service at the University of California, Berkeley: A tale of collaboration",10.1177/0340035216686982,journal article,5.5.3.4,yes,Table 2; section 4 or 5,yes
+bb0535,"Woolfrey, 2009",Woolfrey,2009,Archiving social survey data in Africa: An overview of African microdata curation and the role of survey data archives in data management in Africa (Unpublished doctoral dissertation),,thesis,1;5.4.3;5.5.2.2,yes,Table 2; section 4 or 5,yes
+bb0540,"Yoon, 2015",Yoon,2015,Data reuse and users' trust judgments: Toward trusted data curation (Unpublished doctoral dissertation),,thesis,2.1;5.4.2,yes,Table 2; section 4 or 5,yes
+bb2060,"Yoon and Schultz, 2017",Yoon,2017,Research data management services in academic libraries in the US: A content analysis of libraries’ websites,,journal article,,yes,Table 2,yes
+bb0545,"Zimmerman, 2008",Zimmerman,2008,New knowledge from old data: The role of standards in the sharing and reuse of ecological data,10.2307/29734058,journal article,5.5.1.3,no,section 4 or 5,yes
+bb0550,"Zvyagintseva, 2015",Zvyagintseva,2015,Articulating a vision for community-engaged data curation in the digital humanities,10.7939/r3m66s,thesis,5.2;5.4.2,yes,Table 2; section 4 or 5,yes

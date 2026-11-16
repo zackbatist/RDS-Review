@@ -14,13 +14,12 @@ format:
 - *A GPU server:* the local model that codes the reference set in step 1 and assigns indexing terms in step 2, started by `scripts/launch_rds_llm.sh` with the prompts in `scripts/`.
 - *`analysis/00-search-development.ipynb`:* ahead of `01-deduplication`, it builds every file that follows by fixed rules from the files above (`reference_sources.csv`, `counts.csv`, `verdict.csv`, `statement_matches.csv`, `terms.csv`, `term_syntax.csv`, `precision_screening.html`) and shows the outcomes of all three steps. It rebuilds them each time it runs.
 
-**Reproducibility:** every file comes from code in the repo, except three judgments, each recorded so it can be checked:
+**Reproducibility:** every file comes from code in the repo, except two judgments, each recorded so it can be checked:
 
-- the selection of the reference set from Chawinga and Zinn's reference list, with the section and page of each citation in `reference_candidates.csv`
 - the comparison of their criteria with the RDS-Review criteria, with page references, in `comparison.csv`
 - the precision screening, in `precision_sample_<database>.csv`
 
-The coding and the assignment of indexing terms are made by a local model, pinned to one version, with fixed prompts and settings, so anyone with the same model can rerun them. The run records the model, its digest, the Ollama version and the settings with its output. The databases keep indexing new records, so a rerun of step 3 months later returns somewhat different counts; the committed outputs and run dates record what each search returned.
+The reference set block reads the full text of Chawinga and Zinn (2019) through Elsevier's Article Retrieval API, which needs an Elsevier API key with full-text entitlement for the journal; it writes only bibliographic details and citation locations, never the paper's text. The coding and the assignment of indexing terms are made by a local model, pinned to one version, with fixed prompts and settings, so anyone with the same model can rerun them. The run records the model, its digest, the Ollama version and the settings with its output. The databases keep indexing new records, so a rerun of step 3 months later returns somewhat different counts; the committed outputs and run dates record what each search returned.
 
 ## Step 1. Comparability assessment
 
@@ -31,7 +30,7 @@ The coding and the assignment of indexing terms are made by a local model, pinne
   - *Publications by year* (Fig. 4, p. 113): 64 of their 105 sources date from 2007 to 2014 and 41 from 2015 to July 2018, the upper bounds for the development and test sets below.
   - *Source types* (section 3.1, p. 111; section 4, p. 112): they excluded conference papers, letters, editorials, book reviews, research notes and short communications. RDS-Review admits all source types, so their set can't supply terms for these.
   - *Search statements* (section 3.2, p. 111): four statements. Matched against the reference set in the method below, to show how much of their set their own statements reach.
-  - *Reference list and findings* (sections 4 and 5, Table 2, pp. 112–122): the paper gives no separate list of its 105 included sources, so the references cited as findings stand in for it, below.
+  - *Reference list, Table 2, sections 4 and 5, and Figs. 3 to 5* (pp. 112–122): the paper gives no list of its 105 included sources. The reference set is reconstructed from the paper's own evidence, below, and checked against its counts by type (section 4) and by year (Fig. 4).
 - **Inputs from RDS-Review, and their use:**
   - *Objective and questions* in the Research Protocol set the standard Chawinga and Zinn's aim is compared against.
   - *PCC table* in the Research Protocol and *Criteria* in `screening-guide.qmd` supply the fields for coding Chawinga and Zinn's included sources.
@@ -40,9 +39,14 @@ The coding and the assignment of indexing terms are made by a local model, pinne
   - *Date range, language limit and exclusions* in the Research Protocol set the In scope criteria below.
   - *Candidate terms table* on the search strategy page supplies fallback terms for a Practice value with no development set sources, in step 2.
 - **Reference set:**
-  1. **Select.** A block pulls the reference list of Chawinga and Zinn (2019) from Crossref. You mark each reference they cite as a finding in sections 4 and 5 and Table 2, leaving out references cited for methods or background, and record the section and page where each is cited, in `reference_candidates.csv`.
+  1. **Select.** The paper's list of included sources was not published: the Crossref record lists no supplementary material, and the first author's thesis, data deposits and profiles hold no list. The reference set block reads the paper's full text and reference list from Elsevier and selects every reference the paper identifies as an included source, by three rules:
+     - *Table 2:* references Table 2 names as sources for its themes, matched by first author and year, allowing a year either way only where the reference list holds no reference by that author with Table 2's year.
+     - *Sections 4 and 5:* references cited in the Results or the Discussion.
+     - *Section 4.3:* section 4.3 lists the countries with one included publication each; a listed country that no reference selected by the first two rules names in its title is supplied by the reference, dated 2007 to 2018, whose title names it.
+
+     It writes `reference_citations.csv`, with every reference in the paper, where it is cited, its type and the rule that selected it, and `reference_candidates.csv`, with the selected references.
   2. **Look up.** The lookups block checks each DOI against Crossref and OpenAlex, finds the PMID, and pulls the earliest publication date, the title, the abstract (from PubMed, then OpenAlex, then Crossref, then the Scopus Abstract Retrieval API), the MeSH headings with their NLM scope notes, the author keywords and the OpenAlex keywords. It writes `reference_lookups.csv` and `reference_indexing.csv`. Where a reference has no DOI, the lookups block searches by title, authors, year and venue. A reference whose DOI or metadata can't be verified is dropped and listed with the reason.
-  3. **Size.** Notebook 00 reports the size of the reference set against their 105.
+  3. **Size.** The reference set block reports the size of the reference set against their 105, by type against their 83 journal articles, 10 theses, 8 reports and 4 books, and by year against Fig. 4.
   4. **Split.** The reference set sources published 2007 to 2014 form the *development set*, which supplies terms in step 2. Those published 2015 to July 2018 form the *test set*, which measures coverage in step 3, so coverage is measured on sources the terms weren't drawn from.
 - **Local model:** runs on a GPU server with ten 24 GB GPUs. `scripts/launch_rds_llm.sh` starts an Ollama container on the GPUs it is given and loads the model; a model too large for one GPU is split across several. Models are stored in the folder `MODELS_DIR` names. The model is chosen before the coding run and pinned by its digest; `scripts/README.md` describes the launch script and the prompts.
 - **Coding:** the coding block sends each reference set source's title and abstract from `reference_lookups.csv` to the local model with `scripts/coding_prompt.md`, which holds the definitions below, at temperature 0 with a fixed seed. A source with no abstract is coded on its title, and its codes are marked so. Each coded value carries two things: the **passage** that supports it (the sentence from the title or abstract, or *none* where no sentence supports it), and the **term** in that passage that expresses the value, such as *secondary use* for *reuse* or *unwilling to share* for *reluctance* (*none* where the passage expresses the value without a distinct term).
@@ -75,7 +79,8 @@ The coding and the assignment of indexing terms are made by a local model, pinne
   4. **Verdict.** For each PCC part (*sharing*, *reuse*, each factor theme), state its coverage: *covered* when both the development set and the test set hold sources eligible apart from year coded for it; *development only*; *test only*; or *not covered*. The terms and coverage figures for a part are only as good as its verdict.
 - **Output:**
   - `comparison.csv`: the comparison table
-  - `reference_candidates.csv`: one row per reference set source, with the section and page in Chawinga and Zinn where it is cited as a finding
+  - `reference_citations.csv`: one row per reference in Chawinga and Zinn's reference list, with its first author, year, title, DOI, type, the sections and tables that cite it, and the rule that selected it, if any
+  - `reference_candidates.csv`: the rows of `reference_citations.csv` the rules select
   - `reference_lookups.csv`: one row per reference set source, with DOI status, PMID, earliest publication date, title, abstract and abstract source
   - `reference_indexing.csv`: one row per reference set source per term type, with its MeSH headings and their NLM scope notes, author keywords and OpenAlex keywords
   - `reference_codes.csv`: one row per coded value per source, with the source's DOI, the field, the value, the term, and the supporting passage with its location (title, abstract or *none*), and the model, digest, Ollama version, temperature and seed of the run
