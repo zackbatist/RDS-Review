@@ -1,6 +1,6 @@
 Albert 2012: Crossref, PMID -, abstract none
 Anane-Sarpong 2017: Crossref, PMID 28745008, abstract PubMed
-Anderson 2009: not found, PMID -, abstract none
+Anderson 2009: not found, PMID 19552235, abstract OpenAlex
 Bertzky 2009: found by title, PMID 18207633, abstract PubMed
 Bezuidenhout 2013: no DOI, PMID -, abstract none
 Bishoff 2015: Crossref, PMID -, abstract OpenAlex
@@ -98,12 +98,13 @@ Wittenberg 2017: Crossref, PMID -, abstract OpenAlex
 Woolfrey 2009: no DOI, PMID -, abstract none
 Yoon 2015: no DOI, PMID -, abstract none
 Yoon 2017: found by title, PMID -, abstract OpenAlex
-Zimmerman 2008: not found, PMID -, abstract none
+Zimmerman 2008: found by title, PMID -, abstract OpenAlex
 Zvyagintseva 2015: OpenAlex, PMID -, abstract OpenAlex
 
 references: 102
-DOI status: {'Crossref': 62, 'OpenAlex': 2, 'found by title': 19, 'no DOI': 17, 'not found': 2}
-with PMID: 42
-abstract source: {'OpenAlex': 37, 'PubMed': 39, 'Scopus': 5, 'none': 21}
-indexing terms: {'MeSH': 299, 'author keyword': 66, 'OpenAlex keyword': 685}
-MeSH headings with a scope note: 144 of 144
+DOI status: {'Crossref': 62, 'OpenAlex': 2, 'found by title': 20, 'no DOI': 17, 'not found': 1}
+with PMID: 43
+date source: {'PubMed or Crossref': 81, 'year cited': 21}
+abstract source: {'OpenAlex': 39, 'PubMed': 39, 'Scopus': 5, 'none': 19}
+indexing terms: {'MeSH': 306, 'author keyword': 66, 'OpenAlex keyword': 699}
+MeSH headings with a scope note: 145 of 145

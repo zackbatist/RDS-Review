@@ -107,22 +107,21 @@ refs = list(csv.DictReader(open(path("reference_candidates.csv"), encoding="utf-
 lookups, indexing = [], []
 for x in refs:
     doi = x["doi"].lower()
-    status = ""
-    w = {}
+    cr, w = {}, {}
     if doi:
         cr = crossref(doi)
         w = openalex_by_doi(doi)
         status = "Crossref" if cr else ("OpenAlex" if w else "not found")
-    else:
-        cr = {}
+    if not cr and not w:
+        # no DOI in the paper, or a DOI neither Crossref nor OpenAlex knows: search OpenAlex by title
         w = openalex_by_title(x["title"], x["year"], x["first_author"])
         if w.get("doi"):
             doi = w["doi"].replace("https://doi.org/", "").lower()
             cr = crossref(doi)
             status = "found by title"
-        else:
+        elif not doi:
             status = "no DOI"
-    pmid = pmid_for(doi, x["title"])
+    pmid = pmid_for("" if status == "not found" else doi, x["title"])
     pm = pubmed(pmid) if pmid else {}
     title = x["title"] or w.get("title") or (cr.get("title") or [""])[0]
     abstract, source = pm.get("abstract", ""), "PubMed"
@@ -134,10 +133,14 @@ for x in refs:
         abstract, source = scopus_abstract(doi), "Scopus"
     if not abstract:
         source = "none"
-    dates = [d for d in (pm.get("date", ""), w.get("publication_date") or "", crossref_date(cr)) if d]
+    # date: earliest of PubMed and Crossref, otherwise the year the paper cites
+    # (OpenAlex dates are left out: it writes 1 January where it knows only the year, and can carry a preprint's date)
+    dates = [d for d in (pm.get("date", ""), crossref_date(cr)) if d]
+    pub_date, date_source = (min(dates), "PubMed or Crossref") if dates else (x["year"], "year cited")
     lookups.append(dict(ref_id=x["ref_id"], first_author=x["first_author"], year_cited=x["year"], doi=doi,
                         doi_status=status, pmid=pmid, openalex_id=(w.get("id") or "").rsplit("/", 1)[-1],
-                        title=title, pub_date=min(dates) if dates else "", abstract_source=source, abstract=abstract))
+                        title=title, pub_date=pub_date, date_source=date_source,
+                        abstract_source=source, abstract=abstract))
     for term in pm.get("mesh", []):
         indexing.append(dict(ref_id=x["ref_id"], type="MeSH", term=term))
     for term in pm.get("keywords", []):
@@ -171,6 +174,7 @@ count = lambda key: {v: sum(1 for l in lookups if l[key] == v) for v in sorted({
 print("\nreferences:", len(lookups))
 print("DOI status:", count("doi_status"))
 print("with PMID:", sum(1 for l in lookups if l["pmid"]))
+print("date source:", count("date_source"))
 print("abstract source:", count("abstract_source"))
 print("indexing terms:", {t: sum(1 for i in indexing if i["type"] == t) for t in ("MeSH", "author keyword", "OpenAlex keyword")})
 print("MeSH headings with a scope note:", sum(1 for v in notes.values() if v), "of", len(notes))
