@@ -1,6 +1,6 @@
 # Search development log
 
-Work on the plan in `notes/2026-11-11-search-development-plan.qmd`, run unattended on the night of 11 to 12 November 2026.
+Work on the plan in `notes/search-development-plan.qmd`, run unattended on the night of 11 to 12 November 2026.
 
 ## Step 1. Comparability assessment: done
 
@@ -49,14 +49,14 @@ All seven PCC parts are *covered*. Reuse rests on 6 development and 4 test sourc
 
 ## Step 3. Command blocks: written, not run
 
-- **File.** `step3_blocks.md`: 1 keys file, 2 environment, 3 check files, 4 API test, 5 to 7 query blocks (one per database), 8 to 10 precision blocks.
+- **File.** `server_blocks.md`: 1 keys file, 2 environment, 3 check files, 4 API test, 5 to 7 query blocks (one per database), 8 to 10 precision blocks.
 - **Repository path assumed** to be `~/RDS-Review`. Change the `cd` line in every block if not.
 - **Environment.** The blocks use the environment the RDS-Review README sets out, `~/.venvs/rds-review`, installed from `requirements.txt`, which now includes `requests==2.34.2`.
 - **Outputs follow the plan.** Each query block writes `query_runs_<database>.csv` and `load_<database>.csv`, replaces its database's rows in `query_tests.csv` and `query_misses.csv`, and fills the step 3 columns of its database's *sharing* and *reuse* rows in `terms.csv`. Each precision block writes `precision_sample_<database>.csv` and records the seed in `query_tests.csv`. The precision columns of `query_tests.csv` stay empty until the screened samples come back; `analysis/00-search-development.ipynb` computes precision from the screened samples.
 - **Database names in file names** are `pubmed`, `scopus` and `web-of-science`, the names `data/raw/search_exports/README.md` uses.
 - **No API exports in `data/raw/search_exports/`.** The API loads hold identifiers, DOIs, titles and years only, and `01-deduplication.ipynb` needs full records exactly as exported. The review's exports come from each database's own interface as RIS files once the queries are settled.
 - **README to update.** `data/raw/search_exports/README.md` still names the `query` part of a file name as `q1` to `q4`, the four queries this work replaces.
-- **Checks done here.** Every embedded Python block compiles. The query and precision logic ran end to end against mocked API responses, and `analysis/00-search-development.ipynb` ran on the mocked results; the real APIs are untested until block 4 runs on citf-analysis.
+- **Checks done here.** Every embedded Python block compiles. The query and precision logic ran end to end against mocked API responses, and `analysis/00-search-development.ipynb` ran on the mocked results; the real APIs are untested until block 4 runs on the analysis server.
 - **Candidates deduplicated on written form.** Where two terms write the same search string in a database (a recorded term and an author keyword, say), the query block tests it once, and both rows in `terms.csv` get its results.
 - **Draft ties.** Highest added yield first, then fewer records added, then alphabetical.
 - **Precision seed** 20261112, fixed in the block. PubMed records take their abstracts from PubMed, then OpenAlex, then Crossref; Scopus and Web of Science records from OpenAlex, then Crossref.

@@ -1,6 +1,6 @@
-# Step 3 command blocks
+# Server blocks
 
-Paste each block into a terminal on citf-analysis. Each block moves into the repository, pulls, activates the environment, loads the keys and runs Python from a heredoc; nothing is saved as a `.py` file.
+Paste each block into a terminal on the analysis server. Each block moves into the repository, pulls, activates the environment, loads the keys and runs Python from a heredoc; nothing is saved as a `.py` file.
 
 **Check before running:** the blocks assume the repository is cloned at `~/RDS-Review`. If it lives elsewhere, change the `cd` line in every block.
 
@@ -59,7 +59,7 @@ mkdir -p data/search_tests
 timeout 1h python3 - 2>&1 <<'PYEOF' | tee data/search_tests/api_test_console.txt
 """Search functions shared by the RDS-Review query and precision blocks.
 
-Each block in step3_blocks.md pastes this file's contents ahead of its own code,
+Each block in server_blocks.md pastes this file's contents ahead of its own code,
 so nothing needs installing beyond requests.
 """
 import csv, json, os, random, re, time, datetime
@@ -301,7 +301,7 @@ mkdir -p data/search_tests
 timeout 10h python3 - 2>&1 <<'PYEOF' | tee data/search_tests/query_console_pubmed.txt
 """Search functions shared by the RDS-Review query and precision blocks.
 
-Each block in step3_blocks.md pastes this file's contents ahead of its own code,
+Each block in server_blocks.md pastes this file's contents ahead of its own code,
 so nothing needs installing beyond requests.
 """
 import csv, json, os, random, re, time, datetime
@@ -728,7 +728,7 @@ mkdir -p data/search_tests
 timeout 10h python3 - 2>&1 <<'PYEOF' | tee data/search_tests/query_console_scopus.txt
 """Search functions shared by the RDS-Review query and precision blocks.
 
-Each block in step3_blocks.md pastes this file's contents ahead of its own code,
+Each block in server_blocks.md pastes this file's contents ahead of its own code,
 so nothing needs installing beyond requests.
 """
 import csv, json, os, random, re, time, datetime
@@ -1155,7 +1155,7 @@ mkdir -p data/search_tests
 timeout 10h python3 - 2>&1 <<'PYEOF' | tee data/search_tests/query_console_web-of-science.txt
 """Search functions shared by the RDS-Review query and precision blocks.
 
-Each block in step3_blocks.md pastes this file's contents ahead of its own code,
+Each block in server_blocks.md pastes this file's contents ahead of its own code,
 so nothing needs installing beyond requests.
 """
 import csv, json, os, random, re, time, datetime
@@ -1582,7 +1582,7 @@ mkdir -p data/search_tests
 timeout 1h python3 - 2>&1 <<'PYEOF' | tee data/search_tests/precision_console_pubmed.txt
 """Search functions shared by the RDS-Review query and precision blocks.
 
-Each block in step3_blocks.md pastes this file's contents ahead of its own code,
+Each block in server_blocks.md pastes this file's contents ahead of its own code,
 so nothing needs installing beyond requests.
 """
 import csv, json, os, random, re, time, datetime
@@ -1886,7 +1886,7 @@ mkdir -p data/search_tests
 timeout 1h python3 - 2>&1 <<'PYEOF' | tee data/search_tests/precision_console_scopus.txt
 """Search functions shared by the RDS-Review query and precision blocks.
 
-Each block in step3_blocks.md pastes this file's contents ahead of its own code,
+Each block in server_blocks.md pastes this file's contents ahead of its own code,
 so nothing needs installing beyond requests.
 """
 import csv, json, os, random, re, time, datetime
@@ -2190,7 +2190,7 @@ mkdir -p data/search_tests
 timeout 1h python3 - 2>&1 <<'PYEOF' | tee data/search_tests/precision_console_web-of-science.txt
 """Search functions shared by the RDS-Review query and precision blocks.
 
-Each block in step3_blocks.md pastes this file's contents ahead of its own code,
+Each block in server_blocks.md pastes this file's contents ahead of its own code,
 so nothing needs installing beyond requests.
 """
 import csv, json, os, random, re, time, datetime
