@@ -175,7 +175,7 @@ upsert("query_tests.csv", [dict(
     note="test set ends in July 2018, so coverage of vocabulary from later years is untested")])
 
 # query_misses.csv: indexed test set sources not retrieved; development sources reached only by excluded terms
-codes = read("reference_codes.csv")
+codes = read(CODES)
 pterms = collections.defaultdict(list)
 for c in codes:
     if c["field"] == "Practice" and c["term"]:
