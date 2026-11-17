@@ -150,6 +150,16 @@ All seven PCC parts are *covered*. Reuse rests on 6 development and 4 test sourc
 - **Search statements**, against titles and abstracts: "research data sharing AND researchers" reaches 2 sources as phrases and 29 as separate words; "digital curation AND data sharing" none; "research data sharing AND open science" 1 and 8; "research data sharing AND open data" 0 and 17.
 - **Comparison.** `comparison.csv` lost its evidence column, whose counts came from my hand codes. It keeps the criteria and the relation, the recorded judgment; notebook 00 adds the current counts beside each criterion.
 
+## Notebook 00, step 2 files, 16 November 2026
+
+- **Built by the notebook.** Notebook 00 now builds `terms.csv` and `term_syntax.csv` from `reference_codes_qwen3.5-122b.csv`, `reference_indexing.csv` and `term_assignments_qwen3.5-122b.csv`, for the 60 development set sources, replacing the files I built by hand. `term_syntax.csv` holds 994 written forms; `terms.csv` holds 526 rows over the three databases.
+- **Candidates for step 3**, per database: 51 *sharing* and 21 *reuse* terms in PubMed, 50 and 20 in Scopus and Web of Science. The strongest: OpenAlex keyword "data sharing" (26 sources), MeSH Information Dissemination (15), recorded "data sharing" (14), and for *reuse*, OpenAlex keyword "data reuse" (8) and MeSH Access to Information (6).
+- **No fallback.** Every Practice value has development set sources of its own (*reuse*: 1 coded *reuse* alone, 16 coded *both*), so no fallback terms come from the Candidate terms table.
+- **Recorded terms from *both*.** A source coded *both* gives its one recorded term to *sharing* and *reuse*, so the *reuse* list carries sharing words such as "share their data". Step 3 tests *sharing* and *reuse* terms together, so this changes no query.
+- **Weak recorded terms.** The model recorded some terms that are not search terms, such as "use", "mine these data" and "re use, preservation and, particularly, data sharing". Step 3's yield rule decides on them.
+- **Truncation.** Single words truncate at their stem, so "challenges" becomes challeng\* and "databases" databas\*.
+- **Step 3 results stale.** `query_tests.csv`, `query_misses.csv` and the load and precision files still come from the first step 3 run, on the hand-built terms. `query.py` and `precision.py` need reworking for the new columns and `term_results.csv` before step 3 reruns.
+
 ## To do
 
 - **Artificial intelligence section of `research-protocol.qmd`.** The sentence "The query terms come from those codes." oversimplifies how the terms were selected. Rewrite it once step 3 has run, so it states the exact outcomes: which terms entered each query and how the yield, coverage and precision tests decided them.

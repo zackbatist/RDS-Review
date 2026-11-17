@@ -114,7 +114,8 @@ The reference set script reads the full text of Chawinga and Zinn (2019) through
   - *Sharing and reuse:* every term goes to step 3, which selects by database retrieval and load.
   - *Factor themes:* run separately for each database. Within each theme, taking terms in descending count, keep each one that matches a development set source no kept term matches. A source counts as matched by a MeSH term only if PubMed lists that heading for it, and by an author keyword only if it carries that keyword. A theme with no kept term takes its terms from `screening-guide.qmd`.
   - *Fallback:* a Practice value with no development set source, or whose development set sources all carry the other Practice value too (*both*), takes its matching terms from the Candidate terms table on the search strategy page, such as "data reuse" and "data re-use" for *reuse*.
-  - Codes with the term *none* contribute no terms.
+  - Codes with the term *none* contribute no terms, nor do codes with a problem from the coding checks.
+  - A recorded term from a source coded *both* sits under *sharing* and under *reuse*.
 - **Output:** `term_assignments_qwen3.5-122b.csv` from `indexing.py`; `term_syntax.csv` and `terms.csv`, built by notebook 00 from `reference_codes_qwen3.5-122b.csv`, `reference_indexing.csv` and `term_assignments_qwen3.5-122b.csv`.
   - `term_assignments_qwen3.5-122b.csv`, and `term_assignments_qwen3.8-27b.csv` from the smaller model: one row per distinct indexing term, with its type, its NLM scope note for MeSH headings, the value the model gave it and that value's theme, any problem with the reply, and the model file, the llama.cpp build, temperature, seed and date of the run; `scripts/launch_rds_llm.sh` gives the model file's revision and checksum.
   - `term_syntax.csv`: one row per normalised term per database, with the term, the variants it merges, and its written form.
