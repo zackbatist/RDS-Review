@@ -60,6 +60,24 @@ def scopus_abstract(eid):
     return (j.get("abstracts-retrieval-response", {}).get("coredata", {}).get("dc:description") or "").strip()
 
 
+def pubmed_abstract_by_doi(doi):
+    if not doi:
+        return ""
+    n, ids = pubmed_search(f"{doi}[doi]", retmax=2)
+    return pubmed_abstracts(ids).get(ids[0], "") if n == 1 else ""
+
+
+def scopus_abstract_by_doi(doi):
+    if not doi:
+        return ""
+    h = {"X-ELS-APIKey": os.environ["SCOPUS_API_KEY"], "Accept": "application/json"}
+    try:
+        j = _get(f"https://api.elsevier.com/content/abstract/doi/{doi}", dict(view="META_ABS"), h, pause=0.2).json()
+    except requests.HTTPError:
+        return ""
+    return (j.get("abstracts-retrieval-response", {}).get("coredata", {}).get("dc:description") or "").strip()
+
+
 rows = []
 for r in sample:
     a, srcname = pm_abs.get(r["id"], ""), "database"
@@ -72,6 +90,12 @@ for r in sample:
     if not a and DB == "Scopus":
         a = scopus_abstract(r["id"])
         srcname = "database" if a else ""
+    if not a and DB == "Web of Science":  # the Web of Science Starter API returns no abstracts
+        a = pubmed_abstract_by_doi(r.get("doi", ""))
+        srcname = "PubMed" if a else ""
+        if not a:
+            a = scopus_abstract_by_doi(r.get("doi", ""))
+            srcname = "Scopus" if a else ""
     srcname = srcname or "none"
     rows.append(dict(record_id=r["id"], doi=r.get("doi", ""), title=r.get("title", ""), year=r.get("year", ""),
                      abstract_source=srcname, abstract=a, decision="", exclusion_code=""))
