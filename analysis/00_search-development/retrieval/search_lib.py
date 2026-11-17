@@ -159,7 +159,7 @@ def count(db, q):
 
 
 def retrieved(db, q, sources):
-    """Keys of sources in `sources` that query q retrieves, sending identifiers in batches."""
+    """ref_ids of sources in `sources` that query q retrieves, sending identifiers in batches."""
     hit = set()
     srcs = [s for s in sources if testable(db, s)]
     for i in range(0, len(srcs), BATCH):
@@ -168,17 +168,17 @@ def retrieved(db, q, sources):
         if db == "PubMed":
             _, ids = pubmed_search(full, retmax=BATCH * 2)
             ids = set(ids)
-            hit |= {s["key"] for s in b if s["pmid"] in ids}
+            hit |= {s["ref_id"] for s in b if s["pmid"] in ids}
             rest = [s for s in b if not s["pmid"]]
             if rest and ids:
                 dois = {r["doi"] for r in pubmed_summary(list(ids)).values()}
-                hit |= {s["key"] for s in rest if s["doi"].lower() in dois}
+                hit |= {s["ref_id"] for s in rest if s["doi"].lower() in dois}
         elif db == "Scopus":
             dois = {r["doi"] for r in scopus_records(full)}
-            hit |= {s["key"] for s in b if s["doi"].lower() in dois}
+            hit |= {s["ref_id"] for s in b if s["doi"].lower() in dois}
         else:
             dois = {r["doi"] for r in wos_records(full)}
-            hit |= {s["key"] for s in b if s["doi"].lower() in dois}
+            hit |= {s["ref_id"] for s in b if s["doi"].lower() in dois}
     return hit
 
 
@@ -211,6 +211,7 @@ def write(name, rows):
         path(name).write_text("")
         return
     with open(path(name), "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=list(rows[0]))
+        fields = list(dict.fromkeys(k for r in rows for k in r))  # every column any row has, in first-seen order
+        w = csv.DictWriter(f, fieldnames=fields, restval="")
         w.writeheader()
         w.writerows(rows)

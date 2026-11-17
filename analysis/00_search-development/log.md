@@ -165,6 +165,13 @@ All seven PCC parts are *covered*. Reuse rests on 6 development and 4 test sourc
 - **In scope** now applies the screening guide's tier criterion: a source in another field is in scope only as a review (`source_type` *review*). 10 sources are in scope, down from 34. Reasons, first code per source in the codebook's order: *tier2-not-review* 50, *date* 20, *not-data-sharing* 13, *not-factors* 6, *not-research-data* 3.
 - **Eligible apart from year** leaves out `tier` as well as Year, because the query carries no field terms and the `tier` decision happens at screening. It is unchanged: 46 development and 34 test sources, so the verdict and the terms are unchanged.
 
+## Step 3 scripts for the new files, 16 November 2026
+
+- **`query.py`** reads sources by `ref_id`, takes the *sharing* and *reuse* terms from the rebuilt `terms.csv`, and writes its results for each term to `term_results.csv`, replacing that database's rows, in place of filling columns in `terms.csv`. `query_misses.csv` lists each source's recorded Practice terms from the codes of record.
+- **Coverage** adds the test set sources eligible apart from year, beside the whole test set and the In scope sources. With the tier criterion, only 10 sources are in scope, so the eligible sources (34) give the steadier measure, and they match the sources the yield rule uses in the development set.
+- **Shared files.** The writer for files the three databases share now keeps every column any row has, so rows from the first step 3 run don't block the new columns.
+- **Checked** against stand-in database responses for Scopus and PubMed: the term runs, threshold, draft, trim, coverage, load and all four output files.
+
 ## To do
 
 - **Artificial intelligence section of `research-protocol.qmd`.** The sentence "The query terms come from those codes." oversimplifies how the terms were selected. Rewrite it once step 3 has run, so it states the exact outcomes: which terms entered each query and how the yield, coverage and precision tests decided them.

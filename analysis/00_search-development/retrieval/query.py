@@ -128,23 +128,25 @@ for i in range(0, len([s for s in test if testable(DB, s)]), BATCH):
     clause = id_clause(DB, b)
     if DB == "PubMed":
         _, ids = pubmed_search(clause, retmax=BATCH * 2)
-        idx |= {s["key"] for s in b if s["pmid"] in set(ids)}
+        idx |= {s["ref_id"] for s in b if s["pmid"] in set(ids)}
         rest_b = [s for s in b if not s["pmid"]]
         if rest_b and ids:
             dois = {r["doi"] for r in pubmed_summary(ids).values()}
-            idx |= {s["key"] for s in rest_b if s["doi"].lower() in dois}
+            idx |= {s["ref_id"] for s in rest_b if s["doi"].lower() in dois}
     elif DB == "Scopus":
         dois = {r["doi"] for r in scopus_records(clause)}
-        idx |= {s["key"] for s in b if s["doi"].lower() in dois}
+        idx |= {s["ref_id"] for s in b if s["doi"].lower() in dois}
     else:
         dois = {r["doi"] for r in wos_records(clause)}
-        idx |= {s["key"] for s in b if s["doi"].lower() in dois}
-untestable = [s["key"] for s in test if not testable(DB, s)]
-idx_src = [s for s in test if s["key"] in idx]
+        idx |= {s["ref_id"] for s in b if s["doi"].lower() in dois}
+untestable = [s["ref_id"] for s in test if not testable(DB, s)]
+idx_src = [s for s in test if s["ref_id"] in idx]
 cov = retrieved(DB, final_q, idx_src)
 in_scope_idx = [s for s in idx_src if s["in_scope"] == "yes"]
+elig_idx = [s for s in idx_src if s["eligible_apart_from_year"] == "yes"]
 cov_all = wilson(len(cov), len(idx_src))
-cov_in = wilson(len([s for s in in_scope_idx if s["key"] in cov]), len(in_scope_idx))
+cov_in = wilson(len([s for s in in_scope_idx if s["ref_id"] in cov]), len(in_scope_idx))
+cov_el = wilson(len([s for s in elig_idx if s["ref_id"] in cov]), len(elig_idx))
 
 # item 9: load
 slug = {"PubMed": "pubmed", "Scopus": "scopus", "Web of Science": "web-of-science"}[DB]
@@ -168,41 +170,45 @@ upsert("query_tests.csv", [dict(
     development_yield=round(1000 * len(f_hits) / f_recs, 3) if f_recs else 0, load=len(recs),
     test_indexed=len(idx_src), test_untestable=len(untestable), test_retrieved=len(cov),
     coverage_test=cov_all[0], coverage_test_ci=f"{cov_all[1]}-{cov_all[2]}",
+    coverage_eligible=cov_el[0], coverage_eligible_ci=f"{cov_el[1]}-{cov_el[2]}",
     coverage_in_scope=cov_in[0], coverage_in_scope_ci=f"{cov_in[1]}-{cov_in[2]}",
     seed="", sample_included="", sample_excluded="", sample_undecidable="", sample_title_only="",
     precision_undecidable_included="", precision_undecidable_included_ci="",
     precision_undecidable_left_out="", precision_undecidable_left_out_ci="",
-    note="test set ends in July 2018, so coverage of vocabulary from later years is untested")])
+    note="test set ends in 2018, so coverage of vocabulary from later years is untested")])
 
 # query_misses.csv: indexed test set sources not retrieved; development sources reached only by excluded terms
 codes = read(CODES)
 pterms = collections.defaultdict(list)
 for c in codes:
-    if c["field"] == "Practice" and c["term"]:
-        pterms[c["key"]].append(c["term"])
-by_key = {s["key"]: s for s in src}
+    if c["field"] == "practice" and c["term"] not in ("", "none"):
+        pterms[c["ref_id"]].append(c["term"])
+by_key = {s["ref_id"]: s for s in src}
 excluded = [t for t in regular if status.get((t["term"], t["type"])) == "excluded by yield"]
 reach = collections.defaultdict(list)
 for t in excluded:
     for k in runs[(t["term"], t["type"])]["hits"]:
         reach[k].append(t["term"])
-miss = [s for s in idx_src if s["key"] not in cov] + [by_key[k] for k in sorted(set(reach) - f_hits)]
+miss = [s for s in idx_src if s["ref_id"] not in cov] + [by_key[k] for k in sorted(set(reach) - f_hits)]
 upsert("query_misses.csv", [dict(
-    database=DB, doi=s["doi"], title=s["title"], set=s["set"], in_scope=s["in_scope"],
-    sharing_reuse_terms="; ".join(pterms[s["key"]]), excluded_term="; ".join(reach.get(s["key"], [])))
+    database=DB, ref_id=s["ref_id"], doi=s["doi"], title=s["title"], set=s["set"],
+    eligible_apart_from_year=s["eligible_apart_from_year"], in_scope=s["in_scope"],
+    sharing_reuse_terms="; ".join(pterms[s["ref_id"]]), excluded_term="; ".join(reach.get(s["ref_id"], [])))
     for s in miss])
 
-# terms.csv: fill the step 3 columns for this database's sharing and reuse rows
+# term_results.csv: the step 3 results for this database's sharing and reuse terms; terms that write the
+# same search string share one result
 by_form = {wf(t): (t["term"], t["type"]) for t in cand}
-rows = read("terms.csv")
-for r in rows:
+results = []
+for r in terms:
     if r["database"] != DB or r["pcc_part"] not in ("sharing", "reuse"):
         continue
     k = by_form[syn[(r["term"], r["type"], DB)]]
-    r["development_yield"] = runs[k]["y"]
-    r["load_2015_2025"] = runs[k]["load"]
-    r["sources_added"] = added_at_entry.get(k, "") if status.get(k) in ("in query", "fallback in query") else ""
-    r["status"] = status.get(k, "excluded by yield")
-write("terms.csv", rows)
+    results.append(dict(database=DB, term=r["term"], type=r["type"], pcc_part=r["pcc_part"],
+                        written_form=syn[(r["term"], r["type"], DB)], development_yield=runs[k]["y"],
+                        load_2015_2025=runs[k]["load"],
+                        sources_added=added_at_entry.get(k, "") if status.get(k) in ("in query", "fallback in query") else "",
+                        status=status.get(k, "excluded by yield")))
+upsert("term_results.csv", results)
 print("final query:", final_q)
-print("load", len(recs), "coverage", cov_all, "in scope", cov_in)
+print("load", len(recs), "coverage", cov_all, "eligible", cov_el, "in scope", cov_in)
