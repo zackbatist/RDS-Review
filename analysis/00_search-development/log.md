@@ -186,6 +186,16 @@ All seven PCC parts are *covered*. Reuse rests on 6 development and 4 test sourc
 - **Misses accepted.** The eligible test set sources the queries miss use wording a phrase search can't predict: Watson 2015 ("making the results of that research available to everyone"), Specht et al. 2015 (data management challenges; "publish, access and re-use"), Chen and Wu 2017 ("research data management and sharing", which splits the phrase), and Wittenberg and Elings 2017 and Chiware and Mathe 2016 (research data management programmes). Catching them would take terms such as "data management", with loads in the tens of thousands. They stay missed and recorded.
 - **Two recorded phrases** in the Scopus and Web of Science queries, "make the data and code available" and "make data available", each reach the one development source whose abstract they come from, for almost no records. They pass the yield rule as it stands, add almost nothing to the load, and won't generalise.
 
+## Final queries and the precision screening page, 16 November 2026
+
+- **Final queries** (commit "Rerun step 3 with the reuse terms: final queries for PubMed, Scopus and Web of Science"):
+  - *PubMed:* `"data sharing"[tiab] OR "shared data"[tiab] OR "data re-use"[tiab] OR "data reuse"[tiab]`, load 8,824; test coverage 0.85 overall, 0.83 eligible apart from year (0.55 to 0.95), 1.0 in scope.
+  - *Scopus:* `TITLE-ABS-KEY("data sharing")`, "make the data and code available", "make data available" and "data re-use" OR "data reuse", load 33,089; coverage 0.76 overall, 0.83 eligible (0.64 to 0.93), 1.0 in scope.
+  - *Web of Science:* the same terms in `TS`, load 21,721; coverage 0.67 overall, 0.74 eligible (0.51 to 0.88), 0.89 in scope.
+  The reuse terms add 399 records in PubMed, 2,334 in Scopus and 1,879 in Web of Science.
+- **Web of Science abstracts.** `precision.py` now tries PubMed and then the Scopus Abstract Retrieval API by DOI for Web of Science records; the sample's records without an abstract fell from 25 to 5. PubMed's sample lacks 3, Scopus's none.
+- **Screening page.** Notebook 00 builds `precision_screening.html` in `data/processed/search-development/` from the three samples, the template `precision_screening_template.html` and the exclusion codes in `codebook.yml`. Decisions save in the browser; Export CSV writes each database's sample with the decisions, for `data/raw/search-development/`.
+
 ## To do
 
 - **Artificial intelligence section of `research-protocol.qmd`.** The sentence "The query terms come from those codes." oversimplifies how the terms were selected. Rewrite it once step 3 has run, so it states the exact outcomes: which terms entered each query and how the yield, coverage and precision tests decided them.
