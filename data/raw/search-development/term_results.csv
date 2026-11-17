@@ -1,0 +1,144 @@
+database,term,type,pcc_part,written_form,development_yield,load_2015_2025,sources_added,status
+PubMed,data sharing,OpenAlex keyword,sharing,"""data sharing""[tiab]",13.072,7915,14,in query
+PubMed,Information Dissemination,MeSH,sharing,"""Information Dissemination""[mh:noexp]",1.432,9584,,excluded by yield
+PubMed,data sharing,recorded,sharing,"""data sharing""[tiab]",13.072,7915,14,in query
+PubMed,research data sharing,OpenAlex keyword,sharing,"""research data sharing""[tiab]",142.857,72,,excluded by yield
+PubMed,biodiversity data sharing,OpenAlex keyword,sharing,"""biodiversity data sharing""[tiab]",0.0,2,,excluded by yield
+PubMed,health data sharing,OpenAlex keyword,sharing,"""health data sharing""[tiab]",0.0,191,,excluded by yield
+PubMed,share data,recorded,sharing,"""share data""[tiab]",35.533,872,,excluded by yield
+PubMed,data sharing,author keyword,sharing,"""data sharing""[tiab]",13.072,7915,14,in query
+PubMed,share their data,recorded,sharing,"""share their data""[tiab]",0,0,,excluded by yield
+PubMed,data access,OpenAlex keyword,sharing,"""data access""[tiab]",0.0,1805,,excluded by yield
+PubMed,data availability,OpenAlex keyword,sharing,"""data availability""[tiab]",0.0,3704,,excluded by yield
+PubMed,data curation,recorded,sharing,"""data curation""[tiab]",0.0,810,,excluded by yield
+PubMed,data dissemination,OpenAlex keyword,sharing,"""data dissemination""[tiab]",0.0,188,,excluded by yield
+PubMed,data publication,OpenAlex keyword,sharing,"""data publication""[tiab]",0.0,120,,excluded by yield
+PubMed,data sharing and reuse,recorded,sharing,"""data sharing and reuse""[tiab]",166.667,65,,excluded by yield
+PubMed,data sharing culture,OpenAlex keyword,sharing,"""data sharing culture""[tiab]",250.0,13,,excluded by yield
+PubMed,data sharing requirements,recorded,sharing,"""data sharing requirements""[tiab]",0.0,24,,excluded by yield
+PubMed,dataset publication,OpenAlex keyword,sharing,"""dataset publication""[tiab]",0.0,3,,excluded by yield
+PubMed,genomic data sharing,OpenAlex keyword,sharing,"""genomic data sharing""[tiab]",0.0,159,,excluded by yield
+PubMed,make data available,recorded,sharing,"""make data available""[tiab]",0,0,,excluded by yield
+PubMed,make the data and code available,recorded,sharing,"""make the data and code available""[tiab]",0,0,,excluded by yield
+PubMed,mine these data,recorded,sharing,"""mine these data""[tiab]",0,0,,excluded by yield
+PubMed,neuroimaging data sharing,OpenAlex keyword,sharing,"""neuroimaging data sharing""[tiab]",0.0,20,,excluded by yield
+PubMed,open access data sharing,OpenAlex keyword,sharing,"""open access data sharing""[tiab]",125.0,19,,excluded by yield
+PubMed,open data publishing,OpenAlex keyword,sharing,"""open data publishing""[tiab]",0,0,,excluded by yield
+PubMed,open data sharing,OpenAlex keyword,sharing,"""open data sharing""[tiab]",0.0,120,,excluded by yield
+PubMed,raw data access,OpenAlex keyword,sharing,"""raw data access""[tiab]",0.0,8,,excluded by yield
+PubMed,raw data sharing,OpenAlex keyword,sharing,"""raw data sharing""[tiab]",0,10,,excluded by yield
+PubMed,"re use, preservation and, particularly, data sharing",recorded,sharing,"""re use, preservation and, particularly, data sharing""[tiab]",0,0,,excluded by yield
+PubMed,recycling and combining data,recorded,sharing,"""recycling and combining data""[tiab]",0,0,,excluded by yield
+PubMed,research data dissemination,OpenAlex keyword,sharing,"""research data dissemination""[tiab]",0,2,,excluded by yield
+PubMed,share and reuse data,recorded,sharing,"""share and reuse data""[tiab]",0,0,,excluded by yield
+PubMed,shared data,OpenAlex keyword,sharing,"""shared data""[tiab]",10.101,623,1,in query
+PubMed,shared data,recorded,sharing,"""shared data""[tiab]",10.101,623,1,in query
+PubMed,sharing data,recorded,sharing,"""sharing data""[tiab]",7.905,970,,excluded by yield
+PubMed,sharing data and results,recorded,sharing,"""sharing data and results""[tiab]",0,0,,excluded by yield
+PubMed,sharing or reusing data,recorded,sharing,"""sharing or reusing data""[tiab]",0,0,,excluded by yield
+PubMed,data reuse,OpenAlex keyword,reuse,"""data reuse""[tiab]",0.0,475,,excluded by yield
+PubMed,Access to Information,MeSH,reuse,"""Access to Information""[mh:noexp]",1.172,2818,,excluded by yield
+PubMed,data sharing and reuse,recorded,reuse,"""data sharing and reuse""[tiab]",166.667,65,,excluded by yield
+PubMed,data sharing requirements,recorded,reuse,"""data sharing requirements""[tiab]",0.0,24,,excluded by yield
+PubMed,mine these data,recorded,reuse,"""mine these data""[tiab]",0,0,,excluded by yield
+PubMed,"re use, preservation and, particularly, data sharing",recorded,reuse,"""re use, preservation and, particularly, data sharing""[tiab]",0,0,,excluded by yield
+PubMed,reanalysis of published data,OpenAlex keyword,reuse,"""reanalysis of published data""[tiab]",0,0,,excluded by yield
+PubMed,recycling and combining data,recorded,reuse,"""recycling and combining data""[tiab]",0,0,,excluded by yield
+PubMed,research data reuse,OpenAlex keyword,reuse,"""research data reuse""[tiab]",0,0,,excluded by yield
+PubMed,share and reuse data,recorded,reuse,"""share and reuse data""[tiab]",0,0,,excluded by yield
+PubMed,share their data,recorded,reuse,"""share their data""[tiab]",0,0,,excluded by yield
+PubMed,sharing or reusing data,recorded,reuse,"""sharing or reusing data""[tiab]",0,0,,excluded by yield
+Scopus,data sharing,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""data sharing"")",5.319,30626,28,in query
+Scopus,data sharing,recorded,sharing,"TITLE-ABS-KEY(""data sharing"")",5.319,30626,28,in query
+Scopus,research data sharing,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""research data sharing"")",58.824,223,,excluded by yield
+Scopus,biodiversity data sharing,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""biodiversity data sharing"")",428.571,4,,excluded by yield
+Scopus,health data sharing,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""health data sharing"")",0.0,365,,excluded by yield
+Scopus,share data,recorded,sharing,"TITLE-ABS-KEY(""share data"")",10.204,4154,,excluded by yield
+Scopus,data sharing,author keyword,sharing,"TITLE-ABS-KEY(""data sharing"")",5.319,30626,28,in query
+Scopus,share their data,recorded,sharing,"TITLE-ABS-KEY(""share their data"")",26.144,867,,excluded by yield
+Scopus,data access,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""data access"")",0.187,13547,,excluded by yield
+Scopus,data availability,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""data availability"")",0.351,18574,,excluded by yield
+Scopus,data curation,recorded,sharing,"TITLE-ABS-KEY(""data curation"")",4.115,4204,,excluded by yield
+Scopus,data dissemination,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""data dissemination"")",0.0,2508,,excluded by yield
+Scopus,data publication,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""data publication"")",3.401,949,,excluded by yield
+Scopus,data sharing and reuse,recorded,sharing,"TITLE-ABS-KEY(""data sharing and reuse"")",83.333,172,,excluded by yield
+Scopus,data sharing culture,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""data sharing culture"")",111.111,29,,excluded by yield
+Scopus,data sharing requirements,recorded,sharing,"TITLE-ABS-KEY(""data sharing requirements"")",0.0,82,,excluded by yield
+Scopus,dataset publication,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""dataset publication"")",111.111,51,,excluded by yield
+Scopus,genomic data sharing,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""genomic data sharing"")",0.0,185,,excluded by yield
+Scopus,make data available,recorded,sharing,"TITLE-ABS-KEY(""make data available"")",21.277,140,1,in query
+Scopus,make the data and code available,recorded,sharing,"TITLE-ABS-KEY(""make the data and code available"")",1000.0,2,1,in query
+Scopus,mine these data,recorded,sharing,"TITLE-ABS-KEY(""mine these data"")",50.0,39,,excluded by yield
+Scopus,neuroimaging data sharing,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""neuroimaging data sharing"")",0.0,22,,excluded by yield
+Scopus,open access data sharing,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""open access data sharing"")",125.0,37,,excluded by yield
+Scopus,open data publishing,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""open data publishing"")",0.0,32,,excluded by yield
+Scopus,open data sharing,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""open data sharing"")",0.0,273,,excluded by yield
+Scopus,raw data access,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""raw data access"")",0.0,17,,excluded by yield
+Scopus,raw data sharing,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""raw data sharing"")",0.0,102,,excluded by yield
+Scopus,"re use, preservation and, particularly, data sharing",recorded,sharing,"TITLE-ABS-KEY(""re use, preservation and, particularly, data sharing"")",1000.0,0,,excluded by yield
+Scopus,recycling and combining data,recorded,sharing,"TITLE-ABS-KEY(""recycling and combining data"")",1000.0,0,,excluded by yield
+Scopus,research data dissemination,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""research data dissemination"")",0,11,,excluded by yield
+Scopus,share and reuse data,recorded,sharing,"TITLE-ABS-KEY(""share and reuse data"")",200.0,17,,excluded by yield
+Scopus,shared data,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""shared data"")",1.803,3164,,excluded by yield
+Scopus,shared data,recorded,sharing,"TITLE-ABS-KEY(""shared data"")",1.803,3164,,excluded by yield
+Scopus,sharing data,recorded,sharing,"TITLE-ABS-KEY(""sharing data"")",6.148,3864,,excluded by yield
+Scopus,sharing data and results,recorded,sharing,"TITLE-ABS-KEY(""sharing data and results"")",0.0,4,,excluded by yield
+Scopus,sharing or reusing data,recorded,sharing,"TITLE-ABS-KEY(""sharing or reusing data"")",500.0,0,,excluded by yield
+Scopus,data reuse,OpenAlex keyword,reuse,"TITLE-ABS-KEY(""data reuse"")",1.531,2544,,excluded by yield
+Scopus,data sharing and reuse,recorded,reuse,"TITLE-ABS-KEY(""data sharing and reuse"")",83.333,172,,excluded by yield
+Scopus,data sharing requirements,recorded,reuse,"TITLE-ABS-KEY(""data sharing requirements"")",0.0,82,,excluded by yield
+Scopus,mine these data,recorded,reuse,"TITLE-ABS-KEY(""mine these data"")",50.0,39,,excluded by yield
+Scopus,"re use, preservation and, particularly, data sharing",recorded,reuse,"TITLE-ABS-KEY(""re use, preservation and, particularly, data sharing"")",1000.0,0,,excluded by yield
+Scopus,reanalysis of published data,OpenAlex keyword,reuse,"TITLE-ABS-KEY(""reanalysis of published data"")",0.0,33,,excluded by yield
+Scopus,recycling and combining data,recorded,reuse,"TITLE-ABS-KEY(""recycling and combining data"")",1000.0,0,,excluded by yield
+Scopus,research data reuse,OpenAlex keyword,reuse,"TITLE-ABS-KEY(""research data reuse"")",0.0,19,,excluded by yield
+Scopus,share and reuse data,recorded,reuse,"TITLE-ABS-KEY(""share and reuse data"")",200.0,17,,excluded by yield
+Scopus,share their data,recorded,reuse,"TITLE-ABS-KEY(""share their data"")",26.144,867,,excluded by yield
+Scopus,sharing or reusing data,recorded,reuse,"TITLE-ABS-KEY(""sharing or reusing data"")",500.0,0,,excluded by yield
+Web of Science,data sharing,OpenAlex keyword,sharing,"TS=(""data sharing"")",9.154,19772,29,in query
+Web of Science,data sharing,recorded,sharing,"TS=(""data sharing"")",9.154,19772,29,in query
+Web of Science,research data sharing,OpenAlex keyword,sharing,"TS=(""research data sharing"")",83.333,154,,excluded by yield
+Web of Science,biodiversity data sharing,OpenAlex keyword,sharing,"TS=(""biodiversity data sharing"")",500.0,4,,excluded by yield
+Web of Science,health data sharing,OpenAlex keyword,sharing,"TS=(""health data sharing"")",0.0,283,,excluded by yield
+Web of Science,share data,recorded,sharing,"TS=(""share data"")",16.717,2838,,excluded by yield
+Web of Science,data sharing,author keyword,sharing,"TS=(""data sharing"")",9.154,19772,29,in query
+Web of Science,share their data,recorded,sharing,"TS=(""share their data"")",37.736,648,,excluded by yield
+Web of Science,data access,OpenAlex keyword,sharing,"TS=(""data access"")",0.319,9189,,excluded by yield
+Web of Science,data availability,OpenAlex keyword,sharing,"TS=(""data availability"")",0.478,12342,,excluded by yield
+Web of Science,data curation,recorded,sharing,"TS=(""data curation"")",5.0,1874,,excluded by yield
+Web of Science,data dissemination,OpenAlex keyword,sharing,"TS=(""data dissemination"")",0.0,2051,,excluded by yield
+Web of Science,data publication,OpenAlex keyword,sharing,"TS=(""data publication"")",6.667,621,,excluded by yield
+Web of Science,data sharing and reuse,recorded,sharing,"TS=(""data sharing and reuse"")",133.333,132,,excluded by yield
+Web of Science,data sharing culture,OpenAlex keyword,sharing,"TS=(""data sharing culture"")",166.667,24,,excluded by yield
+Web of Science,data sharing requirements,recorded,sharing,"TS=(""data sharing requirements"")",0.0,51,,excluded by yield
+Web of Science,dataset publication,OpenAlex keyword,sharing,"TS=(""dataset publication"")",0.0,17,,excluded by yield
+Web of Science,genomic data sharing,OpenAlex keyword,sharing,"TS=(""genomic data sharing"")",0.0,174,,excluded by yield
+Web of Science,make data available,recorded,sharing,"TS=(""make data available"")",41.667,75,1,in query
+Web of Science,make the data and code available,recorded,sharing,"TS=(""make the data and code available"")",1000.0,2,1,in query
+Web of Science,mine these data,recorded,sharing,"TS=(""mine these data"")",90.909,30,,excluded by yield
+Web of Science,neuroimaging data sharing,OpenAlex keyword,sharing,"TS=(""neuroimaging data sharing"")",0.0,19,,excluded by yield
+Web of Science,open access data sharing,OpenAlex keyword,sharing,"TS=(""open access data sharing"")",166.667,31,,excluded by yield
+Web of Science,open data publishing,OpenAlex keyword,sharing,"TS=(""open data publishing"")",0.0,15,,excluded by yield
+Web of Science,open data sharing,OpenAlex keyword,sharing,"TS=(""open data sharing"")",0.0,214,,excluded by yield
+Web of Science,raw data access,OpenAlex keyword,sharing,"TS=(""raw data access"")",0.0,17,,excluded by yield
+Web of Science,raw data sharing,OpenAlex keyword,sharing,"TS=(""raw data sharing"")",0.0,76,,excluded by yield
+Web of Science,"re use, preservation and, particularly, data sharing",recorded,sharing,"TS=(""re use, preservation and, particularly, data sharing"")",1000.0,0,,excluded by yield
+Web of Science,recycling and combining data,recorded,sharing,"TS=(""recycling and combining data"")",1000.0,0,,excluded by yield
+Web of Science,research data dissemination,OpenAlex keyword,sharing,"TS=(""research data dissemination"")",0,5,,excluded by yield
+Web of Science,share and reuse data,recorded,sharing,"TS=(""share and reuse data"")",500.0,10,,excluded by yield
+Web of Science,shared data,OpenAlex keyword,sharing,"TS=(""shared data"")",2.837,2426,,excluded by yield
+Web of Science,shared data,recorded,sharing,"TS=(""shared data"")",2.837,2426,,excluded by yield
+Web of Science,sharing data,recorded,sharing,"TS=(""sharing data"")",11.006,2727,,excluded by yield
+Web of Science,sharing data and results,recorded,sharing,"TS=(""sharing data and results"")",250.0,3,,excluded by yield
+Web of Science,sharing or reusing data,recorded,sharing,"TS=(""sharing or reusing data"")",1000.0,0,,excluded by yield
+Web of Science,data reuse,OpenAlex keyword,reuse,"TS=(""data reuse"")",2.169,2000,,excluded by yield
+Web of Science,data sharing and reuse,recorded,reuse,"TS=(""data sharing and reuse"")",133.333,132,,excluded by yield
+Web of Science,data sharing requirements,recorded,reuse,"TS=(""data sharing requirements"")",0.0,51,,excluded by yield
+Web of Science,mine these data,recorded,reuse,"TS=(""mine these data"")",90.909,30,,excluded by yield
+Web of Science,"re use, preservation and, particularly, data sharing",recorded,reuse,"TS=(""re use, preservation and, particularly, data sharing"")",1000.0,0,,excluded by yield
+Web of Science,reanalysis of published data,OpenAlex keyword,reuse,"TS=(""reanalysis of published data"")",0.0,32,,excluded by yield
+Web of Science,recycling and combining data,recorded,reuse,"TS=(""recycling and combining data"")",1000.0,0,,excluded by yield
+Web of Science,research data reuse,OpenAlex keyword,reuse,"TS=(""research data reuse"")",0.0,10,,excluded by yield
+Web of Science,share and reuse data,recorded,reuse,"TS=(""share and reuse data"")",500.0,10,,excluded by yield
+Web of Science,share their data,recorded,reuse,"TS=(""share their data"")",37.736,648,,excluded by yield
+Web of Science,sharing or reusing data,recorded,reuse,"TS=(""sharing or reusing data"")",1000.0,0,,excluded by yield

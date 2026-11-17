@@ -1,41 +1,42 @@
 step,term,type,records_2007_2014,dev_sources,yield_per_1000,load_2015_2025,keys
-term run,data reuse,fallback,63,0,0.0,525,
-term run,Information Dissemination,MeSH,7683,15,1.952,9584,bezuidenhout2013;brakewood2013;coady2013;harding2013;mennes2013;milia2012;pearce2011;pisani2010;pitt2013;piwowar2011;rohlfing2012;tenopir2011;vanhorn2013;volk2014;wallis2013
-term run,data sharing,recorded,1071,17,15.873,7915,bezuidenhout2013;brakewood2013;coady2013;harding2013;mennes2013;milia2012;pearce2011;pisani2010;pitt2013;piwowar2011;sansone2012;savage2009;teeters2008;tenopir2011;vanhorn2013;volk2014;wallis2013
-term run,Access to Information,MeSH,3412,4,1.172,2818,pearce2011;savage2009;teeters2008;tenopir2011
-term run,sharing data,recorded,253,4,15.81,970,chandramohan2008;cooper2007;milia2012;rohlfing2012
-term run,share data,recorded,197,8,40.609,872,brakewood2013;pearce2011;pisani2010;piwowar2011;sansone2012;savage2009;vanhorn2013;wallis2013
-term run,biodiversity data sharing,recorded,1,0,0.0,2,
-term run,research data sharing,OpenAlex keyword,7,1,142.857,72,piwowar2011
-term run,collaborative data sharing,recorded,5,0,0.0,48,
-term run,data commons,recorded,3,0,0.0,367,
-term run,data sharing and reuse,recorded,6,1,166.667,65,wallis2013
-term run,full disclosure,recorded,218,0,0.0,277,
-term run,genetic data sharing,recorded,2,0,0.0,22,
+term run,data sharing,OpenAlex keyword,1071,14,13.072,7915,bb0330;bb0335;bb0360;bb0375;bb0380;bb0385;bb0415;bb0420;bb0475;bb0480;bb0495;bb0500;bb0505;bb5000
+term run,Information Dissemination,MeSH,7683,11,1.432,9584,bb0330;bb0335;bb0360;bb0380;bb0385;bb0480;bb0495;bb0500;bb0505;bb3030;bb5000
+term run,research data sharing,OpenAlex keyword,7,1,142.857,72,bb0385
+term run,biodiversity data sharing,OpenAlex keyword,1,0,0.0,2,
+term run,health data sharing,OpenAlex keyword,8,0,0.0,191,
+term run,share data,recorded,197,7,35.533,872,bb0360;bb0380;bb0385;bb0415;bb0420;bb0495;bb0505
+term run,share their data,recorded,0,0,0,0,
+term run,data access,OpenAlex keyword,332,0,0.0,1805,
+term run,data availability,OpenAlex keyword,428,0,0.0,3704,
+term run,data curation,recorded,63,0,0.0,810,
+term run,data dissemination,OpenAlex keyword,50,0,0.0,188,
+term run,data publication,OpenAlex keyword,43,0,0.0,120,
+term run,data sharing and reuse,recorded,6,1,166.667,65,bb0505
+term run,data sharing culture,OpenAlex keyword,4,1,250.0,13,bb0415
+term run,data sharing requirements,recorded,3,0,0.0,24,
+term run,dataset publication,OpenAlex keyword,1,0,0.0,3,
 term run,genomic data sharing,OpenAlex keyword,13,0,0.0,159,
-term run,online publication of data,recorded,0,0,0,0,
-term run,open access data sharing,recorded,8,1,125.0,19,mennes2013
-term run,open access to research results,recorded,0,0,0,0,
+term run,make data available,recorded,0,0,0,0,
+term run,make the data and code available,recorded,0,0,0,0,
+term run,mine these data,recorded,0,0,0,0,
+term run,neuroimaging data sharing,OpenAlex keyword,3,0,0.0,20,
+term run,open access data sharing,OpenAlex keyword,8,1,125.0,19,bb0330
 term run,open data publishing,OpenAlex keyword,0,0,0,0,
-term run,open sharing of research data,recorded,0,0,0,0,
-term run,openly archiving raw research data,recorded,0,0,0,0,
-term run,publish data,recorded,21,0,0.0,64,
-term run,re use,recorded,489,1,2.045,1354,tenopir2011
-term run,scientific data sharing,recorded,3,0,0.0,16,
-term run,secondary data analysis,recorded,1185,1,0.844,5913,brakewood2013
-term run,shared data,recorded,99,2,20.202,623,bezuidenhout2013;rohlfing2012
-term run,sharing and reuse,recorded,0,0,0,4,
-term run,sharing health information,recorded,16,0,0.0,115,
-term run,sharing information,recorded,372,0,0.0,1149,
-term run,sharing of health data,recorded,0,0,0,0,
-term run,sharing of primary datasets,recorded,0,0,0,0,
-term run,sharing of raw data,recorded,0,0,0,0,
-term run,sharing research data,recorded,9,0,0.0,41,
-term run,sharing their primary biodiversity data,recorded,0,0,0,0,
-term run,"use, compare, manipulate",recorded,0,0,0,0,
+term run,open data sharing,OpenAlex keyword,11,0,0.0,120,
+term run,raw data access,OpenAlex keyword,2,0,0.0,8,
+term run,raw data sharing,OpenAlex keyword,0,0,0,10,
+term run,"re use, preservation and, particularly, data sharing",recorded,0,0,0,0,
+term run,recycling and combining data,recorded,0,0,0,0,
+term run,research data dissemination,OpenAlex keyword,0,0,0,2,
+term run,share and reuse data,recorded,0,0,0,0,
+term run,shared data,OpenAlex keyword,99,1,10.101,623,bb3030
+term run,sharing data,recorded,253,2,7.905,970,bb0335;bb3030
+term run,sharing data and results,recorded,0,0,0,0,
+term run,sharing or reusing data,recorded,0,0,0,0,
 term run,data reuse,OpenAlex keyword,54,0,0.0,475,
+term run,Access to Information,MeSH,3412,4,1.172,2818,bb0360;bb0420;bb0475;bb0480
 term run,reanalysis of published data,OpenAlex keyword,0,0,0,0,
 term run,research data reuse,OpenAlex keyword,0,0,0,0,
-threshold,(all regular candidates),,14010,20,1.428,,bezuidenhout2013;brakewood2013;chandramohan2008;coady2013;cooper2007;harding2013;mennes2013;milia2012;pearce2011;pisani2010;pitt2013;piwowar2011;rohlfing2012;sansone2012;savage2009;teeters2008;tenopir2011;vanhorn2013;volk2014;wallis2013
-draft start,data sharing,recorded,1071,17,,,
-draft add,sharing data,recorded,1276,20,14.634,,added 3 sources for 205 records
+threshold,(all regular candidates),,12622,15,1.188,,bb0330;bb0335;bb0360;bb0375;bb0380;bb0385;bb0415;bb0420;bb0475;bb0480;bb0495;bb0500;bb0505;bb3030;bb5000
+draft start,data sharing,OpenAlex keyword,1071,14,,,
+draft add,shared data,OpenAlex keyword,1157,15,11.628,,added 1 sources for 86 records

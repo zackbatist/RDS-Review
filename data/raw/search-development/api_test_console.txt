@@ -1,0 +1,12 @@
+PubMed
+  doi: (1, ['25714752'])
+  [tiab]: (1, ['25714752'])
+  [mh:noexp]: (1, ['25714752'])
+  date limit: 1071
+Scopus
+  hits: 1 ['What drives academic data sharing?']
+  date limit: 5263
+  X-RateLimit-Remaining: 19117 of 20000
+Web of Science
+  hits: 1 ['What Drives Academic Data Sharing?']
+  date limit: 3168

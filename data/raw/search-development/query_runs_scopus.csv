@@ -1,39 +1,41 @@
 step,term,type,records_2007_2014,dev_sources,yield_per_1000,load_2015_2025,keys
-term run,data reuse,fallback,694,0,0.0,2666,
-term run,data sharing,recorded,5260,23,4.373,30616,bezuidenhout2013;borgman2012;brakewood2013;coady2013;enke2012;fisher2010;harding2013;huang2012;mennes2013;milia2012;pearce2011;pisani2010;pitt2013;piwowar2011;rohlfing2012;sansone2012;savage2009;sayogo2013;teeters2008;tenopir2011;vanhorn2013;volk2014;wallis2013
-term run,sharing data,recorded,976,5,5.123,3864,borgman2012;chandramohan2008;milia2012;rohlfing2012;tenopir2011
-term run,share data,recorded,1078,10,9.276,4155,brakewood2013;enke2012;pearce2011;pisani2010;piwowar2011;sansone2012;savage2009;sayogo2013;vanhorn2013;wallis2013
-term run,biodiversity data sharing,recorded,7,2,285.714,4,enke2012;huang2012
-term run,research data sharing,OpenAlex keyword,17,1,58.824,223,piwowar2011
-term run,collaborative data sharing,recorded,37,0,0.0,141,
-term run,data commons,recorded,151,1,6.623,891,fisher2010
-term run,data sharing and reuse,recorded,24,2,83.333,172,enke2012;wallis2013
-term run,full disclosure,recorded,432,0,0.0,710,
-term run,genetic data sharing,recorded,1,0,0.0,33,
+term run,data sharing,OpenAlex keyword,5264,28,5.319,30626,bb0025;bb0035;bb0040;bb0090;bb0120;bb0170;bb0220;bb0250;bb0255;bb0330;bb0335;bb0360;bb0375;bb0380;bb0385;bb0415;bb0420;bb0425;bb0475;bb0480;bb0495;bb0500;bb0505;bb0545;bb2000;bb2050;bb3030;bb5000
+term run,research data sharing,OpenAlex keyword,17,1,58.824,223,bb0385
+term run,biodiversity data sharing,OpenAlex keyword,7,3,428.571,4,bb0170;bb0250;bb0255
+term run,health data sharing,OpenAlex keyword,11,0,0.0,365,
+term run,share data,recorded,1078,11,10.204,4154,bb0025;bb0040;bb0170;bb0360;bb0380;bb0385;bb0415;bb0420;bb0425;bb0495;bb0505
+term run,share their data,recorded,153,4,26.144,867,bb0375;bb0420;bb0480;bb0505
+term run,data access,OpenAlex keyword,5355,1,0.187,13547,bb0115
+term run,data availability,OpenAlex keyword,2852,1,0.351,18574,bb0115
+term run,data curation,recorded,486,2,4.115,4204,bb0035;bb0120
+term run,data dissemination,OpenAlex keyword,1846,0,0.0,2508,
+term run,data publication,OpenAlex keyword,294,1,3.401,949,bb0115
+term run,data sharing and reuse,recorded,24,2,83.333,172,bb0170;bb0505
+term run,data sharing culture,OpenAlex keyword,9,1,111.111,29,bb0415
+term run,data sharing requirements,recorded,10,0,0.0,82,
+term run,dataset publication,OpenAlex keyword,9,1,111.111,51,bb3030
 term run,genomic data sharing,OpenAlex keyword,11,0,0.0,185,
-term run,online publication of data,recorded,2,0,0.0,4,
-term run,open access data sharing,recorded,8,1,125.0,37,mennes2013
-term run,open access to research results,recorded,4,0,0.0,7,
+term run,make data available,recorded,47,1,21.277,140,bb0115
+term run,make the data and code available,recorded,1,1,1000.0,2,bb0320
+term run,mine these data,recorded,20,1,50.0,39,bb0035
+term run,neuroimaging data sharing,OpenAlex keyword,3,0,0.0,22,
+term run,open access data sharing,OpenAlex keyword,8,1,125.0,37,bb0330
 term run,open data publishing,OpenAlex keyword,4,0,0.0,32,
-term run,open sharing of research data,recorded,0,0,0,2,
-term run,openly archiving raw research data,recorded,1,1,1000.0,0,piwowar2011
-term run,publish data,recorded,123,1,8.13,282,sayogo2013
-term run,re use,recorded,5213,2,0.384,8384,enke2012;tenopir2011
-term run,scientific data sharing,recorded,55,1,18.182,122,sayogo2013
-term run,secondary data analysis,recorded,1687,1,0.593,9140,brakewood2013
-term run,shared data,recorded,1108,3,2.708,3164,bezuidenhout2013;rohlfing2012;sayogo2013
-term run,sharing and reuse,recorded,408,2,4.902,642,enke2012;wallis2013
-term run,sharing health information,recorded,32,0,0.0,163,
-term run,sharing information,recorded,2154,0,0.0,4985,
-term run,sharing of health data,recorded,11,1,90.909,87,haddow2011
-term run,sharing of primary datasets,recorded,1,1,1000.0,1,milia2012
-term run,sharing of raw data,recorded,7,1,142.857,55,pitt2013
-term run,sharing research data,recorded,30,1,33.333,124,borgman2012
-term run,sharing their primary biodiversity data,recorded,1,1,1000.0,0,huang2012
-term run,"use, compare, manipulate",recorded,0,0,0,0,
-term run,data reuse,OpenAlex keyword,653,0,0.0,2544,
+term run,open data sharing,OpenAlex keyword,22,0,0.0,273,
+term run,raw data access,OpenAlex keyword,6,0,0.0,17,
+term run,raw data sharing,OpenAlex keyword,1,0,0.0,102,
+term run,"re use, preservation and, particularly, data sharing",recorded,1,1,1000.0,0,bb0480
+term run,recycling and combining data,recorded,1,1,1000.0,0,bb0380
+term run,research data dissemination,OpenAlex keyword,0,0,0,11,
+term run,share and reuse data,recorded,5,1,200.0,17,bb0505
+term run,shared data,OpenAlex keyword,1109,2,1.803,3164,bb0425;bb3030
+term run,sharing data,recorded,976,6,6.148,3864,bb0025;bb0035;bb0335;bb0480;bb2050;bb3030
+term run,sharing data and results,recorded,1,0,0.0,4,
+term run,sharing or reusing data,recorded,2,1,500.0,0,bb0385
+term run,data reuse,OpenAlex keyword,653,1,1.531,2544,bb0545
 term run,reanalysis of published data,OpenAlex keyword,10,0,0.0,33,
 term run,research data reuse,OpenAlex keyword,3,0,0.0,19,
-threshold,(all regular candidates),,18491,25,1.352,,bezuidenhout2013;borgman2012;brakewood2013;chandramohan2008;coady2013;enke2012;fisher2010;haddow2011;harding2013;huang2012;mennes2013;milia2012;pearce2011;pisani2010;pitt2013;piwowar2011;rohlfing2012;sansone2012;savage2009;sayogo2013;teeters2008;tenopir2011;vanhorn2013;volk2014;wallis2013
-draft start,data sharing,recorded,5260,23,,,
-draft add,sharing of health data,recorded,5270,24,100.0,,added 1 sources for 10 records
+threshold,(all regular candidates),,18774,30,1.598,,bb0025;bb0035;bb0040;bb0090;bb0115;bb0120;bb0170;bb0220;bb0250;bb0255;bb0320;bb0330;bb0335;bb0360;bb0375;bb0380;bb0385;bb0415;bb0420;bb0425;bb0475;bb0480;bb0495;bb0500;bb0505;bb0545;bb2000;bb2050;bb3030;bb5000
+draft start,data sharing,OpenAlex keyword,5264,28,,,
+draft add,make the data and code available,recorded,5265,29,1000.0,,added 1 sources for 1 records
+draft add,make data available,recorded,5309,30,22.727,,added 1 sources for 44 records

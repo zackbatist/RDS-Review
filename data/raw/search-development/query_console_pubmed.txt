@@ -1,41 +1,42 @@
-term run data reuse 63 0 525
-term run Information Dissemination 7683 15 9584
-term run data sharing 1071 17 7915
-term run Access to Information 3412 4 2818
-term run sharing data 253 4 970
-term run share data 197 8 872
-term run biodiversity data sharing 1 0 2
+term run data sharing 1071 14 7915
+term run Information Dissemination 7683 11 9584
 term run research data sharing 7 1 72
-term run collaborative data sharing 5 0 48
-term run data commons 3 0 367
+term run biodiversity data sharing 1 0 2
+term run health data sharing 8 0 191
+term run share data 197 7 872
+term run share their data 0 0 0
+term run data access 332 0 1805
+term run data availability 428 0 3704
+term run data curation 63 0 810
+term run data dissemination 50 0 188
+term run data publication 43 0 120
 term run data sharing and reuse 6 1 65
-term run full disclosure 218 0 277
-term run genetic data sharing 2 0 22
+term run data sharing culture 4 1 13
+term run data sharing requirements 3 0 24
+term run dataset publication 1 0 3
 term run genomic data sharing 13 0 159
-term run online publication of data 0 0 0
+term run make data available 0 0 0
+term run make the data and code available 0 0 0
+term run mine these data 0 0 0
+term run neuroimaging data sharing 3 0 20
 term run open access data sharing 8 1 19
-term run open access to research results 0 0 0
 term run open data publishing 0 0 0
-term run open sharing of research data 0 0 0
-term run openly archiving raw research data 0 0 0
-term run publish data 21 0 64
-term run re use 489 1 1354
-term run scientific data sharing 3 0 16
-term run secondary data analysis 1185 1 5913
-term run shared data 99 2 623
-term run sharing and reuse 0 0 4
-term run sharing health information 16 0 115
-term run sharing information 372 0 1149
-term run sharing of health data 0 0 0
-term run sharing of primary datasets 0 0 0
-term run sharing of raw data 0 0 0
-term run sharing research data 9 0 41
-term run sharing their primary biodiversity data 0 0 0
-term run use, compare, manipulate 0 0 0
+term run open data sharing 11 0 120
+term run raw data access 2 0 8
+term run raw data sharing 0 0 10
+term run re use, preservation and, particularly, data sharing 0 0 0
+term run recycling and combining data 0 0 0
+term run research data dissemination 0 0 2
+term run share and reuse data 0 0 0
+term run shared data 99 1 623
+term run sharing data 253 2 970
+term run sharing data and results 0 0 0
+term run sharing or reusing data 0 0 0
 term run data reuse 54 0 475
+term run Access to Information 3412 4 2818
 term run reanalysis of published data 0 0 0
 term run research data reuse 0 0 0
-threshold 1.428
-added sharing data
-final query: ("data sharing"[tiab]) OR ("sharing data"[tiab]) OR ("data reuse"[tiab] OR "data re-use"[tiab])
-load 8970 coverage (0.917, 0.646, 0.985) in scope (0.917, 0.646, 0.985)
+threshold 1.188
+added shared data
+final query: ("data sharing"[tiab]) OR ("shared data"[tiab])
+load 8425 coverage (0.846, 0.578, 0.957) eligible (0.833, 0.552, 0.953) in scope (1.0, 0.676, 1)

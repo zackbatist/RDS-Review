@@ -1,0 +1,41 @@
+term run data sharing 3168 29 19772
+term run research data sharing 12 1 154
+term run biodiversity data sharing 6 3 4
+term run health data sharing 9 0 283
+term run share data 658 11 2838
+term run share their data 106 4 648
+term run data access 3131 1 9189
+term run data availability 2094 1 12342
+term run data curation 200 1 1874
+term run data dissemination 1234 0 2051
+term run data publication 150 1 621
+term run data sharing and reuse 15 2 132
+term run data sharing culture 6 1 24
+term run data sharing requirements 7 0 51
+term run dataset publication 3 0 17
+term run genomic data sharing 12 0 174
+term run make data available 24 1 75
+term run make the data and code available 1 1 2
+term run mine these data 11 1 30
+term run neuroimaging data sharing 3 0 19
+term run open access data sharing 6 1 31
+term run open data publishing 1 0 15
+term run open data sharing 15 0 214
+term run raw data access 3 0 17
+term run raw data sharing 1 0 76
+term run re use, preservation and, particularly, data sharing 1 1 0
+term run recycling and combining data 1 1 0
+term run research data dissemination 0 0 5
+term run share and reuse data 2 1 10
+term run shared data 705 2 2426
+term run sharing data 636 7 2727
+term run sharing data and results 4 1 3
+term run sharing or reusing data 1 1 0
+term run data reuse 461 1 2000
+term run reanalysis of published data 11 0 32
+term run research data reuse 1 0 10
+threshold 2.623
+added make the data and code available
+added make data available
+final query: (TS=("data sharing")) OR (TS=("make the data and code available")) OR (TS=("make data available"))
+load 19842 coverage (0.667, 0.467, 0.82) eligible (0.737, 0.512, 0.882) in scope (0.889, 0.565, 0.98)
