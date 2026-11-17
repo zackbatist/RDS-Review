@@ -48,6 +48,7 @@ PubMed,research data reuse,OpenAlex keyword,reuse,"""research data reuse""[tiab]
 PubMed,share and reuse data,recorded,reuse,"""share and reuse data""[tiab]",0,0,,excluded by yield
 PubMed,share their data,recorded,reuse,"""share their data""[tiab]",0,0,,excluded by yield
 PubMed,sharing or reusing data,recorded,reuse,"""sharing or reusing data""[tiab]",0,0,,excluded by yield
+PubMed,data reuse,fallback,reuse,"""data re-use""[tiab] OR ""data reuse""[tiab]",0.0,525,,fallback in query
 Scopus,data sharing,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""data sharing"")",5.319,30626,28,in query
 Scopus,data sharing,recorded,sharing,"TITLE-ABS-KEY(""data sharing"")",5.319,30626,28,in query
 Scopus,research data sharing,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""research data sharing"")",58.824,223,,excluded by yield
@@ -58,7 +59,7 @@ Scopus,data sharing,author keyword,sharing,"TITLE-ABS-KEY(""data sharing"")",5.3
 Scopus,share their data,recorded,sharing,"TITLE-ABS-KEY(""share their data"")",26.144,867,,excluded by yield
 Scopus,data access,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""data access"")",0.187,13547,,excluded by yield
 Scopus,data availability,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""data availability"")",0.351,18574,,excluded by yield
-Scopus,data curation,recorded,sharing,"TITLE-ABS-KEY(""data curation"")",4.115,4204,,excluded by yield
+Scopus,data curation,recorded,sharing,"TITLE-ABS-KEY(""data curation"")",4.107,4204,,excluded by yield
 Scopus,data dissemination,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""data dissemination"")",0.0,2508,,excluded by yield
 Scopus,data publication,OpenAlex keyword,sharing,"TITLE-ABS-KEY(""data publication"")",3.401,949,,excluded by yield
 Scopus,data sharing and reuse,recorded,sharing,"TITLE-ABS-KEY(""data sharing and reuse"")",83.333,172,,excluded by yield
@@ -95,6 +96,7 @@ Scopus,research data reuse,OpenAlex keyword,reuse,"TITLE-ABS-KEY(""research data
 Scopus,share and reuse data,recorded,reuse,"TITLE-ABS-KEY(""share and reuse data"")",200.0,17,,excluded by yield
 Scopus,share their data,recorded,reuse,"TITLE-ABS-KEY(""share their data"")",26.144,867,,excluded by yield
 Scopus,sharing or reusing data,recorded,reuse,"TITLE-ABS-KEY(""sharing or reusing data"")",500.0,0,,excluded by yield
+Scopus,data reuse,fallback,reuse,"TITLE-ABS-KEY(""data re-use"" OR ""data reuse"")",1.441,2666,,fallback in query
 Web of Science,data sharing,OpenAlex keyword,sharing,"TS=(""data sharing"")",9.154,19772,29,in query
 Web of Science,data sharing,recorded,sharing,"TS=(""data sharing"")",9.154,19772,29,in query
 Web of Science,research data sharing,OpenAlex keyword,sharing,"TS=(""research data sharing"")",83.333,154,,excluded by yield
@@ -142,3 +144,4 @@ Web of Science,research data reuse,OpenAlex keyword,reuse,"TS=(""research data r
 Web of Science,share and reuse data,recorded,reuse,"TS=(""share and reuse data"")",500.0,10,,excluded by yield
 Web of Science,share their data,recorded,reuse,"TS=(""share their data"")",37.736,648,,excluded by yield
 Web of Science,sharing or reusing data,recorded,reuse,"TS=(""sharing or reusing data"")",1000.0,0,,excluded by yield
+Web of Science,data reuse,fallback,reuse,"TS=(""data re-use"" OR ""data reuse"")",2.0,2117,,fallback in query

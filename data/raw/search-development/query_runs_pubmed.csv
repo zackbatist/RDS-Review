@@ -1,4 +1,5 @@
 step,term,type,records_2007_2014,dev_sources,yield_per_1000,load_2015_2025,keys
+term run,data reuse,fallback,63,0,0.0,525,
 term run,data sharing,OpenAlex keyword,1071,14,13.072,7915,bb0330;bb0335;bb0360;bb0375;bb0380;bb0385;bb0415;bb0420;bb0475;bb0480;bb0495;bb0500;bb0505;bb5000
 term run,Information Dissemination,MeSH,7683,11,1.432,9584,bb0330;bb0335;bb0360;bb0380;bb0385;bb0480;bb0495;bb0500;bb0505;bb3030;bb5000
 term run,research data sharing,OpenAlex keyword,7,1,142.857,72,bb0385

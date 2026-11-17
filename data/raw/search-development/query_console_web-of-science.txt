@@ -1,3 +1,4 @@
+term run data reuse 500 1 2117
 term run data sharing 3168 29 19772
 term run research data sharing 12 1 154
 term run biodiversity data sharing 6 3 4
@@ -37,5 +38,5 @@ term run research data reuse 1 0 10
 threshold 2.623
 added make the data and code available
 added make data available
-final query: (TS=("data sharing")) OR (TS=("make the data and code available")) OR (TS=("make data available"))
-load 19842 coverage (0.667, 0.467, 0.82) eligible (0.737, 0.512, 0.882) in scope (0.889, 0.565, 0.98)
+final query: (TS=("data sharing")) OR (TS=("make the data and code available")) OR (TS=("make data available")) OR (TS=("data re-use" OR "data reuse"))
+load 21721 coverage (0.667, 0.467, 0.82) eligible (0.737, 0.512, 0.882) in scope (0.889, 0.565, 0.98)

@@ -1,4 +1,5 @@
 step,term,type,records_2007_2014,dev_sources,yield_per_1000,load_2015_2025,keys
+term run,data reuse,fallback,694,1,1.441,2666,bb0545
 term run,data sharing,OpenAlex keyword,5264,28,5.319,30626,bb0025;bb0035;bb0040;bb0090;bb0120;bb0170;bb0220;bb0250;bb0255;bb0330;bb0335;bb0360;bb0375;bb0380;bb0385;bb0415;bb0420;bb0425;bb0475;bb0480;bb0495;bb0500;bb0505;bb0545;bb2000;bb2050;bb3030;bb5000
 term run,research data sharing,OpenAlex keyword,17,1,58.824,223,bb0385
 term run,biodiversity data sharing,OpenAlex keyword,7,3,428.571,4,bb0170;bb0250;bb0255
@@ -7,7 +8,7 @@ term run,share data,recorded,1078,11,10.204,4154,bb0025;bb0040;bb0170;bb0360;bb0
 term run,share their data,recorded,153,4,26.144,867,bb0375;bb0420;bb0480;bb0505
 term run,data access,OpenAlex keyword,5355,1,0.187,13547,bb0115
 term run,data availability,OpenAlex keyword,2852,1,0.351,18574,bb0115
-term run,data curation,recorded,486,2,4.115,4204,bb0035;bb0120
+term run,data curation,recorded,487,2,4.107,4204,bb0035;bb0120
 term run,data dissemination,OpenAlex keyword,1846,0,0.0,2508,
 term run,data publication,OpenAlex keyword,294,1,3.401,949,bb0115
 term run,data sharing and reuse,recorded,24,2,83.333,172,bb0170;bb0505
@@ -35,7 +36,7 @@ term run,sharing or reusing data,recorded,2,1,500.0,0,bb0385
 term run,data reuse,OpenAlex keyword,653,1,1.531,2544,bb0545
 term run,reanalysis of published data,OpenAlex keyword,10,0,0.0,33,
 term run,research data reuse,OpenAlex keyword,3,0,0.0,19,
-threshold,(all regular candidates),,18774,30,1.598,,bb0025;bb0035;bb0040;bb0090;bb0115;bb0120;bb0170;bb0220;bb0250;bb0255;bb0320;bb0330;bb0335;bb0360;bb0375;bb0380;bb0385;bb0415;bb0420;bb0425;bb0475;bb0480;bb0495;bb0500;bb0505;bb0545;bb2000;bb2050;bb3030;bb5000
+threshold,(all regular candidates),,18775,30,1.598,,bb0025;bb0035;bb0040;bb0090;bb0115;bb0120;bb0170;bb0220;bb0250;bb0255;bb0320;bb0330;bb0335;bb0360;bb0375;bb0380;bb0385;bb0415;bb0420;bb0425;bb0475;bb0480;bb0495;bb0500;bb0505;bb0545;bb2000;bb2050;bb3030;bb5000
 draft start,data sharing,OpenAlex keyword,5264,28,,,
 draft add,make the data and code available,recorded,5265,29,1000.0,,added 1 sources for 1 records
 draft add,make data available,recorded,5309,30,22.727,,added 1 sources for 44 records

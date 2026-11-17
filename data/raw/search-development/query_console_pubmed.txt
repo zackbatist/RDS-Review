@@ -1,3 +1,4 @@
+term run data reuse 63 0 525
 term run data sharing 1071 14 7915
 term run Information Dissemination 7683 11 9584
 term run research data sharing 7 1 72
@@ -38,5 +39,5 @@ term run reanalysis of published data 0 0 0
 term run research data reuse 0 0 0
 threshold 1.188
 added shared data
-final query: ("data sharing"[tiab]) OR ("shared data"[tiab])
-load 8425 coverage (0.846, 0.578, 0.957) eligible (0.833, 0.552, 0.953) in scope (1.0, 0.676, 1)
+final query: ("data sharing"[tiab]) OR ("shared data"[tiab]) OR ("data re-use"[tiab] OR "data reuse"[tiab])
+load 8824 coverage (0.846, 0.578, 0.957) eligible (0.833, 0.552, 0.953) in scope (1.0, 0.676, 1)
