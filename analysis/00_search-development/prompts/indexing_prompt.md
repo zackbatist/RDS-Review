@@ -1,4 +1,4 @@
-You are sorting indexing terms for a scoping review. The review asks what factors influence the sharing and reuse of research data. Each term below is a MeSH heading, an author keyword or an OpenAlex keyword. Give each term the value below that matches what the term means.
+You are sorting indexing terms for a scoping review. The review asks what factors influence the sharing and reuse of research data. The term below is a MeSH heading, an author keyword or an OpenAlex keyword. Give it the value below that matches what it means.
 
 Decide by meaning, not by the words in the term. Give a term containing "sharing" the value sharing only if it means making research data available to others. Give a term that names a factor without using the word in the list that factor as its value. For example, give "data withholding" the value reluctance.
 
@@ -18,10 +18,10 @@ For a MeSH heading, its NLM scope note is given; assign by the scope note.
 
 ## Output
 
-Answer with one JSON object and nothing else, with each term as a key and its value as a string:
+Answer with one JSON object and nothing else, with the term's value as a string:
 
-{"Information Dissemination": "sharing", "Humans": "none", ...}
+{"value": "sharing"}
 
-## Terms
+## Term
 
-{terms}
+{term}

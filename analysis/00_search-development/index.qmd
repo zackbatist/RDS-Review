@@ -102,7 +102,7 @@ The reference set script reads the full text of Chawinga and Zinn (2019) through
 
   The lookups script in step 1 pulls all three into `reference_indexing.csv`.
 - **Normalisation:** all terms are lowercased. Variants that differ only by hyphen, plural or word ending merge into one term, written with truncation (*reus\**) where every word the truncation matches is a variant of the term, and as a list of variants joined with OR otherwise. MeSH headings keep NLM's exact form.
-- **Assignment:** MeSH headings, author keywords and OpenAlex keywords attach to a whole source, so each is placed under a PCC part by meaning. The indexing script sends every distinct term in `reference_indexing.csv`, MeSH headings with their NLM scope notes, to the local model with `prompts/indexing_prompt.md`, at temperature 0 with a fixed seed, and writes the value it gives each term to `term_assignments.csv`:
+- **Assignment:** MeSH headings, author keywords and OpenAlex keywords attach to a whole source, so each is placed under a PCC part by meaning. `local-model/indexing.py` sends every distinct term in `reference_indexing.csv`, one term at a time, MeSH headings with their NLM scope notes, to the local model with `prompts/indexing_prompt.md`, at temperature 0 with a fixed seed, thinking and prompt caching off, with the answer held to the prompt's values, and writes the value it gives each term to `term_assignments_qwen3.5-122b.csv`:
   1. A term takes a Practice value or a factor from the list in step 1 when its meaning matches, judged by meaning and not by the words the term contains.
   2. MeSH headings are judged by their NLM scope note.
   3. A term that matches no PCC part, such as "Humans" or "Surveys and Questionnaires", takes *none* and is left out of `terms.csv`.
@@ -115,8 +115,8 @@ The reference set script reads the full text of Chawinga and Zinn (2019) through
   - *Factor themes:* run separately for each database. Within each theme, taking terms in descending count, keep each one that matches a development set source no kept term matches. A source counts as matched by a MeSH term only if PubMed lists that heading for it, and by an author keyword only if it carries that keyword. A theme with no kept term takes its terms from `screening-guide.qmd`.
   - *Fallback:* a Practice value with no development set source, or whose development set sources all carry the other Practice value too (*both*), takes its matching terms from the Candidate terms table on the search strategy page, such as "data reuse" and "data re-use" for *reuse*.
   - Codes with the term *none* contribute no terms.
-- **Output:** `term_assignments.csv` from the indexing script; `term_syntax.csv` and `terms.csv`, built by notebook 00 from `reference_codes_qwen3.5-122b.csv`, `reference_indexing.csv` and `term_assignments.csv`.
-  - `term_assignments.csv`: one row per distinct indexing term, with its type, the value the model gave it, and the model file, its checksum, the llama.cpp build, temperature and seed of the run.
+- **Output:** `term_assignments_qwen3.5-122b.csv` from `indexing.py`; `term_syntax.csv` and `terms.csv`, built by notebook 00 from `reference_codes_qwen3.5-122b.csv`, `reference_indexing.csv` and `term_assignments_qwen3.5-122b.csv`.
+  - `term_assignments_qwen3.5-122b.csv`, and `term_assignments_qwen3.8-27b.csv` from the smaller model: one row per distinct indexing term, with its type, its NLM scope note for MeSH headings, the value the model gave it and that value's theme, any problem with the reply, and the model file, the llama.cpp build, temperature, seed and date of the run; `scripts/launch_rds_llm.sh` gives the model file's revision and checksum.
   - `term_syntax.csv`: one row per normalised term per database, with the term, the variants it merges, and its written form.
   - `terms.csv`: one row per term per database, with these columns:
     - **term:** the normalised phrase or heading, such as *secondary use* or *Information Dissemination*.
@@ -125,7 +125,7 @@ The reference set script reads the full text of Chawinga and Zinn (2019) through
     - **field:** the database field the term is searched in, such as `[tiab]`, `[mh:noexp]`, `TITLE-ABS-KEY` or `TS`.
     - **PCC part:** the PCC part it belongs to.
     - **sources in part:** the number of development set sources coded for that PCC part, so the strength of each term choice is visible.
-    - **assignment basis:** the value from `term_assignments.csv` for MeSH headings, author keywords and OpenAlex keywords; *recorded* for recorded terms; the Candidate terms table for fallback terms.
+    - **assignment basis:** the value from `term_assignments_qwen3.5-122b.csv` for MeSH headings, author keywords and OpenAlex keywords; *recorded* for recorded terms; the Candidate terms table for fallback terms.
     - **count:** the number of development set sources carrying the term for that PCC part.
     - **sources added:** for factor terms, the number of those sources that no term kept before it already matches.
     - **DOIs:** the DOIs of the sources in *sources added* for factor terms, and of the sources carrying the term for sharing and reuse terms.
@@ -223,6 +223,7 @@ Every command runs on the analysis server from a terminal. Run the long ones ins
    | Step 1, reference set | `python3 $R/reference_set.py 2>&1 \| tee $O/reference_set_console.txt` |
    | Step 1, lookups | `python3 $R/lookups.py 2>&1 \| tee $O/lookups_console.txt` |
    | Step 1, coding, after the local model is running | `LLM_URL=http://<GPU server>:11450 python3 analysis/00_search-development/local-model/coding.py reference_codes_qwen3.5-122b.csv 2>&1 \| tee $O/coding_console_qwen3.5-122b.txt` |
+   | Step 2, assignment, after the local model is running | `LLM_URL=http://<GPU server>:11450 python3 analysis/00_search-development/local-model/indexing.py term_assignments_qwen3.5-122b.csv 2>&1 \| tee $O/indexing_console_qwen3.5-122b.txt` |
    | Step 3, query, per database | `python3 $R/query.py pubmed 2>&1 \| tee $O/query_console_pubmed.txt` |
    | Step 3, precision, per database, after its query | `python3 $R/precision.py pubmed 2>&1 \| tee $O/precision_console_pubmed.txt` |
 

@@ -1,0 +1,642 @@
+model Qwen3.5-122B-A10B-Q4_K_M-00001-of-00003.gguf, build b12375-9d25e0014; writing term_assignments_qwen3.5-122b.csv
+1/637 MeSH: Academies and Institutes -> none
+2/637 MeSH: Access to Information -> reuse
+3/637 MeSH: Adult -> none
+4/637 MeSH: Africa -> none
+5/637 MeSH: Aged -> none
+6/637 MeSH: Animals -> none
+7/637 MeSH: Archives -> none
+8/637 MeSH: Attitude -> attitudes
+9/637 MeSH: Australia -> none
+10/637 MeSH: Authorship -> none
+11/637 MeSH: Biodiversity -> none
+12/637 MeSH: Bioethical Issues -> none
+13/637 MeSH: Biomedical Research -> none
+14/637 MeSH: Child -> none
+15/637 MeSH: Clinical Trials as Topic -> none
+16/637 MeSH: Cognitive Science -> none
+17/637 MeSH: Communicable Diseases -> none
+18/637 MeSH: Communication -> none
+19/637 MeSH: Computational Biology -> none
+20/637 MeSH: Computer Communication Networks -> infrastructure
+21/637 MeSH: Computer Security -> privacy
+22/637 MeSH: Computer Simulation -> none
+23/637 MeSH: Confidentiality -> privacy
+24/637 MeSH: Conflict of Interest -> none
+25/637 MeSH: Conservation of Natural Resources -> none
+26/637 MeSH: Cooperative Behavior -> facilitators
+27/637 MeSH: Curriculum -> none
+28/637 MeSH: Data Accuracy -> none
+29/637 MeSH: Data Collection -> none
+30/637 MeSH: Data Interpretation, Statistical -> none
+31/637 MeSH: Database Management Systems -> none
+32/637 MeSH: Databases as Topic -> none
+33/637 MeSH: Databases, Bibliographic -> none
+34/637 MeSH: Databases, Factual -> infrastructure
+35/637 MeSH: Databases, Genetic -> none
+36/637 MeSH: Datasets as Topic -> none
+37/637 MeSH: Demography -> none
+38/637 MeSH: Developing Countries -> none
+39/637 MeSH: Drug Industry -> none
+40/637 MeSH: Ecology -> none
+41/637 MeSH: Ecosystem -> none
+42/637 MeSH: Editorial Policies -> policies
+43/637 MeSH: Electrophysiology -> none
+44/637 MeSH: Environment -> none
+45/637 MeSH: Ethics Committees -> ethics
+46/637 MeSH: Ethics Committees, Research -> ethics
+47/637 MeSH: Ethics, Research -> ethics
+48/637 MeSH: Eye Movements -> none
+49/637 MeSH: Family -> none
+50/637 MeSH: Female -> none
+51/637 MeSH: Financing, Organized -> none
+52/637 MeSH: Fisheries -> none
+53/637 MeSH: Focus Groups -> none
+54/637 MeSH: Genetic Privacy -> privacy
+55/637 MeSH: Genetic Research -> none
+56/637 MeSH: Genetic Variation -> none
+57/637 MeSH: Genome, Human -> none
+58/637 MeSH: Genomics -> none
+59/637 MeSH: Geography -> none
+60/637 MeSH: Global Health -> none
+61/637 MeSH: Government -> none
+62/637 MeSH: Greenhouse Effect -> none
+63/637 MeSH: Guidelines as Topic -> policies
+64/637 MeSH: Health Information Management -> none
+65/637 MeSH: Health Resources -> infrastructure
+66/637 MeSH: Health Services Needs and Demand -> none
+67/637 MeSH: Health Status -> none
+68/637 MeSH: Human Genome Project -> none
+69/637 MeSH: Human Rights -> none
+70/637 MeSH: Humans -> none
+71/637 MeSH: Income -> none
+72/637 MeSH: Indians, North American -> none
+73/637 MeSH: Information Dissemination -> sharing
+74/637 MeSH: Information Management -> none
+75/637 MeSH: Information Storage and Retrieval -> none
+76/637 MeSH: Informed Consent -> consent
+77/637 MeSH: Intellectual Property -> licensing
+78/637 MeSH: Interdisciplinary Communication -> none
+79/637 MeSH: International Cooperation -> none
+80/637 MeSH: Internationality -> none
+81/637 MeSH: Internet -> none
+82/637 MeSH: Japan -> none
+83/637 MeSH: Language -> none
+84/637 MeSH: Library Science -> none
+85/637 MeSH: Magnetic Resonance Imaging -> none
+86/637 MeSH: Male -> none
+87/637 MeSH: Medical Informatics -> none
+88/637 MeSH: Medical Records Systems, Computerized -> none
+89/637 MeSH: Mice -> none
+90/637 MeSH: Michigan -> none
+91/637 MeSH: Middle Aged -> none
+92/637 MeSH: Models, Psychological -> none
+93/637 MeSH: Morals -> ethics
+94/637 MeSH: Motivation -> motivation
+95/637 MeSH: Multicenter Studies as Topic -> none
+96/637 MeSH: Multivariate Analysis -> none
+97/637 MeSH: National Heart, Lung, and Blood Institute (U.S.) -> none
+98/637 MeSH: National Institutes of Health (U.S.) -> none
+99/637 MeSH: Neoplasms -> none
+100/637 MeSH: Neuroimaging -> none
+101/637 MeSH: Neurosciences -> none
+102/637 MeSH: New Zealand -> none
+103/637 MeSH: Odds Ratio -> none
+104/637 MeSH: Open Access Publishing -> open access
+105/637 MeSH: Organizational Case Studies -> none
+106/637 MeSH: Ownership -> none
+107/637 MeSH: Patient Rights -> consent
+108/637 MeSH: Periodicals as Topic -> none
+109/637 MeSH: Plagiarism -> none
+110/637 MeSH: Policy -> policies
+111/637 MeSH: Policy Making -> policies
+112/637 MeSH: Population Dynamics -> none
+113/637 MeSH: Population Surveillance -> none
+114/637 MeSH: Practice Guidelines as Topic -> none
+115/637 MeSH: Privacy -> privacy
+116/637 MeSH: Professional Competence -> none
+117/637 MeSH: Public Health -> none
+118/637 MeSH: Public Opinion -> perceptions
+119/637 MeSH: Publications -> none
+120/637 MeSH: Publishing -> none
+121/637 MeSH: PubMed -> none
+122/637 MeSH: Qualitative Research -> none
+123/637 MeSH: Quality Improvement -> none
+124/637 MeSH: Research -> none
+125/637 MeSH: Research Design -> none
+126/637 MeSH: Research Personnel -> none
+127/637 MeSH: Research Subjects -> none
+128/637 MeSH: Residence Characteristics -> none
+129/637 MeSH: Retraction of Publication as Topic -> none
+130/637 MeSH: Science -> none
+131/637 MeSH: Scientific Misconduct -> none
+132/637 MeSH: Social Environment -> none
+133/637 MeSH: Social Responsibility -> none
+134/637 MeSH: Stakeholder Participation -> none
+135/637 MeSH: State Medicine -> none
+136/637 MeSH: Surveys and Questionnaires -> none
+137/637 MeSH: Technology -> none
+138/637 MeSH: Time Factors -> none
+139/637 MeSH: Tonga -> none
+140/637 MeSH: Trees -> none
+141/637 MeSH: Trust -> willingness
+142/637 MeSH: United Kingdom -> none
+143/637 MeSH: United States -> none
+144/637 MeSH: Workforce -> none
+145/637 MeSH: Young Adult -> none
+146/637 OpenAlex keyword: academic assessment -> none
+147/637 OpenAlex keyword: academic institutions -> none
+148/637 OpenAlex keyword: academic libraries -> none
+149/637 OpenAlex keyword: academic researchers -> none
+150/637 OpenAlex keyword: access control -> privacy
+151/637 OpenAlex keyword: acknowledgment of contributors -> none
+152/637 OpenAlex keyword: active learning -> none
+153/637 OpenAlex keyword: adaptive management -> none
+154/637 OpenAlex keyword: adolescent depression -> none
+155/637 OpenAlex keyword: advocacy -> none
+156/637 OpenAlex keyword: Africa -> none
+157/637 OpenAlex keyword: ambivalence -> perceptions
+158/637 OpenAlex keyword: anonymized data -> none
+159/637 OpenAlex keyword: anthropological research -> none
+160/637 OpenAlex keyword: Arab universities -> none
+161/637 OpenAlex keyword: Asia -> none
+162/637 OpenAlex keyword: attitude-behavior relationship -> perceptions
+163/637 OpenAlex keyword: Australian National Data Service -> none
+164/637 OpenAlex keyword: author compliance -> policies
+165/637 OpenAlex keyword: author guidelines -> policies
+166/637 OpenAlex keyword: author perceptions -> perceptions
+167/637 OpenAlex keyword: authorship -> none
+168/637 OpenAlex keyword: authorship patterns -> none
+169/637 OpenAlex keyword: barriers and facilitators -> barriers
+170/637 OpenAlex keyword: barriers to data sharing -> barriers
+171/637 OpenAlex keyword: Belmont Forum -> none
+172/637 OpenAlex keyword: beneficence -> ethics
+173/637 OpenAlex keyword: benefits and risks -> none
+174/637 OpenAlex keyword: best practices -> none
+175/637 OpenAlex keyword: big data -> none
+176/637 OpenAlex keyword: biodiversity conservation targets -> none
+177/637 OpenAlex keyword: biodiversity data -> none
+178/637 OpenAlex keyword: biodiversity data sharing -> sharing
+179/637 OpenAlex keyword: biodiversity databases -> none
+180/637 OpenAlex keyword: biodiversity monitoring -> none
+181/637 OpenAlex keyword: biological databases -> infrastructure
+182/637 OpenAlex keyword: biomedical research -> none
+183/637 OpenAlex keyword: British universities -> none
+184/637 OpenAlex keyword: business models -> none
+185/637 OpenAlex keyword: cancer genomics -> none
+186/637 OpenAlex keyword: cancer research -> none
+187/637 OpenAlex keyword: Cape Peninsula University of Technology -> none
+188/637 OpenAlex keyword: centralized database -> infrastructure
+189/637 OpenAlex keyword: chemistry research -> none
+190/637 OpenAlex keyword: China -> none
+191/637 OpenAlex keyword: Chinese Academy of Sciences -> none
+192/637 OpenAlex keyword: citation impact -> none
+193/637 OpenAlex keyword: citizen science -> none
+194/637 OpenAlex keyword: clinical research -> none
+195/637 OpenAlex keyword: clinical research data sharing -> sharing
+196/637 OpenAlex keyword: clinical trial data sharing -> sharing
+197/637 OpenAlex keyword: clinical trial participants -> none
+198/637 OpenAlex keyword: clinical trials -> none
+199/637 OpenAlex keyword: cloud storage -> infrastructure
+200/637 OpenAlex keyword: CNRS -> none
+201/637 OpenAlex keyword: cognitive neuroscience -> none
+202/637 OpenAlex keyword: cognitive science -> none
+203/637 OpenAlex keyword: community partnerships -> none
+204/637 OpenAlex keyword: community standards -> policies
+205/637 OpenAlex keyword: community-based participatory research -> none
+206/637 OpenAlex keyword: computational neuroscience -> none
+207/637 OpenAlex keyword: conceptual framework -> none
+208/637 OpenAlex keyword: confidentiality -> privacy
+209/637 OpenAlex keyword: confidentiality concerns -> privacy
+210/637 OpenAlex keyword: consulting services -> none
+211/637 OpenAlex keyword: cost-benefit analysis -> none
+212/637 OpenAlex keyword: cyberinfrastructure -> infrastructure
+213/637 OpenAlex keyword: data access -> sharing
+214/637 OpenAlex keyword: data access barriers -> barriers
+215/637 OpenAlex keyword: data accessibility -> facilitators
+216/637 OpenAlex keyword: data aggregation -> none
+217/637 OpenAlex keyword: data aggregators -> none
+218/637 OpenAlex keyword: data archiving -> infrastructure
+219/637 OpenAlex keyword: data availability -> sharing
+220/637 OpenAlex keyword: data availability policy -> policies
+221/637 OpenAlex keyword: data breaches -> barriers
+222/637 OpenAlex keyword: data citation -> none
+223/637 OpenAlex keyword: data commons -> infrastructure
+224/637 OpenAlex keyword: data confidentiality -> privacy
+225/637 OpenAlex keyword: data curation -> data curation
+226/637 OpenAlex keyword: data dictionary -> none
+227/637 OpenAlex keyword: data discovery -> none
+228/637 OpenAlex keyword: data discovery and access -> sharing
+229/637 OpenAlex keyword: data dissemination -> sharing
+230/637 OpenAlex keyword: data exchange format -> interoperability
+231/637 OpenAlex keyword: data fabrication -> none
+232/637 OpenAlex keyword: data falsification -> none
+233/637 OpenAlex keyword: data flow diagram -> none
+234/637 OpenAlex keyword: data fraud -> none
+235/637 OpenAlex keyword: data governance -> governance
+236/637 OpenAlex keyword: data heterogeneity -> barriers
+237/637 OpenAlex keyword: data infrastructure -> infrastructure
+238/637 OpenAlex keyword: data integration -> none
+239/637 OpenAlex keyword: data interoperability -> interoperability
+240/637 OpenAlex keyword: data librarians -> none
+241/637 OpenAlex keyword: data librarianship -> none
+242/637 OpenAlex keyword: data lifecycle -> none
+243/637 OpenAlex keyword: data lifecycle management -> data management plans
+244/637 OpenAlex keyword: data linkage -> none
+245/637 OpenAlex keyword: data literacy -> none
+246/637 OpenAlex keyword: data loss -> barriers
+247/637 OpenAlex keyword: data management -> none
+248/637 OpenAlex keyword: data management challenges -> barriers
+249/637 OpenAlex keyword: data management education -> none
+250/637 OpenAlex keyword: data management guidelines -> data management plans
+251/637 OpenAlex keyword: data management infrastructure -> infrastructure
+252/637 OpenAlex keyword: data management plans -> data management plans
+253/637 OpenAlex keyword: data management practices -> none
+254/637 OpenAlex keyword: data management skills -> facilitators
+255/637 OpenAlex keyword: data management software -> infrastructure
+256/637 OpenAlex keyword: data management training -> none
+257/637 OpenAlex keyword: data misuse -> barriers
+258/637 OpenAlex keyword: data ownership -> policies
+259/637 OpenAlex keyword: data portal -> infrastructure
+260/637 OpenAlex keyword: data preservation -> none
+261/637 OpenAlex keyword: data privacy -> privacy
+262/637 OpenAlex keyword: data protection -> privacy
+263/637 OpenAlex keyword: data protection regulation -> policies
+264/637 OpenAlex keyword: data providers -> none
+265/637 OpenAlex keyword: data publication -> sharing
+266/637 OpenAlex keyword: data quality -> none
+267/637 OpenAlex keyword: data quality assessment -> none
+268/637 OpenAlex keyword: data quality control -> none
+269/637 OpenAlex keyword: data registry -> repositories
+270/637 OpenAlex keyword: data repositories -> repositories
+271/637 OpenAlex keyword: data reuse -> reuse
+272/637 OpenAlex keyword: data scarcity -> barriers
+273/637 OpenAlex keyword: data security -> privacy
+274/637 OpenAlex keyword: data services -> infrastructure
+275/637 OpenAlex keyword: data sharing -> sharing
+276/637 OpenAlex keyword: data sharing culture -> sharing
+277/637 OpenAlex keyword: data sharing framework -> sharing
+278/637 OpenAlex keyword: data sharing governance -> governance
+279/637 OpenAlex keyword: data sharing incentives -> incentives
+280/637 OpenAlex keyword: data sharing mandates -> policies
+281/637 OpenAlex keyword: data sharing platform -> infrastructure
+282/637 OpenAlex keyword: data sharing policy -> policies
+283/637 OpenAlex keyword: data skills -> none
+284/637 OpenAlex keyword: data standardization -> interoperability
+285/637 OpenAlex keyword: data standards -> interoperability
+286/637 OpenAlex keyword: data stewardship -> stewardship
+287/637 OpenAlex keyword: data storage -> infrastructure
+288/637 OpenAlex keyword: data transparency -> sharing
+289/637 OpenAlex keyword: data warehouse model -> none
+290/637 OpenAlex keyword: data withholding -> reluctance
+291/637 OpenAlex keyword: data-intensive research -> none
+292/637 OpenAlex keyword: database schema design -> none
+293/637 OpenAlex keyword: databases -> infrastructure
+294/637 OpenAlex keyword: DataONE -> infrastructure
+295/637 OpenAlex keyword: dataset publication -> sharing
+296/637 OpenAlex keyword: dbSNP -> none
+297/637 OpenAlex keyword: demographic surveillance systems -> none
+298/637 OpenAlex keyword: digital curation -> data curation
+299/637 OpenAlex keyword: Digital Curation Centre -> none
+300/637 OpenAlex keyword: digital humanities -> none
+301/637 OpenAlex keyword: digital libraries -> infrastructure
+302/637 OpenAlex keyword: digital memory -> none
+303/637 OpenAlex keyword: digital preservation -> none
+304/637 OpenAlex keyword: digital preservation infrastructure -> infrastructure
+305/637 OpenAlex keyword: disciplinary differences -> none
+306/637 OpenAlex keyword: e-Science -> none
+307/637 OpenAlex keyword: early warning systems -> none
+308/637 OpenAlex keyword: early-career researchers -> none
+309/637 OpenAlex keyword: earth sciences -> none
+310/637 OpenAlex keyword: ecological data -> none
+311/637 OpenAlex keyword: ecological research -> none
+312/637 OpenAlex keyword: ecologists -> none
+313/637 OpenAlex keyword: ecology journals -> none
+314/637 OpenAlex keyword: economics journals -> none
+315/637 OpenAlex keyword: ecosystem science -> none
+316/637 OpenAlex keyword: eddy covariance -> none
+317/637 OpenAlex keyword: editorial policy -> policies
+318/637 OpenAlex keyword: electrophysiology data -> none
+319/637 OpenAlex keyword: Encyclopedia of Life -> none
+320/637 OpenAlex keyword: engineering journals -> none
+321/637 OpenAlex keyword: environmental data -> none
+322/637 OpenAlex keyword: environmental research -> none
+323/637 OpenAlex keyword: epidemic intelligence -> none
+324/637 OpenAlex keyword: EPSRC -> none
+325/637 OpenAlex keyword: ethical guidance -> ethics
+326/637 OpenAlex keyword: ethics boards -> ethics
+327/637 OpenAlex keyword: ethics committees -> ethics
+328/637 OpenAlex keyword: ethnography -> none
+329/637 OpenAlex keyword: evaluation framework -> none
+330/637 OpenAlex keyword: evidence synthesis -> none
+331/637 OpenAlex keyword: evolutionary genetics -> none
+332/637 OpenAlex keyword: eye movement data -> none
+333/637 OpenAlex keyword: FAIR principles -> facilitators
+334/637 OpenAlex keyword: family members -> none
+335/637 OpenAlex keyword: fieldwork -> none
+336/637 OpenAlex keyword: FLUXNET -> none
+337/637 OpenAlex keyword: forensic genetics -> none
+338/637 OpenAlex keyword: fraud prevention -> none
+339/637 OpenAlex keyword: GBIF -> none
+340/637 OpenAlex keyword: GDPR -> policies
+341/637 OpenAlex keyword: gene expression microarrays -> none
+342/637 OpenAlex keyword: genetic privacy -> privacy
+343/637 OpenAlex keyword: genetic variation databases -> none
+344/637 OpenAlex keyword: genomic data sharing -> sharing
+345/637 OpenAlex keyword: genomics -> none
+346/637 OpenAlex keyword: global change science -> none
+347/637 OpenAlex keyword: good clinical practice -> none
+348/637 OpenAlex keyword: guest authorship -> none
+349/637 OpenAlex keyword: health care ethics -> ethics
+350/637 OpenAlex keyword: health data sharing -> sharing
+351/637 OpenAlex keyword: health disparities -> none
+352/637 OpenAlex keyword: health information -> none
+353/637 OpenAlex keyword: health records -> none
+354/637 OpenAlex keyword: health research -> none
+355/637 OpenAlex keyword: health sciences librarians -> none
+356/637 OpenAlex keyword: HGVS nomenclature -> none
+357/637 OpenAlex keyword: higher education research -> none
+358/637 OpenAlex keyword: human genetic variation -> none
+359/637 OpenAlex keyword: human subjects research -> none
+360/637 OpenAlex keyword: hypothesis generation -> none
+361/637 OpenAlex keyword: incentives -> incentives
+362/637 OpenAlex keyword: independent oversight -> governance
+363/637 OpenAlex keyword: INDEPTH -> none
+364/637 OpenAlex keyword: indigenous rights -> none
+365/637 OpenAlex keyword: information literacy -> none
+366/637 OpenAlex keyword: informed consent -> consent
+367/637 OpenAlex keyword: institutional repositories -> repositories
+368/637 OpenAlex keyword: institutional research data policy -> policies
+369/637 OpenAlex keyword: institutional support for research -> facilitators
+370/637 OpenAlex keyword: integrated water resources management -> none
+371/637 OpenAlex keyword: intellectual capital -> none
+372/637 OpenAlex keyword: intellectual property -> licensing
+373/637 OpenAlex keyword: inter-organizational cooperation -> facilitators
+374/637 OpenAlex keyword: interdisciplinary collaboration -> none
+375/637 OpenAlex keyword: international data sharing -> sharing
+376/637 OpenAlex keyword: intervention efficacy -> none
+377/637 OpenAlex keyword: JISC -> none
+378/637 OpenAlex keyword: journal competition -> barriers
+379/637 OpenAlex keyword: journal data policies -> policies
+380/637 OpenAlex keyword: justice -> none
+381/637 OpenAlex keyword: knowledge commons -> infrastructure
+382/637 OpenAlex keyword: knowledge economy -> none
+383/637 OpenAlex keyword: knowledge infrastructure -> infrastructure
+384/637 OpenAlex keyword: knowledge transfer -> none
+385/637 OpenAlex keyword: lay attitudes -> perceptions
+386/637 OpenAlex keyword: lean startup -> none
+387/637 OpenAlex keyword: librarian roles -> infrastructure
+388/637 OpenAlex keyword: librarians -> none
+389/637 OpenAlex keyword: library cooperation -> infrastructure
+390/637 OpenAlex keyword: library curriculum -> none
+391/637 OpenAlex keyword: library services -> infrastructure
+392/637 OpenAlex keyword: library web presence -> none
+393/637 OpenAlex keyword: library websites -> none
+394/637 OpenAlex keyword: local knowledge -> none
+395/637 OpenAlex keyword: long-term data preservation -> none
+396/637 OpenAlex keyword: long-term data storage -> infrastructure
+397/637 OpenAlex keyword: long-term research -> none
+398/637 OpenAlex keyword: LOVD -> none
+399/637 OpenAlex keyword: low- and middle-income countries -> none
+400/637 OpenAlex keyword: medical genetics -> none
+401/637 OpenAlex keyword: medical research -> none
+402/637 OpenAlex keyword: Mekong River -> none
+403/637 OpenAlex keyword: Mekong River Commission -> none
+404/637 OpenAlex keyword: meta-analysis -> none
+405/637 OpenAlex keyword: metadata -> infrastructure
+406/637 OpenAlex keyword: metadata documentation -> infrastructure
+407/637 OpenAlex keyword: metadata management -> data curation
+408/637 OpenAlex keyword: metadata quality -> infrastructure
+409/637 OpenAlex keyword: metadata standards -> interoperability
+410/637 OpenAlex keyword: microdata -> none
+411/637 OpenAlex keyword: microfocus computed tomography -> none
+412/637 OpenAlex keyword: micrometeorology -> none
+413/637 OpenAlex keyword: minority groups -> none
+414/637 OpenAlex keyword: mitochondrial DNA -> none
+415/637 OpenAlex keyword: multicenter study -> none
+416/637 OpenAlex keyword: multilingual data -> none
+417/637 OpenAlex keyword: National Health Service -> none
+418/637 OpenAlex keyword: National Heart, Lung, and Blood Institute -> none
+419/637 OpenAlex keyword: National Research Council -> none
+420/637 OpenAlex keyword: National Science Foundation grant -> none
+421/637 OpenAlex keyword: national security concerns -> barriers
+422/637 OpenAlex keyword: Native American tribes -> none
+423/637 OpenAlex keyword: natural history museums -> none
+424/637 OpenAlex keyword: NCBI -> none
+425/637 OpenAlex keyword: neuroimaging data sharing -> sharing
+426/637 OpenAlex keyword: neuroimaging informatics -> none
+427/637 OpenAlex keyword: neuroscience data -> none
+428/637 OpenAlex keyword: NIH funding -> incentives
+429/637 OpenAlex keyword: non-technical barriers -> barriers
+430/637 OpenAlex keyword: observational studies -> none
+431/637 OpenAlex keyword: online databases -> none
+432/637 OpenAlex keyword: online resources -> none
+433/637 OpenAlex keyword: open access -> policies
+434/637 OpenAlex keyword: open access data sharing -> sharing
+435/637 OpenAlex keyword: open access journals -> policies
+436/637 OpenAlex keyword: open access to research data -> policies
+437/637 OpenAlex keyword: open data -> open data
+438/637 OpenAlex keyword: open data access -> policies
+439/637 OpenAlex keyword: open data publishing -> sharing
+440/637 OpenAlex keyword: open data repositories -> repositories
+441/637 OpenAlex keyword: open data sharing -> sharing
+442/637 OpenAlex keyword: open science -> policies
+443/637 OpenAlex keyword: open-source platform -> infrastructure
+444/637 OpenAlex keyword: organizational support -> facilitators
+445/637 OpenAlex keyword: paleoanthropology -> none
+446/637 OpenAlex keyword: participant interest -> willingness
+447/637 OpenAlex keyword: participant privacy -> privacy
+448/637 OpenAlex keyword: participant rights -> consent
+449/637 OpenAlex keyword: participant-level data -> none
+450/637 OpenAlex keyword: participatory research -> none
+451/637 OpenAlex keyword: patient rights -> consent
+452/637 OpenAlex keyword: perceived efficacy -> willingness
+453/637 OpenAlex keyword: perceived importance -> perceptions
+454/637 OpenAlex keyword: personal information management -> none
+455/637 OpenAlex keyword: pharmaceutical companies -> none
+456/637 OpenAlex keyword: phenomenography -> none
+457/637 OpenAlex keyword: plagiarism -> none
+458/637 OpenAlex keyword: PLOS journals -> none
+459/637 OpenAlex keyword: PLoS Medicine -> none
+460/637 OpenAlex keyword: population monitoring -> none
+461/637 OpenAlex keyword: protected areas -> none
+462/637 OpenAlex keyword: psychology research -> none
+463/637 OpenAlex keyword: public access -> policies
+464/637 OpenAlex keyword: public consultation -> none
+465/637 OpenAlex keyword: public data sharing -> sharing
+466/637 OpenAlex keyword: public datasets -> none
+467/637 OpenAlex keyword: public health data sharing -> sharing
+468/637 OpenAlex keyword: public health ethics -> ethics
+469/637 OpenAlex keyword: publication incentives -> incentives
+470/637 OpenAlex keyword: rare diseases -> none
+471/637 OpenAlex keyword: raw data access -> sharing
+472/637 OpenAlex keyword: raw data sharing -> sharing
+473/637 OpenAlex keyword: re-identification risk -> privacy
+474/637 OpenAlex keyword: reanalysis of published data -> reuse
+475/637 OpenAlex keyword: regulatory framework -> governance
+476/637 OpenAlex keyword: remote data access -> sharing
+477/637 OpenAlex keyword: remote sensing data -> none
+478/637 OpenAlex keyword: replication -> none
+479/637 OpenAlex keyword: reporting guidelines -> none
+480/637 OpenAlex keyword: reproducibility -> none
+481/637 OpenAlex keyword: research bias -> none
+482/637 OpenAlex keyword: research collaboration -> none
+483/637 OpenAlex keyword: research councils -> none
+484/637 OpenAlex keyword: research culture -> none
+485/637 OpenAlex keyword: research data access -> sharing
+486/637 OpenAlex keyword: research data curation -> data curation
+487/637 OpenAlex keyword: research data dissemination -> sharing
+488/637 OpenAlex keyword: research data management -> stewardship
+489/637 OpenAlex keyword: research data management policy -> policies
+490/637 OpenAlex keyword: research data management services -> none
+491/637 OpenAlex keyword: research data management training -> none
+492/637 OpenAlex keyword: research data policy -> policies
+493/637 OpenAlex keyword: research data reuse -> reuse
+494/637 OpenAlex keyword: research data sharing -> sharing
+495/637 OpenAlex keyword: research data skills -> none
+496/637 OpenAlex keyword: research data standards -> infrastructure
+497/637 OpenAlex keyword: research ethics -> ethics
+498/637 OpenAlex keyword: research ethics committees -> ethics
+499/637 OpenAlex keyword: research ethics oversight -> ethics
+500/637 OpenAlex keyword: research funding -> incentives
+501/637 OpenAlex keyword: research funding agencies -> none
+502/637 OpenAlex keyword: research funding efficiency -> none
+503/637 OpenAlex keyword: research funding incentives -> incentives
+504/637 OpenAlex keyword: research funding requirements -> policies
+505/637 OpenAlex keyword: research impact -> none
+506/637 OpenAlex keyword: research institutions -> none
+507/637 OpenAlex keyword: research integrity -> none
+508/637 OpenAlex keyword: research laboratories -> none
+509/637 OpenAlex keyword: research legitimacy -> none
+510/637 OpenAlex keyword: research management -> none
+511/637 OpenAlex keyword: research methodology -> none
+512/637 OpenAlex keyword: research misconduct -> none
+513/637 OpenAlex keyword: research norms -> policies
+514/637 OpenAlex keyword: research productivity -> none
+515/637 OpenAlex keyword: research reproducibility -> none
+516/637 OpenAlex keyword: research transparency -> policies
+517/637 OpenAlex keyword: research workflows -> none
+518/637 OpenAlex keyword: researcher attitudes -> perceptions
+519/637 OpenAlex keyword: researcher motivation -> motivation
+520/637 OpenAlex keyword: researcher needs -> none
+521/637 OpenAlex keyword: researcher perceptions -> perceptions
+522/637 OpenAlex keyword: researcher safety -> none
+523/637 OpenAlex keyword: resource discovery -> none
+524/637 OpenAlex keyword: resource-limited settings -> none
+525/637 OpenAlex keyword: respect for persons -> consent
+526/637 OpenAlex keyword: resting-state fMRI -> none
+527/637 OpenAlex keyword: retraction reasons -> none
+528/637 OpenAlex keyword: right of withdrawal -> consent
+529/637 OpenAlex keyword: risk assessment -> none
+530/637 OpenAlex keyword: risk minimization -> privacy
+531/637 OpenAlex keyword: routine care data -> none
+532/637 OpenAlex keyword: satellite remote sensing -> none
+533/637 OpenAlex keyword: scholarly communication policy -> policies
+534/637 OpenAlex keyword: scholarly publishing -> none
+535/637 OpenAlex keyword: science governance -> governance
+536/637 OpenAlex keyword: science policy -> policies
+537/637 OpenAlex keyword: scientific data -> none
+538/637 OpenAlex keyword: scientific databases -> infrastructure
+539/637 OpenAlex keyword: scientific errors -> none
+540/637 OpenAlex keyword: scientific fraud -> none
+541/637 OpenAlex keyword: scientific impact -> none
+542/637 OpenAlex keyword: scientific integrity -> none
+543/637 OpenAlex keyword: scientists' attitudes -> perceptions
+544/637 OpenAlex keyword: search strategies -> none
+545/637 OpenAlex keyword: secondary analysis -> reuse
+546/637 OpenAlex keyword: shared data -> sharing
+547/637 OpenAlex keyword: shared services -> none
+548/637 OpenAlex keyword: single point of contact -> infrastructure
+549/637 OpenAlex keyword: small liberal arts colleges -> none
+550/637 OpenAlex keyword: small science -> none
+551/637 OpenAlex keyword: social norms -> perceptions
+552/637 OpenAlex keyword: social psychology -> none
+553/637 OpenAlex keyword: social sciences -> none
+554/637 OpenAlex keyword: South Africa -> none
+555/637 OpenAlex keyword: stakeholder collaboration -> none
+556/637 OpenAlex keyword: stakeholder engagement -> stewardship
+557/637 OpenAlex keyword: stakeholder perspectives -> stewardship
+558/637 OpenAlex keyword: standardization -> interoperability
+559/637 OpenAlex keyword: sub-Saharan Africa -> none
+560/637 OpenAlex keyword: Switzerland -> none
+561/637 OpenAlex keyword: synthetic studies -> none
+562/637 OpenAlex keyword: terminology -> none
+563/637 OpenAlex keyword: Thailand -> none
+564/637 OpenAlex keyword: theory of reasoned action -> none
+565/637 OpenAlex keyword: transboundary water resources -> none
+566/637 OpenAlex keyword: transdisciplinary collaboration -> none
+567/637 OpenAlex keyword: transparency and accountability -> policies
+568/637 OpenAlex keyword: tribal sovereignty -> none
+569/637 OpenAlex keyword: trios -> none
+570/637 OpenAlex keyword: trust -> perceptions
+571/637 OpenAlex keyword: trust in data -> perceptions
+572/637 OpenAlex keyword: United States academic libraries -> none
+573/637 OpenAlex keyword: university faculty -> none
+574/637 OpenAlex keyword: University of California, Berkeley -> none
+575/637 OpenAlex keyword: University of Minnesota -> none
+576/637 OpenAlex keyword: user perception -> perceptions
+577/637 OpenAlex keyword: Y chromosome -> none
+578/637 OpenAlex keyword: Zimbabwe -> none
+579/637 author keyword: Africa -> none
+580/637 author keyword: biomedical research ethics -> ethics
+581/637 author keyword: clinical research -> none
+582/637 author keyword: Clinical research -> none
+583/637 author keyword: Clinical trials -> none
+584/637 author keyword: collaborative research -> none
+585/637 author keyword: Data Management Plan -> data management plans
+586/637 author keyword: data release -> sharing
+587/637 author keyword: data sharing -> sharing
+588/637 author keyword: Data sharing -> sharing
+589/637 author keyword: data synthesis -> none
+590/637 author keyword: Data visualisation -> none
+591/637 author keyword: Data workflow -> none
+592/637 author keyword: data-sharing -> sharing
+593/637 author keyword: Database -> none
+594/637 author keyword: Databasing -> none
+595/637 author keyword: Digital technologies -> none
+596/637 author keyword: ELSI -> none
+597/637 author keyword: Fairness -> none
+598/637 author keyword: fMRI -> none
+599/637 author keyword: fraud -> none
+600/637 author keyword: Genomic research -> none
+601/637 author keyword: Governance -> governance
+602/637 author keyword: health and demographic surveillance systems -> none
+603/637 author keyword: health policy -> policies
+604/637 author keyword: Human research protection -> ethics
+605/637 author keyword: Incentives -> incentives
+606/637 author keyword: Inclusion -> none
+607/637 author keyword: Informatics -> none
+608/637 author keyword: integrative data analysis -> none
+609/637 author keyword: International research -> none
+610/637 author keyword: Jurisdiction -> none
+611/637 author keyword: low-income countries -> none
+612/637 author keyword: Meta-research -> none
+613/637 author keyword: Metadata -> none
+614/637 author keyword: middle-income countries -> none
+615/637 author keyword: misconduct -> none
+616/637 author keyword: Multicentre -> none
+617/637 author keyword: Neuroimaging -> none
+618/637 author keyword: Neuroinformatics -> none
+619/637 author keyword: Open data -> open data
+620/637 author keyword: Open science -> policies
+621/637 author keyword: Open-access -> policies
+622/637 author keyword: Patients and family members -> none
+623/637 author keyword: privacy -> privacy
+624/637 author keyword: Programmatic -> none
+625/637 author keyword: Public engagement -> none
+626/637 author keyword: public health -> none
+627/637 author keyword: R-fMRI -> none
+628/637 author keyword: Remote access -> infrastructure
+629/637 author keyword: research data -> none
+630/637 author keyword: research ethics -> ethics
+631/637 author keyword: research governance -> governance
+632/637 author keyword: research involving public health data -> none
+633/637 author keyword: scientific equity -> none
+634/637 author keyword: Synthesis Centre -> none
+635/637 author keyword: Systematic reviews -> none
+636/637 author keyword: Transdisciplinary -> none
+637/637 author keyword: trust -> willingness
+
+terms: 637; with a problem: 0
+by value: {'none': 411, 'sharing': 34, 'infrastructure': 34, 'policies': 33, 'privacy': 16, 'ethics': 16, 'perceptions': 13, 'barriers': 12, 'governance': 7, 'facilitators': 7, 'consent': 7, 'incentives': 7, 'interoperability': 6, 'reuse': 5, 'willingness': 4, 'data management plans': 4, 'data curation': 4, 'stewardship': 4, 'repositories': 4, 'open data': 2, 'licensing': 2, 'motivation': 2, 'attitudes': 1, 'open access': 1, 'reluctance': 1}
+by theme: {'': 450, 'factors that facilitate': 60, 'mechanisms for implementation': 44, 'policies and what drive them': 36, 'factors that obstruct': 29, 'stakeholder perspectives': 18}
