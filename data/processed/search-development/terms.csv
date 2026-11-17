@@ -48,6 +48,7 @@ research data reuse,OpenAlex keyword,PubMed,[tiab],reuse,17,reuse,1,,10.1016/j.e
 share and reuse data,recorded,PubMed,[tiab],reuse,17,recorded,1,,10.1371/journal.pone.0067332,
 share their data,recorded,PubMed,[tiab],reuse,17,recorded,1,,10.1177/1745691613491579,
 sharing or reusing data,recorded,PubMed,[tiab],reuse,17,recorded,1,,10.1371/journal.pone.0018657,
+data reuse,fallback,PubMed,[tiab],reuse,17,Candidate terms table,0,,,
 barriers to data sharing,OpenAlex keyword,PubMed,[tiab],factors that obstruct,32,barriers,5,5,10.1098/rsta.2010.0165;10.1111/j.1755-263x.2012.00259.x;10.1016/j.neuroimage.2012.10.064;10.1371/journal.pone.0021101;10.1038/461160a,to screening
 challenges,recorded,PubMed,[tiab],factors that obstruct,32,recorded,4,4,10.1186/2047-217x-1-10;10.1016/j.giq.2012.06.011;10.5258/soton/374711;10.1007/s00267-014-0258-2,to screening
 Confidentiality,MeSH,PubMed,[mh:noexp],factors that obstruct,32,privacy,3,2,10.1111/j.1365-2753.2010.01488.x;10.1136/bmj.b2160,to screening
@@ -197,6 +198,7 @@ research data reuse,OpenAlex keyword,Scopus,TITLE-ABS-KEY,reuse,17,reuse,1,,10.1
 share and reuse data,recorded,Scopus,TITLE-ABS-KEY,reuse,17,recorded,1,,10.1371/journal.pone.0067332,
 share their data,recorded,Scopus,TITLE-ABS-KEY,reuse,17,recorded,1,,10.1177/1745691613491579,
 sharing or reusing data,recorded,Scopus,TITLE-ABS-KEY,reuse,17,recorded,1,,10.1371/journal.pone.0018657,
+data reuse,fallback,Scopus,TITLE-ABS-KEY,reuse,17,Candidate terms table,0,,,
 barriers to data sharing,OpenAlex keyword,Scopus,TITLE-ABS-KEY,factors that obstruct,32,barriers,5,5,10.1098/rsta.2010.0165;10.1111/j.1755-263x.2012.00259.x;10.1016/j.neuroimage.2012.10.064;10.1371/journal.pone.0021101;10.1038/461160a,to screening
 challenges,recorded,Scopus,TITLE-ABS-KEY,factors that obstruct,32,recorded,4,4,10.1186/2047-217x-1-10;10.1016/j.giq.2012.06.011;10.5258/soton/374711;10.1007/s00267-014-0258-2,to screening
 barriers,recorded,Scopus,TITLE-ABS-KEY,factors that obstruct,32,recorded,3,1,10.1177/1745691613491579,to screening
@@ -350,6 +352,7 @@ research data reuse,OpenAlex keyword,Web of Science,TS,reuse,17,reuse,1,,10.1016
 share and reuse data,recorded,Web of Science,TS,reuse,17,recorded,1,,10.1371/journal.pone.0067332,
 share their data,recorded,Web of Science,TS,reuse,17,recorded,1,,10.1177/1745691613491579,
 sharing or reusing data,recorded,Web of Science,TS,reuse,17,recorded,1,,10.1371/journal.pone.0018657,
+data reuse,fallback,Web of Science,TS,reuse,17,Candidate terms table,0,,,
 barriers to data sharing,OpenAlex keyword,Web of Science,TS,factors that obstruct,32,barriers,5,5,10.1098/rsta.2010.0165;10.1111/j.1755-263x.2012.00259.x;10.1016/j.neuroimage.2012.10.064;10.1371/journal.pone.0021101;10.1038/461160a,to screening
 challenges,recorded,Web of Science,TS,factors that obstruct,32,recorded,4,4,10.1186/2047-217x-1-10;10.1016/j.giq.2012.06.011;10.5258/soton/374711;10.1007/s00267-014-0258-2,to screening
 barriers,recorded,Web of Science,TS,factors that obstruct,32,recorded,3,1,10.1177/1745691613491579,to screening
