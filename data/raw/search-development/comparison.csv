@@ -1,10 +1,10 @@
-criterion,chawinga_zinn,rds_review,relation,evidence
-topic,"sources that reported on data sharing (section 3.1, p. 111)","concerns the sharing or reuse of research data, and reports factors that influence sharing or reuse (screening-guide.qmd, Criteria; Research Protocol, Eligibility criteria)",overlap,"Practice coded: sharing 68, reuse 3, both 8, neither 18; Factors none in 21"
-source type,"journal articles, case reports, theses, dissertations and books; excluded conference papers, letters, editorials, book reviews, research notes and short communications (section 3.1, p. 111)","all source types eligible in both tiers (Research Protocol, Eligibility criteria)",narrower,"source_type coded: opinion 33, other 29, empirical 28, review 4, policy-guidance 3; the coded set includes editorials, letters and news items that the stated criteria exclude"
-empirical design,"empirical scholarly documents using quantitative or qualitative design or both (section 3.1, p. 111)","no design restriction (Research Protocol, Eligibility criteria)",narrower,empirical 28 of 97; the coded set includes opinion and other sources the stated criterion excludes
-language,"English (section 3.1, p. 111)","English or French at screening (Research Protocol, Eligibility criteria)",narrower,all reference set sources are in English
-date,"2007 or later, searched to July 2018 (section 3.1, p. 111; section 5.2, p. 115)","2015 to 2025 (Research Protocol, Eligibility criteria)",overlap,"2007-2014 56, 2015-2018 41"
-reuse,no criterion,"sharing or reuse (screening-guide.qmd, Criteria)",no criterion,"see counts.csv, Practice"
-data_origin,no criterion,"excludes data used only for surveillance, service delivery or patient care (Research Protocol, Eligibility criteria)",no criterion,"see counts.csv, data_origin"
-factors,"no inclusion criterion; factors enter only at data extraction, as motivating factors and challenges (section 3.3, p. 111)",reports factors under the themes in screening-guide.qmd (Criteria; Manual annotation of seed sample),no criterion,"see counts.csv, Factors"
-field and tier,no criterion; all fields,"tier 1 health research, tier 2 other fields and cross-disciplinary (Research Protocol, Eligibility criteria)",no criterion,"see counts.csv, field and tier"
+criterion,chawinga_zinn,rds_review,relation
+topic,"sources that reported on data sharing (section 3.1, p. 111)","concerns the sharing or reuse of research data, and reports factors that influence sharing or reuse (screening-guide.qmd, Criteria; Research Protocol, Eligibility criteria)",overlap
+source type,"journal articles, case reports, theses, dissertations and books; excluded conference papers, letters, editorials, book reviews, research notes and short communications (section 3.1, p. 111)","all source types eligible in both tiers (Research Protocol, Eligibility criteria)",narrower
+empirical design,"empirical scholarly documents using quantitative or qualitative design or both (section 3.1, p. 111)","no design restriction (Research Protocol, Eligibility criteria)",narrower
+language,"English (section 3.1, p. 111)","English or French at screening (Research Protocol, Eligibility criteria)",narrower
+date,"2007 or later, searched to July 2018 (section 3.1, p. 111; section 5.2, p. 115)","2015 to 2025 (Research Protocol, Eligibility criteria)",overlap
+reuse,no criterion,"sharing or reuse (screening-guide.qmd, Criteria)",no criterion
+data_origin,no criterion,"excludes data used only for surveillance, service delivery or patient care (Research Protocol, Eligibility criteria)",no criterion
+factors,"no inclusion criterion; factors enter only at data extraction, as motivating factors and challenges (section 3.3, p. 111)",reports factors under the themes in screening-guide.qmd (Criteria; Manual annotation of seed sample),no criterion
+field and tier,no criterion; all fields,"tier 1 health research, tier 2 other fields and cross-disciplinary (Research Protocol, Eligibility criteria)",no criterion

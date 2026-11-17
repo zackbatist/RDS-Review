@@ -1,58 +1,57 @@
 field,value,theme,development,test,total,codes_without_passage
-Factors,attitudes,stakeholder perspectives,1,3,4,0
-Factors,barriers,factors that obstruct,5,5,10,0
-Factors,challenges,factors that obstruct,4,5,9,0
-Factors,consent,mechanisms for implementation,3,1,4,0
-Factors,data curation,mechanisms for implementation,6,3,9,0
-Factors,data management plans,mechanisms for implementation,1,3,4,0
-Factors,enablers,factors that facilitate,1,1,2,0
-Factors,ethics,mechanisms for implementation,5,4,9,0
-Factors,governance,mechanisms for implementation,5,3,8,0
-Factors,incentives,factors that facilitate,9,6,15,0
-Factors,infrastructure,factors that facilitate,1,5,6,0
-Factors,interoperability,factors that facilitate,2,1,3,0
-Factors,licensing,mechanisms for implementation,1,0,1,0
-Factors,mandates,policies and what drive them,4,4,8,0
-Factors,motivation,factors that facilitate,5,0,5,0
-Factors,none,,11,10,21,21
-Factors,obstacles,factors that obstruct,3,1,4,0
-Factors,open access,policies and what drive them,3,1,4,0
-Factors,open data,policies and what drive them,0,2,2,0
-Factors,open science,policies and what drive them,1,3,4,0
-Factors,perceptions,stakeholder perspectives,3,5,8,0
-Factors,policies,policies and what drive them,11,11,22,0
-Factors,privacy,factors that obstruct,3,4,7,0
-Factors,reluctance,factors that obstruct,4,1,5,0
-Factors,repositories,factors that facilitate,5,2,7,0
-Factors,willingness,stakeholder perspectives,3,2,5,0
-Practice,both,,6,2,8,0
-Practice,neither,,7,11,18,0
-Practice,reuse,,0,3,3,0
-Practice,sharing,,43,25,68,0
-data_origin,mixed,,1,1,2,0
-data_origin,not-research-data,,1,0,1,0
-data_origin,research,,40,37,77,0
-data_origin,reused,,2,2,4,0
-data_origin,unclear,,12,1,13,12
-eligible_apart_from_year,no,,17,15,32,0
-eligible_apart_from_year,yes,,39,26,65,0
-field,cross-disciplinary,,13,16,29,0
-field,health,,21,9,30,0
-field,other,,22,16,38,0
-in_scope,no,,56,15,71,0
-in_scope,yes,,0,26,26,0
-reason,(none),,0,26,26,0
-reason,date,,39,0,39,0
-reason,not-data-sharing,,7,11,18,0
-reason,not-factors,,8,4,12,0
-reason,not-research-data,,1,0,1,0
-reason,other,,1,0,1,0
-set,development,,56,0,56,0
-set,test,,0,41,41,0
-source_type,empirical,,13,15,28,0
-source_type,opinion,,24,9,33,0
-source_type,other,,15,14,29,0
-source_type,policy-guidance,,3,0,3,0
-source_type,review,,1,3,4,0
-tier,1,,21,9,30,0
-tier,2,,35,32,67,0
+data_origin,not-research-data,,2,1,3,0
+data_origin,research,,47,37,84,0
+data_origin,reused,,1,0,1,0
+data_origin,unclear,,10,4,14,10
+factors,attitudes,stakeholder perspectives,1,1,2,0
+factors,barriers,factors that obstruct,18,13,31,0
+factors,challenges,factors that obstruct,5,2,7,0
+factors,consent,mechanisms for implementation,6,3,9,0
+factors,data curation,mechanisms for implementation,3,2,5,0
+factors,data management plans,mechanisms for implementation,2,7,9,0
+factors,digital curation,mechanisms for implementation,1,0,1,0
+factors,enablers,factors that facilitate,1,1,2,0
+factors,ethics,mechanisms for implementation,5,2,7,0
+factors,facilitators,factors that facilitate,6,6,12,1
+factors,governance,mechanisms for implementation,6,4,10,0
+factors,incentives,factors that facilitate,11,7,18,0
+factors,infrastructure,factors that facilitate,27,19,46,0
+factors,interoperability,factors that facilitate,3,2,5,0
+factors,licensing,mechanisms for implementation,1,0,1,0
+factors,mandates,policies and what drive them,2,2,4,0
+factors,motivation,factors that facilitate,5,7,12,0
+factors,none,none,10,4,14,14
+factors,open access,policies and what drive them,2,3,5,0
+factors,open data,policies and what drive them,1,1,2,0
+factors,open science,policies and what drive them,1,3,4,0
+factors,perceptions,stakeholder perspectives,5,3,8,0
+factors,policies,policies and what drive them,28,19,47,1
+factors,privacy,factors that obstruct,9,4,13,0
+factors,reluctance,factors that obstruct,15,5,20,0
+factors,repositories,factors that facilitate,6,4,10,0
+factors,stewardship,mechanisms for implementation,6,6,12,0
+factors,willingness,stakeholder perspectives,1,1,2,0
+field,cross-disciplinary,,8,8,16,1
+field,health,,24,9,33,0
+field,other,,28,25,53,6
+language,English,,60,42,102,0
+practice,both,,16,6,22,0
+practice,neither,,7,6,13,3
+practice,reuse,,1,3,4,0
+practice,sharing,,36,27,63,0
+source_type,empirical,,18,24,42,0
+source_type,opinion,,27,8,35,3
+source_type,other,,7,2,9,7
+source_type,policy-guidance,,5,3,8,0
+source_type,review,,3,5,8,0
+tier,1,,24,9,33,
+tier,2,,36,33,69,
+eligible_apart_from_year,no,,14,8,22,
+eligible_apart_from_year,yes,,46,34,80,
+in_scope,no,,60,8,68,
+in_scope,yes,,0,34,34,
+reason,(none),,0,34,34,
+reason,date,,46,0,46,
+reason,not-data-sharing,,7,6,13,
+reason,not-factors,,5,1,6,
+reason,not-research-data,,2,1,3,

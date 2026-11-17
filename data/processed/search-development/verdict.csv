@@ -1,8 +1,8 @@
 pcc_part,development,test,verdict
-sharing,39,24,covered
-reuse,6,4,covered
-factors that obstruct,13,12,covered
-factors that facilitate,19,11,covered
-stakeholder perspectives,5,9,covered
-policies and what drive them,16,13,covered
-mechanisms for implementation,13,10,covered
+sharing,45,31,covered
+reuse,17,9,covered
+factors that obstruct,30,19,covered
+factors that facilitate,36,26,covered
+stakeholder perspectives,6,4,covered
+policies and what drive them,27,19,covered
+mechanisms for implementation,18,13,covered

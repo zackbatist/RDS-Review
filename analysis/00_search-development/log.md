@@ -141,6 +141,15 @@ All seven PCC parts are *covered*. Reuse rests on 6 development and 4 test sourc
   - *Loose factor placements:* library terms ("librarian roles", "library services", "single point of contact") as *infrastructure*; problems in the data ("data heterogeneity", "data scarcity") as *barriers*; "data ownership" and "research transparency" as *policies*. Factor terms go to screening only.
 - **Choice.** The 122b's assignments, `term_assignments_qwen3.5-122b.csv`, for the same reason as its codes, and because it places MeSH Information Dissemination under *sharing*.
 
+## Notebook 00, step 1 files, 16 November 2026
+
+- **Built by the notebook.** Notebook 00 now builds `reference_sources.csv`, `counts.csv`, `verdict.csv` and `statement_matches.csv` from `reference_candidates.csv`, `reference_lookups.csv` and `reference_codes_qwen3.5-122b.csv`, and writes them to `data/processed/search-development/`. These replace the files I built by hand.
+- **Set.** Development set: 2007 to 2014, 60 sources. Test set: 2015 or later, 42 sources. Wiley 2018 is dated 25 September 2018 by Crossref, after the paper's search ended in July 2018; the paper cites it, so it stays in the test set.
+- **Eligibility.** 80 sources are eligible apart from year (46 development, 34 test), and 34 are in scope, all in the test set. Reasons: *date* 46, *not-data-sharing* 13, *not-factors* 6, *not-research-data* 3. The plan's In scope criteria have no `tier` condition, so the codebook's *tier2-not-review* code is not applied here.
+- **Verdict.** All seven PCC parts are *covered*: sharing 45 development and 31 test sources; reuse 17 and 9; factors that obstruct 30 and 19; factors that facilitate 36 and 26; stakeholder perspectives 6 and 4; policies and what drive them 27 and 19; mechanisms for implementation 18 and 13.
+- **Search statements**, against titles and abstracts: "research data sharing AND researchers" reaches 2 sources as phrases and 29 as separate words; "digital curation AND data sharing" none; "research data sharing AND open science" 1 and 8; "research data sharing AND open data" 0 and 17.
+- **Comparison.** `comparison.csv` lost its evidence column, whose counts came from my hand codes. It keeps the criteria and the relation, the recorded judgment; notebook 00 adds the current counts beside each criterion.
+
 ## To do
 
 - **Artificial intelligence section of `research-protocol.qmd`.** The sentence "The query terms come from those codes." oversimplifies how the terms were selected. Rewrite it once step 3 has run, so it states the exact outcomes: which terms entered each query and how the yield, coverage and precision tests decided them.
