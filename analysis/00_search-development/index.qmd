@@ -71,9 +71,9 @@ The reference set script reads the full text of Chawinga and Zinn (2019) through
   - **Language:** *English*, *French* or *other*, from the title and abstract.
   - **Year:** earliest of online or print publication, from `reference_lookups.csv`.
   - **Reason:** the `codebook.yml` exclusion code for each out-of-scope source, derived from the codes.
-  - **In scope:** Practice not *neither*, `data_origin` not *not-research-data*, Factors not *none*, Year 2015 to 2025, Language English or French.
+  - **In scope:** Practice not *neither*, `data_origin` not *not-research-data*, Factors not *none*, `tier` 1 or `source_type` *review* (the screening guide's Criteria admit other fields only as a review or synthesis), Year 2015 to 2025, Language English or French.
   - Notebook 00 derives `tier`, Year, set, Reason, In scope and Eligible apart from year by these rules and writes them with the lookups to `reference_sources.csv`.
-  - **Eligible apart from year:** every In scope criterion except Year. Development set sources meeting it are the ones step 3 counts.
+  - **Eligible apart from year:** every In scope criterion except Year and `tier`. Development set sources meeting it are the ones step 3 counts. `tier` stays out because the query carries no field terms and the `tier` decision happens at screening, so the query should retrieve sources from every field.
 - **Method:**
   1. Count the reference set sources by each coded value, split by development and test set.
   2. For each criterion Chawinga and Zinn set (topic, source type, empirical design, language, date; p. 111), enter a row in the comparison table with their criterion, the RDS-Review criterion for the same thing with its section heading, and the relation between them: *match* when both admit the same sources, *overlap* when each admits sources the other excludes, *differ* when they admit no sources in common. Where they set none (reuse, `data_origin`, factors, `field`, `tier`), the counts alone show what their set covers.

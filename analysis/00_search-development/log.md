@@ -160,6 +160,11 @@ All seven PCC parts are *covered*. Reuse rests on 6 development and 4 test sourc
 - **Truncation.** Single words truncate at their stem, so "challenges" becomes challeng\* and "databases" databas\*.
 - **Step 3 results stale.** `query_tests.csv`, `query_misses.csv` and the load and precision files still come from the first step 3 run, on the hand-built terms. `query.py` and `precision.py` need reworking for the new columns and `term_results.csv` before step 3 reruns.
 
+## Tier in In scope, 16 November 2026
+
+- **In scope** now applies the screening guide's tier criterion: a source in another field is in scope only as a review (`source_type` *review*). 10 sources are in scope, down from 34. Reasons, first code per source in the codebook's order: *tier2-not-review* 50, *date* 20, *not-data-sharing* 13, *not-factors* 6, *not-research-data* 3.
+- **Eligible apart from year** leaves out `tier` as well as Year, because the query carries no field terms and the `tier` decision happens at screening. It is unchanged: 46 development and 34 test sources, so the verdict and the terms are unchanged.
+
 ## To do
 
 - **Artificial intelligence section of `research-protocol.qmd`.** The sentence "The query terms come from those codes." oversimplifies how the terms were selected. Rewrite it once step 3 has run, so it states the exact outcomes: which terms entered each query and how the yield, coverage and precision tests decided them.

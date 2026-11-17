@@ -1,9 +1,9 @@
 statement,reading,matched,matched_in_scope,ref_ids
-research data sharing AND researchers,phrase,2,2,bb0130;bb0395
-research data sharing AND researchers,words,29,11,bb0030;bb0035;bb0040;bb0070;bb0095;bb0105;bb0130;bb0155;bb0165;bb0180;bb0195;bb0215;bb0220;bb0255;bb0270;bb0355;bb0365;bb0375;bb0380;bb0395;bb0425;bb0470;bb0475;bb0480;bb0500;bb0505;bb2070;bb2080;bb3000
+research data sharing AND researchers,phrase,2,1,bb0130;bb0395
+research data sharing AND researchers,words,29,5,bb0030;bb0035;bb0040;bb0070;bb0095;bb0105;bb0130;bb0155;bb0165;bb0180;bb0195;bb0215;bb0220;bb0255;bb0270;bb0355;bb0365;bb0375;bb0380;bb0395;bb0425;bb0470;bb0475;bb0480;bb0500;bb0505;bb2070;bb2080;bb3000
 digital curation AND data sharing,phrase,0,0,
 digital curation AND data sharing,words,0,0,
 research data sharing AND open science,phrase,1,1,bb0395
-research data sharing AND open science,words,8,5,bb0025;bb0050;bb0130;bb0195;bb0355;bb0365;bb0395;bb0405
+research data sharing AND open science,words,8,2,bb0025;bb0050;bb0130;bb0195;bb0355;bb0365;bb0395;bb0405
 research data sharing AND open data,phrase,0,0,
-research data sharing AND open data,words,17,11,bb0015;bb0025;bb0050;bb0090;bb0130;bb0150;bb0195;bb0335;bb0355;bb0365;bb0385;bb0395;bb0405;bb0430;bb0435;bb0525;bb2070
+research data sharing AND open data,words,17,3,bb0015;bb0025;bb0050;bb0090;bb0130;bb0150;bb0195;bb0335;bb0355;bb0365;bb0385;bb0395;bb0405;bb0430;bb0435;bb0525;bb2070
