@@ -111,7 +111,7 @@ The reference set script reads the full text of Chawinga and Zinn (2019) through
   - *Scopus:* recorded, author keyword and OpenAlex keyword terms in `TITLE-ABS-KEY`.
   - *Web of Science:* recorded, author keyword and OpenAlex keyword terms in `TS`.
 - **Selection:**
-  - *Sharing and reuse:* every term goes to step 3, which selects by database retrieval and load.
+  - *Sharing and reuse:* every term that names data (contains *data*, as in *dataset* or *database*), and every MeSH heading, goes to step 3, which selects by database retrieval and load. The Concept is the sharing and reuse of research data, and a term such as "use" or "sharing" alone searches for any use or sharing, so it would swamp the yield threshold.
   - *Factor themes:* run separately for each database. Within each theme, taking terms in descending count, keep each one that matches a development set source no kept term matches. A source counts as matched by a MeSH term only if PubMed lists that heading for it, and by an author keyword only if it carries that keyword. A theme with no kept term takes its terms from `screening-guide.qmd`.
   - *Fallback:* a Practice value with no development set source, or whose development set sources all carry the other Practice value too (*both*), takes its matching terms from the Candidate terms table on the search strategy page, such as "data reuse" and "data re-use" for *reuse*.
   - Codes with the term *none* contribute no terms, nor do codes with a problem from the coding checks.

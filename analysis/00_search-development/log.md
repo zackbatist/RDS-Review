@@ -172,6 +172,13 @@ All seven PCC parts are *covered*. Reuse rests on 6 development and 4 test sourc
 - **Shared files.** The writer for files the three databases share now keeps every column any row has, so rows from the first step 3 run don't block the new columns.
 - **Checked** against stand-in database responses for Scopus and PubMed: the term runs, threshold, draft, trim, coverage, load and all four output files.
 
+## Step 3 rerun stopped and fixed, 16 November 2026
+
+- **PubMed load.** PubMed's esearch returns at most 9,999 PMIDs for one search, and the new PubMed query returned more for 2015 to 2025, so its load crashed. `search_lib.py` now fetches a result that size one publication year at a time, and a year still too large one month at a time.
+- **Long queries with identifiers.** Scopus answered "400 Bad Request" to the threshold request, which joined all its candidates with 25 DOIs; the same candidates without DOIs, 2,118 characters, went through. `query.py` now takes the sources any OR of terms retrieves as the union of the sources each term retrieves in its own term run, so every request with identifiers carries one term. Record counts and the load still use the joined query, which has no identifiers. Test set coverage is the union of each final term's run against the test set.
+- **Terms that name no data.** The model recorded terms such as "use", "share", "sharing" and "reuse". "use" alone returns 6,969,665 Web of Science records for 2007 to 2014, which brought the threshold down to 0.004 sources per 1,000 records, so the yield rule would have let almost any term in. A *sharing* or *reuse* term now goes to step 3 only if it contains *data* or is a MeSH heading, since the Concept is the sharing and reuse of research data. Candidates per database: 37 *sharing* and 12 *reuse* in PubMed, 36 and 11 in Scopus and Web of Science. "secondary analysis" names reuse without the word and drops out with the rest.
+- **Stale precision samples.** Each crashed query run left the loop to run `precision.py` on the first run's load file. The samples it drew were identical to the committed ones, so nothing changed; the rerun redraws them from the new loads.
+
 ## To do
 
 - **Artificial intelligence section of `research-protocol.qmd`.** The sentence "The query terms come from those codes." oversimplifies how the terms were selected. Rewrite it once step 3 has run, so it states the exact outcomes: which terms entered each query and how the yield, coverage and precision tests decided them.

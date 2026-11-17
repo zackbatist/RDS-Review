@@ -43,14 +43,27 @@ def pubmed_search(q, retmax=0):
     return int(j["count"]), j.get("idlist", [])
 
 
-def pubmed_all_ids(q):
-    n, _ = pubmed_search(q)
-    ids = []
-    for start in range(0, n, 9999):
-        p = dict(db="pubmed", term=q, retmax=9999, retstart=start, retmode="json",
+def pubmed_all_ids(q, years=range(2015, 2026)):
+    """Every PMID q returns. PubMed's esearch returns at most 9,999 PMIDs for one search, so a larger
+    result is fetched one publication year at a time, and a year still too large one month at a time."""
+    def fetch(term):
+        n, _ = pubmed_search(term)
+        if n > 9999:
+            raise ValueError(f"{n} records for one search, more than PubMed returns: {term}")
+        p = dict(db="pubmed", term=term, retmax=9999, retmode="json",
                  api_key=os.environ["NCBI_API_KEY"], email=EMAIL, tool="rds-review")
-        ids += _get(EU + "esearch.fcgi", p, pause=0.11).json()["esearchresult"]["idlist"]
-    return ids
+        return _get(EU + "esearch.fcgi", p, pause=0.11).json()["esearchresult"]["idlist"] if n else []
+
+    if pubmed_search(q)[0] <= 9999:
+        return fetch(q)
+    ids = []
+    for y in years:
+        if pubmed_search(f"({q}) AND {y}[dp]")[0] <= 9999:
+            ids += fetch(f"({q}) AND {y}[dp]")
+        else:
+            for m in range(1, 13):
+                ids += fetch(f"({q}) AND {y}/{m:02d}[dp]")
+    return list(dict.fromkeys(ids))
 
 
 def pubmed_summary(ids):

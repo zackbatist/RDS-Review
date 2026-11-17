@@ -39,17 +39,23 @@ DEV_SPAN = date_limit(DB, 2007, 2014)
 REVIEW_SPAN = date_limit(DB, 2015, 2025)
 
 
+def hits_of(ts):
+    """Sources an OR of terms retrieves: those any one of the terms retrieves. Each term's sources come
+    from its own term run, so no request ever joins several terms with the source identifiers, which
+    the databases refuse once the query grows long."""
+    return set().union(*(runs[(t["term"], t["type"])]["hits"] for t in ts))
+
+
 def measure(ts):
     q = q_of(ts)
-    recs = count(DB, f"({q}) AND {DEV_SPAN}")
-    hits = retrieved(DB, q, dev)
-    return q, recs, hits
+    return q, count(DB, f"({q}) AND {DEV_SPAN}"), hits_of(ts)
 
 
 # item 3: term runs
 runs = {}
 for t in cand:
-    q, recs, hits = measure([t])
+    q = q_of([t])
+    recs, hits = count(DB, f"({q}) AND {DEV_SPAN}"), retrieved(DB, q, dev)
     load = count(DB, f"({q}) AND {REVIEW_SPAN}")
     y = round(1000 * len(hits) / recs, 3) if recs else 0
     runs[(t["term"], t["type"])] = dict(t=t, recs=recs, hits=hits, load=load, y=y)
@@ -110,7 +116,7 @@ for t in sorted([t for t in draft if t["type"] != "fallback"], key=lambda t: add
     if len(draft) == 1:
         break
     trial = [x for x in draft if x is not t]
-    hits = retrieved(DB, q_of(trial), dev)
+    hits = hits_of(trial)
     if hits == d_hits:
         draft = trial
         status[(t["term"], t["type"])] = "excluded by yield"
@@ -141,7 +147,7 @@ for i in range(0, len([s for s in test if testable(DB, s)]), BATCH):
         idx |= {s["ref_id"] for s in b if s["doi"].lower() in dois}
 untestable = [s["ref_id"] for s in test if not testable(DB, s)]
 idx_src = [s for s in test if s["ref_id"] in idx]
-cov = retrieved(DB, final_q, idx_src)
+cov = set().union(*(retrieved(DB, wf(t), idx_src) for t in draft))  # each final term against the test set
 in_scope_idx = [s for s in idx_src if s["in_scope"] == "yes"]
 elig_idx = [s for s in idx_src if s["eligible_apart_from_year"] == "yes"]
 cov_all = wilson(len(cov), len(idx_src))
