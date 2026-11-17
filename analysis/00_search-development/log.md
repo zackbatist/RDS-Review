@@ -129,6 +129,18 @@ All seven PCC parts are *covered*. Reuse rests on 6 development and 4 test sourc
 - **Choice.** The 122b, because its terms and passages come from the sources word for word, and recorded terms become search terms in step 2. The 27b's codes stay, so anyone with one 24 GB GPU can rerun the coding and see how far the smaller model departs.
 - **File names.** Each file of codes keeps the name of the model that made it. `CODES` in `retrieval/search_lib.py` and the file list in notebook 00 name `reference_codes_qwen3.5-122b.csv` as the codes of record. My hand codes, `reference_codes.csv`, were deleted; they stay in the repository's history. `query.py` and notebook 00 still read the hand codes' columns (`key`, `Practice`), so both need reworking for the new columns before they run again.
 
+## Indexing assignments, 16 November 2026
+
+- **Runs.** `indexing.py` sent each of the 637 distinct terms in `reference_indexing.csv` to Qwen3.5-122B-A10B and to Qwen3.8-27B, one term at a time, with the coding settings and the answer held to the prompt's values. Neither run had a reply problem. The 122b placed 226 terms under a PCC part: 34 *sharing*, 5 *reuse*, 187 a factor. The 27b placed 191.
+- **The two models against each other**, as agreement and Cohen's kappa: same value 0.85 and 0.73; same PCC part or *none* 0.90 and 0.81; placed against *none* 0.92 and 0.81. All 5 of the 122b's *reuse* terms are *reuse* for the 27b, which adds "replication". The 27b agrees on 29 of the 122b's 34 *sharing* terms; it leaves out MeSH Information Dissemination, "data sharing culture", "data sharing framework", "data transparency" and "open data publishing", and adds "data accessibility". On factors, the 122b mostly places terms the 27b leaves as *none*: 22 under factors that facilitate, 9 under mechanisms for implementation, 5 each under factors that obstruct and policies and what drive them.
+- **Doubtful assignments in the 122b's run**, kept as they are so the run stays reproducible:
+  - *Sharing:* "data access", "data availability", "research data access", "remote data access" and "raw data access" could as well name reuse. Step 3's yield test decides whether any enters a query.
+  - *Reuse:* MeSH "Access to Information", from a scope note on the right to obtain and use information others collected; broad, and also left to step 3.
+  - *Wrong theme:* the keyword "stakeholder perspectives" became *stewardship*, under mechanisms for implementation, in both runs; "stakeholder engagement" went there too.
+  - *Inconsistent:* "trust" is *perceptions* as an OpenAlex keyword and *willingness* as an author keyword and as MeSH; both sit under stakeholder perspectives.
+  - *Loose factor placements:* library terms ("librarian roles", "library services", "single point of contact") as *infrastructure*; problems in the data ("data heterogeneity", "data scarcity") as *barriers*; "data ownership" and "research transparency" as *policies*. Factor terms go to screening only.
+- **Choice.** The 122b's assignments, `term_assignments_qwen3.5-122b.csv`, for the same reason as its codes, and because it places MeSH Information Dissemination under *sharing*.
+
 ## To do
 
 - **Artificial intelligence section of `research-protocol.qmd`.** The sentence "The query terms come from those codes." oversimplifies how the terms were selected. Rewrite it once step 3 has run, so it states the exact outcomes: which terms entered each query and how the yield, coverage and precision tests decided them.
