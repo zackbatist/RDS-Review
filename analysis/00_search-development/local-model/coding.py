@@ -1,7 +1,9 @@
 """Step 1 coding: sends each reference set source's title and abstract to the local model with prompts/coding_prompt.md and writes one row per coded value to a file of codes named after the model.
 
 The model runs on a llama.cpp server that scripts/launch_rds_llm.sh starts. LLM_URL names the server, by default http://localhost:11450.
-The argument names the output file in data/raw/search-development/, after the model: reference_codes_<model>.csv.
+The first argument names the output file in data/raw/search-development/, after the model: reference_codes_<model>.csv.
+An optional second argument names the input file there, by default reference_lookups.csv. Any file with the columns
+title and abstract, and ref_id or record_id, will do, such as the scope sample, scope_sample_records.csv.
 """
 import csv, datetime, difflib, json, os, re, sys, urllib.request
 from pathlib import Path
@@ -10,9 +12,10 @@ ROOT = Path(__file__).resolve().parents[3]
 RAW = ROOT / "data" / "raw" / "search-development"
 PROMPT = (Path(__file__).resolve().parents[1] / "prompts" / "coding_prompt.md").read_text(encoding="utf-8")
 URL = os.environ.get("LLM_URL", "http://localhost:11450").rstrip("/")
-if len(sys.argv) != 2:
-    sys.exit("give the output file name, such as reference_codes_qwen3.5-122b.csv")
+if len(sys.argv) not in (2, 3):
+    sys.exit("give the output file name, such as reference_codes_qwen3.5-122b.csv, and optionally the input file")
 OUT = RAW / sys.argv[1]
+IN = RAW / (sys.argv[2] if len(sys.argv) == 3 else "reference_lookups.csv")
 TEMPERATURE, SEED, MAX_TOKENS = 0, 20261116, 4096
 
 THEMES = {
@@ -116,7 +119,12 @@ def save():
         w.writerows(rows)
 
 
-refs = list(csv.DictReader(open(RAW / "reference_lookups.csv", encoding="utf-8")))
+refs = list(csv.DictReader(open(IN, encoding="utf-8")))
+for x in refs:  # the scope sample names its records record_id and has no author or year cited
+    x.setdefault("ref_id", x.get("record_id", ""))
+    x.setdefault("first_author", x["ref_id"])
+    x.setdefault("year_cited", x.get("year", ""))
+    x.setdefault("doi", "")
 rows = []
 for x in refs:
     abstract = x["abstract"].strip()
