@@ -21,7 +21,7 @@ Platforms and search dates for the exports are to be added.
 
 ## Seed
 
-The seed sample for the screening ranking is to be decided from evidence.
+The screening ranking starts from a seed sample of 200 records drawn at random, with a fixed random seed, from the deduplicated records. The [protocol](../research-protocol.qmd) gives the reasons.
 
 ## Candidate terms
 

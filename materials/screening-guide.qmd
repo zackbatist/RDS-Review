@@ -7,14 +7,14 @@ The guide states how records are screened and how decisions are exported for the
 
 ## Stages
 
-Title and abstract screening runs in [ASReview](https://asreview.nl), which ranks records by predicted relevance. The seed sample is to be decided from evidence.
+Title and abstract screening runs in [ASReview](https://asreview.nl), which ranks records by predicted relevance. The ranking starts from a seed sample of 200 records drawn at random, with a fixed random seed, from the deduplicated records.
 
 1. **Title and abstract.** Each deduplicated record gets one decision, `include` or `exclude`. When the title and abstract do not allow a decision, include the record.
 2. **Full text.** Each included record's full text is retrieved. A report that cannot be retrieved is counted as not retrieved. Each retrieved report gets one decision, and each exclusion gets one reason from the list below.
 
 Two reviewers independently screen the titles and abstracts of all records in the seed sample and resolve disagreements through discussion. The annotated seed sample initializes the ASReview ranking. One reviewer screens the ranked records until the stopping rule applies. Both reviewers then independently screen the full texts of the included records and resolve disagreements through discussion.
 
-Screening in ASReview stops on the statistical criterion of Callaghan and Müller-Hansen (2020). At intervals during ranked screening, export the decisions in screening order. A hypergeometric test on those decisions checks whether recall has reached 95% at a confidence level of 95%, and screening stops when the test rejects the hypothesis that recall falls below 95%.
+Screening in ASReview stops on the statistical criterion of Callaghan and Müller-Hansen (2020), in its ranked form. After each screening session, export the decisions in the order they were made, seed sample first. A hypergeometric test on those decisions checks whether recall has reached 95% at a confidence level of 95%, and screening stops when the test rejects the hypothesis that recall falls below 95%.
 
 Each included report is assigned to a source of evidence. Reports of the same study share one `source_id`.
 
