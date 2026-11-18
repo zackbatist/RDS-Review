@@ -1,42 +1,33 @@
 # Search development outcomes
 
-Outcomes of the plan in `index.qmd`, as of 12 November 2026. Steps 1 and 2 are done; step 3 has not run yet. `log.md` records every judgment call behind these figures.
+Outcomes of the plan in `index.qmd`, as of 18 November 2026. `log.md` records every judgment behind these figures, and notebook 00 shows them.
 
 ## Step 1. Comparability assessment
 
-**Reference set.** The reference set holds 97 references Chawinga and Zinn (2019) cite as findings in sections 4 and 5 and Table 2, against the 105 they report. The development set holds 56 sources (2007 to 2014); the test set holds 41 (2015 to July 2018).
+**Reference set.** 102 references Chawinga and Zinn (2019) cite as findings: 60 in the development set (2007 to 2014) and 42 in the test set (2015 on).
 
-**Eligibility.** 65 sources are eligible apart from year (39 development, 26 test). 26 sources are in scope, all in the test set, since the review period starts in 2015. Exclusion codes across the 71 sources out of scope: *date* 39, *not-data-sharing* 18, *not-factors* 12, *not-research-data* 1, *other* 1.
+**Eligibility.** A local model, Qwen3.5-122B-A10B, coded each reference from its title and abstract; notebook 00 applies the eligibility criteria to the codes. 46 development and 34 test sources are eligible apart from year, and 40 and 29 of them have a DOI or PMID. 10 test sources are in scope. Qwen3.8-27B coded the same references for comparison; the two agree on 79% to 100% of the codes for each variable.
 
-**Verdict.** `verdict.csv` marks all seven PCC parts *covered* in both sets. *Reuse* rests on 6 development and 4 test sources; *stakeholder perspectives* on 5 development sources.
+**Verdict.** `verdict.csv` marks all seven PCC parts *covered* in both sets. *Stakeholder perspectives* rests on 6 development and 4 test sources.
 
-**Title-only coding.** 37 sources carry codes from their titles alone, because no abstract was reachable. Eleven of them fall out as *not-factors* on their titles, and their abstracts may report factors. The notebook pulls abstracts from Crossref, OpenAlex and PubMed, and its coding can overturn these.
-
-**Chawinga and Zinn's search statements.** `statement_matches.csv` shows their four statements reach at most 27 of the 97 sources, and "digital curation AND data sharing" reaches none. Their statements account for a minority of what they included, consistent with their account of finding most sources through citation tracking and Google Scholar. They offer no template for the RDS-Review queries.
+**Chawinga and Zinn's search statements** reach a minority of the sources they included, and offer no template for the RDS-Review query.
 
 ## Step 2. Terms by PCC part
 
-**Candidates for step 3.** `terms.csv` lists 37 *sharing* and 9 *reuse* terms for PubMed, and 35 *sharing* and 9 *reuse* terms each for Scopus and Web of Science.
+`terms.csv` lists the terms the development set sources use for each PCC part. Its sharing and reuse terms fed the first version of step 3, which was replaced; its factor terms informed the screening guide.
 
-**Strongest terms.** For *sharing*, MeSH "Information Dissemination" and the recorded term "data sharing" each match 16 development sources. For *reuse*, the strongest term, "data reuse", matches 2.
+## Step 3. Query and testing
 
-**Factor terms.** Factor terms carry the status *to screening*. They inform screening and stay out of the queries.
+**Query.** A form of *share* within five words of *data* in the title, leaving out titles that name blockchain, smart contracts, the Internet of Things, vehicular networks, edge computing or cloud computing, for 2015 to 2025 in English and French. The search strategy page gives each database's string.
 
-**Recorded terms.** Many recorded terms are long phrases lifted from passages. Step 3's yield rule will drop most of them.
+**Load.** 2,437 records in PubMed, 7,067 in Scopus and 6,149 in Web of Science on 18 November 2026; 7,933 once matched on DOI, or on title and year.
 
-## Step 3. Query tests
+**Development set.** The query retrieves 29 of the 35 eligible development sources that at least one database indexes. The phrase "data sharing" in titles retrieves 16 or 17 in each database, against 20 to 28 for the query. Searching abstracts as well returns about eight times the records for at most three more sources. Factor terms add two sources for about 7,600 records, so they stay out of the query.
 
-The scripts in `retrieval/` run on the analysis server. They have not run. They write:
+**Test set.** 18 of the 26 eligible test sources that at least one database indexes (0.69, 95% interval 0.50 to 0.84), and 9 of the 10 in scope. The 8 indexed sources it misses name research data management, open data, open science or reuse in their titles; all but Chiware and Mathe (2016) are out of scope.
 
-- `query_tests.csv`: per database, the final query, development yield, load for 2015 to 2025, test set coverage with 95% CI, and the precision sample's seed
-- `query_misses.csv`: indexed test set sources each final query misses, and development set sources reached only by terms excluded by yield
-- `terms.csv`: development yield, load, sources added and status for every *sharing* and *reuse* term
-- `query_runs_<database>.csv`: every term run, the threshold, each draft addition and each trim drop
-- `load_<database>.csv`: the records each final query returns for 2015 to 2025
-- `precision_sample_<database>.csv`: 100 records per database, which the reviewers screen for precision
+**Known items.** 8 of the 11 health research items and all 5 cross-disciplinary reviews on the search strategy page. Hutchings et al. (2020), Swales et al. (2024) and Inau et al. (2023) are missed; title terms for governance mechanisms would add 4,304 records to catch two of them.
 
-*Reuse* carries the main risk. Few reference sources support it, so a query the reference set judges complete can still miss reuse-heavy records.
+**Added by hand.** Chiware and Mathe (2016), Hutchings et al. (2020), Swales et al. (2024) and Inau et al. (2023).
 
-## Notebook
-
-`00-search-development.ipynb` reads every file in `data/raw/search-development/` and `data/processed/search-development/` and shows these outcomes, with step 3 and precision once their files exist.
+**Decisions.** Reuse leaves the review's question and the query. Factor terms guide screening. Sources that design, build or evaluate a system, product or service for sharing data are excluded. No document type filter, no citation searching. The seed sample and the stopping rule are still to be decided.
