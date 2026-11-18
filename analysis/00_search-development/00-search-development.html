@@ -140,7 +140,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../analysis/index.html">Analysis</a></li><li class="breadcrumb-item"><a href="../../analysis/00_search-development/index.html">Search development</a></li><li class="breadcrumb-item"><a href="../../analysis/00_search-development/00-search-development.html">00 Search development</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../analysis/index.html">Analysis</a></li><li class="breadcrumb-item"><a href="../../analysis/00_search-development/00-search-development.html">Search development</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -213,23 +213,12 @@ div.csl-indent {
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../../analysis/00_search-development/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Search development</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../analysis/00_search-development/00-search-development.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">00 Search development</span></a>
+ <span class="menu-text">Search development</span></a>
   </div>
 </li>
-      </ul>
-  </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../analysis/01-deduplication.html" class="sidebar-item-text sidebar-link">
@@ -306,12 +295,12 @@ div.csl-indent {
   <li><a href="#precision" id="toc-precision" class="nav-link" data-scroll-target="#precision">Precision</a></li>
   </ul></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="00-search-development.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../analysis/index.html">Analysis</a></li><li class="breadcrumb-item"><a href="../../analysis/00_search-development/index.html">Search development</a></li><li class="breadcrumb-item"><a href="../../analysis/00_search-development/00-search-development.html">00 Search development</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../analysis/index.html">Analysis</a></li><li class="breadcrumb-item"><a href="../../analysis/00_search-development/00-search-development.html">Search development</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">00 Search development</h1>
 </div>
@@ -330,7 +319,7 @@ div.csl-indent {
 </header>
 
 
-<p>This notebook builds the files of the <a href="../../analysis/00_search-development/index.html">search development plan</a> that follow by fixed rules from the files in <code>data/raw/search-development/</code>, writes them to <code>data/processed/search-development/</code>, and shows the outcomes of the plan’s three steps. Step 1 compares the sources <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span> included with the RDS-Review criteria. Step 2 lists the terms those sources use for each part of the PCC table. Term evidence measures candidate queries in PubMed, Scopus and Web of Science, chooses the query and tests it. Step 3’s first version, which chose terms by a yield rule, follows as a record.</p>
+<p>This notebook builds the files of the <a href="index.qmd">search development plan</a> that follow by fixed rules from the files in <code>data/raw/search-development/</code>, writes them to <code>data/processed/search-development/</code>, and shows the outcomes of the plan’s three steps. Step 1 compares the sources <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span> included with the RDS-Review criteria. Step 2 lists the terms those sources use for each part of the PCC table. Term evidence measures candidate queries in PubMed, Scopus and Web of Science, chooses the query and tests it. Step 3’s first version, which chose terms by a yield rule, follows as a record.</p>
 <p><code>summary_of_outcomes.md</code> states the outcomes in prose, and <code>log.md</code> records the judgments behind the work. The checks come first. If any check finds an error, the notebook stops.</p>
 <div id="c02" class="cell" data-execution_count="1">
 <details class="code-fold">
