@@ -9,7 +9,7 @@ Draft. The eligibility criteria and limits can still change. The protocol will b
 
 ## Background
 
-This review maps the factors reported to influence the sharing and reuse of research data in health research, including barriers, facilitators, and governance mechanisms.
+This review maps the factors reported to influence the sharing of research data in health research, including barriers, facilitators, and governance mechanisms.
 
 This review updates the 2019 review of research data sharing [@chawinga2019] with the scoping review methods of @cavallaro2026. The 2019 review shares this review's focus on research data sharing, which makes it a strong candidate for an update. It looks at differences across countries. This review looks at differences across research domains, with special attention on healthcare.
 
@@ -21,9 +21,9 @@ The taxonomy of factors this review produces serves the CITF-emails study, where
 
 ## Objective and questions
 
-The objective is to map the factors reported to influence the sharing and reuse of research data in health research, and to compare them with the factors reported for other fields and for public health data.
+The objective is to map the factors reported to influence the sharing of research data in health research, and to compare them with the factors reported for other fields and for public health data.
 
-1. Which factors (barriers, facilitators, and governance mechanisms) are reported to influence the sharing and reuse of research data in health research?
+1. Which factors (barriers, facilitators, and governance mechanisms) are reported to influence the sharing of research data in health research?
 2. How can these factors be organized into a taxonomy suitable for annotating correspondence about data sharing?
 3. How do the factors reported for health research differ from those reported for research in other fields and for public health data?
 
@@ -38,29 +38,31 @@ The criteria follow the population, concept, and context (PCC) structure that JB
 | Element | Criterion |
 |:--------|:---------------------------------|
 | Population | No restriction. Sources may concern researchers, data stewards, institutions, or governance bodies. |
-| Concept | Factors that influence the sharing and reuse of research data, including barriers, facilitators, and governance mechanisms. Research data are data used for research, whether collected for a study or collected for another purpose and reused for research. Data governance comprises the strategies and tools employed to identify, manage, and disseminate data [@leonelli2019]. In health research, data access governance manages who has access to data, for what purposes, and under what conditions, through data access committees, data access agreements, policies, and monitoring [@shabani2021]. |
+| Concept | Factors that influence the sharing of research data, including barriers, facilitators, and governance mechanisms. Research data are data used for research, whether collected for a study or collected for another purpose and reused for research. Data governance comprises the strategies and tools employed to identify, manage, and disseminate data [@leonelli2019]. In health research, data access governance manages who has access to data, for what purposes, and under what conditions, through data access committees, data access agreements, policies, and monitoring [@shabani2021]. |
 | Context, tier 1 | Health research. All source types are eligible. |
 | Context, tier 2 | Research in other fields and cross-disciplinary research. Reviews and syntheses only. |
 
 Sources are excluded when they concern public health data, health systems data, or clinical care data used only for surveillance, service delivery, or patient care. Sources that concern these data reused for research are eligible. The `data_origin` variable in the codebook records whether a source concerns data collected for research or data reused for research after collection for surveillance, service delivery, or patient care. Each source is assigned a tier at screening from its field.
 
-The search covers 2015 to 2025 and applies no language limit. Screening includes sources in English and French, the languages the reviewers read.
+Sources that design, build or evaluate a specific system, product or service for sharing data are excluded, such as a blockchain framework, a cloud platform or an encryption scheme. Sources that study why people adopt or resist such a system report factors and are eligible.
+
+The search covers sources published from 2015 to 2025 in English and French, the languages the reviewers read.
 
 ### Information sources and search
 
-Four queries run in Scopus, Web of Science, and PubMed for 2015 to 2025. All four build on @chawinga2019. The base RDS query (Q1) takes their core term, "research data sharing". Three concept queries (Q2 to Q4) extend that term with the vocabulary the field uses around it. Each pairs its own key term with "research data" or "data sharing" using AND, so a record must name both the concept and the data practice in its title or abstract. The queries use no health terms. Each database applies its own document type filter. Scopus and Web of Science limit results to articles and reviews, and PubMed limits results to journal articles. The [search strategy](materials/search-strategy.qmd) page lists the key terms, the strings, and the counts.
+One query runs in Scopus, Web of Science, and PubMed. It searches titles for a form of *share* within five words of *data*, which matches "data sharing" along with phrasings such as "sharing research data" and "sharing of health data", in sources published from 2015 to 2025 in English and French. It applies no document type filter, since all source types are eligible. The [search strategy](materials/search-strategy.qmd) page gives the query as written for each database, with the number of records it returns.
 
-Citation searching of the included sources supplements the database searches. The final strings are tested against a list of known relevant sources. Every search is recorded on the [search strategy](materials/search-strategy.qmd) page.
+Candidate queries were compared on the records they return and on how many known relevant sources they find. The known sources are the sources included in the review by @chawinga2019 that meet this review's criteria, apart from publication year. Those published from 2007 to 2014 served to compare candidate queries, and those published from 2015 were set aside until the query was chosen, to test it on sources it was not built from. A title search returned a small fraction of the records that a search of titles and abstracts returned and found most of the known sources. Factor terms, such as barriers, incentives, and policies, found few more known sources for many more records. The [screening guide](materials/screening-guide.qmd) lists them for reviewers to apply when they screen. The comparisons also showed that about a third of the records in Scopus and Web of Science report a system, product, or service for sharing data, such as a blockchain framework or a cloud storage scheme, which the eligibility criteria exclude. The query leaves out titles that name blockchain, smart contracts, the Internet of Things, vehicular networks, edge computing, or cloud computing, the words that most often mark such sources. Known sources the query misses are added to the records by hand. @sec-search-development summarizes the measurements and lists the sources added by hand.
 
 ### Selection of sources
 
 Records are deduplicated with [bib-dedupe](https://github.com/CoLRev-Environment/bib-dedupe) [@wagner2024], which, unlike the Zotero workflow of @cavallaro2026, runs from a script and makes the step reproducible. The records are then screened on title and abstract in [ASReview](https://asreview.nl), and again on full text, against the [screening guide](materials/screening-guide.qmd). Exclusion reasons are recorded at full text. Counts at every stage feed the flow diagram.
 
-ASReview ranks records by predicted relevance with its default model, ELAS u5, which pairs TF-IDF features with a support vector machine, and starts from a seed sample. The seed is the base RDS query (Q1), which returned 308 records against 4,192 for the four queries combined (7.3%), modestly above the conventional 5%. A seed from a fixed keyword is reproducible. @cavallaro2026 select their seed sample ad hoc from the first 5% of deduplicated records.
+ASReview ranks records by predicted relevance with its default model, ELAS u5, which pairs TF-IDF features with a support vector machine, and starts from a seed sample, which is to be decided from evidence. @cavallaro2026 select their seed sample ad hoc from the first 5% of deduplicated records.
 
 Two reviewers independently screen the titles and abstracts of all records in the seed sample and resolve disagreements through discussion. The annotated seed sample initializes the ASReview ranking. One reviewer screens the ranked records until the stopping rule applies. Both reviewers then independently screen the full texts of the included records and resolve disagreements through discussion.
 
-Screening in ASReview stops on the statistical criterion of @callaghan2020. At intervals during ranked screening, a hypergeometric test on the screening decisions checks whether recall has reached a target of 95% at a confidence level of 95%, and screening stops when the test rejects the hypothesis that recall falls below the target. In an evaluation of 15 stopping methods on 81 datasets, this criterion alone never stopped before its recall target [@repke2026], while fixed stopping rules in ASReview fail to generalize across datasets [@kempny2026]. These evaluations draw on systematic reviews and on random initial samples, so the criterion's performance with a keyword seed sample in a scoping review remains untested. Recall counts relevant records, so the criterion cannot show whether the unscreened records report factors that the screened records do not. Citation searching of the included sources checks for relevant sources that screening missed.
+Screening in ASReview stops on the statistical criterion of @callaghan2020. At intervals during ranked screening, a hypergeometric test on the screening decisions checks whether recall has reached a target of 95% at a confidence level of 95%, and screening stops when the test rejects the hypothesis that recall falls below the target. In an evaluation of 15 stopping methods on 81 datasets, this criterion alone never stopped before its recall target [@repke2026], while fixed stopping rules in ASReview fail to generalize across datasets [@kempny2026]. These evaluations draw on systematic reviews and on random initial samples, so the criterion's performance with a keyword seed sample in a scoping review remains untested. Recall counts relevant records, so the criterion cannot show whether the unscreened records report factors that the screened records do not.
 
 ### Data charting
 
@@ -74,8 +76,103 @@ The review codes factors inductively. The resulting taxonomy is a primary output
 
 ### Artificial intelligence
 
-No large language model makes or suggests eligibility, charting, or synthesis decisions. ASReview ranks records by predicted relevance, and the reviewers make every screening decision. The analysis reruns from the search exports without invoking any language model. During search development, a large language model (Claude Opus 5.5, Anthropic, model identifier `claude-opus-5-5`, effort set to medium, used through claude.ai on 11 and 12 November 2026) assisted an assessment of how the sources @chawinga2019 included compare with this review's eligibility criteria. Following the definitions in the search development plan, it coded the references they cite as findings for practice, data origin, field, source type, and the factors each source reports, from titles and abstracts, recording the passage behind each code. The query terms come from those codes. These references serve only to build and test the queries. The codes apply to none of the records the searches retrieve, and they enter neither screening nor charting. The reviewers screen the record samples that test each query's precision. Reporting of AI use follows the joint position statement of Cochrane, the Campbell Collaboration, JBI, and the Collaboration for Environmental Evidence [@flemyng2025].
+No large language model makes or suggests eligibility, charting, or synthesis decisions. ASReview ranks records by predicted relevance, and the reviewers make every screening decision. The analysis reruns from the search exports without invoking any language model.
+
+A local large language model coded the sources included in the review by @chawinga2019 to identify those that meet this review's eligibility criteria, which serve as known relevant sources for testing the query. For each source, it recorded the practice, data origin, field, source type, and reported factors from the title and abstract, with the passage that supports each code, choosing from the values listed in its [prompt](analysis/00_search-development/prompts/coding_prompt.md), which come from the eligibility criteria, the [screening guide](materials/screening-guide.qmd), and the [codebook](codebook.qmd). [Notebook 00](analysis/00_search-development/00-search-development.ipynb) reports the codes and keeps the sources that meet the criteria, apart from publication year, as known sources. The model ran at temperature 0 with a fixed seed, which makes its output repeatable. A smaller model, run with the same prompt and settings, agrees with it on 79% to 100% of the codes for each variable, with Cohen's kappa from 0.63 to 0.84.
+
+| | First model | Smaller model |
+|:--|:--|:--|
+| Model | Qwen3.5-122B-A10B | Qwen3.8-27B |
+| Build | unsloth Q4_K_M, Hugging Face revision `51eab4d` | unsloth UD-Q4_K_M, Hugging Face revision `4af51b3` |
+| Hardware | Four GPUs | One GPU |
+| Server | llama.cpp, build b12375 | llama.cpp, build b12375 |
+| Settings | Temperature 0, fixed seed, thinking off, answers held to the prompt's values | The same |
+| Run | 16 November 2026 | 16 November 2026 |
+
+: Local models that coded the sources included in the review by @chawinga2019. {#tbl-local-models}
+
+Claude Opus 5.5 (Anthropic, model identifier `claude-opus-5-5`, used through claude.ai from 11 to 18 November 2026) was used in search development. At the authors' direction, it wrote the scripts, proposed measurements, and drafted the search development records; the authors chose each term in the query from the measurements. Reporting of AI use follows the joint position statement of Cochrane, the Campbell Collaboration, JBI, and the Collaboration for Environmental Evidence [@flemyng2025].
 
 ### Reporting and data
 
 The checklists for PRISMA-ScR and PRISMA-S record where each item is reported. The flow diagram is generated from the screening counts. Search exports, screening decisions, charted data, and all code are in the repository.
+
+## Appendix: search development {#sec-search-development}
+
+Each measurement counts the records a query returns for 2015 to 2025 in English and French, and checks which known sources it finds, by DOI or PMID. The known sources published from 2007 to 2014 compared candidate queries; those published from 2015 tested the chosen query. Web of Science's API rejects its language limit beside a proximity search, so its counts for those queries cover all languages; elsewhere the limit removes about 0.5% of records. Counts once duplicates are removed match records on DOI, or on title and year, and estimate the load; bib-dedupe finds as many duplicates or more. The [search development](analysis/00_search-development/00-search-development.ipynb) notebook holds the code and the files for each measurement.
+
+### Sharing terms
+
+"data sharing" and 17 other phrases for sharing were each counted alone. In PubMed, "shar\* data" found three known sources that "data sharing" missed. "data publication", "data access", and "data availability" each found only Costello (2009) beyond "data sharing", for 600 to 18,000 records. The notebook gives every phrase's counts.
+
+### Factor terms
+
+The factor terms of the Candidate terms table on the [search strategy](materials/search-strategy.qmd) page, with six general words for a factor (factor\*, influenc\*, determinant\*, driver\*, concern\*, trust), were paired with "data sharing" in three versions: "data sharing" in the title alone, "data sharing" with a factor term anywhere in the record, and either of the two. Five terms found no known source in any database and were dropped: facilitator\*, driver\*, interoperab\*, "open research", and "digital curation". Privacy was dropped, since removing it lost no known source in any database. Removing the remaining terms one by one lost known sources within two or three removals and still left thousands of records. Requiring the factor term within five words of "data sharing" more than halved the records in Scopus and Web of Science.
+
+| Version | PubMed | Scopus | Web of Science |
+|:--|--:|--:|--:|
+| "data sharing" in the title | 1,677 (17) | 5,517 (16) | 4,438 (16) |
+| "data sharing" with a factor term | 6,959 (18) | 22,134 (24) | 15,057 (26) |
+| Either | 7,525 (21) | 23,357 (25) | 16,208 (27) |
+| Either, the factor term within five words | 7,295 (21) | 9,018 (21) | 7,175 (21) |
+
+: Records each version returns, with the known sources from 2007 to 2014 it finds in brackets. PubMed cannot search within five words, so its last row matches the factor term anywhere. {#tbl-factor-versions}
+
+### A form of share near data
+
+The phrase "data sharing" misses titles such as "sharing research data" and "sharing of health data". A form of *share* within three or five words of *data* in the title found more known sources than any version above, with no factor terms. The same search in titles and abstracts returned about eight times the records for at most three more known sources in any database.
+
+| Query | PubMed | Scopus | Web of Science |
+|:--|--:|--:|--:|
+| *share* within five words of *data*, title | 2,532 (20) | 9,547 (27) | 7,813 (28) |
+| The same in title or abstract | 18,840 (21) | 82,908 (30) | 62,198 (31) |
+| The title query, or "data sharing" with a factor term | 7,840 (21) | 12,799 (29) | 10,346 (30) |
+
+: Records each query returns, with the known sources from 2007 to 2014 it finds in brackets. {#tbl-share-near-data}
+
+### Document types
+
+Editorials, letters, notes, and news make up 8% to 18% of the title query's records in each database. The databases index most opinion pieces as articles or reviews, and index some empirical and policy sources as notes or editorials, so a document type filter would keep most opinion pieces and drop sources the review keeps. The query uses none.
+
+### Systems, products, and services
+
+Titles naming blockchain, cloud computing, encryption, and other computing terms make up 6% of the title query's records in PubMed, 35% in Scopus, and 29% in Web of Science, and include no known source from 2007 to 2014. Most report a system, product, or service for sharing data, which the eligibility criteria exclude. Such words came into use after 2014, so the known sources from those years cannot show what leaving them out costs. The query leaves out only the words that almost always mark such sources. Encryption, access control, and privacy-preserving methods also describe the governance of research data, so screening handles them.
+
+| Words left out of titles | Records once duplicates are removed | Known sources from 2007 to 2014 found, of 35 |
+|:--|--:|--:|
+| None | 10,493 | 29 |
+| blockchain\*, "smart contract\*" | 9,157 | 29 |
+| and IoT, "internet of things", vehicular, "edge computing" | 8,848 | 29 |
+| and cloud | 7,933 | 29 |
+| and attribute-based, cryptograph\* | 7,857 | 29 |
+
+: The title query across the three databases as computing words are left out. The query stops at cloud; the last two words save 76 records. {#tbl-not-clause}
+
+### Test
+
+| | Known sources from 2015 found | Of those indexed |
+|:--|--:|--:|
+| PubMed | 8 | 12 |
+| Scopus | 16 | 24 |
+| Web of Science | 12 | 19 |
+| At least one database | 18 | 26 |
+| Meeting every criterion of this review | 9 | 10 |
+
+: The chosen query against the known sources published from 2015. {#tbl-test}
+
+Of the 16 known sources from 2015 the query misses, 8 are in none of the three databases or have no DOI or PMID to check them by. The other 8 name research data management, open data, open science, or reuse in their titles, and all but Chiware and Mathe (2016) fall outside this review's criteria.
+
+### Known-item test
+
+The query was also tested against the known items listed on the [search strategy](materials/search-strategy.qmd) page, reviews and studies of health research data sharing and cross-disciplinary reviews chosen before the search was developed. It finds 8 of the 11 health research sources and all 5 cross-disciplinary reviews. The three it misses are in the databases, and their titles do not name sharing data within five words: Hutchings et al. (2020) on "the secondary use and sharing of health administrative and clinical trial data", Swales et al. (2024) on a data transfer agreement, and Inau et al. (2023) on health data stewardship. Two of them concern governance mechanisms. Title terms for the governance mechanisms the concept names were measured against the query's 7,933 records: "data access" added 1,077 records, "data transfer" 1,617, "data governance" 1,120, "data stewardship" 82, and the FAIR principles 425, 4,304 together, for two of the known sources. The query leaves them out, and the misses are added by hand.
+
+### Sources added by hand
+
+| Source | DOI |
+|:--|:--|
+| Chiware and Mathe (2016). Academic libraries' role in research data management services: a South African perspective | 10.7553/81-2-1563 |
+| Hutchings et al. (2020). A systematic literature review of researchers' and healthcare professionals' attitudes towards the secondary use and sharing of health administrative and clinical trial data | 10.1186/s13643-020-01485-5 |
+| Swales, Gooden, and Thaldar (2024). The anatomy of a data transfer agreement for health research | 10.3389/fphar.2024.1332700 |
+| Inau et al. (2023). Initiatives, concepts, and implementation practices of the findable, accessible, interoperable, and reusable data principles in health data stewardship: scoping review | 10.2196/45013 |
+
+: Known sources the query misses that meet this review's criteria, added to the records by hand. {#tbl-hand-added}

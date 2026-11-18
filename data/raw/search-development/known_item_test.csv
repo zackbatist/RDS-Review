@@ -1,0 +1,22 @@
+group,label,doi,found_any,pubmed,scopus,web_of_science
+tier 1,Rowhani-Farid et al. 2017,10.1186/s41073-017-0028-9,True,found,not indexed,not indexed
+tier 1,Devriendt et al. 2021,10.1089/bio.2020.0037,True,found,found,found
+tier 1,Kalkman et al. 2019,10.1186/s12910-019-0359-9,True,found,found,found
+tier 1,Hamilton et al. 2023,10.1136/bmj-2023-075767,True,found,found,found
+tier 1,Hutchings et al. 2020,10.1186/s13643-020-01485-5,False,missed,missed,missed
+tier 1,Saulnier et al. 2019,10.1038/s41597-019-0310-4,True,found,found,found
+tier 1,Gudi et al. 2022,10.2196/33591,True,found,found,found
+tier 1,Swales et al. 2024,10.3389/fphar.2024.1332700,False,missed,missed,missed
+tier 1,Andanda and Mlotshwa 2024,10.1177/17470161241261907,True,not indexed,found,found
+tier 1,Inau et al. 2023,10.2196/45013,False,missed,missed,missed
+tier 1,Scheibner et al. 2023,10.1007/s10916-023-02009-z,True,found,found,found
+tier 2,Fecher et al. 2015,10.1371/journal.pone.0118053,True,found,found,found
+tier 2,Zuiderwijk et al. 2020,10.1371/journal.pone.0239283,True,found,found,found
+tier 2,Perrier et al. 2020,10.1371/journal.pone.0229182,True,found,found,found
+tier 2,Chawinga and Zinn 2019,10.1016/j.lisr.2019.04.004,True,not indexed,found,found
+tier 2,Thøgersen and Borlund 2022,10.1108/jd-01-2021-0015,True,not indexed,found,found
+adjacent,Alam et al. 2024,10.1371/journal.pdig.0000652,True,found,found,missed
+adjacent,Baines et al. 2024,10.2196/50421,True,found,found,found
+adjacent,Cascini et al. 2024,10.1016/j.eclinm.2024.102551,True,found,found,found
+comparator,van Panhuis et al. 2014,10.1186/1471-2458-14-1144,True,found,found,found
+comparator,Yehudi et al. 2025,10.1017/dap.2024.79,True,not indexed,found,found

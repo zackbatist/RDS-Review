@@ -2,33 +2,30 @@
 title: "Search strategy"
 ---
 
-This page records every search, as PRISMA-S requires [@rethlefsen2021]. Each query gets one row in the table, and each database gets one entry under search strings. The table counts are the records each database returned before deduplication. [01-deduplication](../analysis/01-deduplication.ipynb) writes the identification counts for the flow diagram from the exports in `data/raw/search_exports/` once the exports are in.
+This page records the search, as PRISMA-S requires [@rethlefsen2021]. The counts are the records each database returned before deduplication. [01-deduplication](../analysis/01-deduplication.ipynb) writes the identification counts for the flow diagram from the exports in `data/raw/search_exports/` once the exports are in.
 
-## Queries
+## Query
 
-Four queries run in each database for 2015 to 2025. All four build on @chawinga2019. Q1 takes their core term, "research data sharing", and serves as the base RDS query. Q2 to Q4 extend that term with the vocabulary the field uses around it. Each pairs one key term with "research data" or "data sharing" using AND, so a record must name both the concept and the data practice in its title or abstract. The date range brackets the 2019 review and picks up where it left off. The queries use no health terms. All terms are searched in titles and abstracts. The searches apply no language limit.
+One query runs in Scopus, Web of Science, and PubMed. It searches titles for a form of *share* within five words of *data*, and leaves out titles that name blockchain, smart contracts, the Internet of Things, vehicular networks, edge computing, or cloud computing. It covers sources published from 2015 to 2025 in English and French and applies no document type filter. The [protocol](../research-protocol.qmd) gives the reasons, and the [search development](../analysis/00_search-development/00-search-development.ipynb) notebook holds the measurements behind each choice.
 
-## Databases and searches
+| Database | Records |
+|:--|--:|
+| PubMed | 2,437 |
+| Scopus | 7,067 |
+| Web of Science | 6,149 |
+| **Total** | **15,653** |
 
-| Query | PubMed N (% of col.) | Scopus N (% of col.) | WoS N (% of col.) |
-|:---------------------------|-------------:|-------------:|-------------:|
-| Q1 research data sharing | 64 (6.1%) | 135 (7.8%) | 109 (7.7%) |
-| Q2 open data | 352 (33.6%) | 644 (37.4%) | 564 (39.7%) |
-| Q3 data governance | 219 (20.9%) | 348 (20.2%) | 255 (18.0%) |
-| Q4 open science | 414 (39.5%) | 596 (34.6%) | 492 (34.6%) |
-| **Column total** | **1,049** | **1,723** | **1,420** |
+: Records the query returned on 18 November 2026 through each database's API, before deduplication. Matched on DOI, or on title and year, they come to 7,933. The Web of Science count omits the language limit, which its API rejects beside a proximity search. {#tbl-records}
 
-: Records retrieved per query and database, 2015 to 2025, before deduplication. Percentages give each query's share of the database's summed hits.
-
-Platforms and search dates are to be added.
+Platforms and search dates for the exports are to be added.
 
 ## Seed
 
-The base RDS query (Q1) alone serves as the seed for the screening ranking. It returned 308 records against 4,192 for the four queries combined (7.3%), modestly above the conventional 5%. A seed derived from a fixed keyword is reproducible, and its size stays near where a seed sample should land.
+The seed sample for the screening ranking is to be decided from evidence.
 
 ## Candidate terms
 
-Candidate terms from earlier drafts of the query were checked against the seed. @tbl-relevance-checks shows how often each term appears in the records the base RDS query returned, which guided the four queries above.
+Candidate factor terms from earlier drafts of the query were counted in the records that an earlier base query, "research data sharing" in titles and abstracts, returned. @tbl-relevance-checks shows how often each term appears. The search development measured these terms against known sources, and the query uses none of them; the [screening guide](screening-guide.qmd) groups them by theme for screening.
 
 ::: {.compact-table}
 | Rank | Term | Total | PubMed | WoS | Scopus |
@@ -70,139 +67,59 @@ Candidate terms from earlier drafts of the query were checked against the seed. 
 
 ## Search strings
 
-The generic queries are the database-neutral core of the strings below. Each database adds its own field tags, date limits, and document type filters. All terms are searched in titles and abstracts.
-
-### Generic queries
+### Generic query
 
 ```text
--- Q1: research data sharing (base RDS query)
-"research data sharing" OR "research data-sharing"
+Title: share* NEAR/5 data
+NOT
+Title: blockchain* OR "smart contract*" OR IoT OR "internet of things" OR vehicular OR "edge computing" OR cloud
 
--- Q2: open data
-"open data"
-AND ("research data" OR "data sharing")
-
--- Q3: data governance
-"data governance"
-AND ("research data" OR "data sharing")
-
--- Q4: open science
-"open science"
-AND ("research data" OR "data sharing")
+Limits: published 2015 to 2025; English or French
 ```
 
-### Scopus (1,723 records)
+### PubMed
+
+PubMed's proximity search takes no truncation, so the string writes out four forms of *share*.
 
 ```text
--- Q1 (135 records)
-TITLE-ABS ( "research data sharing" OR "research data-sharing" )
-AND PUBYEAR > 2014 AND PUBYEAR < 2026
-AND DOCTYPE ( ar OR re )
-
--- Q2 (644 records)
-TITLE-ABS ( "open data" )
-AND TITLE-ABS ( "research data" OR "data sharing" )
-AND PUBYEAR > 2014 AND PUBYEAR < 2026
-AND DOCTYPE ( ar OR re )
-
--- Q3 (348 records)
-TITLE-ABS ( "data governance" )
-AND TITLE-ABS ( "research data" OR "data sharing" )
-AND PUBYEAR > 2014 AND PUBYEAR < 2026
-AND DOCTYPE ( ar OR re )
-
--- Q4 (596 records)
-TITLE-ABS ( "open science" )
-AND TITLE-ABS ( "research data" OR "data sharing" )
-AND PUBYEAR > 2014 AND PUBYEAR < 2026
-AND DOCTYPE ( ar OR re )
+(
+  ("sharing data"[ti:~5] OR "shared data"[ti:~5] OR "share data"[ti:~5] OR "shares data"[ti:~5])
+  NOT (blockchain*[ti] OR "smart contract*"[ti] OR IoT[ti] OR "internet of things"[ti]
+       OR vehicular[ti] OR "edge computing"[ti] OR cloud[ti])
+)
+AND 2015:2025[dp]
+AND (english[la] OR french[la])
 ```
 
-### Web of Science (1,420 records)
+### Scopus
 
 ```text
--- Q1 (109 records)
-(
-  TI=( "research data sharing" OR "research data-sharing" )
-  OR AB=( "research data sharing" OR "research data-sharing" )
-)
-AND PY=(2015-2025)
-AND DT=(Article OR Review)
-
--- Q2 (564 records)
-(
-  TI=( "open data" )
-  OR AB=( "open data" )
-)
-AND
-(
-  TI=( "research data" OR "data sharing" )
-  OR AB=( "research data" OR "data sharing" )
-)
-AND PY=(2015-2025)
-AND DT=(Article OR Review)
-
--- Q3 (255 records)
-(
-  TI=( "data governance" )
-  OR AB=( "data governance" )
-)
-AND
-(
-  TI=( "research data" OR "data sharing" )
-  OR AB=( "research data" OR "data sharing" )
-)
-AND PY=(2015-2025)
-AND DT=(Article OR Review)
-
--- Q4 (492 records)
-(
-  TI=( "open science" )
-  OR AB=( "open science" )
-)
-AND
-(
-  TI=( "research data" OR "data sharing" )
-  OR AB=( "research data" OR "data sharing" )
-)
-AND PY=(2015-2025)
-AND DT=(Article OR Review)
+TITLE ( shar* W/5 data )
+AND NOT TITLE ( blockchain* OR "smart contract*" OR IoT OR "internet of things"
+                OR vehicular OR "edge computing" OR cloud )
+AND PUBYEAR > 2014 AND PUBYEAR < 2026
+AND LANGUAGE ( english OR french )
 ```
 
-### PubMed (1,049 records)
+### Web of Science
 
 ```text
--- Q1 (64 records)
-( "research data sharing"[tiab] OR "research data-sharing"[tiab] )
-AND 2015:2025[dp]
-AND "Journal Article"[pt]
-
--- Q2 (352 records)
-"open data"[tiab]
-AND ( "research data"[tiab] OR "data sharing"[tiab] )
-AND 2015:2025[dp]
-AND "Journal Article"[pt]
-
--- Q3 (219 records)
-"data governance"[tiab]
-AND ( "research data"[tiab] OR "data sharing"[tiab] )
-AND 2015:2025[dp]
-AND "Journal Article"[pt]
-
--- Q4 (414 records)
-"open science"[tiab]
-AND ( "research data"[tiab] OR "data sharing"[tiab] )
-AND 2015:2025[dp]
-AND "Journal Article"[pt]
+(
+  TI=( shar* NEAR/5 data )
+  NOT TI=( blockchain* OR "smart contract*" OR IoT OR "internet of things"
+           OR vehicular OR "edge computing" OR cloud )
+)
+AND PY=(2015-2025)
+AND LA=(English OR French)
 ```
 
 ## Other sources
 
-Describe each supplementary method and how records were identified: citation searching of the included sources, registries, websites, and contacts. Name export files for these sources with the prefix `other-`.
+Known sources that the query misses and that meet the eligibility criteria are added by hand: Chiware and Mathe (2016), Hutchings et al. (2020), Swales, Gooden, and Thaldar (2024), and Inau et al. (2023). The [protocol](../research-protocol.qmd) gives their DOIs and how each was found. Name the export file for these sources with the prefix `other-`, for example `other-hand-added_2026-11-18.ris`.
 
 ## Known-item test {#known-item-test}
 
-The final strings are tested against these sources. The first two groups are in scope, so the query should retrieve them. The last two groups are comparators or adjacent work, and retrieving them is not required.
+The query was tested against these sources, which were listed before the search was developed. The first two groups are in scope, so the query should retrieve them. The last two groups are comparators or adjacent work, and retrieving them is not required. The query retrieves 8 of the 11 health research sources, all 5 cross-disciplinary reviews, and all 5 adjacent and comparator sources. It misses Hutchings et al. (2020), Swales, Gooden, and Thaldar (2024), and Inau et al. (2023), which are added by hand.
 
 **Health research data sharing (tier 1)**
 
@@ -239,4 +156,4 @@ The final strings are tested against these sources. The first two groups are in 
 
 ## Export file names
 
-Name each export `<database>_<YYYY-MM-DD>[_<query>].<ext>`, for example `scopus_2026-11-02_q1.ris`. The query label is `q1`, `q2`, `q3`, or `q4`. The date is the search date. Supported formats are RIS and CSV. See the README in `data/raw/search_exports/`.
+Name each export `<database>_<YYYY-MM-DD>.<ext>`, for example `scopus_2026-11-18.ris`. The date is the search date. Supported formats are RIS and CSV. See the README in `data/raw/search_exports/`.

@@ -33,11 +33,11 @@ A source reports factors when it addresses one of the themes in @tbl-factor-them
 
 | Theme | Words that signal it |
 |---|---|
-| Factors that obstruct | barrier\*, challenge\*, obstacle\*, reluctan\*, concern\* |
-| Factors that facilitate | motivat\*, incentive\*, enabler\*, facilitator\* |
-| Stakeholder perspectives | attitude\*, perception\*, willingness, trust |
-| Policies and what drive them | polic\*, mandate\*, licens\*, ethic\*, consent, privacy |
-| Mechanisms for implementation | infrastructure, repositor\*, stewardship, "data management plan\*", "data curation" |
+| Factors that obstruct | barrier\*, challenge\*, obstacle\*, reluctan\*, privacy |
+| Factors that facilitate | facilitator\*, enabler\*, incentive\*, motivat\*, infrastructure, repositor\*, interoperab\* |
+| Stakeholder perspectives | perception\*, attitude\*, willingness |
+| Policies and what drive them | polic\*, mandate\*, "open science", "open data", "open access", "open research" |
+| Mechanisms for implementation | governance, consent, licens\*, ethic\*, stewardship, "data management plan\*", "data curation", "digital curation" |
 
 : Themes of factors, with words that often signal them. {#tbl-factor-themes}
 

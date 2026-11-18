@@ -56,7 +56,7 @@ tables:
         definition: The specific factor, in the source's words or a close paraphrase.
         required: true
       - name: factor_type
-        definition: How the source says the factor affects sharing or reuse. `unclear` means the source reports the factor without saying how it affects sharing or reuse.
+        definition: How the source says the factor affects sharing. `unclear` means the source reports the factor without saying how it affects sharing.
         values: [barrier, facilitator, unclear]
         required: true
       - name: governance
