@@ -6,7 +6,7 @@ Outcomes of the plan in `index.qmd`, as of 18 November 2026. `log.md` records ev
 
 **Reference set.** 102 references Chawinga and Zinn (2019) cite as findings: 60 in the development set (2007 to 2014) and 42 in the test set (2015 on).
 
-**Eligibility.** A local model, Qwen3.5-122B-A10B, coded each reference from its title and abstract; notebook 00 applies the eligibility criteria to the codes. 45 development and 31 test sources are eligible apart from year, and 39 and 28 of them have a DOI or PMID. Sources about reuse alone fall outside the review's question. With tier 2 open to all source types, all 31 test sources are in scope. 10 test sources are in scope. Qwen3.8-27B coded the same references for comparison; the two agree on 79% to 100% of the codes for each variable.
+**Eligibility.** A local model, Qwen3.5-122B-A10B, coded each reference from its title and abstract; notebook 00 applies the eligibility criteria to the codes. 45 development and 31 test sources are eligible apart from year, and 39 and 28 of them have a DOI or PMID. Sources about reuse alone fall outside the review's question. With tier 2 open to all source types, all 31 test sources are in scope. Qwen3.8-27B coded the same references for comparison; the two agree on 79% to 100% of the codes for each variable.
 
 **Verdict.** `verdict.csv` marks all seven PCC parts *covered* in both sets. *Stakeholder perspectives* rests on 6 development and 4 test sources.
 
