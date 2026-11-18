@@ -288,6 +288,12 @@ This entry replaces "Tier 2 stays limited to reviews and syntheses" in the entry
 - **Added by hand.** All 13 test sources the query misses, now in scope, and Hutchings et al. 2020, Swales et al. 2024 and Inau et al. 2023: 16 in all, listed in the protocol's appendix and on the search strategy page.
 - **The local model on the search's records.** The protocol's Artificial intelligence section now says the model judged the two sets of records to estimate screening workload only; its judgments decide no record's eligibility and enter neither screening nor charting.
 
+## Plan and notebook 00 merged, 18 November 2026
+
+- **One page.** Zack asked for the plan page and notebook 00 to be one page. Notebook 00 now opens with the purpose, the approach and the findings, then gives each step's method from the plan before its tables. Each run states its question, explains the table's columns, and closes with its finding. The plan's setup, commands and file lists follow step 3, and the first version of step 3 comes last. `index.qmd` and `summary_of_outcomes.md` are removed; the opening's findings replace the summary, and the site's Search development entry points to the notebook.
+- **Corrections in the move.** The In scope rule now reads Practice *sharing* or *both*, with no tier or source type criterion, as notebook 00's code applies it. The comparison method names the relations `comparison.csv` uses: *overlap*, *narrower* and *no criterion*. The step 3 overview gives the test result as 18 of the 25 indexed sources, and run 15 no longer calls citation searching a backstop.
+- **Tables.** The notebook shows its tables as Markdown, so they read the same on the web page and in the PDF. The PDF leaves out the `ref_id`, `doi` and `pmid` columns and shows at most 25 rows of a table, with a note where it does; the web page shows every table whole.
+
 ## To do
 
 - **Artificial intelligence section of `research-protocol.qmd`.** The sentence "The query terms come from those codes." oversimplifies how the terms were selected. Rewrite it once the query is settled, so it states how the terms were chosen: from measured records and development studies in the three databases, as the Term evidence section records.

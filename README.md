@@ -33,7 +33,7 @@ Run `quarto publish gh-pages`.
 | `data/raw/` | Search exports, screening exports, and charted data as entered, and in `search-development/` what the search development scripts and the local model return. Notebooks never change these. |
 | `data/processed/` | Files written by the notebooks |
 | `analysis/` | The notebooks and their index page |
-| `analysis/00_search-development/` | The search development plan, notebook 00, the scripts that call the database APIs, the scripts and prompts for the local model, the log, and the summary of outcomes |
+| `analysis/00_search-development/` | Notebook 00, which records the search development and its outcomes, the scripts that call the database APIs, the scripts and prompts for the local model, and the log |
 | `scripts/` | The launch script for a local language model |
 | `assets/` | Bibliography and citation style |
 

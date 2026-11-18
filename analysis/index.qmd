@@ -2,7 +2,7 @@
 title: "Analysis"
 ---
 
-Notebook 00 shows the outcomes of the [search development plan](00_search-development/index.qmd) from the files in `data/raw/search-development/` and `data/processed/search-development/` and writes nothing. Notebooks 01 to 04 turn the raw files into counts, tables, and figures. Each reads from `data/raw/` or `data/processed/` and writes only to `data/processed/`. No notebook changes a raw file. Deleting `data/processed/` and rerunning the notebooks in order rebuilds it.
+Notebook 00 records the [search development](00_search-development/00-search-development.ipynb) and shows its outcomes from the files in `data/raw/search-development/` and `data/processed/search-development/` and writes nothing. Notebooks 01 to 04 turn the raw files into counts, tables, and figures. Each reads from `data/raw/` or `data/processed/` and writes only to `data/processed/`. No notebook changes a raw file. Deleting `data/processed/` and rerunning the notebooks in order rebuilds it.
 
 | Notebook | Reads | Writes |
 |---|---|---|
