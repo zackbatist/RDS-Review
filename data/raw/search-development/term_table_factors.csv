@@ -1,0 +1,223 @@
+database,placement,step,term,records_2015_2025,development_found,of,studies
+PubMed,anywhere in title or abstract,,polic*,1536,7,21,"Milia et al., 2012; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Teeters et al., 2008"
+PubMed,anywhere in title or abstract,,concern*,1288,6,21,"Brakewood and Poldrack, 2013; Cooper, 2007; Cragin et al., 2010; Milia et al., 2012; Pearce and Smith, 2011; Pitt and Tang, 2013"
+PubMed,anywhere in title or abstract,,repositor*,654,5,21,"Coady and Wagner, 2013; Cragin et al., 2010; Piwowar, 2011; Savage and Vickers, 2009; Wallis et al., 2013"
+PubMed,anywhere in title or abstract,,barrier*,839,5,21,"Bertzky and Stoll-Kleemann, 2009; Cragin et al., 2010; Mennes et al., 2013; Perrino et al., 2013; Tenopir et al., 2011"
+PubMed,anywhere in title or abstract,,challenge*,2402,5,21,"Bertzky and Stoll-Kleemann, 2009; Mennes et al., 2013; Pisani and AbouZahr, 2010; Sansone and Rocca-Serra, 2012; Volk et al., 2014"
+PubMed,anywhere in title or abstract,,obstacle*,182,3,21,"Bertzky and Stoll-Kleemann, 2009; Pisani and AbouZahr, 2010; Volk et al., 2014"
+PubMed,anywhere in title or abstract,,"""open access""",276,3,21,"Bertzky and Stoll-Kleemann, 2009; Mennes et al., 2013; Piwowar, 2011"
+PubMed,anywhere in title or abstract,,ethic*,1180,3,21,"Brakewood and Poldrack, 2013; Cooper, 2007; Pearce and Smith, 2011"
+PubMed,anywhere in title or abstract,,mandate*,119,2,21,"Bertzky and Stoll-Kleemann, 2009; Tenopir et al., 2011"
+PubMed,anywhere in title or abstract,,infrastructure,727,2,21,"Pisani and AbouZahr, 2010; Wallis et al., 2013"
+PubMed,anywhere in title or abstract,,factor*,1132,2,21,"Milia et al., 2012; Piwowar, 2011"
+PubMed,anywhere in title or abstract,,"""data management plan*""",24,1,21,"Tenopir et al., 2011"
+PubMed,anywhere in title or abstract,,enabler*,46,1,21,"Tenopir et al., 2011"
+PubMed,anywhere in title or abstract,,reluctan*,49,1,21,"Pisani and AbouZahr, 2010"
+PubMed,anywhere in title or abstract,,"""data curation""",54,1,21,"Cragin et al., 2010"
+PubMed,anywhere in title or abstract,,stewardship,75,1,21,"Cragin et al., 2010"
+PubMed,anywhere in title or abstract,,motivat*,250,1,21,"Teeters et al., 2008"
+PubMed,anywhere in title or abstract,,willingness,264,1,21,"Bertzky and Stoll-Kleemann, 2009"
+PubMed,anywhere in title or abstract,,perception*,294,1,21,"Tenopir et al., 2011"
+PubMed,anywhere in title or abstract,,"""open science""",427,1,21,"Mennes et al., 2013"
+PubMed,anywhere in title or abstract,,consent,607,1,21,"Pearce and Smith, 2011"
+PubMed,anywhere in title or abstract,,privacy,1756,1,21,"Mennes et al., 2013"
+PubMed,anywhere in title or abstract,,"""digital curation""",0,0,21,
+PubMed,anywhere in title or abstract,,"""open research""",65,0,21,
+PubMed,anywhere in title or abstract,,licens*,86,0,21,
+PubMed,anywhere in title or abstract,,facilitator*,121,0,21,
+PubMed,anywhere in title or abstract,,driver*,131,0,21,
+PubMed,anywhere in title or abstract,,determinant*,155,0,21,
+PubMed,anywhere in title or abstract,,incentive*,221,0,21,
+PubMed,anywhere in title or abstract,,attitude*,287,0,21,
+PubMed,anywhere in title or abstract,,"""open data""",394,0,21,
+PubMed,anywhere in title or abstract,,influenc*,552,0,21,
+PubMed,anywhere in title or abstract,,trust,561,0,21,
+PubMed,anywhere in title or abstract,,interoperab*,739,0,21,
+PubMed,anywhere in title or abstract,1,"""data management plan*""",24,1,21,"Tenopir et al., 2011"
+PubMed,anywhere in title or abstract,2,reluctan*,73,2,21,"Pisani and AbouZahr, 2010; Tenopir et al., 2011"
+PubMed,anywhere in title or abstract,3,"""data curation""",125,3,21,"Cragin et al., 2010; Pisani and AbouZahr, 2010; Tenopir et al., 2011"
+PubMed,anywhere in title or abstract,4,obstacle*,303,5,21,"Bertzky and Stoll-Kleemann, 2009; Cragin et al., 2010; Pisani and AbouZahr, 2010; Tenopir et al., 2011; Volk et al., 2014"
+PubMed,anywhere in title or abstract,5,"""open access""",571,7,21,"Bertzky and Stoll-Kleemann, 2009; Cragin et al., 2010; Mennes et al., 2013; Pisani and AbouZahr, 2010; Piwowar, 2011; Tenopir et al., 2011; Volk et al., 2014"
+PubMed,anywhere in title or abstract,6,repositor*,1129,10,21,"Bertzky and Stoll-Kleemann, 2009; Coady and Wagner, 2013; Cragin et al., 2010; Mennes et al., 2013; Pisani and AbouZahr, 2010; Piwowar, 2011; Savage and Vickers, 2009; Tenopir et al., 2011; Volk et al., 2014; Wallis et al., 2013"
+PubMed,anywhere in title or abstract,7,motivat*,1342,11,21,"Bertzky and Stoll-Kleemann, 2009; Coady and Wagner, 2013; Cragin et al., 2010; Mennes et al., 2013; Pisani and AbouZahr, 2010; Piwowar, 2011; Savage and Vickers, 2009; Teeters et al., 2008; Tenopir et al., 2011; Volk et al., 2014; Wallis et al., 2013"
+PubMed,anywhere in title or abstract,8,concern*,2429,16,21,"Bertzky and Stoll-Kleemann, 2009; Brakewood and Poldrack, 2013; Coady and Wagner, 2013; Cooper, 2007; Cragin et al., 2010; Mennes et al., 2013; Milia et al., 2012; Pearce and Smith, 2011; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Savage and Vickers, 2009; Teeters et al., 2008; Tenopir et al., 2011; Volk et al., 2014; Wallis et al., 2013"
+PubMed,anywhere in title or abstract,9,barrier*,2953,17,21,"Bertzky and Stoll-Kleemann, 2009; Brakewood and Poldrack, 2013; Coady and Wagner, 2013; Cooper, 2007; Cragin et al., 2010; Mennes et al., 2013; Milia et al., 2012; Pearce and Smith, 2011; Perrino et al., 2013; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Savage and Vickers, 2009; Teeters et al., 2008; Tenopir et al., 2011; Volk et al., 2014; Wallis et al., 2013"
+PubMed,anywhere in title or abstract,10,polic*,3852,18,21,"Bertzky and Stoll-Kleemann, 2009; Brakewood and Poldrack, 2013; Coady and Wagner, 2013; Cooper, 2007; Cragin et al., 2010; Mennes et al., 2013; Milia et al., 2012; Pearce and Smith, 2011; Perrino et al., 2013; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Teeters et al., 2008; Tenopir et al., 2011; Volk et al., 2014; Wallis et al., 2013"
+Scopus,anywhere in title or abstract,,polic*,4688,14,28,"Bertzky and Stoll-Kleemann, 2009; Borgman, 2012; Coady and Wagner, 2013; Fisher and Fortmann, 2010; Huang et al., 2012; Milia et al., 2012; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011"
+Scopus,anywhere in title or abstract,,repositor*,1211,7,28,"Coady and Wagner, 2013; Cragin et al., 2010; Pitt and Tang, 2013; Piwowar, 2011; Savage and Vickers, 2009; Teeters et al., 2008; Wallis et al., 2013"
+Scopus,anywhere in title or abstract,,barrier*,1425,7,28,"Bertzky and Stoll-Kleemann, 2009; Cragin et al., 2010; Huang et al., 2012; Mennes et al., 2013; Perrino et al., 2013; Plengsaeng, Wehn and van der Zaag, 2014; Tenopir et al., 2011"
+Scopus,anywhere in title or abstract,,ethic*,1978,7,28,"Brakewood and Poldrack, 2013; Harding et al., 2013; Pearce and Smith, 2011; Pitt and Tang, 2013; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011"
+Scopus,anywhere in title or abstract,,concern*,3927,7,28,"Brakewood and Poldrack, 2013; Cragin et al., 2010; Huang et al., 2012; Milia et al., 2012; Pearce and Smith, 2011; Pitt and Tang, 2013; Plengsaeng, Wehn and van der Zaag, 2014"
+Scopus,anywhere in title or abstract,,challenge*,8155,7,28,"Bertzky and Stoll-Kleemann, 2009; Borgman, 2012; Mennes et al., 2013; Pisani and AbouZahr, 2010; Sansone and Rocca-Serra, 2012; Sayogo and Pardo, 2013; Volk et al., 2014"
+Scopus,anywhere in title or abstract,,motivat*,819,5,28,"Borgman, 2012; Enke et al., 2012; Sayogo and Pardo, 2013; Teeters et al., 2008; Wallis et al., 2013"
+Scopus,anywhere in title or abstract,,factor*,2673,4,28,"Coady and Wagner, 2013; Fisher and Fortmann, 2010; Milia et al., 2012; Piwowar, 2011"
+Scopus,anywhere in title or abstract,,infrastructure,2849,4,28,"Cragin et al., 2010; Enke et al., 2012; Pisani and AbouZahr, 2010; Wallis et al., 2013"
+Scopus,anywhere in title or abstract,,licens*,231,3,28,"Coady and Wagner, 2013; Pearce and Smith, 2011; Sansone and Rocca-Serra, 2012"
+Scopus,anywhere in title or abstract,,obstacle*,511,3,28,"Bertzky and Stoll-Kleemann, 2009; Pisani and AbouZahr, 2010; Volk et al., 2014"
+Scopus,anywhere in title or abstract,,"""open access""",566,3,28,"Bertzky and Stoll-Kleemann, 2009; Mennes et al., 2013; Piwowar, 2011"
+Scopus,anywhere in title or abstract,,consent,1062,3,28,"Brakewood and Poldrack, 2013; Harding et al., 2013; Pearce and Smith, 2011"
+Scopus,anywhere in title or abstract,,"""data management plan*""",78,2,28,"Enke et al., 2012; Tenopir et al., 2011"
+Scopus,anywhere in title or abstract,,reluctan*,160,2,28,"Enke et al., 2012; Pisani and AbouZahr, 2010"
+Scopus,anywhere in title or abstract,,"""data curation""",183,2,28,"Borgman, 2012; Cragin et al., 2010"
+Scopus,anywhere in title or abstract,,mandate*,250,2,28,"Bertzky and Stoll-Kleemann, 2009; Tenopir et al., 2011"
+Scopus,anywhere in title or abstract,,willingness,416,2,28,"Bertzky and Stoll-Kleemann, 2009; Sayogo and Pardo, 2013"
+Scopus,anywhere in title or abstract,,attitude*,587,2,28,"Huang et al., 2012; Tenopir et al., 2011"
+Scopus,anywhere in title or abstract,,"""open science""",706,2,28,"Mennes et al., 2013; Pitt and Tang, 2013"
+Scopus,anywhere in title or abstract,,perception*,749,2,28,"Plengsaeng, Wehn and van der Zaag, 2014; Tenopir et al., 2011"
+Scopus,anywhere in title or abstract,,influenc*,1229,2,28,"Plengsaeng, Wehn and van der Zaag, 2014; Sayogo and Pardo, 2013"
+Scopus,anywhere in title or abstract,,stewardship,141,1,28,"Cragin et al., 2010"
+Scopus,anywhere in title or abstract,,determinant*,177,1,28,"Sayogo and Pardo, 2013"
+Scopus,anywhere in title or abstract,,enabler*,186,1,28,"Tenopir et al., 2011"
+Scopus,anywhere in title or abstract,,incentive*,774,1,28,"Borgman, 2012"
+Scopus,anywhere in title or abstract,,"""open data""",1067,1,28,"Sayogo and Pardo, 2013"
+Scopus,anywhere in title or abstract,,privacy,9035,1,28,"Mennes et al., 2013"
+Scopus,anywhere in title or abstract,,"""digital curation""",13,0,28,
+Scopus,anywhere in title or abstract,,"""open research""",120,0,28,
+Scopus,anywhere in title or abstract,,facilitator*,131,0,28,
+Scopus,anywhere in title or abstract,,driver*,434,0,28,
+Scopus,anywhere in title or abstract,,interoperab*,2091,0,28,
+Scopus,anywhere in title or abstract,,trust,2343,0,28,
+Scopus,anywhere in title or abstract,1,"""data management plan*""",78,2,28,"Enke et al., 2012; Tenopir et al., 2011"
+Scopus,anywhere in title or abstract,2,licens*,305,5,28,"Coady and Wagner, 2013; Enke et al., 2012; Pearce and Smith, 2011; Sansone and Rocca-Serra, 2012; Tenopir et al., 2011"
+Scopus,anywhere in title or abstract,3,"""data curation""",475,7,28,"Borgman, 2012; Coady and Wagner, 2013; Cragin et al., 2010; Enke et al., 2012; Pearce and Smith, 2011; Sansone and Rocca-Serra, 2012; Tenopir et al., 2011"
+Scopus,anywhere in title or abstract,4,reluctan*,631,8,28,"Borgman, 2012; Coady and Wagner, 2013; Cragin et al., 2010; Enke et al., 2012; Pearce and Smith, 2011; Pisani and AbouZahr, 2010; Sansone and Rocca-Serra, 2012; Tenopir et al., 2011"
+Scopus,anywhere in title or abstract,5,determinant*,805,9,28,"Borgman, 2012; Coady and Wagner, 2013; Cragin et al., 2010; Enke et al., 2012; Pearce and Smith, 2011; Pisani and AbouZahr, 2010; Sansone and Rocca-Serra, 2012; Sayogo and Pardo, 2013; Tenopir et al., 2011"
+Scopus,anywhere in title or abstract,6,"""open access""",1330,12,28,"Bertzky and Stoll-Kleemann, 2009; Borgman, 2012; Coady and Wagner, 2013; Cragin et al., 2010; Enke et al., 2012; Mennes et al., 2013; Pearce and Smith, 2011; Pisani and AbouZahr, 2010; Piwowar, 2011; Sansone and Rocca-Serra, 2012; Sayogo and Pardo, 2013; Tenopir et al., 2011"
+Scopus,anywhere in title or abstract,7,repositor*,2344,16,28,"Bertzky and Stoll-Kleemann, 2009; Borgman, 2012; Coady and Wagner, 2013; Cragin et al., 2010; Enke et al., 2012; Mennes et al., 2013; Pearce and Smith, 2011; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011; Wallis et al., 2013"
+Scopus,anywhere in title or abstract,8,barrier*,3581,19,28,"Bertzky and Stoll-Kleemann, 2009; Borgman, 2012; Coady and Wagner, 2013; Cragin et al., 2010; Enke et al., 2012; Huang et al., 2012; Mennes et al., 2013; Pearce and Smith, 2011; Perrino et al., 2013; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011; Wallis et al., 2013"
+Scopus,anywhere in title or abstract,9,obstacle*,3990,20,28,"Bertzky and Stoll-Kleemann, 2009; Borgman, 2012; Coady and Wagner, 2013; Cragin et al., 2010; Enke et al., 2012; Huang et al., 2012; Mennes et al., 2013; Pearce and Smith, 2011; Perrino et al., 2013; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011; Volk et al., 2014; Wallis et al., 2013"
+Scopus,anywhere in title or abstract,10,consent,4868,22,28,"Bertzky and Stoll-Kleemann, 2009; Borgman, 2012; Brakewood and Poldrack, 2013; Coady and Wagner, 2013; Cragin et al., 2010; Enke et al., 2012; Harding et al., 2013; Huang et al., 2012; Mennes et al., 2013; Pearce and Smith, 2011; Perrino et al., 2013; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011; Volk et al., 2014; Wallis et al., 2013"
+Scopus,anywhere in title or abstract,11,factor*,6951,24,28,"Bertzky and Stoll-Kleemann, 2009; Borgman, 2012; Brakewood and Poldrack, 2013; Coady and Wagner, 2013; Cragin et al., 2010; Enke et al., 2012; Fisher and Fortmann, 2010; Harding et al., 2013; Huang et al., 2012; Mennes et al., 2013; Milia et al., 2012; Pearce and Smith, 2011; Perrino et al., 2013; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011; Volk et al., 2014; Wallis et al., 2013"
+Scopus,within 5 words,,polic*,902,7,28,"Fisher and Fortmann, 2010; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Teeters et al., 2008"
+Scopus,within 5 words,,barrier*,319,3,28,"Perrino et al., 2013; Plengsaeng, Wehn and van der Zaag, 2014; Tenopir et al., 2011"
+Scopus,within 5 words,,ethic*,372,3,28,"Brakewood and Poldrack, 2013; Harding et al., 2013; Pearce and Smith, 2011"
+Scopus,within 5 words,,challenge*,1047,3,28,"Mennes et al., 2013; Sansone and Rocca-Serra, 2012; Volk et al., 2014"
+Scopus,within 5 words,,determinant*,19,1,28,"Sayogo and Pardo, 2013"
+Scopus,within 5 words,,enabler*,27,1,28,"Tenopir et al., 2011"
+Scopus,within 5 words,,motivat*,97,1,28,"Sayogo and Pardo, 2013"
+Scopus,within 5 words,,perception*,118,1,28,"Tenopir et al., 2011"
+Scopus,within 5 words,,influenc*,128,1,28,"Plengsaeng, Wehn and van der Zaag, 2014"
+Scopus,within 5 words,,"""open access""",133,1,28,"Mennes et al., 2013"
+Scopus,within 5 words,,attitude*,147,1,28,"Huang et al., 2012"
+Scopus,within 5 words,,repositor*,155,1,28,"Cragin et al., 2010"
+Scopus,within 5 words,,factor*,203,1,28,"Fisher and Fortmann, 2010"
+Scopus,within 5 words,,concern*,620,1,28,"Brakewood and Poldrack, 2013"
+Scopus,within 5 words,,"""digital curation""",1,0,28,
+Scopus,within 5 words,,"""open research""",12,0,28,
+Scopus,within 5 words,,"""data management plan*""",13,0,28,
+Scopus,within 5 words,,reluctan*,17,0,28,
+Scopus,within 5 words,,stewardship,18,0,28,
+Scopus,within 5 words,,"""data curation""",20,0,28,
+Scopus,within 5 words,,facilitator*,23,0,28,
+Scopus,within 5 words,,licens*,26,0,28,
+Scopus,within 5 words,,driver*,34,0,28,
+Scopus,within 5 words,,willingness,55,0,28,
+Scopus,within 5 words,,mandate*,65,0,28,
+Scopus,within 5 words,,obstacle*,100,0,28,
+Scopus,within 5 words,,"""open science""",155,0,28,
+Scopus,within 5 words,,incentive*,208,0,28,
+Scopus,within 5 words,,consent,277,0,28,
+Scopus,within 5 words,,"""open data""",347,0,28,
+Scopus,within 5 words,,infrastructure,364,0,28,
+Scopus,within 5 words,,trust,372,0,28,
+Scopus,within 5 words,,interoperab*,402,0,28,
+Scopus,within 5 words,,privacy,2533,0,28,
+Scopus,within 5 words,1,determinant*,19,1,28,"Sayogo and Pardo, 2013"
+Scopus,within 5 words,2,enabler*,46,2,28,"Sayogo and Pardo, 2013; Tenopir et al., 2011"
+Scopus,within 5 words,3,ethic*,416,5,28,"Brakewood and Poldrack, 2013; Harding et al., 2013; Pearce and Smith, 2011; Sayogo and Pardo, 2013; Tenopir et al., 2011"
+Scopus,within 5 words,4,influenc*,535,6,28,"Brakewood and Poldrack, 2013; Harding et al., 2013; Pearce and Smith, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Sayogo and Pardo, 2013; Tenopir et al., 2011"
+Scopus,within 5 words,5,polic*,1388,13,28,"Brakewood and Poldrack, 2013; Fisher and Fortmann, 2010; Harding et al., 2013; Pearce and Smith, 2011; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011"
+Scopus,within 5 words,6,"""open access""",1491,14,28,"Brakewood and Poldrack, 2013; Fisher and Fortmann, 2010; Harding et al., 2013; Mennes et al., 2013; Pearce and Smith, 2011; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011"
+Scopus,within 5 words,7,attitude*,1605,15,28,"Brakewood and Poldrack, 2013; Fisher and Fortmann, 2010; Harding et al., 2013; Huang et al., 2012; Mennes et al., 2013; Pearce and Smith, 2011; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011"
+Scopus,within 5 words,8,repositor*,1728,16,28,"Brakewood and Poldrack, 2013; Cragin et al., 2010; Fisher and Fortmann, 2010; Harding et al., 2013; Huang et al., 2012; Mennes et al., 2013; Pearce and Smith, 2011; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011"
+Scopus,within 5 words,9,barrier*,1991,17,28,"Brakewood and Poldrack, 2013; Cragin et al., 2010; Fisher and Fortmann, 2010; Harding et al., 2013; Huang et al., 2012; Mennes et al., 2013; Pearce and Smith, 2011; Perrino et al., 2013; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011"
+Scopus,within 5 words,10,challenge*,2893,18,28,"Brakewood and Poldrack, 2013; Cragin et al., 2010; Fisher and Fortmann, 2010; Harding et al., 2013; Huang et al., 2012; Mennes et al., 2013; Pearce and Smith, 2011; Perrino et al., 2013; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011; Volk et al., 2014"
+Web of Science,anywhere in title or abstract,,polic*,3331,12,29,"Bertzky and Stoll-Kleemann, 2009; Borgman, 2012; Fisher and Fortmann, 2010; Huang et al., 2012; Milia et al., 2012; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008"
+Web of Science,anywhere in title or abstract,,concern*,2751,8,29,"Brakewood and Poldrack, 2013; Cooper, 2007; Cragin et al., 2010; Huang et al., 2012; Milia et al., 2012; Pearce and Smith, 2011; Pitt and Tang, 2013; Plengsaeng, Wehn and van der Zaag, 2014"
+Web of Science,anywhere in title or abstract,,challenge*,5650,8,29,"Bertzky and Stoll-Kleemann, 2009; Borgman, 2012; Mennes et al., 2013; Pisani and AbouZahr, 2010; Sansone and Rocca-Serra, 2012; Sayogo and Pardo, 2013; Van Horn and Gazzaniga, 2013; Volk et al., 2014"
+Web of Science,anywhere in title or abstract,,repositor*,913,7,29,"Coady and Wagner, 2013; Cragin et al., 2010; Pitt and Tang, 2013; Piwowar, 2011; Savage and Vickers, 2009; Teeters et al., 2008; Wallis et al., 2013"
+Web of Science,anywhere in title or abstract,,barrier*,1163,7,29,"Bertzky and Stoll-Kleemann, 2009; Cragin et al., 2010; Huang et al., 2012; Mennes et al., 2013; Perrino et al., 2013; Plengsaeng, Wehn and van der Zaag, 2014; Tenopir et al., 2011"
+Web of Science,anywhere in title or abstract,,motivat*,623,5,29,"Borgman, 2012; Enke et al., 2012; Piwowar, 2011; Sayogo and Pardo, 2013; Teeters et al., 2008"
+Web of Science,anywhere in title or abstract,,ethic*,1374,5,29,"Brakewood and Poldrack, 2013; Cooper, 2007; Harding et al., 2013; Pearce and Smith, 2011; Sayogo and Pardo, 2013"
+Web of Science,anywhere in title or abstract,,obstacle*,355,3,29,"Bertzky and Stoll-Kleemann, 2009; Pisani and AbouZahr, 2010; Volk et al., 2014"
+Web of Science,anywhere in title or abstract,,"""open science""",577,3,29,"Coady and Wagner, 2013; Mennes et al., 2013; Pitt and Tang, 2013"
+Web of Science,anywhere in title or abstract,,"""open access""",613,3,29,"Bertzky and Stoll-Kleemann, 2009; Mennes et al., 2013; Piwowar, 2011"
+Web of Science,anywhere in title or abstract,,consent,846,3,29,"Brakewood and Poldrack, 2013; Harding et al., 2013; Pearce and Smith, 2011"
+Web of Science,anywhere in title or abstract,,factor*,1802,3,29,"Fisher and Fortmann, 2010; Milia et al., 2012; Piwowar, 2011"
+Web of Science,anywhere in title or abstract,,infrastructure,1872,3,29,"Enke et al., 2012; Pisani and AbouZahr, 2010; Wallis et al., 2013"
+Web of Science,anywhere in title or abstract,,"""data management plan*""",51,2,29,"Enke et al., 2012; Tenopir et al., 2011"
+Web of Science,anywhere in title or abstract,,reluctan*,126,2,29,"Enke et al., 2012; Pisani and AbouZahr, 2010"
+Web of Science,anywhere in title or abstract,,mandate*,188,2,29,"Bertzky and Stoll-Kleemann, 2009; Tenopir et al., 2011"
+Web of Science,anywhere in title or abstract,,willingness,368,2,29,"Bertzky and Stoll-Kleemann, 2009; Sayogo and Pardo, 2013"
+Web of Science,anywhere in title or abstract,,perception*,575,2,29,"Plengsaeng, Wehn and van der Zaag, 2014; Tenopir et al., 2011"
+Web of Science,anywhere in title or abstract,,influenc*,888,2,29,"Plengsaeng, Wehn and van der Zaag, 2014; Sayogo and Pardo, 2013"
+Web of Science,anywhere in title or abstract,,privacy,5908,2,29,"Coady and Wagner, 2013; Mennes et al., 2013"
+Web of Science,anywhere in title or abstract,,stewardship,108,1,29,"Cragin et al., 2010"
+Web of Science,anywhere in title or abstract,,"""data curation""",108,1,29,"Cragin et al., 2010"
+Web of Science,anywhere in title or abstract,,enabler*,133,1,29,"Tenopir et al., 2011"
+Web of Science,anywhere in title or abstract,,determinant*,190,1,29,"Sayogo and Pardo, 2013"
+Web of Science,anywhere in title or abstract,,attitude*,504,1,29,"Huang et al., 2012"
+Web of Science,anywhere in title or abstract,,incentive*,592,1,29,"Borgman, 2012"
+Web of Science,anywhere in title or abstract,,"""open data""",711,1,29,"Sayogo and Pardo, 2013"
+Web of Science,anywhere in title or abstract,,trust,2075,1,29,"Wallis et al., 2013"
+Web of Science,anywhere in title or abstract,,"""digital curation""",7,0,29,
+Web of Science,anywhere in title or abstract,,"""open research""",89,0,29,
+Web of Science,anywhere in title or abstract,,facilitator*,115,0,29,
+Web of Science,anywhere in title or abstract,,driver*,305,0,29,
+Web of Science,anywhere in title or abstract,,licens*,318,0,29,
+Web of Science,anywhere in title or abstract,,interoperab*,1301,0,29,
+Web of Science,anywhere in title or abstract,1,"""data management plan*""",51,2,29,"Enke et al., 2012; Tenopir et al., 2011"
+Web of Science,anywhere in title or abstract,2,"""data curation""",154,3,29,"Cragin et al., 2010; Enke et al., 2012; Tenopir et al., 2011"
+Web of Science,anywhere in title or abstract,3,obstacle*,503,6,29,"Bertzky and Stoll-Kleemann, 2009; Cragin et al., 2010; Enke et al., 2012; Pisani and AbouZahr, 2010; Tenopir et al., 2011; Volk et al., 2014"
+Web of Science,anywhere in title or abstract,4,repositor*,1348,12,29,"Bertzky and Stoll-Kleemann, 2009; Coady and Wagner, 2013; Cragin et al., 2010; Enke et al., 2012; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Savage and Vickers, 2009; Teeters et al., 2008; Tenopir et al., 2011; Volk et al., 2014; Wallis et al., 2013"
+Web of Science,anywhere in title or abstract,5,determinant*,1528,13,29,"Bertzky and Stoll-Kleemann, 2009; Coady and Wagner, 2013; Cragin et al., 2010; Enke et al., 2012; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011; Volk et al., 2014; Wallis et al., 2013"
+Web of Science,anywhere in title or abstract,6,barrier*,2519,17,29,"Bertzky and Stoll-Kleemann, 2009; Coady and Wagner, 2013; Cragin et al., 2010; Enke et al., 2012; Huang et al., 2012; Mennes et al., 2013; Perrino et al., 2013; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011; Volk et al., 2014; Wallis et al., 2013"
+Web of Science,anywhere in title or abstract,7,consent,3232,20,29,"Bertzky and Stoll-Kleemann, 2009; Brakewood and Poldrack, 2013; Coady and Wagner, 2013; Cragin et al., 2010; Enke et al., 2012; Harding et al., 2013; Huang et al., 2012; Mennes et al., 2013; Pearce and Smith, 2011; Perrino et al., 2013; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011; Volk et al., 2014; Wallis et al., 2013"
+Web of Science,anywhere in title or abstract,8,motivat*,3679,21,29,"Bertzky and Stoll-Kleemann, 2009; Borgman, 2012; Brakewood and Poldrack, 2013; Coady and Wagner, 2013; Cragin et al., 2010; Enke et al., 2012; Harding et al., 2013; Huang et al., 2012; Mennes et al., 2013; Pearce and Smith, 2011; Perrino et al., 2013; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011; Volk et al., 2014; Wallis et al., 2013"
+Web of Science,anywhere in title or abstract,9,factor*,4994,23,29,"Bertzky and Stoll-Kleemann, 2009; Borgman, 2012; Brakewood and Poldrack, 2013; Coady and Wagner, 2013; Cragin et al., 2010; Enke et al., 2012; Fisher and Fortmann, 2010; Harding et al., 2013; Huang et al., 2012; Mennes et al., 2013; Milia et al., 2012; Pearce and Smith, 2011; Perrino et al., 2013; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011; Volk et al., 2014; Wallis et al., 2013"
+Web of Science,anywhere in title or abstract,10,ethic*,5695,24,29,"Bertzky and Stoll-Kleemann, 2009; Borgman, 2012; Brakewood and Poldrack, 2013; Coady and Wagner, 2013; Cooper, 2007; Cragin et al., 2010; Enke et al., 2012; Fisher and Fortmann, 2010; Harding et al., 2013; Huang et al., 2012; Mennes et al., 2013; Milia et al., 2012; Pearce and Smith, 2011; Perrino et al., 2013; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011; Volk et al., 2014; Wallis et al., 2013"
+Web of Science,anywhere in title or abstract,11,challenge*,9423,26,29,"Bertzky and Stoll-Kleemann, 2009; Borgman, 2012; Brakewood and Poldrack, 2013; Coady and Wagner, 2013; Cooper, 2007; Cragin et al., 2010; Enke et al., 2012; Fisher and Fortmann, 2010; Harding et al., 2013; Huang et al., 2012; Mennes et al., 2013; Milia et al., 2012; Pearce and Smith, 2011; Perrino et al., 2013; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011; Van Horn and Gazzaniga, 2013; Volk et al., 2014; Wallis et al., 2013"
+Web of Science,within 5 words,,polic*,741,7,29,"Fisher and Fortmann, 2010; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Teeters et al., 2008"
+Web of Science,within 5 words,,barrier*,272,3,29,"Perrino et al., 2013; Plengsaeng, Wehn and van der Zaag, 2014; Tenopir et al., 2011"
+Web of Science,within 5 words,,ethic*,294,3,29,"Brakewood and Poldrack, 2013; Harding et al., 2013; Pearce and Smith, 2011"
+Web of Science,within 5 words,,challenge*,786,3,29,"Mennes et al., 2013; Sansone and Rocca-Serra, 2012; Volk et al., 2014"
+Web of Science,within 5 words,,determinant*,16,1,29,"Sayogo and Pardo, 2013"
+Web of Science,within 5 words,,enabler*,23,1,29,"Tenopir et al., 2011"
+Web of Science,within 5 words,,motivat*,87,1,29,"Sayogo and Pardo, 2013"
+Web of Science,within 5 words,,perception*,88,1,29,"Tenopir et al., 2011"
+Web of Science,within 5 words,,"""open access""",106,1,29,"Mennes et al., 2013"
+Web of Science,within 5 words,,influenc*,107,1,29,"Plengsaeng, Wehn and van der Zaag, 2014"
+Web of Science,within 5 words,,repositor*,132,1,29,"Cragin et al., 2010"
+Web of Science,within 5 words,,attitude*,138,1,29,"Huang et al., 2012"
+Web of Science,within 5 words,,factor*,166,1,29,"Fisher and Fortmann, 2010"
+Web of Science,within 5 words,,concern*,487,1,29,"Brakewood and Poldrack, 2013"
+Web of Science,within 5 words,,"""digital curation""",0,0,29,
+Web of Science,within 5 words,,"""data management plan*""",7,0,29,
+Web of Science,within 5 words,,"""open research""",9,0,29,
+Web of Science,within 5 words,,licens*,13,0,29,
+Web of Science,within 5 words,,"""data curation""",14,0,29,
+Web of Science,within 5 words,,stewardship,16,0,29,
+Web of Science,within 5 words,,reluctan*,17,0,29,
+Web of Science,within 5 words,,facilitator*,23,0,29,
+Web of Science,within 5 words,,driver*,26,0,29,
+Web of Science,within 5 words,,willingness,49,0,29,
+Web of Science,within 5 words,,mandate*,51,0,29,
+Web of Science,within 5 words,,obstacle*,80,0,29,
+Web of Science,within 5 words,,"""open science""",134,0,29,
+Web of Science,within 5 words,,incentive*,163,0,29,
+Web of Science,within 5 words,,consent,241,0,29,
+Web of Science,within 5 words,,interoperab*,267,0,29,
+Web of Science,within 5 words,,"""open data""",275,0,29,
+Web of Science,within 5 words,,infrastructure,283,0,29,
+Web of Science,within 5 words,,trust,392,0,29,
+Web of Science,within 5 words,,privacy,1802,0,29,
+Web of Science,within 5 words,1,determinant*,16,1,29,"Sayogo and Pardo, 2013"
+Web of Science,within 5 words,2,enabler*,39,2,29,"Sayogo and Pardo, 2013; Tenopir et al., 2011"
+Web of Science,within 5 words,3,ethic*,331,5,29,"Brakewood and Poldrack, 2013; Harding et al., 2013; Pearce and Smith, 2011; Sayogo and Pardo, 2013; Tenopir et al., 2011"
+Web of Science,within 5 words,4,"""open access""",430,6,29,"Brakewood and Poldrack, 2013; Harding et al., 2013; Mennes et al., 2013; Pearce and Smith, 2011; Sayogo and Pardo, 2013; Tenopir et al., 2011"
+Web of Science,within 5 words,5,influenc*,528,7,29,"Brakewood and Poldrack, 2013; Harding et al., 2013; Mennes et al., 2013; Pearce and Smith, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Sayogo and Pardo, 2013; Tenopir et al., 2011"
+Web of Science,within 5 words,6,polic*,1212,14,29,"Brakewood and Poldrack, 2013; Fisher and Fortmann, 2010; Harding et al., 2013; Mennes et al., 2013; Pearce and Smith, 2011; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011"
+Web of Science,within 5 words,7,attitude*,1315,15,29,"Brakewood and Poldrack, 2013; Fisher and Fortmann, 2010; Harding et al., 2013; Huang et al., 2012; Mennes et al., 2013; Pearce and Smith, 2011; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011"
+Web of Science,within 5 words,8,repositor*,1421,16,29,"Brakewood and Poldrack, 2013; Cragin et al., 2010; Fisher and Fortmann, 2010; Harding et al., 2013; Huang et al., 2012; Mennes et al., 2013; Pearce and Smith, 2011; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011"
+Web of Science,within 5 words,9,barrier*,1649,17,29,"Brakewood and Poldrack, 2013; Cragin et al., 2010; Fisher and Fortmann, 2010; Harding et al., 2013; Huang et al., 2012; Mennes et al., 2013; Pearce and Smith, 2011; Perrino et al., 2013; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011"
+Web of Science,within 5 words,10,challenge*,2314,18,29,"Brakewood and Poldrack, 2013; Cragin et al., 2010; Fisher and Fortmann, 2010; Harding et al., 2013; Huang et al., 2012; Mennes et al., 2013; Pearce and Smith, 2011; Perrino et al., 2013; Pisani and AbouZahr, 2010; Pitt and Tang, 2013; Piwowar, 2011; Plengsaeng, Wehn and van der Zaag, 2014; Sansone and Rocca-Serra, 2012; Savage and Vickers, 2009; Sayogo and Pardo, 2013; Teeters et al., 2008; Tenopir et al., 2011; Volk et al., 2014"
