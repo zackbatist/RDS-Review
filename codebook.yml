@@ -75,11 +75,13 @@ tables:
 # Exclusion reasons at full text. One code per excluded report.
 exclusion_reasons:
   - code: not-data-sharing
-    reason: Not about the sharing or reuse of research data
+    reason: Not about research data sharing
   - code: not-factors
-    reason: Reports no barriers, facilitators, or governance mechanisms
+    reason: Reports no factors that influence research data sharing
   - code: not-research-data
     reason: Concerns public health, health systems, or clinical care data used only for surveillance, service delivery, or patient care
+  - code: system-design
+    reason: Designs, builds or evaluates a specific system, product or service for sharing data
   - code: tier2-not-review
     reason: Research in other fields, and not a review or synthesis
   - code: language
