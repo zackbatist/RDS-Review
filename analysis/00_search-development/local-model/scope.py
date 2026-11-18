@@ -3,7 +3,8 @@ the screening guide's criteria without the tier criterion, and writes one row pe
 
 The model runs on a llama.cpp server that scripts/launch_rds_llm.sh starts. LLM_URL names the server, by default
 http://localhost:11450. The argument names the output file in data/raw/search-development/, such as
-scope_screening_qwen3.5-122b.csv. The settings are those of coding.py.
+scope_screening_qwen3.5-122b.csv. An optional second argument names the input file there, by default
+scope_sample_records.csv. The settings are those of coding.py.
 """
 import csv, datetime, json, os, sys, urllib.request
 from pathlib import Path
@@ -12,9 +13,10 @@ ROOT = Path(__file__).resolve().parents[3]
 RAW = ROOT / "data" / "raw" / "search-development"
 PROMPT = (Path(__file__).resolve().parents[1] / "prompts" / "scope_prompt.md").read_text(encoding="utf-8")
 URL = os.environ.get("LLM_URL", "http://localhost:11450").rstrip("/")
-if len(sys.argv) != 2:
-    sys.exit("give the output file name, such as scope_screening_qwen3.5-122b.csv")
+if len(sys.argv) not in (2, 3):
+    sys.exit("give the output file name, such as scope_screening_qwen3.5-122b.csv, and optionally the input file")
 OUT = RAW / sys.argv[1]
+IN = RAW / (sys.argv[2] if len(sys.argv) == 3 else "scope_sample_records.csv")
 TEMPERATURE, SEED, MAX_TOKENS = 0, 20261116, 1024
 
 # the answer must use the prompt's values
@@ -46,7 +48,7 @@ run = dict(model=Path(props.get("model_path", "")).name, build=props.get("build_
 print(f"model {run['model']}, build {run['build']}; writing {OUT.name}", flush=True)
 
 rows = []
-for x in csv.DictReader(open(RAW / "scope_sample_records.csv", encoding="utf-8")):
+for x in csv.DictReader(open(IN, encoding="utf-8")):
     abstract = x["abstract"].strip()
     prompt = PROMPT.replace("{title}", x["title"]).replace("{abstract}", abstract or "none")
     body = dict(messages=[{"role": "user", "content": prompt}], temperature=TEMPERATURE, seed=SEED,
