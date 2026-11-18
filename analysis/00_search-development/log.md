@@ -197,6 +197,28 @@ All seven PCC parts are *covered*. Reuse rests on 6 development and 4 test sourc
 - **Web of Science abstracts.** `precision.py` now tries PubMed and then the Scopus Abstract Retrieval API by DOI for Web of Science records; the sample's records without an abstract fell from 25 to 5. PubMed's sample lacks 3, Scopus's none.
 - **Screening page.** Notebook 00 builds `precision_screening.html` in `data/processed/search-development/` from the three samples, the template `precision_screening_template.html` and the exclusion codes in `codebook.yml`. Decisions save in the browser; Export CSV writes each database's sample with the decisions, for `data/raw/search-development/`.
 
+## The final queries are too large, 18 November 2026
+
+- **Problem.** The final queries return 8,824 records in PubMed, 33,089 in Scopus and 21,721 in Web of Science for 2015 to 2025. That is far more than can be screened. The method picks terms by yield and checks coverage, but nothing in it limits the total load, and I did not check its output against that goal. Scopus's first run, at 32,994, already showed it.
+- **The candidates came only from the reference set's wording.** Step 3 chose among the terms the model recorded from the development sources' titles and abstracts and their indexing terms. Common ways of saying data sharing that those sources did not use, such as "sharing of data", "share\* data", "data deposit\*", "data repositor\*" and "secondary use", were never tested. Zack's Candidate terms table entered only as the reuse fallback, "data reuse" and "data re-use".
+- **Queries Q1 to Q4** on the search strategy page are obsolete and are not the base for the new queries.
+- **Where the queries stand.** All three come down to "data sharing" plus the reuse terms. Adding factor terms, as the review's question asks, gives Zack's original PCC structure: sharing and reuse terms AND factor terms. What the work adds is evidence for each term: how many reference set studies it finds and how many records it costs.
+- **Precision screening is not needed to choose the queries.** The split into development (2007 to 2014) and test (2015 on) sets measures coverage, whether a query finds studies it was not built from; precision is a separate figure, how much of the load is relevant. The queries are chosen on coverage and load.
+- **Numbers behind the measures.** The reference set holds 102 studies: 60 in the development set and 42 in the test set. 46 development studies are eligible apart from year, and about 40 of those have a DOI or PMID a database can be asked about. The test set studies are held back to check the finished queries.
+- **The score.** New studies found divided by extra records added. Adding, at each step, the term with the highest score keeps each step close to the most studies available for that many records, so the query can stop at the step whose load is screenable.
+- **Next approach.** For each database, a table of every plausible candidate term with its record count for 2015 to 2025 and the development studies it finds: about 15 to 20 sharing and reuse terms, from step 3's candidates and standard synonyms, and about 35 factor terms, from the Candidate terms table and general words for a factor such as factor\*, influenc\* and determinant\*. Zack picks the terms from the table. Each choice is measured anywhere in the title or abstract, with the sharing terms in the title only, and with the factor term within 5 words of the sharing term (Scopus and Web of Science only), all limited to English or French, as the screening guide's Criteria require. The test set then gives the chosen queries' coverage.
+- **Drawbacks of selecting terms this way:**
+  - About 40 development studies decide, so one or two studies can make or break a term.
+  - A phrase taken from one study finds that study for almost no records and scores well, but finds no others.
+  - Chawinga and Zinn found the reference set with their own search, built around "research data sharing", so terms resembling it are favoured.
+  - The development studies date from 2007 to 2014, so later wording, such as FAIR, has no studies to earn its place.
+  - Reuse alone, and anything else the reference set lacks, cannot be tested.
+  - Adding one term at a time makes the result depend on the order, and may miss the best combination.
+  - Load counts every record, relevant or not.
+  - The candidate lists are a judgment; a term never offered cannot be chosen.
+  - About 29 test studies can be checked, so coverage carries intervals of roughly 15 to 20 points either way.
+- **Reuse.** Whether "data reuse" and "data re-use" belong is open; the reference set cannot test it.
+
 ## To do
 
 - **Artificial intelligence section of `research-protocol.qmd`.** The sentence "The query terms come from those codes." oversimplifies how the terms were selected. Rewrite it once step 3 has run, so it states the exact outcomes: which terms entered each query and how the yield, coverage and precision tests decided them.
