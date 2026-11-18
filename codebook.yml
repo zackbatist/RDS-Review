@@ -82,8 +82,6 @@ exclusion_reasons:
     reason: Concerns public health, health systems, or clinical care data used only for surveillance, service delivery, or patient care
   - code: system-design
     reason: Designs, builds or evaluates a specific system, product or service for sharing data
-  - code: tier2-not-review
-    reason: Research in other fields, and not a review or synthesis
   - code: language
     reason: Not in English or French
   - code: date

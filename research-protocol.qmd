@@ -40,7 +40,7 @@ The criteria follow the population, concept, and context (PCC) structure that JB
 | Population | No restriction. Sources may concern researchers, data stewards, institutions, or governance bodies. |
 | Concept | Factors that influence the sharing of research data, including barriers, facilitators, and governance mechanisms. Research data are data used for research, whether collected for a study or collected for another purpose and reused for research. Data governance comprises the strategies and tools employed to identify, manage, and disseminate data [@leonelli2019]. In health research, data access governance manages who has access to data, for what purposes, and under what conditions, through data access committees, data access agreements, policies, and monitoring [@shabani2021]. |
 | Context, tier 1 | Health research. All source types are eligible. |
-| Context, tier 2 | Research in other fields and cross-disciplinary research. Reviews and syntheses only. |
+| Context, tier 2 | Research in other fields and cross-disciplinary research. All source types are eligible. |
 
 Sources are excluded when they concern public health data, health systems data, or clinical care data used only for surveillance, service delivery, or patient care. Sources that concern these data reused for research are eligible. The `data_origin` variable in the codebook records whether a source concerns data collected for research or data reused for research after collection for surveillance, service delivery, or patient care. Each source is assigned a tier at screening from its field.
 
@@ -77,6 +77,8 @@ The review codes factors inductively. The resulting taxonomy is a primary output
 ### Artificial intelligence
 
 No large language model makes or suggests eligibility, charting, or synthesis decisions. ASReview ranks records by predicted relevance, and the reviewers make every screening decision. The analysis reruns from the search exports without invoking any language model.
+
+To estimate the screening workload, the first model in @tbl-local-models also judged two sets of records the search returns, 300 drawn at random and the 489 that "research data management" in titles would add, against the screening guide's criteria, with a [prompt](analysis/00_search-development/prompts/scope_prompt.md) that states them. These judgments estimate workload only. They decide no record's eligibility and enter neither screening nor charting.
 
 A local large language model coded the sources included in the review by @chawinga2019 to identify those that meet this review's eligibility criteria, which serve as known relevant sources for testing the query. For each source, it recorded the practice, data origin, field, source type, and reported factors from the title and abstract, with the passage that supports each code, choosing from the values listed in its [prompt](analysis/00_search-development/prompts/coding_prompt.md), which come from the eligibility criteria, the [screening guide](materials/screening-guide.qmd), and the [codebook](codebook.qmd). [Notebook 00](analysis/00_search-development/00-search-development.ipynb) reports the codes and keeps the sources that meet the criteria, apart from publication year, as known sources. The model ran at temperature 0 with a fixed seed, which makes its output repeatable. A smaller model, run with the same prompt and settings, agrees with it on 79% to 100% of the codes for each variable, with Cohen's kappa from 0.63 to 0.84.
 
@@ -156,11 +158,16 @@ Titles naming blockchain, cloud computing, encryption, and other computing terms
 | Scopus | 16 | 23 |
 | Web of Science | 12 | 18 |
 | At least one database | 18 | 25 |
-| Meeting every criterion of this review | 9 | 10 |
 
 : The chosen query against the known sources published from 2015. {#tbl-test}
 
-Of the 13 known sources from 2015 the query misses, 6 are in none of the three databases or have no DOI or PMID to check them by. The other 7 name research data management, open data, or open science in their titles, and all but Chiware and Mathe (2016) fall outside this review's criteria.
+Every known source from 2015 that is eligible apart from year meets this review's criteria. Of the 13 the query misses, 6 are in none of the three databases or have no DOI or PMID to check them by. The other 7 name research data management, open data, or open science in their titles. All 13 are added by hand.
+
+### Tier 2 and research data management
+
+Admitting all source types in tier 2 was weighed by its effect on screening. A local language model judged 300 records drawn at random from the query's 7,933 against the screening guide's criteria, without the tier criterion (see Artificial intelligence). It included 16% of them with tier 2 limited to reviews and syntheses and 21% with all source types, so admitting all source types adds about 420 records, a third more, to full-text screening. Most of the records it adds report factors in research data sharing in other fields.
+
+Four of the known sources the query misses concern research data management. "research data management" in titles would add 489 records, of which the model judged 44% eligible, against 21% for the query's own records. The review treats research data management as a mechanism for implementation, a factor applied at screening, and keeps it out of the query, which searches research data sharing alone. "data management", "open data", and "open science" in titles would each add 2,000 to 5,400 records for one known source.
 
 ### Known-item test
 
@@ -171,8 +178,20 @@ The query was also tested against the known items listed on the [search strategy
 | Source | DOI |
 |:--|:--|
 | Chiware and Mathe (2016). Academic libraries' role in research data management services: a South African perspective | 10.7553/81-2-1563 |
+| Chigwada et al. (2017). Research data management in research institutions in Zimbabwe | 10.5334/dsj-2017-031 |
+| Schöpfel et al. (2018). Research data management in the French National Research Center (CNRS) | 10.1108/dta-01-2017-0005 |
+| Wittenberg and Elings (2017). Building a research data management service at the University of California, Berkeley: a tale of collaboration | 10.1177/0340035216686982 |
+| Specht et al. (2015). Data management challenges in analysis and synthesis in the ecosystem sciences | 10.1016/j.scitotenv.2015.03.092 |
+| Schmidt et al. (2016). Open data in global environmental research: the Belmont Forum's open data survey | 10.1371/journal.pone.0146695 |
+| Watson (2015). When will 'open science' become simply 'science'? | 10.1186/s13059-015-0669-2 |
+| Bishoff and Johnston (2015). Approaches to data sharing: an analysis of NSF data management plans from a large research university | 10.7710/2162-3309.1231 |
+| He (2016). Data sharing across research and public communities | 10.13016/m2z84m |
+| Zvyagintseva (2015). Articulating a vision for community-engaged data curation in the digital humanities | 10.7939/r3m66s |
+| Brown et al. (2015). Directions for research data management in UK universities | none |
+| Guédon (2015). Open data and science: towards optimizing the research process | none |
+| Koopman (2015). Data archiving, management initiatives and expertise in the Biological Sciences Department | none |
 | Hutchings et al. (2020). A systematic literature review of researchers' and healthcare professionals' attitudes towards the secondary use and sharing of health administrative and clinical trial data | 10.1186/s13643-020-01485-5 |
 | Swales, Gooden, and Thaldar (2024). The anatomy of a data transfer agreement for health research | 10.3389/fphar.2024.1332700 |
 | Inau et al. (2023). Initiatives, concepts, and implementation practices of the findable, accessible, interoperable, and reusable data principles in health data stewardship: scoping review | 10.2196/45013 |
 
-: Known sources the query misses that meet this review's criteria, added to the records by hand. {#tbl-hand-added}
+: Known sources the query misses that meet this review's criteria, added to the records by hand. The first 13 were published from 2015 and come from the sources included in the review by @chawinga2019; the last three come from the known-item list. {#tbl-hand-added}

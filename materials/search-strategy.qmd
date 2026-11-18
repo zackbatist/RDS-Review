@@ -117,7 +117,24 @@ AND LA=(English OR French)
 
 ## Other sources
 
-Known sources that the query misses and that meet the eligibility criteria are added by hand: Chiware and Mathe (2016), Hutchings et al. (2020), Swales, Gooden, and Thaldar (2024), and Inau et al. (2023). The [protocol](../research-protocol.qmd) gives their DOIs and how each was found. Name the export file for these sources with the prefix `other-`, for example `other-hand-added_2026-11-18.ris`.
+Known sources that the query misses and that meet the eligibility criteria are added by hand. The [protocol](../research-protocol.qmd) gives how each was found.
+
+- Chiware and Mathe (2016). Academic libraries' role in research data management services: a South African perspective, doi:10.7553/81-2-1563
+- Chigwada et al. (2017). Research data management in research institutions in Zimbabwe, doi:10.5334/dsj-2017-031
+- Schöpfel et al. (2018). Research data management in the French National Research Center (CNRS), doi:10.1108/dta-01-2017-0005
+- Wittenberg and Elings (2017). Building a research data management service at the University of California, Berkeley: a tale of collaboration, doi:10.1177/0340035216686982
+- Specht et al. (2015). Data management challenges in analysis and synthesis in the ecosystem sciences, doi:10.1016/j.scitotenv.2015.03.092
+- Schmidt et al. (2016). Open data in global environmental research: the Belmont Forum's open data survey, doi:10.1371/journal.pone.0146695
+- Watson (2015). When will 'open science' become simply 'science'?, doi:10.1186/s13059-015-0669-2
+- Bishoff and Johnston (2015). Approaches to data sharing: an analysis of NSF data management plans from a large research university, doi:10.7710/2162-3309.1231
+- He (2016). Data sharing across research and public communities, doi:10.13016/m2z84m
+- Zvyagintseva (2015). Articulating a vision for community-engaged data curation in the digital humanities, doi:10.7939/r3m66s
+- Brown et al. (2015). Directions for research data management in UK universities
+- Guédon (2015). Open data and science: towards optimizing the research process
+- Koopman (2015). Data archiving, management initiatives and expertise in the Biological Sciences Department
+- Hutchings et al. (2020). A systematic literature review of researchers' and healthcare professionals' attitudes towards the secondary use and sharing of health administrative and clinical trial data, doi:10.1186/s13643-020-01485-5
+- Swales, Gooden, and Thaldar (2024). The anatomy of a data transfer agreement for health research, doi:10.3389/fphar.2024.1332700
+- Inau et al. (2023). Initiatives, concepts, and implementation practices of the findable, accessible, interoperable, and reusable data principles in health data stewardship: scoping review, doi:10.2196/45013 Name the export file for these sources with the prefix `other-`, for example `other-hand-added_2026-11-18.ris`.
 
 ## Known-item test {#known-item-test}
 
