@@ -93,12 +93,14 @@ AND (english[la] OR french[la])
 
 ### Scopus
 
+Scopus applies AND NOT after every AND, so the limits come first and the NOT clause last.
+
 ```text
 TITLE ( shar* W/5 data )
-AND NOT TITLE ( blockchain* OR "smart contract*" OR IoT OR "internet of things"
-                OR vehicular OR "edge computing" OR cloud )
 AND PUBYEAR > 2014 AND PUBYEAR < 2026
 AND LANGUAGE ( english OR french )
+AND NOT TITLE ( blockchain* OR "smart contract*" OR IoT OR "internet of things"
+                OR vehicular OR "edge computing" OR cloud )
 ```
 
 ### Web of Science
