@@ -152,15 +152,15 @@ Titles naming blockchain, cloud computing, encryption, and other computing terms
 
 | | Known sources from 2015 found | Of those indexed |
 |:--|--:|--:|
-| PubMed | 8 | 12 |
-| Scopus | 16 | 24 |
-| Web of Science | 12 | 19 |
-| At least one database | 18 | 26 |
+| PubMed | 8 | 11 |
+| Scopus | 16 | 23 |
+| Web of Science | 12 | 18 |
+| At least one database | 18 | 25 |
 | Meeting every criterion of this review | 9 | 10 |
 
 : The chosen query against the known sources published from 2015. {#tbl-test}
 
-Of the 16 known sources from 2015 the query misses, 8 are in none of the three databases or have no DOI or PMID to check them by. The other 8 name research data management, open data, open science, or reuse in their titles, and all but Chiware and Mathe (2016) fall outside this review's criteria.
+Of the 13 known sources from 2015 the query misses, 6 are in none of the three databases or have no DOI or PMID to check them by. The other 7 name research data management, open data, or open science in their titles, and all but Chiware and Mathe (2016) fall outside this review's criteria.
 
 ### Known-item test
 

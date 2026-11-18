@@ -265,6 +265,7 @@ Runs 1 to 14 in the Term evidence section of notebook 00 hold the code, the file
 - **Citation searching dropped.** Zack's decision: the review does no citation searching. The entries above that name it as a backstop no longer hold; the protocol says nothing of it.
 - **Privacy.** The coding prompt and the screening guide list privacy as a factor that obstructs sharing, so screening applies it; dropping it from the factor block in run 6 cost no known source.
 - **bib-dedupe.** The protocol deduplicates with bib-dedupe. Claude named ASySD in the notebook text and in the chat on 18 November; the notebook now says bib-dedupe.
+- **Reuse-only sources leave the known sources.** Notebook 00's eligibility rule now gives `not-data-sharing` to sources coded *reuse* as well as *neither*, since the review asks about sharing. Four sources change: Higgins 2011 (development, in none of the databases) and Curty et al. 2017, Yoon 2015 and Curty 2015 (test). Eligible apart from year falls from 46 to 45 development and 34 to 31 test sources. No development figure changes. Test coverage becomes 8 of 11 in PubMed, 16 of 23 in Scopus, 12 of 18 in Web of Science and 18 of 25 together (0.72, 95% interval 0.52 to 0.86); 9 of 10 in scope. Runs 1 to 15 and 17 to 18 ran under the old rule; only run 16 uses the test set and is rerun under the new one.
 
 ## To do
 

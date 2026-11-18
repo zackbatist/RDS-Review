@@ -1,5 +1,5 @@
 database,query,found,indexed,coverage,low,high
-PubMed,"((""sharing data""[ti:~5] OR ""shared data""[ti:~5] OR ""share data""[ti:~5] OR ""shares data""[ti:~5]) NOT (blockchain*[ti] OR ""smart contract*""[ti] OR IoT[ti] OR ""internet of things""[ti] OR vehicular[ti] OR ""edge computing""[ti] OR cloud[ti]))",8,12,0.667,0.391,0.862
-Scopus,"(TITLE(shar* W/5 data) AND NOT (TITLE(blockchain*) OR TITLE(""smart contract*"") OR TITLE(IoT) OR TITLE(""internet of things"") OR TITLE(vehicular) OR TITLE(""edge computing"") OR TITLE(cloud)))",16,24,0.667,0.467,0.82
-Web of Science,"(TI=(shar* NEAR/5 data) NOT (TI=(blockchain*) OR TI=(""smart contract*"") OR TI=(IoT) OR TI=(""internet of things"") OR TI=(vehicular) OR TI=(""edge computing"") OR TI=(cloud)))",12,19,0.632,0.41,0.809
-all three,,18,26,0.692,0.5,0.835
+PubMed,"((""sharing data""[ti:~5] OR ""shared data""[ti:~5] OR ""share data""[ti:~5] OR ""shares data""[ti:~5]) NOT (blockchain*[ti] OR ""smart contract*""[ti] OR IoT[ti] OR ""internet of things""[ti] OR vehicular[ti] OR ""edge computing""[ti] OR cloud[ti]))",8,11,0.727,0.434,0.903
+Scopus,"(TITLE(shar* W/5 data) AND NOT (TITLE(blockchain*) OR TITLE(""smart contract*"") OR TITLE(IoT) OR TITLE(""internet of things"") OR TITLE(vehicular) OR TITLE(""edge computing"") OR TITLE(cloud)))",16,23,0.696,0.491,0.844
+Web of Science,"(TI=(shar* NEAR/5 data) NOT (TI=(blockchain*) OR TI=(""smart contract*"") OR TI=(IoT) OR TI=(""internet of things"") OR TI=(vehicular) OR TI=(""edge computing"") OR TI=(cloud)))",12,18,0.667,0.437,0.837
+all three,,18,25,0.72,0.524,0.857
