@@ -296,7 +296,6 @@ div.csl-indent {
   <li><a href="#setup-and-commands" id="toc-setup-and-commands" class="nav-link" data-scroll-target="#setup-and-commands">Setup and commands</a>
   <ul class="collapse">
   <li><a href="#runs" id="toc-runs" class="nav-link" data-scroll-target="#runs">Runs</a></li>
-  <li><a href="#files" id="toc-files" class="nav-link" data-scroll-target="#files">Files</a></li>
   </ul></li>
   <li><a href="#step-3-first-version-the-yield-rule" id="toc-step-3-first-version-the-yield-rule" class="nav-link" data-scroll-target="#step-3-first-version-the-yield-rule">Step 3, first version: the yield rule</a>
   <ul class="collapse">
@@ -793,77 +792,10 @@ Built precision_screening.html (300 records from PubMed, Scopus, Web of Science)
 </section>
 <section id="step-1.-comparability-assessment" class="level2">
 <h2 class="anchored" data-anchor-id="step-1.-comparability-assessment">Step 1. Comparability assessment</h2>
-<p>The reference set holds the references <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span> name in Table 2, cite in sections 4 and 5, or cite for a country section 4.3 lists. A local model coded each one from its title and abstract. Sources first published from 2007 to 2014 form the development set, which step 2 draws terms from and step 3 measures candidate queries against. Sources first published from 2015 to July 2018 form the test set, which step 3 measures the chosen query’s coverage against.</p>
-<ul>
-<li><strong>Inputs from Chawinga and Zinn, and their use:</strong>
-<ul>
-<li><em>Aim</em> (abstract, p.&nbsp;109): factors hampering data sharing at individual, institutional and international levels. Set against the RDS-Review Objective and questions.</li>
-<li><em>Inclusion and exclusion criteria</em> (section 3.1, p.&nbsp;111): topic (data sharing), source type, empirical design, English, 2007 or later. Compared with the RDS-Review criteria in the method below.</li>
-<li><em>Date range</em> (section 3.1, p.&nbsp;111; section 5.2, p.&nbsp;115): 2007 to July 2018, so their set overlaps RDS-Review only for 2015 to July 2018.</li>
-<li><em>Publications by year</em> (Fig. 4, p.&nbsp;113): 64 of their 105 sources date from 2007 to 2014 and 41 from 2015 to July 2018, the upper bounds for the development and test sets below.</li>
-<li><em>Source types</em> (section 3.1, p.&nbsp;111; section 4, p.&nbsp;112): they excluded conference papers, letters, editorials, book reviews, research notes and short communications. RDS-Review admits all source types, so their set can’t supply terms for these.</li>
-<li><em>Search statements</em> (section 3.2, p.&nbsp;111): four statements. Matched against the reference set in the method below, to show how much of their set their own statements reach.</li>
-<li><em>Reference list, Table 2, sections 4 and 5, and Figs. 3 to 5</em> (pp.&nbsp;112–122): the paper gives no list of its 105 included sources. The reference set is reconstructed from the paper’s own evidence, below, and checked against its counts by type (section 4) and by year (Fig. 4).</li>
-</ul></li>
-<li><strong>Inputs from RDS-Review, and their use:</strong>
-<ul>
-<li><em>Objective and questions</em> in the Research Protocol set the standard Chawinga and Zinn’s aim is compared against.</li>
-<li><em>PCC table</em> in the Research Protocol and <em>Criteria</em> in <code>screening-guide.qmd</code> supply the fields for coding Chawinga and Zinn’s included sources.</li>
-<li><em>Factor themes and their terms</em> in <code>screening-guide.qmd</code> supply the list for the Factors field.</li>
-<li><em>Variables and exclusion codes</em> in <code>codebook.yml</code> supply the <code>data_origin</code>, <code>field</code>, <code>tier</code> and <code>source_type</code> fields and the Reason values.</li>
-<li><em>Date range, language limit and exclusions</em> in the Research Protocol set the In scope criteria below.</li>
-<li><em>Candidate terms table</em> on the search strategy page supplies fallback terms for a Practice value with no development set sources, in step 2.</li>
-</ul></li>
-<li><strong>Reference set:</strong>
-<ol type="1">
-<li><strong>Select.</strong> The paper’s list of included sources was not published: the Crossref record lists no supplementary material, and the first author’s thesis, data deposits and profiles hold no list. The reference set script reads the paper’s full text and reference list from Elsevier and selects every reference the paper identifies as an included source, by three rules:
-<ul>
-<li><em>Table 2:</em> references Table 2 names as sources for its themes, matched by first author and year, allowing a year either way only where the reference list holds no reference by that author with Table 2’s year.</li>
-<li><em>Sections 4 and 5:</em> references cited in the Results or the Discussion.</li>
-<li><em>Section 4.3:</em> section 4.3 lists the countries with one included publication each; a listed country that no reference selected by the first two rules names in its title is supplied by the reference, dated 2007 to 2018, whose title names it.</li>
-</ul>
-It writes <code>reference_citations.csv</code>, with every reference in the paper, where it is cited, its type and the rule that selected it, and <code>reference_candidates.csv</code>, with the selected references.</li>
-<li><strong>Look up.</strong> The lookups script checks each DOI against Crossref and OpenAlex, finds the PMID, and pulls the earliest publication date PubMed or Crossref gives (the year the paper cites where neither gives one), the title, the abstract (from PubMed, then OpenAlex, then Crossref, then the Scopus Abstract Retrieval API), the MeSH headings with their NLM scope notes, the author keywords and the OpenAlex keywords. It writes <code>reference_lookups.csv</code> and <code>reference_indexing.csv</code>. Where a reference has no DOI, or one neither Crossref nor OpenAlex knows, the lookups script searches OpenAlex by title, first author and year. A reference whose DOI or metadata can’t be verified is dropped and listed with the reason.</li>
-<li><strong>Size.</strong> The reference set script reports the size of the reference set against their 105, by type against their 83 journal articles, 10 theses, 8 reports and 4 books, and by year against Fig. 4.</li>
-<li><strong>Split.</strong> The reference set sources published 2007 to 2014 form the <em>development set</em>, which supplies terms in step 2. Those published 2015 or later form the <em>test set</em>, the latest dated September 2018, which measures coverage in step 3, so coverage is measured on sources the terms weren’t drawn from.</li>
-</ol></li>
-<li><strong>Coding:</strong> <code>local-model/coding.py</code> sends each reference set source’s title and abstract from <code>reference_lookups.csv</code> to the local model with <code>prompts/coding_prompt.md</code>, which holds the definitions below, at temperature 0 with a fixed seed, thinking off and prompt caching off, and asks for a JSON answer. A source with no abstract is coded on its title, and its codes are marked so. Each code is checked against the prompt’s definitions, and against the title and abstract for its passage and term; a code that fails is kept and its problem recorded. Each coded value carries two things: the <strong>passage</strong> that supports it (the sentence from the title or abstract, or <em>none</em> where no sentence supports it), and the <strong>term</strong> in that passage that expresses the value, such as <em>secondary use</em> for <em>reuse</em> or <em>unwilling to share</em> for <em>reluctance</em> (<em>none</em> where the passage expresses the value without a distinct term).
-<ul>
-<li><strong>Practice:</strong> <em>sharing</em>, <em>reuse</em>, <em>both</em> or <em>neither</em>.</li>
-<li><strong><code>data_origin</code>:</strong>
-<ul>
-<li><em>research:</em> data that researchers generate through procedures designed for a specific study, such as a trial, cohort, survey, experiment, interview study or fieldwork. Examples: trial measurements, survey responses, interview transcripts, sequencing data from study participants.</li>
-<li><em>not-research-data:</em> data that public health agencies, health services or clinicians generate while conducting surveillance, delivering services or treating patients, and that stay within those activities. Examples: electronic health records used for treatment, disease registries used for surveillance, insurance claims used for billing, notifiable disease reports used for outbreak response. A source on these data alone is out of scope with the exclusion code <code>not-research-data</code>.</li>
-<li><em>reused:</em> <em>not-research-data</em> that researchers later obtain and analyse. Examples: electronic health records analysed in an observational study, registry data used in an epidemiological study.</li>
-<li><em>mixed:</em> the source concerns <em>research</em> data and <em>reused</em> data, such as cohort data linked with health records.</li>
-<li><em>unclear:</em> the source names the data but does not state who generated them or why.</li>
-</ul></li>
-<li><strong>Factors:</strong> the factors the source reports, matched to the list below by meaning. For example, a source on researchers who withhold data for fear of losing credit reports <em>reluctance</em>. The list groups the factors under the five themes in <code>screening-guide.qmd</code>:
-<ul>
-<li><em>factors that obstruct:</em> barriers, challenges, obstacles, reluctance, privacy</li>
-<li><em>factors that facilitate:</em> facilitators, enablers, incentives, motivation, infrastructure, repositories, interoperability</li>
-<li><em>stakeholder perspectives:</em> perceptions, attitudes, willingness</li>
-<li><em>policies and what drive them:</em> policies, mandates, open science, open data, open access, open research</li>
-<li><em>mechanisms for implementation:</em> governance, consent, licensing, ethics, stewardship, data management plans, data curation, digital curation</li>
-<li><em>none</em> if the source reports no factor on the list.</li>
-</ul></li>
-<li><strong><code>field</code>:</strong> <em>health</em>, <em>other</em> or <em>cross-disciplinary</em>. <strong><code>tier</code>:</strong> <em>1</em> for health, <em>2</em> otherwise.</li>
-<li><strong><code>source_type</code>:</strong> <em>empirical</em>, <em>review</em>, <em>policy-guidance</em>, <em>opinion</em> or <em>other</em>.</li>
-<li><strong>Language:</strong> <em>English</em>, <em>French</em> or <em>other</em>, from the title and abstract.</li>
-<li><strong>Year:</strong> earliest of online or print publication, from <code>reference_lookups.csv</code>.</li>
-<li><strong>Reason:</strong> the <code>codebook.yml</code> exclusion code for each out-of-scope source, derived from the codes.</li>
-<li><strong>In scope:</strong> Practice <em>sharing</em> or <em>both</em>, <code>data_origin</code> not <em>not-research-data</em>, Factors not <em>none</em>, Year 2015 to 2025, Language English or French. Tier 2 admits all source types, so <code>tier</code> and <code>source_type</code> set no criterion.</li>
-<li>Notebook 00 derives <code>tier</code>, Year, set, Reason, In scope and Eligible apart from year by these rules and writes them with the lookups to <code>reference_sources.csv</code>.</li>
-<li><strong>Eligible apart from year:</strong> every In scope criterion except Year. Development set sources meeting it are the ones step 3 counts.</li>
-</ul></li>
-<li><strong>Method:</strong>
-<ol type="1">
-<li>Count the reference set sources by each coded value, split by development and test set.</li>
-<li>For each criterion Chawinga and Zinn set (topic, source type, empirical design, language, date; p.&nbsp;111), enter a row in the comparison table with their criterion, the RDS-Review criterion for the same thing with its section heading, and the relation between them: <em>overlap</em> when each admits sources the other excludes, <em>narrower</em> when theirs admits part of what the RDS-Review criterion admits. Where they set none (reuse, <code>data_origin</code>, factors, <code>field</code>, <code>tier</code>), the relation is <em>no criterion</em>, and the counts alone show what their set covers.</li>
-<li>Run each of Chawinga and Zinn’s search statements against the titles and abstracts of the reference set sources, twice: with “research data sharing” as a phrase, and as separate words. Count the sources each reading matches.</li>
-<li><strong>Verdict.</strong> For each PCC part (<em>sharing</em>, <em>reuse</em>, each factor theme), state its coverage: <em>covered</em> when both the development set and the test set hold sources eligible apart from year coded for it; <em>development only</em>; <em>test only</em>; or <em>not covered</em>. The terms and coverage figures for a part are only as good as its verdict.</li>
-</ol></li>
-</ul>
+<p>Step 1 asks whether the sources <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span> included can stand in for the sources RDS-Review looks for, so that they can test candidate queries.</p>
+<p>Chawinga and Zinn did not publish a list of their 105 included sources, and neither the paper’s Crossref record nor the first author’s thesis and data deposits hold one. <code>retrieval/reference_set.py</code> rebuilt the list from the paper’s full text, read through Elsevier’s Article Retrieval API, and keeps only bibliographic details. It takes the references Table 2 names, the references sections 4 and 5 cite, and, for each country section 4.3 lists that no other selected reference names, the reference from 2007 to 2018 whose title names it. The result is 102 sources. <code>retrieval/lookups.py</code> checked each DOI against Crossref and OpenAlex and pulled the PMID, the earliest publication date, the title, the abstract, the MeSH headings and the keywords.</p>
+<p>A local model, Qwen3.5-122B-A10B, coded each source from its title and abstract with <code>prompts/coding_prompt.md</code>, which holds the definitions. It recorded whether the source concerns sharing, reuse, both or neither, whether the data are research data, the factors the source reports under the screening guide’s five themes, its field, its source type and its language, each with the sentence that supports it. A smaller model, Qwen3.8-27B, coded the same sources with the same prompt, and the two agree on 79% to 100% of sources for each variable.</p>
+<p>This notebook applies the RDS-Review criteria to the codes. A source is <em>eligible apart from year</em> when it concerns sharing, alone or with reuse, is not coded as concerning data from outside research, reports at least one factor, and is in English or French. Sources published 2007 to 2014 form the development set, which step 3 measures candidate queries against. Sources published from 2015 form the test set, which step 3 holds out to measure the chosen query. The tables below compare Chawinga and Zinn’s criteria with RDS-Review’s, match their four search statements against the reference set, and check that every PCC part has eligible sources in both sets.</p>
 <section id="sets" class="level3">
 <h3 class="anchored" data-anchor-id="sets">Sets</h3>
 <p>Sources in each set, by whether they meet the criteria apart from year, and the first exclusion code each source meets. <em>(none)</em> marks sources that meet every criterion.</p>
@@ -1775,40 +1707,7 @@ It writes <code>reference_citations.csv</code>, with every reference in the pape
 </section>
 <section id="step-2.-terms-by-pcc-part" class="level2">
 <h2 class="anchored" data-anchor-id="step-2.-terms-by-pcc-part">Step 2. Terms by PCC part</h2>
-<p>Step 2’s terms fed the first version of step 3, which chose terms by a yield rule. The measurements that replaced it start from the Candidate terms table and standard phrasings, and the query uses none of step 2’s terms. Its factor terms informed the screening guide.</p>
-<ul>
-<li><strong>PCC parts:</strong> the parts of the PCC table’s Concept row a term can sit under: <em>sharing</em> and <em>reuse</em> (the practice), and the five factor themes (the factors). Context gets no terms, since field terms would act as filters in the query and the <code>field</code> and <code>tier</code> decisions happen at screening. Population has no restriction and needs no terms.</li>
-<li><strong>Sources:</strong> every source in the development set.</li>
-<li><strong>Term types:</strong>
-<ul>
-<li><em>recorded:</em> the terms in <code>reference_codes_qwen3.5-122b.csv</code>, taken from each source’s passages.</li>
-<li><em>MeSH:</em> the MeSH headings PubMed lists for the source (MEDLINE field <code>MH</code>), pulled by PMID for sources PubMed indexes.</li>
-<li><em>author keyword:</em> the keywords the authors list on the paper, from PubMed’s <code>OT</code> field, for sources PubMed indexes. Sources outside PubMed contribute no author keywords.</li>
-<li><em>OpenAlex keyword:</em> the keywords OpenAlex assigns to the work (its <code>keywords</code> field), pulled by DOI.</li>
-</ul>
-The lookups script in step 1 pulls all three into <code>reference_indexing.csv</code>.</li>
-<li><strong>Normalisation:</strong> all terms are lowercased. Variants that differ only by hyphen, plural or word ending merge into one term, written with truncation (<em>reus*</em>) where every word the truncation matches is a variant of the term, and as a list of variants joined with OR otherwise. MeSH headings keep NLM’s exact form.</li>
-<li><strong>Assignment:</strong> MeSH headings, author keywords and OpenAlex keywords attach to a whole source, so each is placed under a PCC part by meaning. <code>local-model/indexing.py</code> sends every distinct term in <code>reference_indexing.csv</code>, one term at a time, MeSH headings with their NLM scope notes, to the local model with <code>prompts/indexing_prompt.md</code>, at temperature 0 with a fixed seed, thinking and prompt caching off, with the answer held to the prompt’s values, and writes the value it gives each term to <code>term_assignments_qwen3.5-122b.csv</code>:
-<ol type="1">
-<li>A term takes a Practice value or a factor from the list in step 1 when its meaning matches, judged by meaning and not by the words the term contains.</li>
-<li>MeSH headings are judged by their NLM scope note.</li>
-<li>A term that matches no PCC part, such as “Humans” or “Surveys and Questionnaires”, takes <em>none</em> and is left out of <code>terms.csv</code>.</li>
-</ol></li>
-<li><strong>Syntax:</strong> each normalised term gets one written form per database, in <code>term_syntax.csv</code>: phrases in double quotes, truncation with <code>*</code>, and the search field below.
-<ul>
-<li><em>PubMed:</em> recorded, author keyword and OpenAlex keyword terms in <code>[tiab]</code>. MeSH terms in <code>[mh:noexp]</code>, which leaves out narrower headings.</li>
-<li><em>Scopus:</em> recorded, author keyword and OpenAlex keyword terms in <code>TITLE-ABS-KEY</code>.</li>
-<li><em>Web of Science:</em> recorded, author keyword and OpenAlex keyword terms in <code>TS</code>.</li>
-</ul></li>
-<li><strong>Selection:</strong>
-<ul>
-<li><em>Sharing and reuse:</em> every term that names data (contains <em>data</em>, as in <em>dataset</em> or <em>database</em>), and every MeSH heading, goes to step 3, which selects by database retrieval and load. The Concept is the sharing and reuse of research data, and a term such as “use” or “sharing” alone searches for any use or sharing, so it would swamp the yield threshold.</li>
-<li><em>Factor themes:</em> run separately for each database. Within each theme, taking terms in descending count, keep each one that matches a development set source no kept term matches. A source counts as matched by a MeSH term only if PubMed lists that heading for it, and by an author keyword only if it carries that keyword. A theme with no kept term takes its terms from <code>screening-guide.qmd</code>.</li>
-<li><em>Fallback:</em> <em>reuse</em> always takes its matching terms from the Candidate terms table on the search strategy page, “data reuse” and “data re-use”, which enter each query without the yield test. Nearly every development set source coded for <em>reuse</em> is also coded for <em>sharing</em> (16 of 17), so a reuse term can only add sources a sharing term doesn’t already reach, and the yield rule can’t judge it; the test set, made of sharing sources, can’t either.</li>
-<li>Codes with the term <em>none</em> contribute no terms, nor do codes with a problem from the coding checks.</li>
-<li>A recorded term from a source coded <em>both</em> sits under <em>sharing</em> and under <em>reuse</em>.</li>
-</ul></li>
-</ul>
+<p>Step 2 collected the terms the development set sources use for each part of the PCC table. They come from the coding, from MeSH headings, and from author and OpenAlex keywords, which the local model placed under a PCC part by meaning with <code>prompts/indexing_prompt.md</code>. For each factor theme, taking terms from the most sources down, a term stays when it reaches a development source no term before it reaches. These terms fed the first version of step 3, which chose among them by yield and returned far more records than can be screened. The query uses none of them, and the factor terms informed the screening guide’s theme table.</p>
 <p>The tables count the terms for each PCC part in each database, then list PubMed’s sharing and reuse terms and its factor terms.</p>
 <div id="c16" class="cell" data-execution_count="10">
 <details class="code-fold">
@@ -2947,26 +2846,13 @@ The lookups script in step 1 pulls all three into <code>reference_indexing.csv</
 </table>
 </div>
 </div>
-<p><strong>Finding.</strong> The development set gives 36 or 37 sharing terms and 12 or 13 reuse terms in each database, and 8 to 33 terms for each factor theme. The query uses none of them. Step 3’s first version, which chose from them by yield, returned far more records than can be screened. The factor terms informed the screening guide’s theme table.</p>
+<p><strong>Finding.</strong> The development set gives 36 or 37 sharing terms and 12 or 13 reuse terms in each database, and 8 to 33 terms for each factor theme.</p>
 </section>
 <section id="step-3.-query-and-testing" class="level2">
 <h2 class="anchored" data-anchor-id="step-3.-query-and-testing">Step 3. Query and testing</h2>
-<ul>
-<li><strong>Principles for constructing the query:</strong>
-<ol type="1">
-<li><strong>Simple.</strong> The query uses as few terms as possible, and a reader can follow why each is there.</li>
-<li><strong>Every term earns its place.</strong> A candidate drops out when another retrieves at least as many development set sources eligible apart from year in fewer records.</li>
-<li><strong>No term picked to catch one source.</strong> Known sources a term would add alone go into the records by hand.</li>
-<li><strong>Recall comes from the test set.</strong> Coverage is the share of indexed test set sources the query retrieves, measured once the query is chosen.</li>
-<li><strong>Factors belong to screening.</strong> The query finds sources on the topic; whether they report factors is decided at screening, against <code>screening-guide.qmd</code>.</li>
-<li><strong>No limit the eligibility criteria don’t impose.</strong> No document type or field filters; the date and language limits follow the Research Protocol. Titles left out by the NOT clause mark sources the criteria exclude.</li>
-<li><strong>One method, three databases.</strong> The same method runs in PubMed, Scopus and Web of Science, translated to each database’s syntax and tested the same way.</li>
-</ol></li>
-</ul>
-<p>The query searches titles for a form of <em>share</em> within 5 words of <em>data</em>, and leaves out titles on blockchain, device networks and cloud computing. It finds 29 of the 35 indexed development studies and, on the test set, 18 of the 25 indexed sources, in about 7,900 records once duplicates are removed. Runs 1 to 9 measure the phrase <em>“data sharing”</em> with factor terms from the Candidate terms table; they show what a factor block costs and finds, and they are the evidence for leaving it out. Runs 10 and 11 replace the phrase with a form of <em>share</em> near <em>data</em> in the title, which finds more development studies in fewer records with no factor terms, so the factor terms guide screening. Runs 12 to 15 measure ways to narrow that block, run 16 tests the result on the test set, runs 17 and 18 test it on the known-item list of the search strategy page, and runs 19 to 21 measure what opening tier 2 and research data management would cost.</p>
-<p>This section chooses the terms of one query per database from evidence on the development set. Each run asks two things of a query in PubMed, Scopus and Web of Science. The first is how many records it returns for 2015 to 2025 in English or French, the review’s limits. The second is which development studies it finds: the sources eligible apart from year, published 2007 to 2014, that have a DOI or PMID. Those are checked by identifier with no date limit. The test set stays held out until run 16.</p>
-<p>The runs query the databases’ APIs, so they run on the analysis server from the repository root, with the keys loaded (<code>source ~/.rds-review-keys</code>). Rendering skips them (<code>eval: false</code>) and shows the files they wrote to <code>data/raw/search-development/</code>. To repeat a run, run the setup cell and then the run’s cell. The runs follow the order in which each one’s result set up the next.</p>
-<p>Known sources the query misses that meet the eligibility criteria go into the records by hand, as <code>other-hand-added_&lt;date&gt;.ris</code> in <code>data/raw/search_exports/</code>. Step 3’s first version, which chose terms by a yield rule, comes last on this page as a record.</p>
+<p>Each run measures a candidate query in PubMed, Scopus and Web of Science on two counts. The first is the records it returns for 2015 to 2025 in English or French, the review’s limits. The second is the development sources it finds, checked by DOI or PMID with no date limit. A candidate drops out when another finds at least as many development sources in fewer records. Where several survive, the choice is a judgment, and <code>log.md</code> records it with its reason. No term enters the query to catch a single source, and the query carries no limit the eligibility criteria do not impose. Known sources it misses go into the records by hand. The test set stays out of every run until run 16.</p>
+<p>Runs 1 to 9 measure the phrase <em>“data sharing”</em> with factor terms from the Candidate terms table; they show what a factor block costs and finds, and they are the evidence for leaving it out. Runs 10 and 11 replace the phrase with a form of <em>share</em> near <em>data</em> in the title, which finds more development studies in fewer records with no factor terms, so the factor terms guide screening. Runs 12 to 15 measure ways to narrow that block, run 16 tests the result on the test set, runs 17 and 18 test it on the known-item list of the search strategy page, and runs 19 to 21 measure what opening tier 2 and research data management would cost.</p>
+<p>The runs query the databases’ APIs, so they run on the analysis server from the repository root, with the keys loaded (<code>source ~/.rds-review-keys</code>). Rendering skips them (<code>eval: false</code>) and shows the files they wrote to <code>data/raw/search-development/</code>. To repeat a run, run the setup cell and then the run’s cell. The first version of step 3, which chose terms by a yield rule, comes last on this page as a record.</p>
 <div id="te02" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Code</summary>
@@ -3616,7 +3502,7 @@ The lookups script in step 1 pulls all three into <code>reference_indexing.csv</
 </tbody>
 </table>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<div class="cell-output cell-output-display" data-execution_count="88">
 <div>
 
 
@@ -18540,34 +18426,9 @@ Limits: published 2015 to 2025; English or French</code></pre>
 </section>
 <section id="setup-and-commands" class="level2">
 <h2 class="anchored" data-anchor-id="setup-and-commands">Setup and commands</h2>
-<p><strong>Location:</strong> the work lives in the RDS-Review repo, in <code>analysis/00_search-development/</code>. Files the APIs and the local model produce go in <code>data/raw/search-development/</code>; files notebook 00 builds go in <code>data/processed/search-development/</code>. The review’s search exports come later, from each database’s own interface, and go in <code>data/raw/search_exports/</code> as that folder’s README sets out. The work runs in three places:</p>
-<ul>
-<li><em>An analysis server:</em> the Python scripts in <code>retrieval/</code>, for everything that calls an API: the reference set and lookups in step 1. The searches in step 3 run from the code cells of step 3 on this page. Run order and commands are under Runs, below.</li>
-<li><em>A GPU server:</em> the local model that codes the reference set in step 1 and assigns indexing terms in step 2, started by <code>scripts/launch_rds_llm.sh</code> at the repo root, with the prompts in <code>prompts/</code>.</li>
-<li><em><code>00-search-development.ipynb</code>:</em> ahead of <code>01-deduplication</code>, it builds every file that follows by fixed rules from the files above (<code>reference_sources.csv</code>, <code>counts.csv</code>, <code>verdict.csv</code>, <code>statement_matches.csv</code>, <code>terms.csv</code>, <code>term_syntax.csv</code>) and shows the outcomes of all three steps. It rebuilds them each time it runs.</li>
-</ul>
-<p><strong>Reproducibility:</strong> every file comes from code in the repo, except one judgment, recorded so it can be checked: the comparison of their criteria with the RDS-Review criteria, with page references, in <code>comparison.csv</code>. The choices among the measured queries are recorded, with their reasons, in <code>log.md</code>.</p>
-<p>The reference set script reads the full text of Chawinga and Zinn (2019) through Elsevier’s Article Retrieval API, which needs an Elsevier API key with full-text entitlement for the journal; it writes only bibliographic details and citation locations, never the paper’s text. The coding and the assignment of indexing terms are made by a local model, pinned to one version, with fixed prompts and settings, so anyone with the same model can rerun them. The model is a GGUF file on Hugging Face, fixed by repository, revision and SHA-256, so the identical file stays available; the server is a llama.cpp build fixed by its image. The run records the model file, its checksum, the llama.cpp build and the settings with its output. The databases keep indexing new records, so a rerun of step 3 months later returns somewhat different counts; the committed outputs and <code>log.md</code> record what each search returned and when.</p>
-<ul>
-<li><strong>Local model:</strong> runs on a GPU server with ten 24 GB GPUs. <code>scripts/launch_rds_llm.sh</code> downloads the model’s GGUF file from Hugging Face at a fixed revision, checks its SHA-256, and starts a llama.cpp server on the GPUs it is given; a model too large for one GPU is split across several. Model files are stored in the folder <code>MODELS_DIR</code> names. <code>scripts/README.md</code> describes the launch script.
-<ul>
-<li><em>Model of record:</em> Qwen3.5-122B-A10B (<code>qwen3.5-122b</code>, unsloth’s Q4_K_M build), on four GPUs. Its codes are <code>reference_codes_qwen3.5-122b.csv</code>, and each file of codes is named after the model that made it.</li>
-<li><em>Smaller model:</em> Qwen3.8-27B (<code>qwen3.8-27b</code>, unsloth’s UD-Q4_K_M build) runs on one 24 GB GPU, for anyone without the hardware for the larger one. Its codes, from the same prompt, schema and settings, are <code>reference_codes_qwen3.8-27b.csv</code>. Across the 102 sources, the two models agree on Practice for 86% of sources (Cohen’s kappa 0.74), <code>data_origin</code> 94% (0.80), <code>field</code> 86% (0.78), <code>source_type</code> 79% (0.71) and language 100%, and on whether a source reports a factor under each theme for 84% to 93% (kappa 0.63 to 0.84). The main differences: the larger model codes 9 sources <em>both</em> that the smaller codes <em>sharing</em>, and codes more factors, 3.0 per source against 2.3. The smaller model’s terms are less faithful to the source, with 10 codes whose term or passage the check could not find in the title or abstract, against 4 for the larger, 3 of those only a copied “Title:” label. Recorded terms become search terms in step 2, so the larger model is the one of record. For the assignment of the 637 indexing terms in step 2, the two models give the same value to 85% of terms (kappa 0.73) and place 90% under the same PCC part or none (0.81). All 5 <em>reuse</em> terms of the larger model are <em>reuse</em> for the smaller; of its 34 <em>sharing</em> terms, the smaller agrees on 29, and it leaves out MeSH Information Dissemination. Where they differ on factors, the larger model mostly places a term the smaller leaves as <em>none</em>, 22 of them under factors that facilitate. The smaller model’s assignments are <code>term_assignments_qwen3.8-27b.csv</code>.</li>
-</ul></li>
-<li><strong>API setup:</strong> done once, before the first search, on the analysis server. The commands for items 2 to 4 are under Runs, below.
-<ol type="1">
-<li><strong>Register the API keys.</strong>
-<ul>
-<li><em>PubMed:</em> at ncbi.nlm.nih.gov, sign in with an NCBI account under zachary.batist@mcgill.ca, open <strong>Account Settings</strong>, and under <strong>API Key Management</strong> click <strong>Create an API Key</strong>. The key raises the E-utilities limit from 3 to 10 requests a second.</li>
-<li><em>Scopus:</em> at dev.elsevier.com, click <strong>I want an API Key</strong>, sign in with an Elsevier account under zachary.batist@mcgill.ca (creating one if needed), click <strong>Create API Key</strong>, label it <code>RDS-Review</code> with the website URL <code>https://zackbatist.info/RDS-Review</code>, accept the terms, and copy the key. The key gets full Scopus Search access only from McGill’s network. The Scopus Search API allows 20,000 requests a week, at up to 200 records per request.</li>
-<li><em>Web of Science:</em> at developer.clarivate.com, sign up with zachary.batist@mcgill.ca and verify the account. Under <strong>Applications</strong>, register an application named <code>RDS-Review</code>, then on the <strong>Web of Science Starter API</strong> page click <strong>Subscribe</strong> for it and choose the <strong>Free Institutional Member Plan</strong> (5 requests a second, 5,000 a day; the Free Trial Plan’s 1 a second and 50 a day are too few). Once Clarivate approves it, which can take up to two days, the key shows on the API page.</li>
-</ul></li>
-<li><strong>Store the keys.</strong> Create <code>~/.rds-review-keys</code>, outside the RDS-Review repo, holding three lines that export <code>NCBI_API_KEY</code>, <code>SCOPUS_API_KEY</code> and <code>WOS_API_KEY</code>. Set its permissions to 600, so only your account can read it, and add a line to <code>~/.bashrc</code> that sources it, so every new shell has the three variables.</li>
-<li><strong>Create the Python environment.</strong> Create the virtual environment the RDS-Review README sets out, at <code>~/.venvs/rds-review</code>, and install <code>requirements.txt</code>, which includes <code>requests</code>, the one package the search scripts add. No sudo is needed.</li>
-<li><strong>Test each API.</strong> Search each database for one source all three index, Fecher, Friesike and Hebing (2015), doi:10.1371/journal.pone.0118053, by DOI. Each test passes when the database returns exactly one record with that DOI. The same script then runs one known phrase, “data sharing”, in each field tag the searches use: <code>[tiab]</code>, <code>[mh:noexp]</code> (as “Information Dissemination”) and <code>[doi]</code> in PubMed; <code>TITLE-ABS-KEY</code> and <code>DOI()</code> in Scopus; <code>TS</code> and <code>DO</code> in Web of Science. Each tag passes when it returns results without an error, so an unsupported tag fails at setup, not mid-run. The Scopus test also prints the weekly quota remaining from the <code>X-RateLimit-Remaining</code> response header; an authorization error there means the request isn’t coming from McGill’s network.</li>
-</ol></li>
-<li><strong>Database access:</strong> PubMed, Scopus and Web of Science searches run through the PubMed E-utilities, the Scopus Search API and the Web of Science Starter API from the analysis server. Each run changes into the RDS-Review folder, runs <code>git pull</code>, activates <code>~/.venvs/rds-review</code>, and reads your API keys from the environment variables. Searches that include source identifiers send them in batches of 25 and sum the results, since longer lists exceed the APIs’ URL limits. File names carry the database as <code>pubmed</code>, <code>scopus</code> or <code>web-of-science</code>, the names <code>data/raw/search_exports/README.md</code> uses.</li>
-</ul>
+<p>The work runs in two places. The scripts in <code>retrieval/</code> and the runs of step 3 call the database APIs from the analysis server. The local model runs on the GPU server: <code>scripts/launch_rds_llm.sh</code> downloads its GGUF file from Hugging Face at a fixed revision, checks its SHA-256, and starts a llama.cpp server (<code>scripts/README.md</code>). Files the APIs and the local model return go in <code>data/raw/search-development/</code>, and files this notebook builds go in <code>data/processed/search-development/</code>.</p>
+<p>Every file comes from code in the repository except one judgment, the comparison of Chawinga and Zinn’s criteria with RDS-Review’s in <code>comparison.csv</code>. The local model runs at temperature 0 with a fixed seed and thinking off, and writes the model file, the llama.cpp build and the settings beside its output. The databases keep indexing new records, so a rerun of step 3 months later returns somewhat different counts; the committed files and <code>log.md</code> record what each search returned and when.</p>
+<p>The searches need three API keys, all registered under zachary.batist@mcgill.ca: an NCBI API key (ncbi.nlm.nih.gov, Account Settings), a Scopus API key (dev.elsevier.com), which has full Scopus Search access only from McGill’s network, and a Web of Science Starter API key (developer.clarivate.com) on the Free Institutional Member Plan. Rebuilding the reference set also needs Elsevier full-text entitlement for the journal.</p>
 <section id="runs" class="level3">
 <h3 class="anchored" data-anchor-id="runs">Runs</h3>
 <p>Every command runs on the analysis server from a terminal. Run the long ones inside <code>tmux</code> (<code>tmux new -s search</code>, then paste; detach with Ctrl-b d, reattach with <code>tmux attach -t search</code>), so a dropped connection doesn’t stop them. The commands assume the repo is cloned at <code>~/RDS-Review</code>.</p>
@@ -18634,42 +18495,6 @@ Limits: published 2015 to 2025; English or French</code></pre>
 </table>
 <p>Notebook 00 runs after the lookups, to build the processed files. Step 3’s runs are the code cells of step 3: start Python from the repo root with the keys loaded, run the notebook’s first code cell and the section’s setup cell, then the run’s cell.</p></li>
 </ol>
-</section>
-<section id="files" class="level3">
-<h3 class="anchored" data-anchor-id="files">Files</h3>
-<ul>
-<li><strong>Step 1:</strong>
-<ul>
-<li><code>comparison.csv</code>: the comparison table; notebook 00 shows it with the counts that bear on each criterion</li>
-<li><code>reference_citations.csv</code>: one row per reference in Chawinga and Zinn’s reference list, with its first author, year, title, DOI, type, the sections and tables that cite it, and the rule that selected it, if any</li>
-<li><code>reference_candidates.csv</code>: the rows of <code>reference_citations.csv</code> the rules select</li>
-<li><code>reference_lookups.csv</code>: one row per reference set source, with DOI status, PMID, earliest publication date and its source, title, abstract and abstract source</li>
-<li><code>reference_indexing.csv</code>: one row per reference set source per term type, with its MeSH headings and their NLM scope notes, author keywords and OpenAlex keywords</li>
-<li><code>reference_codes_qwen3.5-122b.csv</code>, the codes of record, and <code>reference_codes_qwen3.8-27b.csv</code>, from the smaller model: one row per coded value per source, with the source’s DOI, whether it was coded on its title alone, the field, the value, the theme for factors, the term, the supporting passage with its location (title, abstract or <em>none</em>), any problem the checks found, and the model file, the llama.cpp build, temperature, seed and date of the run; <code>scripts/launch_rds_llm.sh</code> gives the model file’s revision and checksum</li>
-<li><code>reference_sources.csv</code>, built by notebook 00: one row per reference set source, with its label, title, year, publication date, DOI, PMID where PubMed indexes it, the sections and tables of Chawinga and Zinn that cite it, set (<em>development</em> or <em>test</em>), <code>field</code>, <code>tier</code>, <code>source_type</code>, Practice, <code>data_origin</code>, the factor themes it reports, language, whether it was coded on its title alone, abstract source, Eligible apart from year, In scope, Reason, and every exclusion code it meets</li>
-<li><code>counts.csv</code>: tallied from <code>reference_codes_qwen3.5-122b.csv</code>, giving for each value of each coded field the number of reference set sources with that value, split by development and test set, and how many of those codes rest on no passage</li>
-<li><code>verdict.csv</code>: one row per PCC part, with its development and test counts of sources eligible apart from year, and its verdict</li>
-</ul></li>
-<li><strong>Step 2:</strong> <code>term_assignments_qwen3.5-122b.csv</code> from <code>indexing.py</code>; <code>term_syntax.csv</code> and <code>terms.csv</code>, built by notebook 00 from <code>reference_codes_qwen3.5-122b.csv</code>, <code>reference_indexing.csv</code> and <code>term_assignments_qwen3.5-122b.csv</code>.
-<ul>
-<li><code>term_assignments_qwen3.5-122b.csv</code>, and <code>term_assignments_qwen3.8-27b.csv</code> from the smaller model: one row per distinct indexing term, with its type, its NLM scope note for MeSH headings, the value the model gave it and that value’s theme, any problem with the reply, and the model file, the llama.cpp build, temperature, seed and date of the run; <code>scripts/launch_rds_llm.sh</code> gives the model file’s revision and checksum.</li>
-<li><code>term_syntax.csv</code>: one row per normalised term per database, with the term, the variants it merges, and its written form.</li>
-<li><code>terms.csv</code>: one row per term per database, with these columns:
-<ul>
-<li><strong>term:</strong> the normalised phrase or heading, such as <em>secondary use</em> or <em>Information Dissemination</em>.</li>
-<li><strong>type:</strong> <em>recorded</em>, <em>MeSH</em>, <em>author keyword</em>, <em>OpenAlex keyword</em> or <em>fallback</em>.</li>
-<li><strong>database:</strong> <em>PubMed</em>, <em>Scopus</em> or <em>Web of Science</em>.</li>
-<li><strong>field:</strong> the database field the term is searched in, such as <code>[tiab]</code>, <code>[mh:noexp]</code>, <code>TITLE-ABS-KEY</code> or <code>TS</code>.</li>
-<li><strong>PCC part:</strong> the PCC part it belongs to.</li>
-<li><strong>sources in part:</strong> the number of development set sources coded for that PCC part, so the strength of each term choice is visible.</li>
-<li><strong>assignment basis:</strong> the value from <code>term_assignments_qwen3.5-122b.csv</code> for MeSH headings, author keywords and OpenAlex keywords; <em>recorded</em> for recorded terms; the Candidate terms table for fallback terms.</li>
-<li><strong>count:</strong> the number of development set sources carrying the term for that PCC part.</li>
-<li><strong>sources added:</strong> for factor terms, the number of those sources that no term kept before it already matches.</li>
-<li><strong>DOIs:</strong> the DOIs of the sources in <em>sources added</em> for factor terms, and of the sources carrying the term for sharing and reuse terms.</li>
-<li><strong>status:</strong> <em>to screening</em> for factor terms; empty for sharing and reuse terms, whose status step 3 writes to <code>term_results.csv</code>.</li>
-</ul></li>
-</ul></li>
-</ul>
 </section>
 </section>
 <section id="step-3-first-version-the-yield-rule" class="level2">
