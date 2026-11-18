@@ -1,0 +1,311 @@
+database,placement,studies_kept,records_2015_2025,terms
+PubMed,anywhere in title or abstract,18,3452,polic* OR repositor* OR barrier* OR obstacle* OR ethic*
+PubMed,anywhere in title or abstract,18,3457,"polic* OR repositor* OR barrier* OR obstacle* OR ethic* OR ""data management plan*"""
+PubMed,anywhere in title or abstract,18,3463,polic* OR repositor* OR barrier* OR obstacle* OR ethic* OR enabler*
+PubMed,anywhere in title or abstract,17,2728,concern* OR repositor* OR barrier* OR obstacle* OR motivat*
+PubMed,anywhere in title or abstract,17,2736,"concern* OR repositor* OR barrier* OR obstacle* OR ""data management plan*"" OR motivat*"
+PubMed,anywhere in title or abstract,17,2741,concern* OR repositor* OR barrier* OR obstacle* OR enabler* OR motivat*
+PubMed,anywhere in title or abstract,16,2376,"concern* OR repositor* OR obstacle* OR ""open access"" OR ""data management plan*"" OR motivat*"
+PubMed,anywhere in title or abstract,16,2400,"concern* OR repositor* OR obstacle* OR ""open access"" OR enabler* OR motivat*"
+PubMed,anywhere in title or abstract,16,2408,"concern* OR repositor* OR obstacle* OR ""open access"" OR ""data management plan*"" OR enabler* OR motivat*"
+PubMed,anywhere in title or abstract,15,2194,"concern* OR repositor* OR obstacle* OR ""data management plan*"" OR motivat*"
+PubMed,anywhere in title or abstract,15,2218,concern* OR repositor* OR obstacle* OR enabler* OR motivat*
+PubMed,anywhere in title or abstract,15,2214,"concern* OR repositor* OR obstacle* OR ""open access"" OR ""data management plan*"""
+PubMed,anywhere in title or abstract,14,2027,"concern* OR repositor* OR obstacle* OR ""data management plan*"""
+PubMed,anywhere in title or abstract,14,2055,concern* OR repositor* OR obstacle* OR enabler*
+PubMed,anywhere in title or abstract,14,2063,"concern* OR repositor* OR obstacle* OR ""data management plan*"" OR enabler*"
+PubMed,anywhere in title or abstract,13,1879,"concern* OR obstacle* OR ""open access"" OR ""data management plan*"" OR motivat*"
+PubMed,anywhere in title or abstract,13,1893,"concern* OR obstacle* OR ""open access"" OR enabler* OR motivat*"
+PubMed,anywhere in title or abstract,13,1911,"concern* OR obstacle* OR ""open access"" OR ""data management plan*"" OR enabler* OR motivat*"
+PubMed,anywhere in title or abstract,12,1705,"concern* OR obstacle* OR ""open access"" OR ""data management plan*"""
+PubMed,anywhere in title or abstract,12,1723,"concern* OR obstacle* OR ""open access"" OR enabler*"
+PubMed,anywhere in title or abstract,12,1741,"concern* OR obstacle* OR ""open access"" OR ""data management plan*"" OR enabler*"
+PubMed,anywhere in title or abstract,11,1264,"repositor* OR obstacle* OR ""open access"" OR ""data management plan*"" OR motivat*"
+PubMed,anywhere in title or abstract,11,1289,"repositor* OR obstacle* OR ""open access"" OR enabler* OR motivat*"
+PubMed,anywhere in title or abstract,11,1300,"repositor* OR obstacle* OR ""open access"" OR ""data management plan*"" OR enabler* OR motivat*"
+PubMed,anywhere in title or abstract,10,1058,"repositor* OR obstacle* OR ""data management plan*"" OR motivat*"
+PubMed,anywhere in title or abstract,10,1083,repositor* OR obstacle* OR enabler* OR motivat*
+PubMed,anywhere in title or abstract,10,1048,"repositor* OR obstacle* OR ""open access"" OR ""data management plan*"""
+PubMed,anywhere in title or abstract,9,837,"repositor* OR obstacle* OR ""data management plan*"""
+PubMed,anywhere in title or abstract,9,867,repositor* OR obstacle* OR enabler*
+PubMed,anywhere in title or abstract,9,878,"repositor* OR obstacle* OR ""data management plan*"" OR enabler*"
+PubMed,anywhere in title or abstract,8,758,"obstacle* OR ""open access"" OR ""data management plan*"" OR ""data curation"" OR motivat*"
+PubMed,anywhere in title or abstract,8,776,"obstacle* OR ""open access"" OR ""data management plan*"" OR stewardship OR motivat*"
+PubMed,anywhere in title or abstract,8,774,"obstacle* OR ""open access"" OR enabler* OR ""data curation"" OR motivat*"
+PubMed,anywhere in title or abstract,7,524,"obstacle* OR ""open access"" OR ""data management plan*"" OR ""data curation"""
+PubMed,anywhere in title or abstract,7,542,"obstacle* OR ""open access"" OR ""data management plan*"" OR stewardship"
+PubMed,anywhere in title or abstract,7,545,"obstacle* OR ""open access"" OR enabler* OR ""data curation"""
+PubMed,anywhere in title or abstract,6,398,"""open access"" OR ""data management plan*"" OR reluctan* OR ""data curation"""
+PubMed,anywhere in title or abstract,6,415,"""open access"" OR ""data management plan*"" OR reluctan* OR stewardship"
+PubMed,anywhere in title or abstract,6,421,"""open access"" OR enabler* OR reluctan* OR ""data curation"""
+PubMed,anywhere in title or abstract,5,255,"obstacle* OR ""data management plan*"" OR ""data curation"""
+PubMed,anywhere in title or abstract,5,276,"obstacle* OR ""data management plan*"" OR stewardship"
+PubMed,anywhere in title or abstract,5,276,"obstacle* OR enabler* OR ""data curation"""
+PubMed,anywhere in title or abstract,4,204,"obstacle* OR ""data management plan*"""
+PubMed,anywhere in title or abstract,4,219,"mandate* OR reluctan* OR ""data curation"""
+PubMed,anywhere in title or abstract,4,224,obstacle* OR enabler*
+PubMed,anywhere in title or abstract,3,125,"""data management plan*"" OR reluctan* OR ""data curation"""
+PubMed,anywhere in title or abstract,3,145,"""data management plan*"" OR reluctan* OR stewardship"
+PubMed,anywhere in title or abstract,3,148,"enabler* OR reluctan* OR ""data curation"""
+PubMed,anywhere in title or abstract,2,73,"""data management plan*"" OR reluctan*"
+PubMed,anywhere in title or abstract,2,76,"""data management plan*"" OR ""data curation"""
+PubMed,anywhere in title or abstract,2,94,enabler* OR reluctan*
+PubMed,anywhere in title or abstract,1,24,"""data management plan*"""
+PubMed,anywhere in title or abstract,1,46,enabler*
+PubMed,anywhere in title or abstract,1,49,reluctan*
+Scopus,anywhere in title or abstract,24,6805,repositor* OR barrier* OR motivat* OR factor* OR licens* OR obstacle* OR consent
+Scopus,anywhere in title or abstract,24,7404,polic* OR barrier* OR motivat* OR obstacle* OR consent
+Scopus,anywhere in title or abstract,24,7452,"polic* OR barrier* OR motivat* OR obstacle* OR consent OR ""data management plan*"""
+Scopus,anywhere in title or abstract,23,6377,"barrier* OR motivat* OR factor* OR licens* OR obstacle* OR consent OR ""open science"""
+Scopus,anywhere in title or abstract,23,6550,repositor* OR barrier* OR motivat* OR factor* OR licens* OR consent OR reluctan*
+Scopus,anywhere in title or abstract,23,6556,barrier* OR ethic* OR motivat* OR factor* OR licens* OR obstacle*
+Scopus,anywhere in title or abstract,22,4711,repositor* OR barrier* OR motivat* OR licens* OR obstacle* OR consent
+Scopus,anywhere in title or abstract,22,4751,"repositor* OR barrier* OR motivat* OR licens* OR obstacle* OR consent OR ""data management plan*"""
+Scopus,anywhere in title or abstract,22,4807,repositor* OR barrier* OR motivat* OR licens* OR obstacle* OR consent OR stewardship
+Scopus,anywhere in title or abstract,21,4054,"repositor* OR barrier* OR licens* OR consent OR reluctan* OR ""data curation"" OR determinant*"
+Scopus,anywhere in title or abstract,21,4209,"repositor* OR barrier* OR obstacle* OR consent OR ""data management plan*"" OR ""data curation"" OR determinant*"
+Scopus,anywhere in title or abstract,21,4195,"repositor* OR barrier* OR licens* OR consent OR reluctan* OR ""data curation"" OR willingness"
+Scopus,anywhere in title or abstract,20,3468,"repositor* OR barrier* OR licens* OR obstacle* OR ""data management plan*"" OR ""data curation"" OR determinant*"
+Scopus,anywhere in title or abstract,20,3556,"repositor* OR barrier* OR licens* OR obstacle* OR reluctan* OR ""data curation"" OR determinant*"
+Scopus,anywhere in title or abstract,20,3665,"repositor* OR barrier* OR licens* OR obstacle* OR ""data management plan*"" OR ""data curation"" OR willingness"
+Scopus,anywhere in title or abstract,19,3141,"repositor* OR barrier* OR licens* OR reluctan* OR ""data curation"" OR determinant*"
+Scopus,anywhere in title or abstract,19,3180,"repositor* OR barrier* OR licens* OR ""data management plan*"" OR reluctan* OR ""data curation"" OR determinant*"
+Scopus,anywhere in title or abstract,19,3242,"repositor* OR barrier* OR licens* OR reluctan* OR ""data curation"" OR stewardship OR determinant*"
+Scopus,anywhere in title or abstract,18,3016,repositor* OR barrier* OR licens* OR reluctan* OR determinant*
+Scopus,anywhere in title or abstract,18,2998,"repositor* OR barrier* OR licens* OR reluctan* OR ""data curation"""
+Scopus,anywhere in title or abstract,18,3057,"repositor* OR barrier* OR licens* OR ""data management plan*"" OR reluctan* OR determinant*"
+Scopus,anywhere in title or abstract,17,2662,"repositor* OR licens* OR obstacle* OR ""open access"" OR ""data management plan*"" OR ""data curation"" OR determinant*"
+Scopus,anywhere in title or abstract,17,2732,"repositor* OR licens* OR obstacle* OR ""data management plan*"" OR ""data curation"" OR attitude* OR determinant*"
+Scopus,anywhere in title or abstract,17,2783,barrier* OR motivat* OR licens* OR obstacle*
+Scopus,anywhere in title or abstract,16,2237,"repositor* OR licens* OR obstacle* OR ""data management plan*"" OR ""data curation"" OR determinant*"
+Scopus,anywhere in title or abstract,16,2346,"repositor* OR licens* OR obstacle* OR ""data management plan*"" OR ""data curation"" OR stewardship OR determinant*"
+Scopus,anywhere in title or abstract,16,2384,"repositor* OR licens* OR obstacle* OR ""data management plan*"" OR reluctan* OR ""data curation"" OR determinant*"
+Scopus,anywhere in title or abstract,15,2108,"repositor* OR licens* OR obstacle* OR ""data management plan*"" OR determinant*"
+Scopus,anywhere in title or abstract,15,2061,"repositor* OR licens* OR reluctan* OR ""data curation"" OR mandate* OR determinant*"
+Scopus,anywhere in title or abstract,15,2073,"repositor* OR licens* OR obstacle* OR ""data management plan*"" OR ""data curation"""
+Scopus,anywhere in title or abstract,14,1895,"motivat* OR licens* OR ""open access"" OR ""data management plan*"" OR reluctan* OR stewardship"
+Scopus,anywhere in title or abstract,14,1930,repositor* OR licens* OR reluctan* OR mandate* OR determinant*
+Scopus,anywhere in title or abstract,14,1943,"repositor* OR licens* OR obstacle* OR ""data management plan*"""
+Scopus,anywhere in title or abstract,13,1661,"licens* OR obstacle* OR ""open access"" OR ""data management plan*"" OR ""data curation"" OR determinant*"
+Scopus,anywhere in title or abstract,13,1712,"motivat* OR licens* OR obstacle* OR ""data management plan*"" OR stewardship"
+Scopus,anywhere in title or abstract,13,1747,"motivat* OR licens* OR obstacle* OR ""data management plan*"" OR ""data curation"""
+Scopus,anywhere in title or abstract,12,1330,"licens* OR ""open access"" OR ""data management plan*"" OR reluctan* OR ""data curation"" OR determinant*"
+Scopus,anywhere in title or abstract,12,1450,"licens* OR ""open access"" OR reluctan* OR ""data curation"" OR determinant* OR enabler*"
+Scopus,anywhere in title or abstract,12,1448,"licens* OR ""open access"" OR ""data management plan*"" OR reluctan* OR ""data curation"" OR stewardship OR determinant*"
+Scopus,anywhere in title or abstract,11,1146,"licens* OR obstacle* OR ""data management plan*"" OR ""data curation"" OR determinant*"
+Scopus,anywhere in title or abstract,11,1162,"licens* OR ""open access"" OR ""data management plan*"" OR reluctan* OR ""data curation"""
+Scopus,anywhere in title or abstract,11,1176,"licens* OR ""open access"" OR ""data management plan*"" OR ""data curation"" OR determinant*"
+Scopus,anywhere in title or abstract,10,975,"licens* OR reluctan* OR ""data curation"" OR mandate* OR determinant*"
+Scopus,anywhere in title or abstract,10,976,"licens* OR obstacle* OR ""data management plan*"" OR ""data curation"""
+Scopus,anywhere in title or abstract,10,1008,"licens* OR ""open access"" OR ""data management plan*"" OR ""data curation"""
+Scopus,anywhere in title or abstract,9,804,"licens* OR reluctan* OR ""data curation"" OR mandate*"
+Scopus,anywhere in title or abstract,9,805,"licens* OR ""data management plan*"" OR reluctan* OR ""data curation"" OR determinant*"
+Scopus,anywhere in title or abstract,9,857,"licens* OR ""data management plan*"" OR reluctan* OR ""data curation"" OR mandate*"
+Scopus,anywhere in title or abstract,8,631,"licens* OR ""data management plan*"" OR reluctan* OR ""data curation"""
+Scopus,anywhere in title or abstract,8,649,"licens* OR ""data management plan*"" OR ""data curation"" OR determinant*"
+Scopus,anywhere in title or abstract,8,702,"licens* OR ""data management plan*"" OR ""data curation"" OR mandate*"
+Scopus,anywhere in title or abstract,7,475,"licens* OR ""data management plan*"" OR ""data curation"""
+Scopus,anywhere in title or abstract,7,568,"licens* OR reluctan* OR ""data curation"""
+Scopus,anywhere in title or abstract,7,590,"licens* OR ""data management plan*"" OR reluctan* OR stewardship"
+Scopus,anywhere in title or abstract,6,434,"licens* OR ""data management plan*"" OR stewardship"
+Scopus,anywhere in title or abstract,6,461,"licens* OR ""data management plan*"" OR reluctan*"
+Scopus,anywhere in title or abstract,6,480,"licens* OR ""data management plan*"" OR determinant*"
+Scopus,anywhere in title or abstract,5,305,"licens* OR ""data management plan*"""
+Scopus,anywhere in title or abstract,5,388,licens* OR reluctan*
+Scopus,anywhere in title or abstract,5,411,"licens* OR ""data curation"""
+Scopus,anywhere in title or abstract,4,251,"""data management plan*"" OR ""data curation"""
+Scopus,anywhere in title or abstract,4,343,"reluctan* OR ""data curation"""
+Scopus,anywhere in title or abstract,4,366,licens* OR stewardship
+Scopus,anywhere in title or abstract,3,213,"""data management plan*"" OR stewardship"
+Scopus,anywhere in title or abstract,3,231,licens*
+Scopus,anywhere in title or abstract,3,237,"""data management plan*"" OR reluctan*"
+Scopus,anywhere in title or abstract,2,78,"""data management plan*"""
+Scopus,anywhere in title or abstract,2,160,reluctan*
+Scopus,anywhere in title or abstract,2,183,"""data curation"""
+Scopus,anywhere in title or abstract,1,141,stewardship
+Scopus,anywhere in title or abstract,1,177,determinant*
+Scopus,anywhere in title or abstract,1,186,enabler*
+Scopus,within 5 words,18,2691,polic* OR barrier* OR ethic* OR challenge* OR determinant* OR attitude* OR repositor*
+Scopus,within 5 words,18,2745,polic* OR barrier* OR ethic* OR challenge* OR motivat* OR attitude* OR repositor*
+Scopus,within 5 words,17,1877,"polic* OR barrier* OR ethic* OR determinant* OR ""open access"" OR attitude* OR repositor*"
+Scopus,within 5 words,17,1935,"polic* OR barrier* OR ethic* OR motivat* OR ""open access"" OR attitude* OR repositor*"
+Scopus,within 5 words,17,2574,polic* OR barrier* OR ethic* OR challenge* OR determinant* OR attitude*
+Scopus,within 5 words,16,1755,"polic* OR barrier* OR ethic* OR determinant* OR ""open access"" OR attitude*"
+Scopus,within 5 words,16,1762,"polic* OR barrier* OR ethic* OR determinant* OR ""open access"" OR repositor*"
+Scopus,within 5 words,16,1780,polic* OR barrier* OR ethic* OR determinant* OR attitude* OR repositor*
+Scopus,within 5 words,15,1605,"polic* OR ethic* OR determinant* OR enabler* OR influenc* OR ""open access"" OR attitude*"
+Scopus,within 5 words,15,1618,"polic* OR ethic* OR determinant* OR enabler* OR influenc* OR ""open access"" OR repositor*"
+Scopus,within 5 words,15,1635,"polic* OR barrier* OR ethic* OR determinant* OR ""open access"""
+Scopus,within 5 words,14,1491,"polic* OR ethic* OR determinant* OR enabler* OR influenc* OR ""open access"""
+Scopus,within 5 words,14,1505,polic* OR ethic* OR determinant* OR enabler* OR influenc* OR attitude*
+Scopus,within 5 words,14,1509,"polic* OR ethic* OR determinant* OR enabler* OR ""open access"" OR attitude*"
+Scopus,within 5 words,13,1388,polic* OR ethic* OR determinant* OR enabler* OR influenc*
+Scopus,within 5 words,13,1384,"polic* OR ethic* OR determinant* OR enabler* OR ""open access"""
+Scopus,within 5 words,13,1408,polic* OR ethic* OR determinant* OR enabler* OR attitude*
+Scopus,within 5 words,12,1280,polic* OR ethic* OR determinant* OR enabler*
+Scopus,within 5 words,12,1290,"polic* OR determinant* OR enabler* OR influenc* OR ""open access"" OR attitude*"
+Scopus,within 5 words,12,1301,"polic* OR determinant* OR enabler* OR influenc* OR ""open access"" OR repositor*"
+Scopus,within 5 words,11,1169,"polic* OR determinant* OR enabler* OR influenc* OR ""open access"""
+Scopus,within 5 words,11,1185,polic* OR determinant* OR enabler* OR influenc* OR attitude*
+Scopus,within 5 words,11,1188,"polic* OR determinant* OR enabler* OR ""open access"" OR attitude*"
+Scopus,within 5 words,10,1061,polic* OR determinant* OR enabler* OR influenc*
+Scopus,within 5 words,10,1056,"polic* OR determinant* OR enabler* OR ""open access"""
+Scopus,within 5 words,10,1082,polic* OR determinant* OR enabler* OR attitude*
+Scopus,within 5 words,9,947,polic* OR determinant* OR enabler*
+Scopus,within 5 words,9,919,"ethic* OR determinant* OR enabler* OR influenc* OR ""open access"" OR attitude* OR repositor*"
+Scopus,within 5 words,9,941,"barrier* OR ethic* OR determinant* OR ""open access"" OR attitude*"
+Scopus,within 5 words,8,779,"ethic* OR determinant* OR enabler* OR influenc* OR ""open access"" OR attitude*"
+Scopus,within 5 words,8,801,"ethic* OR determinant* OR enabler* OR influenc* OR ""open access"" OR repositor*"
+Scopus,within 5 words,8,813,"barrier* OR ethic* OR determinant* OR ""open access"""
+Scopus,within 5 words,7,657,"ethic* OR determinant* OR enabler* OR influenc* OR ""open access"""
+Scopus,within 5 words,7,661,ethic* OR determinant* OR enabler* OR influenc* OR attitude*
+Scopus,within 5 words,7,674,"ethic* OR determinant* OR enabler* OR ""open access"" OR attitude*"
+Scopus,within 5 words,6,535,ethic* OR determinant* OR enabler* OR influenc*
+Scopus,within 5 words,6,540,"ethic* OR determinant* OR enabler* OR ""open access"""
+Scopus,within 5 words,6,554,ethic* OR determinant* OR enabler* OR attitude*
+Scopus,within 5 words,5,416,ethic* OR determinant* OR enabler*
+Scopus,within 5 words,5,431,"determinant* OR enabler* OR influenc* OR ""open access"" OR attitude*"
+Scopus,within 5 words,5,452,"determinant* OR enabler* OR influenc* OR ""open access"" OR repositor*"
+Scopus,within 5 words,4,302,"determinant* OR enabler* OR influenc* OR ""open access"""
+Scopus,within 5 words,4,304,determinant* OR enabler* OR influenc* OR attitude*
+Scopus,within 5 words,4,320,"determinant* OR enabler* OR ""open access"" OR attitude*"
+Scopus,within 5 words,3,171,determinant* OR enabler* OR influenc*
+Scopus,within 5 words,3,179,"determinant* OR enabler* OR ""open access"""
+Scopus,within 5 words,3,191,determinant* OR enabler* OR attitude*
+Scopus,within 5 words,2,46,determinant* OR enabler*
+Scopus,within 5 words,2,124,enabler* OR motivat*
+Scopus,within 5 words,2,137,determinant* OR perception*
+Scopus,within 5 words,1,19,determinant*
+Scopus,within 5 words,1,27,enabler*
+Scopus,within 5 words,1,97,motivat*
+Web of Science,anywhere in title or abstract,26,8656,"challenge* OR repositor* OR barrier* OR ethic* OR factor* OR ""data management plan*"""
+Web of Science,anywhere in title or abstract,26,8699,challenge* OR repositor* OR barrier* OR ethic* OR factor* OR reluctan*
+Web of Science,anywhere in title or abstract,26,8692,"challenge* OR repositor* OR barrier* OR ethic* OR factor* OR ""data management plan*"" OR ""data curation"""
+Web of Science,anywhere in title or abstract,25,5884,"polic* OR repositor* OR barrier* OR ethic* OR obstacle* OR ""data management plan*"""
+Web of Science,anywhere in title or abstract,25,5938,polic* OR repositor* OR barrier* OR ethic* OR obstacle* OR reluctan*
+Web of Science,anywhere in title or abstract,25,5929,"polic* OR repositor* OR barrier* OR ethic* OR obstacle* OR ""data management plan*"" OR ""data curation"""
+Web of Science,anywhere in title or abstract,24,5192,repositor* OR barrier* OR motivat* OR ethic* OR obstacle* OR factor*
+Web of Science,anywhere in title or abstract,24,5216,"repositor* OR barrier* OR ethic* OR obstacle* OR factor* OR ""data management plan*"" OR incentive*"
+Web of Science,anywhere in title or abstract,24,5211,"repositor* OR barrier* OR motivat* OR ethic* OR obstacle* OR factor* OR ""data management plan*"""
+Web of Science,anywhere in title or abstract,23,4815,"repositor* OR barrier* OR ethic* OR obstacle* OR factor* OR ""data management plan*"""
+Web of Science,anywhere in title or abstract,23,4824,repositor* OR barrier* OR motivat* OR obstacle* OR consent OR factor*
+Web of Science,anywhere in title or abstract,23,4871,repositor* OR barrier* OR ethic* OR obstacle* OR factor* OR reluctan*
+Web of Science,anywhere in title or abstract,22,3865,repositor* OR barrier* OR motivat* OR ethic* OR obstacle*
+Web of Science,anywhere in title or abstract,22,3878,"repositor* OR barrier* OR ethic* OR obstacle* OR ""data management plan*"" OR incentive*"
+Web of Science,anywhere in title or abstract,22,3885,"repositor* OR barrier* OR motivat* OR ethic* OR obstacle* OR ""data management plan*"""
+Web of Science,anywhere in title or abstract,21,3428,"repositor* OR barrier* OR ethic* OR obstacle* OR ""data management plan*"""
+Web of Science,anywhere in title or abstract,21,3463,repositor* OR barrier* OR motivat* OR obstacle* OR consent
+Web of Science,anywhere in title or abstract,21,3493,repositor* OR barrier* OR ethic* OR obstacle* OR reluctan*
+Web of Science,anywhere in title or abstract,20,3166,"repositor* OR barrier* OR obstacle* OR consent OR ""data management plan*"" OR determinant*"
+Web of Science,anywhere in title or abstract,20,3234,repositor* OR barrier* OR ethic* OR reluctan*
+Web of Science,anywhere in title or abstract,20,3227,repositor* OR barrier* OR obstacle* OR consent OR reluctan* OR determinant*
+Web of Science,anywhere in title or abstract,19,2964,repositor* OR barrier* OR consent OR reluctan* OR determinant*
+Web of Science,anywhere in title or abstract,19,2990,"repositor* OR barrier* OR consent OR ""data management plan*"" OR reluctan* OR determinant*"
+Web of Science,anywhere in title or abstract,19,3031,"repositor* OR barrier* OR obstacle* OR consent OR ""data management plan*"""
+Web of Science,anywhere in title or abstract,18,2827,repositor* OR barrier* OR consent OR reluctan*
+Web of Science,anywhere in title or abstract,18,2765,repositor* OR barrier* OR motivat* OR obstacle*
+Web of Science,anywhere in title or abstract,18,2853,"repositor* OR barrier* OR consent OR ""data management plan*"" OR reluctan*"
+Web of Science,anywhere in title or abstract,17,2452,"repositor* OR barrier* OR obstacle* OR ""data management plan*"" OR determinant*"
+Web of Science,anywhere in title or abstract,17,2515,"repositor* OR ethic* OR obstacle* OR ""data management plan*"""
+Web of Science,anywhere in title or abstract,17,2521,repositor* OR barrier* OR obstacle* OR reluctan* OR determinant*
+Web of Science,anywhere in title or abstract,16,2226,"repositor* OR obstacle* OR consent OR ""data management plan*"" OR determinant*"
+Web of Science,anywhere in title or abstract,16,2248,repositor* OR barrier* OR reluctan* OR determinant*
+Web of Science,anywhere in title or abstract,16,2275,"repositor* OR barrier* OR ""data management plan*"" OR reluctan* OR determinant*"
+Web of Science,anywhere in title or abstract,15,2060,"repositor* OR obstacle* OR consent OR ""data management plan*"""
+Web of Science,anywhere in title or abstract,15,2098,repositor* OR barrier* OR reluctan*
+Web of Science,anywhere in title or abstract,15,2125,"repositor* OR barrier* OR ""data management plan*"" OR reluctan*"
+Web of Science,anywhere in title or abstract,14,1825,"repositor* OR motivat* OR obstacle* OR ""data management plan*"""
+Web of Science,anywhere in title or abstract,14,1880,"repositor* OR obstacle* OR ""data management plan*"" OR determinant* OR attitude*"
+Web of Science,anywhere in title or abstract,14,1914,repositor* OR motivat* OR obstacle* OR enabler*
+Web of Science,anywhere in title or abstract,13,1456,"repositor* OR obstacle* OR ""data management plan*"" OR determinant*"
+Web of Science,anywhere in title or abstract,13,1528,"repositor* OR obstacle* OR ""data management plan*"" OR ""data curation"" OR determinant*"
+Web of Science,anywhere in title or abstract,13,1544,"repositor* OR obstacle* OR ""data management plan*"" OR stewardship OR determinant*"
+Web of Science,anywhere in title or abstract,12,1276,"repositor* OR obstacle* OR ""data management plan*"""
+Web of Science,anywhere in title or abstract,12,1362,repositor* OR reluctan* OR mandate* OR determinant*
+Web of Science,anywhere in title or abstract,12,1348,"repositor* OR obstacle* OR ""data management plan*"" OR ""data curation"""
+Web of Science,anywhere in title or abstract,11,1183,repositor* OR reluctan* OR mandate*
+Web of Science,anywhere in title or abstract,11,1211,"repositor* OR ""data management plan*"" OR reluctan* OR mandate*"
+Web of Science,anywhere in title or abstract,11,1246,"repositor* OR ""data management plan*"" OR reluctan* OR determinant*"
+Web of Science,anywhere in title or abstract,10,1064,"repositor* OR ""data management plan*"" OR reluctan*"
+Web of Science,anywhere in title or abstract,10,1099,"motivat* OR obstacle* OR ""data management plan*"" OR ""data curation"""
+Web of Science,anywhere in title or abstract,10,1104,"motivat* OR obstacle* OR ""data management plan*"" OR stewardship"
+Web of Science,anywhere in title or abstract,9,945,"repositor* OR ""data management plan*"""
+Web of Science,anywhere in title or abstract,9,1006,"motivat* OR obstacle* OR ""data management plan*"""
+Web of Science,anywhere in title or abstract,9,1032,repositor* OR reluctan*
+Web of Science,anywhere in title or abstract,8,885,"motivat* OR ""data management plan*"" OR reluctan* OR ""data curation"""
+Web of Science,anywhere in title or abstract,8,888,"motivat* OR ""data management plan*"" OR reluctan* OR stewardship"
+Web of Science,anywhere in title or abstract,8,904,"motivat* OR mandate* OR ""data curation"""
+Web of Science,anywhere in title or abstract,7,688,"obstacle* OR ""data management plan*"" OR ""data curation"" OR determinant*"
+Web of Science,anywhere in title or abstract,7,692,"obstacle* OR ""data management plan*"" OR stewardship OR determinant*"
+Web of Science,anywhere in title or abstract,7,769,"motivat* OR ""data management plan*"" OR ""data curation"""
+Web of Science,anywhere in title or abstract,6,503,"obstacle* OR ""data management plan*"" OR ""data curation"""
+Web of Science,anywhere in title or abstract,6,507,"obstacle* OR ""data management plan*"" OR stewardship"
+Web of Science,anywhere in title or abstract,6,590,"obstacle* OR ""data management plan*"" OR determinant*"
+Web of Science,anywhere in title or abstract,5,404,"obstacle* OR ""data management plan*"""
+Web of Science,anywhere in title or abstract,5,419,"reluctan* OR mandate* OR ""data curation"""
+Web of Science,anywhere in title or abstract,5,419,reluctan* OR mandate* OR stewardship
+Web of Science,anywhere in title or abstract,4,280,"""data management plan*"" OR reluctan* OR ""data curation"""
+Web of Science,anywhere in title or abstract,4,282,"""data management plan*"" OR reluctan* OR stewardship"
+Web of Science,anywhere in title or abstract,4,313,reluctan* OR mandate*
+Web of Science,anywhere in title or abstract,3,154,"""data management plan*"" OR ""data curation"""
+Web of Science,anywhere in title or abstract,3,156,"""data management plan*"" OR stewardship"
+Web of Science,anywhere in title or abstract,3,177,"""data management plan*"" OR reluctan*"
+Web of Science,anywhere in title or abstract,2,51,"""data management plan*"""
+Web of Science,anywhere in title or abstract,2,126,reluctan*
+Web of Science,anywhere in title or abstract,2,183,"""data management plan*"" OR enabler*"
+Web of Science,anywhere in title or abstract,1,108,"""data curation"""
+Web of Science,anywhere in title or abstract,1,108,stewardship
+Web of Science,anywhere in title or abstract,1,133,enabler*
+Web of Science,within 5 words,18,2148,polic* OR barrier* OR ethic* OR challenge* OR determinant* OR repositor* OR attitude*
+Web of Science,within 5 words,18,2198,polic* OR barrier* OR ethic* OR challenge* OR motivat* OR repositor* OR attitude*
+Web of Science,within 5 words,17,1557,"polic* OR barrier* OR ethic* OR determinant* OR ""open access"" OR repositor* OR attitude*"
+Web of Science,within 5 words,17,1609,"polic* OR barrier* OR ethic* OR motivat* OR ""open access"" OR repositor* OR attitude*"
+Web of Science,within 5 words,17,2046,polic* OR barrier* OR ethic* OR challenge* OR determinant* OR repositor*
+Web of Science,within 5 words,16,1453,"polic* OR barrier* OR ethic* OR determinant* OR ""open access"" OR repositor*"
+Web of Science,within 5 words,16,1452,"polic* OR barrier* OR ethic* OR determinant* OR ""open access"" OR attitude*"
+Web of Science,within 5 words,16,1471,"polic* OR barrier* OR ethic* OR determinant* OR enabler* OR ""open access"" OR repositor*"
+Web of Science,within 5 words,15,1322,"polic* OR ethic* OR determinant* OR enabler* OR ""open access"" OR influenc* OR repositor*"
+Web of Science,within 5 words,15,1315,"polic* OR ethic* OR determinant* OR enabler* OR ""open access"" OR influenc* OR attitude*"
+Web of Science,within 5 words,15,1343,"polic* OR barrier* OR ethic* OR determinant* OR ""open access"""
+Web of Science,within 5 words,14,1212,"polic* OR ethic* OR determinant* OR enabler* OR ""open access"" OR influenc*"
+Web of Science,within 5 words,14,1236,"polic* OR ethic* OR determinant* OR enabler* OR ""open access"" OR repositor*"
+Web of Science,within 5 words,14,1239,polic* OR ethic* OR determinant* OR enabler* OR influenc* OR repositor*
+Web of Science,within 5 words,13,1124,"polic* OR ethic* OR determinant* OR enabler* OR ""open access"""
+Web of Science,within 5 words,13,1129,polic* OR ethic* OR determinant* OR enabler* OR influenc*
+Web of Science,within 5 words,13,1152,polic* OR ethic* OR determinant* OR enabler* OR repositor*
+Web of Science,within 5 words,12,1040,polic* OR ethic* OR determinant* OR enabler*
+Web of Science,within 5 words,12,1072,"polic* OR determinant* OR enabler* OR ""open access"" OR influenc* OR repositor*"
+Web of Science,within 5 words,12,1071,"polic* OR determinant* OR enabler* OR ""open access"" OR influenc* OR attitude*"
+Web of Science,within 5 words,11,958,"polic* OR determinant* OR enabler* OR ""open access"" OR influenc*"
+Web of Science,within 5 words,11,982,"polic* OR determinant* OR enabler* OR ""open access"" OR repositor*"
+Web of Science,within 5 words,11,986,polic* OR determinant* OR enabler* OR influenc* OR repositor*
+Web of Science,within 5 words,10,866,"polic* OR determinant* OR enabler* OR ""open access"""
+Web of Science,within 5 words,10,872,polic* OR determinant* OR enabler* OR influenc*
+Web of Science,within 5 words,10,895,polic* OR determinant* OR enabler* OR repositor*
+Web of Science,within 5 words,9,779,polic* OR determinant* OR enabler*
+Web of Science,within 5 words,9,758,"ethic* OR determinant* OR enabler* OR ""open access"" OR influenc* OR repositor* OR attitude*"
+Web of Science,within 5 words,9,788,"barrier* OR ethic* OR determinant* OR ""open access"" OR repositor*"
+Web of Science,within 5 words,8,651,"ethic* OR determinant* OR enabler* OR ""open access"" OR influenc* OR repositor*"
+Web of Science,within 5 words,8,639,"ethic* OR determinant* OR enabler* OR ""open access"" OR influenc* OR attitude*"
+Web of Science,within 5 words,8,667,"barrier* OR ethic* OR determinant* OR ""open access"""
+Web of Science,within 5 words,7,528,"ethic* OR determinant* OR enabler* OR ""open access"" OR influenc*"
+Web of Science,within 5 words,7,555,"ethic* OR determinant* OR enabler* OR ""open access"" OR repositor*"
+Web of Science,within 5 words,7,555,ethic* OR determinant* OR enabler* OR influenc* OR repositor*
+Web of Science,within 5 words,6,430,"ethic* OR determinant* OR enabler* OR ""open access"""
+Web of Science,within 5 words,6,430,ethic* OR determinant* OR enabler* OR influenc*
+Web of Science,within 5 words,6,458,ethic* OR determinant* OR enabler* OR repositor*
+Web of Science,within 5 words,5,331,ethic* OR determinant* OR enabler*
+Web of Science,within 5 words,5,376,"determinant* OR enabler* OR ""open access"" OR influenc* OR repositor*"
+Web of Science,within 5 words,5,369,"determinant* OR enabler* OR ""open access"" OR influenc* OR attitude*"
+Web of Science,within 5 words,4,248,"determinant* OR enabler* OR ""open access"" OR influenc*"
+Web of Science,within 5 words,4,275,"determinant* OR enabler* OR ""open access"" OR repositor*"
+Web of Science,within 5 words,4,273,determinant* OR enabler* OR influenc* OR repositor*
+Web of Science,within 5 words,3,145,"determinant* OR enabler* OR ""open access"""
+Web of Science,within 5 words,3,143,determinant* OR enabler* OR influenc*
+Web of Science,within 5 words,3,171,determinant* OR enabler* OR repositor*
+Web of Science,within 5 words,2,39,determinant* OR enabler*
+Web of Science,within 5 words,2,104,determinant* OR perception*
+Web of Science,within 5 words,2,110,enabler* OR motivat*
+Web of Science,within 5 words,1,16,determinant*
+Web of Science,within 5 words,1,23,enabler*
+Web of Science,within 5 words,1,87,motivat*
