@@ -1,0 +1,19 @@
+ref_id,label,title,year,doi,pmid,field,source_type,pubmed,scopus,web_of_science
+bb0010,"Albert, 2012",Scientists encourage genetic data sharing,2012,10.1007/s40014-012-1434-z,,health,opinion,not indexed,not indexed,not indexed
+bb2030,Bezuidenhout (2013),Data sharing and dual-use issues,2013,,,other,other,no DOI or PMID,no DOI or PMID,no DOI or PMID
+bb0035,"Borgman, 2012",The conundrum of sharing research data,2012,10.1002/asi.22634,,cross-disciplinary,opinion,not indexed,"indexed, not found","indexed, not found"
+bb0095,"Cohn, 2012",Dataone opens doors to scientists across disciplines,2012,10.1525/bio.2012.62.11.16,,cross-disciplinary,opinion,not indexed,"indexed, not found",not indexed
+bb0115,"Costello, 2009",Motivating online publication of data,2009,10.1525/bio.2009.59.5.9,,other,opinion,not indexed,"indexed, not found","indexed, not found"
+bb0155,"Doorn et al., 2013","Lies, damned lies and research data: Can data sharing prevent data fraud?",2013,10.2218/ijdc.v8i1.256,,other,review,not indexed,not indexed,not indexed
+bb0175,"European Commission, 2012",Scientific data: Open access to research results will boost Europe's innovation capacity,2012,,,other,opinion,no DOI or PMID,no DOI or PMID,no DOI or PMID
+bb0195,"Fry et al., 2008",Identifying benefits arising from the curation and open sharing of research data produced by UK higher education and research institutes,2008,,,cross-disciplinary,policy-guidance,no DOI or PMID,no DOI or PMID,no DOI or PMID
+bb0215,"Haddow et al., 2011",‘Nothing is really safe’: A focus group study on the processes of anonymizing and sharing of health data for research purposes,2010,10.1111/j.1365-2753.2010.01488.x,20629997,health,empirical,"indexed, not found","indexed, not found","indexed, not found"
+bb0235,"Higgins, 2011",Digital curation: The emergence of a new discipline,2011,10.2218/ijdc.v6i2.191,,other,opinion,not indexed,not indexed,not indexed
+bb0320,"McCullough, 2009",Open access economics journals and the market for reproducible economic research,2009,10.1016/s0313-5926(09)50047-1,,other,opinion,not indexed,"indexed, not found","indexed, not found"
+bb4000,"Mundel, 2014",Knowledge is power: Sharing information can accelerate global health impact,2014,,,health,opinion,no DOI or PMID,no DOI or PMID,no DOI or PMID
+bb3010,"Ostell, 2009",Data sharing: Standards for bioinformatic cross-talk,2009,10.1002/humu.21013,,health,opinion,not indexed,not indexed,not indexed
+bb0355,"Parr, 2007",Open sourcing ecological data,2007,10.1641/b570402,,other,opinion,not indexed,"indexed, not found","indexed, not found"
+bb0445,"Scott, 2014",Research data management,2014,10.5258/soton/374711,,other,opinion,not indexed,not indexed,not indexed
+bb0485,"Tucker, 2009",Motivating subjects: Data sharing in cancer research (unpublished doctoral dissertation). Virginia Polytechnic Institute and State University,2009,,,health,empirical,no DOI or PMID,no DOI or PMID,no DOI or PMID
+bb0535,"Woolfrey, 2009",Archiving social survey data in Africa: An overview of African microdata curation and the role of survey data archives in data management in Africa (Unpublished doctoral dissertation),2009,,,other,other,no DOI or PMID,no DOI or PMID,no DOI or PMID
+bb0545,"Zimmerman, 2008",New knowledge from old data: The role of standards in the sharing and reuse of ecological data,2008,10.1177/0162243907306704,,other,empirical,not indexed,"indexed, not found","indexed, not found"

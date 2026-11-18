@@ -1,0 +1,114 @@
+database,what,document_type,n,of,label,source_type
+PubMed,records,Journal Article,2109,2532,,
+PubMed,records,"none of Editorial, Comment, Letter, News",2087,2532,,
+PubMed,records,Review,261,2532,,
+PubMed,records,Editorial,222,2532,,
+PubMed,records,Comment,134,2532,,
+PubMed,records,Letter,131,2532,,
+PubMed,records,News,44,2532,,
+PubMed,records,Published Erratum,42,2532,,
+PubMed,records,Systematic Review,31,2532,,
+PubMed,records,Meta-Analysis,16,2532,,
+PubMed,records,Guideline,4,2532,,
+PubMed,records,Practice Guideline,2,2532,,
+PubMed,development study,"Conference Proceedings, Research Support, U.S. Gov't, Non-P.H.S.",,,"Teeters et al., 2008",policy-guidance
+PubMed,development study,Editorial,,,"Coady and Wagner, 2013",opinion
+PubMed,development study,Editorial,,,"Sansone and Rocca-Serra, 2012",opinion
+PubMed,development study,Journal Article,,,"Anderson and Schonfeld, 2009",opinion
+PubMed,development study,Journal Article,,,"Cooper, 2007",opinion
+PubMed,development study,Journal Article,,,"Cragin et al., 2010",empirical
+PubMed,development study,Journal Article,,,"Perrino et al., 2013",policy-guidance
+PubMed,development study,Journal Article,,,"Pisani and AbouZahr, 2010",opinion
+PubMed,development study,Journal Article,,,"Pitt and Tang, 2013",opinion
+PubMed,development study,Journal Article,,,"Rohlfing and Poline, 2012",opinion
+PubMed,development study,Journal Article,,,"Van Horn and Gazzaniga, 2013",opinion
+PubMed,development study,"Journal Article, Research Support, N.I.H., Extramural, Research Support, Non-U.S. Gov't",,,"Mennes et al., 2013",review
+PubMed,development study,"Journal Article, Research Support, N.I.H., Extramural, Research Support, Non-U.S. Gov't",,,"Savage and Vickers, 2009",empirical
+PubMed,development study,"Journal Article, Research Support, Non-U.S. Gov't",,,"Bertzky and Stoll-Kleemann, 2009",review
+PubMed,development study,"Journal Article, Research Support, Non-U.S. Gov't",,,"Milia et al., 2012",empirical
+PubMed,development study,"Journal Article, Research Support, Non-U.S. Gov't",,,"Pearce and Smith, 2011",opinion
+PubMed,development study,"Journal Article, Research Support, Non-U.S. Gov't",,,"Volk et al., 2014",empirical
+PubMed,development study,"Journal Article, Research Support, U.S. Gov't, Non-P.H.S.",,,"Tenopir et al., 2011",empirical
+PubMed,development study,"Journal Article, Research Support, U.S. Gov't, Non-P.H.S.",,,"Wallis et al., 2013",empirical
+PubMed,development study,"Journal Article, Review",,,"Brakewood and Poldrack, 2013",opinion
+Scopus,records,Article,4783,9547,,
+Scopus,records,Conference paper,3218,9547,,
+Scopus,records,Book chapter,361,9547,,
+Scopus,records,Review,333,9547,,
+Scopus,records,Note,269,9547,,
+Scopus,records,Editorial,241,9547,,
+Scopus,records,Letter,131,9547,,
+Scopus,records,Erratum,93,9547,,
+Scopus,records,Short survey,37,9547,,
+Scopus,records,Book,21,9547,,
+Scopus,records,Data paper,13,9547,,
+Scopus,records,Conference review,1,9547,,
+Scopus,development study,Article,,,"Enke et al., 2012",empirical
+Scopus,development study,Article,,,"Haddow et al., 2011",empirical
+Scopus,development study,Article,,,"Huang et al., 2012",empirical
+Scopus,development study,Article,,,"Mennes et al., 2013",review
+Scopus,development study,Article,,,"Milia et al., 2012",empirical
+Scopus,development study,Article,,,"Perrino et al., 2013",policy-guidance
+Scopus,development study,Article,,,"Pitt and Tang, 2013",opinion
+Scopus,development study,Article,,,"Plengsaeng, Wehn and van der Zaag, 2014",empirical
+Scopus,development study,Article,,,"Savage and Vickers, 2009",empirical
+Scopus,development study,Article,,,"Sayogo and Pardo, 2013",empirical
+Scopus,development study,Article,,,"Tenopir et al., 2011",empirical
+Scopus,development study,Article,,,"Volk et al., 2014",empirical
+Scopus,development study,Article,,,"Wallis et al., 2013",empirical
+Scopus,development study,Article,,,"Zimmerman, 2008",empirical
+Scopus,development study,Conference Paper,,,"Cragin et al., 2010",empirical
+Scopus,development study,Conference Paper,,,"Teeters et al., 2008",policy-guidance
+Scopus,development study,Note,,,"Coady and Wagner, 2013",opinion
+Scopus,development study,Note,,,"Harding et al., 2013",policy-guidance
+Scopus,development study,Note,,,"Huang et al., 2013",empirical
+Scopus,development study,Note,,,"Pisani and AbouZahr, 2010",opinion
+Scopus,development study,Note,,,"Rohlfing and Poline, 2012",opinion
+Scopus,development study,Note,,,"Sansone and Rocca-Serra, 2012",opinion
+Scopus,development study,Review,,,"Bertzky and Stoll-Kleemann, 2009",review
+Scopus,development study,Review,,,"Borgman, 2012",opinion
+Scopus,development study,Review,,,"Brakewood and Poldrack, 2013",opinion
+Scopus,development study,Review,,,"Pearce and Smith, 2011",opinion
+Scopus,development study,Review,,,"Van Horn and Gazzaniga, 2013",opinion
+Web of Science,records,Article,4434,7813,,
+Web of Science,records,Meeting,1837,7813,,
+Web of Science,records,Editorial material,610,7813,,
+Web of Science,records,Abstract,440,7813,,
+Web of Science,records,Review,243,7813,,
+Web of Science,records,Letter,151,7813,,
+Web of Science,records,Book,81,7813,,
+Web of Science,records,Correction,58,7813,,
+Web of Science,records,News,52,7813,,
+Web of Science,records,Retracted Publication,32,7813,,
+Web of Science,records,Early Access,32,7813,,
+Web of Science,records,Data Paper,17,7813,,
+Web of Science,records,Retraction,7,7813,,
+Web of Science,records,Publication with Expression of Concern,1,7813,,
+Web of Science,development study,Article,,,"Cooper, 2007",opinion
+Web of Science,development study,Article,,,"Enke et al., 2012",empirical
+Web of Science,development study,Article,,,"Haddow et al., 2011",empirical
+Web of Science,development study,Article,,,"Harding et al., 2013",policy-guidance
+Web of Science,development study,Article,,,"Huang et al., 2012",empirical
+Web of Science,development study,Article,,,"Mennes et al., 2013",review
+Web of Science,development study,Article,,,"Milia et al., 2012",empirical
+Web of Science,development study,Article,,,"Perrino et al., 2013",policy-guidance
+Web of Science,development study,Article,,,"Pisani and AbouZahr, 2010",opinion
+Web of Science,development study,Article,,,"Pitt and Tang, 2013",opinion
+Web of Science,development study,Article,,,"Plengsaeng, Wehn and van der Zaag, 2014",empirical
+Web of Science,development study,Article,,,"Rohlfing and Poline, 2012",opinion
+Web of Science,development study,Article,,,"Savage and Vickers, 2009",empirical
+Web of Science,development study,Article,,,"Sayogo and Pardo, 2013",empirical
+Web of Science,development study,Article,,,"Teeters et al., 2008",policy-guidance
+Web of Science,development study,Article,,,"Tenopir et al., 2011",empirical
+Web of Science,development study,Article,,,"Volk et al., 2014",empirical
+Web of Science,development study,Article,,,"Wallis et al., 2013",empirical
+Web of Science,development study,Article,,,"Zimmerman, 2008",empirical
+Web of Science,development study,"Article, Meeting",,,"Cragin et al., 2010",empirical
+Web of Science,development study,Editorial material,,,"Coady and Wagner, 2013",opinion
+Web of Science,development study,Editorial material,,,"Huang et al., 2013",empirical
+Web of Science,development study,Editorial material,,,"Pearce and Smith, 2011",opinion
+Web of Science,development study,Editorial material,,,"Sansone and Rocca-Serra, 2012",opinion
+Web of Science,development study,Review,,,"Bertzky and Stoll-Kleemann, 2009",review
+Web of Science,development study,Review,,,"Borgman, 2012",opinion
+Web of Science,development study,Review,,,"Brakewood and Poldrack, 2013",opinion
+Web of Science,development study,Review,,,"Van Horn and Gazzaniga, 2013",opinion

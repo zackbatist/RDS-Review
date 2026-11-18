@@ -219,6 +219,53 @@ All seven PCC parts are *covered*. Reuse rests on 6 development and 4 test sourc
   - About 29 test studies can be checked, so coverage carries intervals of roughly 15 to 20 points either way.
 - **Reuse.** Whether "data reuse" and "data re-use" belong is open; the reference set cannot test it.
 
+## Term evidence: one title block, 18 November 2026
+
+Runs 1 to 14 in the Term evidence section of notebook 00 hold the code, the files and what each run settled. The decisions:
+
+- **Sharing block (run 1).** "data sharing", with "shar\* data" added in PubMed, where it finds Bertzky and Stoll-Kleemann 2009, Cooper 2007 and Rohlfing and Poline 2012. "data publication", "data access" and "data availability" each add only Costello 2009 and stay out.
+- **A small factor block looks picked (runs 2 and 3).** Choosing a few factor terms by yield gave blocks of about six terms. Zack judged that a reader would ask why those terms and no others. Runs 5 to 9 used the whole Candidate terms table in their place, with six general words for a factor that Claude proposed: factor\*, influenc\*, determinant\*, driver\*, concern\* and trust.
+- **Five terms that find no development study go (run 5).** facilitator\*, driver\*, interoperab\*, "open research" and "digital curation". A query drops out when another finds at least as many development studies in fewer records; in every database the block with these five terms dropped out against the block without them.
+- **privacy goes (run 6).** Zack's reasons: data protection falls outside the factors the PCC table asks about, and removing privacy loses no development study in any database.
+- **Cutting factor terms cannot bring the load down far (run 7).** Studies drop out within two or three cuts in Scopus and Web of Science, and with one factor term left the queries still return 2,209, 5,632 and 9,051 records. The cut order, set by cost, also removes polic\* and barrier\* early, which a reader would not accept in a query about factors.
+- **A form of share within 5 words of data, in the title, replaces the phrase (runs 10 and 11).** The phrase misses titles such as "sharing research data" (Borgman 2012), "sharing of health data" (Haddow et al. 2011) and "sharing and reuse of ecological data" (Zimmerman 2008). With duplicates removed:
+
+  | Query | Records | Development studies found |
+  |---|--:|--:|
+  | "data sharing" in the title OR with a factor term within 5 words (runs 8 and 9) | 14,255 | 28 of 35 |
+  | share within 3 words of data, title | 9,591 | 28 of 35 |
+  | share within 5 words of data, title | 10,493 | 29 of 35 |
+  | share within 5 words of data, title, OR "data sharing" with a factor term | 18,135 | 31 of 35 |
+
+  The factor terms add Fisher and Fortmann 2010 and Piwowar 2011 for 7,642 records, so they leave the query and guide screening, as step 2 first proposed.
+- **Abstracts stay out.** A form of share within 5 words of data in title and abstract returns about 8 times the records for 1 to 3 more development studies per database. Zack rejected the ways of recovering abstract-only studies: author keywords and MeSH major topics, factor terms within 2 or 3 words of "data sharing" in the abstract, and title terms such as "open data" and "research data management". Citation searching is the backstop.
+- **Reuse leaves the query.** Zack's decision: the review asks about sharing.
+- **Development misses are no manual additions.** Cohn 2012, Costello 2009, McCullough 2009 and Parr 2007 stay missed by every query tested; their titles say nothing of sharing data. All development studies date from 2007 to 2014, outside the review's years, so manual additions can only come from the test set's misses. This replaces the one-offs entry drafted earlier in the day, which was never applied.
+- **Web of Science's language limit.** Its API rejects `LA=(English OR French)` beside `shar* NEAR/n data`, with an error saying it cannot search `LA` at all. The limit works elsewhere: an invented language returns no records, and English or French removes about 0.5%. Web of Science counts for share-near-data queries carry the date limit alone; the review's exports come from the Web of Science site, where the limit works.
+- **No document type limit (run 12).** Editorials, letters, notes and news make up 8 to 18% of the records. Most opinion pieces are indexed as Article or Review, and a Note or Editorial can be a policy document (Harding et al. 2013) or an empirical study (Huang et al. 2013), so a limit would keep most opinion pieces and drop sources the review keeps. The protocol makes all source types eligible; a limit would change that. Zack has not decided.
+- **Data sharing in the computing sense (runs 13 to 15).** Titles with technical words such as blockchain\*, cloud and encrypt\* make up 6% of the records in PubMed, 35% in Scopus and 29% in Web of Science, and include no development study. A NOT clause on 13 such words cut the records to 7,505 but removed titles on incentives, consent and governance in health data sharing; the development set, from before 2015, cannot speak to these words.
+- **Eligibility gains a line.** Zack's principle: sources that design, build or evaluate a specific system, product or service for sharing data are out of scope. The NOT clause removes titles that almost always mark such a source: blockchain\*, "smart contract\*", IoT, "internet of things", vehicular, "edge computing" and cloud. Records without duplicates fall from 10,493 to 7,933, with all 29 development studies kept. attribute-based and cryptograph\* would save 76 more and stay out, by Zack's agreement. encrypt\*, "access control", "privacy-preserving", scheme and secure also mark methods and governance of research data, and "federated learning" an alternative to sharing health research data that the review may cover, so screening handles them. A study of why people use such a system concerns factors and is in scope; the clause removes it, and citation searching is the backstop.
+- **The query.** Title: share\* within 5 words of data, NOT title: blockchain\* OR "smart contract\*" OR IoT OR "internet of things" OR vehicular OR "edge computing" OR cloud; 2015 to 2025; English or French. The notebook gives each database's syntax.
+- **Test set (run 16).** The query finds 8 of 12 indexed test studies in PubMed, 16 of 24 in Scopus, 12 of 19 in Web of Science, 18 of 26 in the three together (0.69, 95% interval 0.50 to 0.84), and 9 of the 10 coded in scope. The test set's misses had been read on 16 November, in step 3, before this query existed; the query was not built from them.
+- **Test studies the query misses.** No query can find 8: Bishoff and Johnston 2015 and He 2016, both with data sharing in the title, and Zvyagintseva 2015 are in none of the databases; Brown et al. 2015, Curty 2015, Guédon 2015, Koopman 2015 and Yoon 2015 have no DOI or PMID. The query misses 8 that a database holds, all coded out of scope but one:
+  - **Chiware and Mathe 2016**, "Academic libraries' role in research data management services: A south African perspective", DOI 10.7553/81-2-1563; health, empirical, in scope; in Web of Science only. **Added to the search results by hand.**
+  - Chigwada et al. 2017, "Research data management in research institutions in Zimbabwe", DOI 10.5334/dsj-2017-031; in Scopus.
+  - Schöpfel et al. 2018, "Research data management in the French National Research Center (CNRS)", DOI 10.1108/dta-01-2017-0005; in Scopus and Web of Science.
+  - Wittenberg and Elings 2017, "Building a research data management service at the University of California, Berkeley: A tale of collaboration", DOI 10.1177/0340035216686982; in Scopus and Web of Science.
+  - Specht et al. 2015, "Data management challenges in analysis and synthesis in the ecosystem sciences", DOI 10.1016/j.scitotenv.2015.03.092, PMID 25891686; in all three.
+  - Schmidt et al. 2016, "Open data in global environmental research: The Belmont Forum's open data survey", DOI 10.1371/journal.pone.0146695, PMID 26771577; in all three.
+  - Watson 2015, "When will 'open science' become simply 'science'?", DOI 10.1186/s13059-015-0669-2, PMID 25986601; in all three.
+  - Curty et al. 2017, "Attitudes and norms affecting scientists' data reuse", DOI 10.1371/journal.pone.0189288, PMID 29281658; in all three.
+
+  Titles naming research data management or open data would add mostly sources out of scope, and open data titles include a literature on open government data, so neither enters the query.
+- **Stopping rule.** Open. With 100 to 200 included sources, Callaghan and Müller-Hansen's criterion would stop after about a third to a half of the records, by Claude's simulation, which assumes ASReview ranks well. Rules that stop after a run of irrelevant records screen less but make no recall claim, and the evaluations the protocol cites find no run length that holds across datasets.
+
 ## To do
 
-- **Artificial intelligence section of `research-protocol.qmd`.** The sentence "The query terms come from those codes." oversimplifies how the terms were selected. Rewrite it once step 3 has run, so it states the exact outcomes: which terms entered each query and how the yield, coverage and precision tests decided them.
+- **Artificial intelligence section of `research-protocol.qmd`.** The sentence "The query terms come from those codes." oversimplifies how the terms were selected. Rewrite it once the query is settled, so it states how the terms were chosen: from measured records and development studies in the three databases, as the Term evidence section records.
+- **Search strategy in `research-protocol.qmd`.** The single title block, the reasons the factor terms, abstracts and reuse are left out, and the NOT clause.
+- **Eligibility in `research-protocol.qmd` and the screening guide.** The line on sources that design, build or evaluate a specific system, product or service for sharing data.
+- **Chiware and Mathe 2016** goes into the search results by hand, reported as identified from other sources.
+- **ASReview seed.** The protocol seeds ASReview with the records of Q1, which is obsolete.
+- **Screening guide.** The Candidate terms table and the factor themes, as guidance for judging whether a record reports factors, and data sharing in the computing sense as an exclusion.
+- **Step 3 of notebook 00** still shows the queries built by the yield rule; the test set check of the chosen query replaces it.
