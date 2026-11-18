@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-CA" xml:lang="en-CA"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Research Protocol – RDS-Review</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -50,15 +53,14 @@ div.csl-indent {
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c6c76bb6a227fb17850fa9c967680516.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-07a393ebc72685dc64072cf1f9a753d9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -111,8 +113,9 @@ div.csl-indent {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">RDS-Review</a> 
+    </div>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
@@ -172,6 +175,23 @@ div.csl-indent {
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./analysis/00_search-development/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Search development</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./analysis/00_search-development/00-search-development.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">00 Search development</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./analysis/01-deduplication.html" class="sidebar-item-text sidebar-link">
@@ -217,9 +237,21 @@ div.csl-indent {
   <li><a href="#selection-of-sources" id="toc-selection-of-sources" class="nav-link" data-scroll-target="#selection-of-sources">Selection of sources</a></li>
   <li><a href="#data-charting" id="toc-data-charting" class="nav-link" data-scroll-target="#data-charting">Data charting</a></li>
   <li><a href="#synthesis" id="toc-synthesis" class="nav-link" data-scroll-target="#synthesis">Synthesis</a></li>
+  <li><a href="#artificial-intelligence" id="toc-artificial-intelligence" class="nav-link" data-scroll-target="#artificial-intelligence">Artificial intelligence</a></li>
   <li><a href="#reporting-and-data" id="toc-reporting-and-data" class="nav-link" data-scroll-target="#reporting-and-data">Reporting and data</a></li>
   </ul></li>
-  <li><a href="#open-decisions" id="toc-open-decisions" class="nav-link" data-scroll-target="#open-decisions">Open decisions</a></li>
+  <li><a href="#sec-search-development" id="toc-sec-search-development" class="nav-link" data-scroll-target="#sec-search-development">Appendix: search development</a>
+  <ul class="collapse">
+  <li><a href="#sharing-terms" id="toc-sharing-terms" class="nav-link" data-scroll-target="#sharing-terms">Sharing terms</a></li>
+  <li><a href="#factor-terms" id="toc-factor-terms" class="nav-link" data-scroll-target="#factor-terms">Factor terms</a></li>
+  <li><a href="#a-form-of-share-near-data" id="toc-a-form-of-share-near-data" class="nav-link" data-scroll-target="#a-form-of-share-near-data">A form of share near data</a></li>
+  <li><a href="#document-types" id="toc-document-types" class="nav-link" data-scroll-target="#document-types">Document types</a></li>
+  <li><a href="#systems-products-and-services" id="toc-systems-products-and-services" class="nav-link" data-scroll-target="#systems-products-and-services">Systems, products, and services</a></li>
+  <li><a href="#test" id="toc-test" class="nav-link" data-scroll-target="#test">Test</a></li>
+  <li><a href="#tier-2-and-research-data-management" id="toc-tier-2-and-research-data-management" class="nav-link" data-scroll-target="#tier-2-and-research-data-management">Tier 2 and research data management</a></li>
+  <li><a href="#known-item-test" id="toc-known-item-test" class="nav-link" data-scroll-target="#known-item-test">Known-item test</a></li>
+  <li><a href="#sources-added-by-hand" id="toc-sources-added-by-hand" class="nav-link" data-scroll-target="#sources-added-by-hand">Sources added by hand</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -260,24 +292,24 @@ div.csl-indent {
 </div>
 <section id="background" class="level2">
 <h2 class="anchored" data-anchor-id="background">Background</h2>
-<p>This review maps the factors reported to influence the sharing and reuse of research data in health research, including barriers, facilitators, and governance mechanisms.</p>
-<p>This review updates the 2019 review of research data sharing <span class="citation" data-cites="chawinga2019">(<a href="#ref-chawinga2019" role="doc-biblioref">Chawinga and Zinn 2019</a>)</span> with the scoping review methods of <span class="citation" data-cites="cavallaro2026">Cavallaro et al. (<a href="#ref-cavallaro2026" role="doc-biblioref">2026</a>)</span>. The 2019 review shares this review’s focus on research data sharing, which makes it a strong candidate for an update. It looks at differences across countries. This review looks at differences across research domains, with special attention on healthcare.</p>
-<p>Earlier reviews address parts of this topic. Reviews in health and medical research examine incentives <span class="citation" data-cites="rowhanifarid2017">(<a href="#ref-rowhanifarid2017" role="doc-biblioref">Rowhani-Farid et al. 2017</a>)</span>, principles and norms <span class="citation" data-cites="kalkman2019">(<a href="#ref-kalkman2019" role="doc-biblioref">Kalkman et al. 2019</a>)</span>, and governance mechanisms such as harmonized data access agreements <span class="citation" data-cites="saulnier2019">(<a href="#ref-saulnier2019" role="doc-biblioref">Saulnier et al. 2019</a>)</span>. Reviews in public health examine barriers to public health data sharing but exclude research data sharing <span class="citation" data-cites="vanpanhuis2014">(<a href="#ref-vanpanhuis2014" role="doc-biblioref">van Panhuis et al. 2014</a>)</span>.</p>
+<p>This review maps the factors reported to influence the sharing of research data in health research, including barriers, facilitators, and governance mechanisms.</p>
+<p>This review updates the 2019 review of research data sharing <span class="citation" data-cites="chawinga2019">(<a href="#ref-chawinga2019" role="doc-biblioref">Chawinga and Zinn 2019</a>)</span> with the scoping review methods of <span class="citation" data-cites="cavallaro2026"><span class="nocase">Cavallaro et al.</span> (<a href="#ref-cavallaro2026" role="doc-biblioref">2026</a>)</span>. The 2019 review shares this review’s focus on research data sharing, which makes it a strong candidate for an update. It looks at differences across countries. This review looks at differences across research domains, with special attention on healthcare.</p>
+<p>Earlier reviews address parts of this topic. Reviews in health and medical research examine incentives <span class="citation" data-cites="rowhanifarid2017">(<a href="#ref-rowhanifarid2017" role="doc-biblioref">Rowhani-Farid et al. 2017</a>)</span>, principles and norms <span class="citation" data-cites="kalkman2019">(<a href="#ref-kalkman2019" role="doc-biblioref"><span class="nocase">Kalkman et al.</span> 2019</a>)</span>, and governance mechanisms such as harmonized data access agreements <span class="citation" data-cites="saulnier2019">(<a href="#ref-saulnier2019" role="doc-biblioref">Saulnier et al. 2019</a>)</span>. Reviews in public health examine barriers to public health data sharing but exclude research data sharing <span class="citation" data-cites="vanpanhuis2014">(<a href="#ref-vanpanhuis2014" role="doc-biblioref"><span class="nocase">van Panhuis et al.</span> 2014</a>)</span>.</p>
 <p>This review compares health research data sharing with data sharing in general and in other fields. Beyond health, cross-disciplinary reviews cover what drives and inhibits researchers in sharing and reusing data <span class="citation" data-cites="fecher2015 zuiderwijk2020 perrier2020">(<a href="#ref-fecher2015" role="doc-biblioref">Fecher et al. 2015</a>; <a href="#ref-zuiderwijk2020" role="doc-biblioref">Zuiderwijk et al. 2020</a>; <a href="#ref-perrier2020" role="doc-biblioref">Perrier et al. 2020</a>)</span>.</p>
 <p>The taxonomy of factors this review produces serves the CITF-emails study, where it supports manual annotation for supervised machine learning on the emails and identifies factors that the emails cover only in part.</p>
 </section>
 <section id="objective-and-questions" class="level2">
 <h2 class="anchored" data-anchor-id="objective-and-questions">Objective and questions</h2>
-<p>The objective is to map the factors reported to influence the sharing and reuse of research data in health research, and to compare them with the factors reported for other fields and for public health data.</p>
+<p>The objective is to map the factors reported to influence the sharing of research data in health research, and to compare them with the factors reported for other fields and for public health data.</p>
 <ol type="1">
-<li>Which factors (barriers, facilitators, and governance mechanisms) are reported to influence the sharing and reuse of research data in health research?</li>
+<li>Which factors (barriers, facilitators, and governance mechanisms) are reported to influence the sharing of research data in health research?</li>
 <li>How can these factors be organized into a taxonomy suitable for annotating correspondence about data sharing?</li>
 <li>How do the factors reported for health research differ from those reported for research in other fields and for public health data?</li>
 </ol>
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
-<p>The review follows the scoping review framework of <span class="citation" data-cites="arksey2005">Arksey and O’Malley (<a href="#ref-arksey2005" role="doc-biblioref">2005</a>)</span> as refined by <span class="citation" data-cites="levac2010">Levac et al. (<a href="#ref-levac2010" role="doc-biblioref">2010</a>)</span> and the JBI guidance <span class="citation" data-cites="peters2020">(<a href="#ref-peters2020" role="doc-biblioref">Peters et al. 2020</a>)</span>. The method draws on the protocol of <span class="citation" data-cites="cavallaro2026">Cavallaro et al. (<a href="#ref-cavallaro2026" role="doc-biblioref">2026</a>)</span>, which pairs machine learning screening with automated deduplication. It improves on that protocol in deduplication and seed generation. The review is reported according to PRISMA-ScR <span class="citation" data-cites="tricco2018">(<a href="#ref-tricco2018" role="doc-biblioref">Tricco et al. 2018</a>)</span>. The searches are reported according to PRISMA-S <span class="citation" data-cites="rethlefsen2021">(<a href="#ref-rethlefsen2021" role="doc-biblioref">Rethlefsen et al. 2021</a>)</span>. The flow diagram adapts the PRISMA 2020 template <span class="citation" data-cites="page2021">(<a href="#ref-page2021" role="doc-biblioref">Page et al. 2021</a>)</span>, with “sources of evidence” in place of “studies”.</p>
+<p>The review follows the scoping review framework of <span class="citation" data-cites="arksey2005">Arksey and O’Malley (<a href="#ref-arksey2005" role="doc-biblioref">2005</a>)</span> as refined by <span class="citation" data-cites="levac2010">Levac et al. (<a href="#ref-levac2010" role="doc-biblioref">2010</a>)</span> and the JBI guidance <span class="citation" data-cites="peters2020">(<a href="#ref-peters2020" role="doc-biblioref"><span class="nocase">Peters et al.</span> 2020</a>)</span>. The method draws on the protocol of <span class="citation" data-cites="cavallaro2026"><span class="nocase">Cavallaro et al.</span> (<a href="#ref-cavallaro2026" role="doc-biblioref">2026</a>)</span>, which pairs machine learning screening with automated deduplication. It improves on that protocol in deduplication and seed generation. The review is reported according to PRISMA-ScR <span class="citation" data-cites="tricco2018">(<a href="#ref-tricco2018" role="doc-biblioref"><span class="nocase">Tricco et al.</span> 2018</a>)</span>. The searches are reported according to PRISMA-S <span class="citation" data-cites="rethlefsen2021">(<a href="#ref-rethlefsen2021" role="doc-biblioref">Rethlefsen et al. 2021</a>)</span>. The flow diagram adapts the PRISMA 2020 template <span class="citation" data-cites="page2021">(<a href="#ref-page2021" role="doc-biblioref"><span class="nocase">Page et al.</span> 2021</a>)</span>, with “sources of evidence” in place of “studies”.</p>
 <section id="eligibility-criteria" class="level3">
 <h3 class="anchored" data-anchor-id="eligibility-criteria">Eligibility criteria</h3>
 <p>The criteria follow the population, concept, and context (PCC) structure that JBI recommends for scoping reviews.</p>
@@ -299,7 +331,7 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">Concept</td>
-<td style="text-align: left;">Factors that influence the sharing and reuse of research data, including barriers, facilitators, and governance mechanisms. Research data are data collected for research purposes under ethics oversight.</td>
+<td style="text-align: left;">Factors that influence the sharing of research data, including barriers, facilitators, and governance mechanisms. Research data are data used for research, whether collected for a study or collected for another purpose and reused for research. Data governance comprises the strategies and tools employed to identify, manage, and disseminate data <span class="citation" data-cites="leonelli2019">(<a href="#ref-leonelli2019" role="doc-biblioref">Leonelli 2019</a>)</span>. In health research, data access governance manages who has access to data, for what purposes, and under what conditions, through data access committees, data access agreements, policies, and monitoring <span class="citation" data-cites="shabani2021">(<a href="#ref-shabani2021" role="doc-biblioref">Shabani et al. 2021</a>)</span>.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Context, tier 1</td>
@@ -307,57 +339,428 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td style="text-align: left;">Context, tier 2</td>
-<td style="text-align: left;">Research in other fields and cross-disciplinary research. Reviews and syntheses only.</td>
+<td style="text-align: left;">Research in other fields and cross-disciplinary research. All source types are eligible.</td>
 </tr>
 </tbody>
 </table>
-<p>Sources are excluded when they concern only public health data or other health systems data, or only clinical care data. The rule for routine or clinical data reused for research is not yet set. Each source is assigned a tier at screening from its field.</p>
-<p>The search covers 2015 to 2025. Language limits are not yet set. Any limit will be stated and justified, as PRISMA-S item 9 requires.</p>
+<p>Sources are excluded when they concern public health data, health systems data, or clinical care data used only for surveillance, service delivery, or patient care. Sources that concern these data reused for research are eligible. The <code>data_origin</code> variable in the codebook records whether a source concerns data collected for research or data reused for research after collection for surveillance, service delivery, or patient care. Each source is assigned a tier at screening from its field.</p>
+<p>Sources that design, build or evaluate a specific system, product or service for sharing data are excluded, such as a blockchain framework, a cloud platform or an encryption scheme. Sources that study why people adopt or resist such a system report factors and are eligible.</p>
+<p>The search covers sources published from 2015 to 2025 in English and French, the languages the reviewers read.</p>
 </section>
 <section id="information-sources-and-search" class="level3">
 <h3 class="anchored" data-anchor-id="information-sources-and-search">Information sources and search</h3>
-<p>Four queries run in Scopus, Web of Science, and PubMed for 2015 to 2025. All four build on <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span>. The base RDS query (Q1) takes their core term, “research data sharing”. Three concept queries (Q2 to Q4) extend that term with the vocabulary the field uses around it. Each pairs its own key term with “research data” or “data sharing” using AND, so a record must name both the concept and the data practice in its title or abstract. The queries use no health terms. Each database applies its own document type filter. Scopus and Web of Science limit results to articles and reviews, and PubMed limits results to journal articles. The <a href="./materials/search-strategy.html">search strategy</a> page lists the key terms, the strings, and the counts.</p>
-<p>Citation searching of the included sources supplements the database searches. The final strings are tested against a list of known relevant sources. Every search is recorded on the <a href="./materials/search-strategy.html">search strategy</a> page.</p>
+<p>One query runs in Scopus, Web of Science, and PubMed. It searches titles for a form of <em>share</em> within five words of <em>data</em>, which matches “data sharing” along with phrasings such as “sharing research data” and “sharing of health data”, in sources published from 2015 to 2025 in English and French. It applies no document type filter, since all source types are eligible. The <a href="./materials/search-strategy.html">search strategy</a> page gives the query as written for each database, with the number of records it returns.</p>
+<p>Candidate queries were compared on the records they return and on how many known relevant sources they find. The known sources are the sources included in the review by <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span> that meet this review’s criteria, apart from publication year. Those published from 2007 to 2014 served to compare candidate queries, and those published from 2015 were set aside until the query was chosen, to test it on sources it was not built from. A title search returned a small fraction of the records that a search of titles and abstracts returned and found most of the known sources. Factor terms, such as barriers, incentives, and policies, found few more known sources for many more records. The <a href="./materials/screening-guide.html">screening guide</a> lists them for reviewers to apply when they screen. The comparisons also showed that about a third of the records in Scopus and Web of Science report a system, product, or service for sharing data, such as a blockchain framework or a cloud storage scheme, which the eligibility criteria exclude. The query leaves out titles that name blockchain, smart contracts, the Internet of Things, vehicular networks, edge computing, or cloud computing, the words that most often mark such sources. Known sources the query misses are added to the records by hand. <a href="#sec-search-development" class="quarto-xref">Section&nbsp;4</a> summarizes the measurements and lists the sources added by hand.</p>
 </section>
 <section id="selection-of-sources" class="level3">
 <h3 class="anchored" data-anchor-id="selection-of-sources">Selection of sources</h3>
-<p>Records are deduplicated with <a href="https://github.com/camaradesuk/ASySD">ASySD</a>, which, unlike the Zotero workflow of <span class="citation" data-cites="cavallaro2026">Cavallaro et al. (<a href="#ref-cavallaro2026" role="doc-biblioref">2026</a>)</span>, runs from a script and makes the step reproducible. The records are then screened on title and abstract in <a href="https://asreview.nl">ASReview</a>, and again on full text, against the <a href="./materials/screening-guide.html">screening guide</a>. Exclusion reasons are recorded at full text. Counts at every stage feed the flow diagram.</p>
-<p>ASReview ranks records by predicted relevance and starts from a seed sample. The seed is the base RDS query (Q1), which returned 308 records against 4,192 for the four queries combined (7.3%), modestly above the conventional 5%. A seed from a fixed keyword is reproducible. <span class="citation" data-cites="cavallaro2026">Cavallaro et al. (<a href="#ref-cavallaro2026" role="doc-biblioref">2026</a>)</span> select their seed sample ad hoc from the first 5% of deduplicated records.</p>
+<p>Records are deduplicated with <a href="https://github.com/CoLRev-Environment/bib-dedupe">bib-dedupe</a> <span class="citation" data-cites="wagner2024">(<a href="#ref-wagner2024" role="doc-biblioref">Wagner 2024</a>)</span>, which, unlike the Zotero workflow of <span class="citation" data-cites="cavallaro2026"><span class="nocase">Cavallaro et al.</span> (<a href="#ref-cavallaro2026" role="doc-biblioref">2026</a>)</span>, runs from a script and makes the step reproducible. The records are then screened on title and abstract in <a href="https://asreview.nl">ASReview</a>, and again on full text, against the <a href="./materials/screening-guide.html">screening guide</a>. Exclusion reasons are recorded at full text. Counts at every stage feed the flow diagram.</p>
+<p>ASReview ranks records by predicted relevance with its default model, ELAS u5, which pairs TF-IDF features with a support vector machine. The ranking starts from a seed sample of 200 records drawn at random, with a fixed random seed, from the deduplicated records. The sample size follows the evaluation of the stopping criterion below <span class="citation" data-cites="callaghan2020">(<a href="#ref-callaghan2020" role="doc-biblioref">Callaghan and Müller-Hansen 2020</a>)</span>. The share of relevant records in the seed sample estimates the share across all records, which indicates how much screening the stopping criterion will require. <span class="citation" data-cites="cavallaro2026"><span class="nocase">Cavallaro et al.</span> (<a href="#ref-cavallaro2026" role="doc-biblioref">2026</a>)</span> select their seed sample ad hoc from the first 5% of deduplicated records.</p>
+<p>Two reviewers independently screen the titles and abstracts of all records in the seed sample and resolve disagreements through discussion. The annotated seed sample initializes the ASReview ranking. One reviewer screens the ranked records until the stopping rule applies. Both reviewers then independently screen the full texts of the included records and resolve disagreements through discussion.</p>
+<p>Screening in ASReview stops on the statistical criterion of <span class="citation" data-cites="callaghan2020">Callaghan and Müller-Hansen (<a href="#ref-callaghan2020" role="doc-biblioref">2020</a>)</span>, in its ranked form. After each screening session, the decisions are exported in the order they were made, seed sample first, and a hypergeometric test on them checks whether recall has reached a target of 95% at a confidence level of 95%. Screening stops when the test rejects the hypothesis that recall falls below the target. In an evaluation of 15 stopping methods on 81 datasets, this criterion alone never stopped before its recall target <span class="citation" data-cites="repke2026">(<a href="#ref-repke2026" role="doc-biblioref">Repke et al. 2026</a>)</span>, while fixed stopping rules in ASReview fail to generalize across datasets <span class="citation" data-cites="kempny2026">(<a href="#ref-kempny2026" role="doc-biblioref">Kempny et al. 2026</a>)</span>. In its authors’ evaluation, the criterion saved 17% of screening on average, and less where few records are relevant, so screening may cover most of the records. These evaluations draw on systematic reviews, so the criterion’s performance in a scoping review remains untested. Recall counts relevant records, so the criterion cannot show whether the unscreened records report factors that the screened records do not.</p>
 </section>
 <section id="data-charting" class="level3">
 <h3 class="anchored" data-anchor-id="data-charting">Data charting</h3>
 <p>Each included source is charted once into the form defined in the <a href="./codebook.html">codebook</a>, with one row for the source and one row for each factor it reports. The form is piloted on a sample of sources and revised before full charting begins.</p>
+<p>The review does not appraise the included sources, following JBI guidance for scoping reviews <span class="citation" data-cites="peters2020">(<a href="#ref-peters2020" role="doc-biblioref"><span class="nocase">Peters et al.</span> 2020</a>)</span>. It maps the factors that sources report, and its eligible source types share no common appraisal tool.</p>
 </section>
 <section id="synthesis" class="level3">
 <h3 class="anchored" data-anchor-id="synthesis">Synthesis</h3>
 <p>The review codes factors inductively. The resulting taxonomy is a primary output. Counts by tier, field, source type, and year describe the evidence base, and the factor categories are compared across fields.</p>
+</section>
+<section id="artificial-intelligence" class="level3">
+<h3 class="anchored" data-anchor-id="artificial-intelligence">Artificial intelligence</h3>
+<p>No large language model makes or suggests eligibility, charting, or synthesis decisions. ASReview ranks records by predicted relevance, and the reviewers make every screening decision. The analysis reruns from the search exports without invoking any language model.</p>
+<p>To estimate the screening workload, the first model in <a href="#tbl-local-models" class="quarto-xref">Table&nbsp;1</a> also judged two sets of records the search returns, 300 drawn at random and the 489 that “research data management” in titles would add, against the screening guide’s criteria, with a <a href="analysis/00_search-development/prompts/scope_prompt.md">prompt</a> that states them. These judgments estimate workload only. They decide no record’s eligibility and enter neither screening nor charting.</p>
+<p>A local large language model coded the sources included in the review by <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span> to identify those that meet this review’s eligibility criteria, which serve as known relevant sources for testing the query. For each source, it recorded the practice, data origin, field, source type, and reported factors from the title and abstract, with the passage that supports each code, choosing from the values listed in its <a href="analysis/00_search-development/prompts/coding_prompt.md">prompt</a>, which come from the eligibility criteria, the <a href="./materials/screening-guide.html">screening guide</a>, and the <a href="./codebook.html">codebook</a>. <a href="./analysis/00_search-development/00-search-development.html">Notebook 00</a> reports the codes and keeps the sources that meet the criteria, apart from publication year, as known sources. The model ran at temperature 0 with a fixed seed, which makes its output repeatable. A smaller model, run with the same prompt and settings, agrees with it on 79% to 100% of the codes for each variable, with Cohen’s kappa from 0.63 to 0.84.</p>
+<div id="tbl-local-models" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-local-models-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Local models that coded the sources included in the review by <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span>.
+</figcaption>
+<div aria-describedby="tbl-local-models-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">First model</th>
+<th style="text-align: left;">Smaller model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Model</td>
+<td style="text-align: left;">Qwen3.5-122B-A10B</td>
+<td style="text-align: left;">Qwen3.8-27B</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Build</td>
+<td style="text-align: left;">unsloth Q4_K_M, Hugging Face revision <code>51eab4d</code></td>
+<td style="text-align: left;">unsloth UD-Q4_K_M, Hugging Face revision <code>4af51b3</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hardware</td>
+<td style="text-align: left;">Four GPUs</td>
+<td style="text-align: left;">One GPU</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Server</td>
+<td style="text-align: left;">llama.cpp, build b12375</td>
+<td style="text-align: left;">llama.cpp, build b12375</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Settings</td>
+<td style="text-align: left;">Temperature 0, fixed seed, thinking off, answers held to the prompt’s values</td>
+<td style="text-align: left;">The same</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Run</td>
+<td style="text-align: left;">16 November 2026</td>
+<td style="text-align: left;">16 November 2026</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Claude Opus 5.5 (Anthropic, model identifier <code>claude-opus-5-5</code>, used through claude.ai from 11 to 18 November 2026) was used in search development. At the authors’ direction, it wrote the scripts, proposed measurements, and drafted the search development records; the authors chose each term in the query from the measurements. Reporting of AI use follows the joint position statement of Cochrane, the Campbell Collaboration, JBI, and the Collaboration for Environmental Evidence <span class="citation" data-cites="flemyng2025">(<a href="#ref-flemyng2025" role="doc-biblioref">Flemyng et al. 2025</a>)</span>.</p>
 </section>
 <section id="reporting-and-data" class="level3">
 <h3 class="anchored" data-anchor-id="reporting-and-data">Reporting and data</h3>
 <p>The checklists for PRISMA-ScR and PRISMA-S record where each item is reported. The flow diagram is generated from the screening counts. Search exports, screening decisions, charted data, and all code are in the repository.</p>
 </section>
 </section>
-<section id="open-decisions" class="level2">
-<h2 class="anchored" data-anchor-id="open-decisions">Open decisions</h2>
-<ul>
-<li>Language limits.</li>
-<li>The rule for routine or clinical data reused for research.</li>
-<li>The definition of research data, by purpose or by consent.</li>
-<li>The number of screeners, calibration on a sample, and the handling of disagreement.</li>
-<li>Critical appraisal of included sources, which PRISMA-ScR treats as optional.</li>
-<li>Whether any step uses a large language model. Any such step will be reported following the PRISMA 2020 guidance on automation tools and the RAISE guidance.</li>
-</ul>
+<section id="sec-search-development" class="level2">
+<h2 class="anchored" data-anchor-id="sec-search-development">Appendix: search development</h2>
+<p>Each measurement counts the records a query returns for 2015 to 2025 in English and French, and checks which known sources it finds, by DOI or PMID. The known sources published from 2007 to 2014 compared candidate queries; those published from 2015 tested the chosen query. Web of Science’s API rejects its language limit beside a proximity search, so its counts for those queries cover all languages; elsewhere the limit removes about 0.5% of records. Counts once duplicates are removed match records on DOI, or on title and year, and estimate the load; bib-dedupe finds as many duplicates or more. The <a href="./analysis/00_search-development/00-search-development.html">search development</a> notebook holds the code and the files for each measurement.</p>
+<section id="sharing-terms" class="level3">
+<h3 class="anchored" data-anchor-id="sharing-terms">Sharing terms</h3>
+<p>“data sharing” and 17 other phrases for sharing were each counted alone. In PubMed, “shar* data” found three known sources that “data sharing” missed. “data publication”, “data access”, and “data availability” each found only Costello (2009) beyond “data sharing”, for 600 to 18,000 records. The notebook gives every phrase’s counts.</p>
+</section>
+<section id="factor-terms" class="level3">
+<h3 class="anchored" data-anchor-id="factor-terms">Factor terms</h3>
+<p>The factor terms of the Candidate terms table on the <a href="./materials/search-strategy.html">search strategy</a> page, with six general words for a factor (factor*, influenc*, determinant*, driver*, concern*, trust), were paired with “data sharing” in three versions: “data sharing” in the title alone, “data sharing” with a factor term anywhere in the record, and either of the two. Five terms found no known source in any database and were dropped: facilitator*, driver*, interoperab*, “open research”, and “digital curation”. Privacy was dropped, since removing it lost no known source in any database. Removing the remaining terms one by one lost known sources within two or three removals and still left thousands of records. Requiring the factor term within five words of “data sharing” more than halved the records in Scopus and Web of Science.</p>
+<div id="tbl-factor-versions" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-factor-versions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Records each version returns, with the known sources from 2007 to 2014 it finds in brackets. PubMed cannot search within five words, so its last row matches the factor term anywhere.
+</figcaption>
+<div aria-describedby="tbl-factor-versions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Version</th>
+<th style="text-align: right;">PubMed</th>
+<th style="text-align: right;">Scopus</th>
+<th style="text-align: right;">Web of Science</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">“data sharing” in the title</td>
+<td style="text-align: right;">1,677 (17)</td>
+<td style="text-align: right;">5,517 (16)</td>
+<td style="text-align: right;">4,438 (16)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">“data sharing” with a factor term</td>
+<td style="text-align: right;">6,959 (18)</td>
+<td style="text-align: right;">22,134 (24)</td>
+<td style="text-align: right;">15,057 (26)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Either</td>
+<td style="text-align: right;">7,525 (21)</td>
+<td style="text-align: right;">23,357 (25)</td>
+<td style="text-align: right;">16,208 (27)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Either, the factor term within five words</td>
+<td style="text-align: right;">7,295 (21)</td>
+<td style="text-align: right;">9,018 (21)</td>
+<td style="text-align: right;">7,175 (21)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="a-form-of-share-near-data" class="level3">
+<h3 class="anchored" data-anchor-id="a-form-of-share-near-data">A form of share near data</h3>
+<p>The phrase “data sharing” misses titles such as “sharing research data” and “sharing of health data”. A form of <em>share</em> within three or five words of <em>data</em> in the title found more known sources than any version above, with no factor terms. The same search in titles and abstracts returned about eight times the records for at most three more known sources in any database.</p>
+<div id="tbl-share-near-data" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-share-near-data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Records each query returns, with the known sources from 2007 to 2014 it finds in brackets.
+</figcaption>
+<div aria-describedby="tbl-share-near-data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Query</th>
+<th style="text-align: right;">PubMed</th>
+<th style="text-align: right;">Scopus</th>
+<th style="text-align: right;">Web of Science</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><em>share</em> within five words of <em>data</em>, title</td>
+<td style="text-align: right;">2,532 (20)</td>
+<td style="text-align: right;">9,547 (27)</td>
+<td style="text-align: right;">7,813 (28)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The same in title or abstract</td>
+<td style="text-align: right;">18,840 (21)</td>
+<td style="text-align: right;">82,908 (30)</td>
+<td style="text-align: right;">62,198 (31)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The title query, or “data sharing” with a factor term</td>
+<td style="text-align: right;">7,840 (21)</td>
+<td style="text-align: right;">12,799 (29)</td>
+<td style="text-align: right;">10,346 (30)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="document-types" class="level3">
+<h3 class="anchored" data-anchor-id="document-types">Document types</h3>
+<p>Editorials, letters, notes, and news make up 8% to 18% of the title query’s records in each database. The databases index most opinion pieces as articles or reviews, and index some empirical and policy sources as notes or editorials, so a document type filter would keep most opinion pieces and drop sources the review keeps. The query uses none.</p>
+</section>
+<section id="systems-products-and-services" class="level3">
+<h3 class="anchored" data-anchor-id="systems-products-and-services">Systems, products, and services</h3>
+<p>Titles naming blockchain, cloud computing, encryption, and other computing terms make up 6% of the title query’s records in PubMed, 35% in Scopus, and 29% in Web of Science, and include no known source from 2007 to 2014. Most report a system, product, or service for sharing data, which the eligibility criteria exclude. Such words came into use after 2014, so the known sources from those years cannot show what leaving them out costs. The query leaves out only the words that almost always mark such sources. Encryption, access control, and privacy-preserving methods also describe the governance of research data, so screening handles them.</p>
+<div id="tbl-not-clause" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-not-clause-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: The title query across the three databases as computing words are left out. The query stops at cloud; the last two words save 76 records.
+</figcaption>
+<div aria-describedby="tbl-not-clause-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Words left out of titles</th>
+<th style="text-align: right;">Records once duplicates are removed</th>
+<th style="text-align: right;">Known sources from 2007 to 2014 found, of 35</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">None</td>
+<td style="text-align: right;">10,493</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">blockchain*, “smart contract*”</td>
+<td style="text-align: right;">9,157</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">and IoT, “internet of things”, vehicular, “edge computing”</td>
+<td style="text-align: right;">8,848</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">and cloud</td>
+<td style="text-align: right;">7,933</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">and attribute-based, cryptograph*</td>
+<td style="text-align: right;">7,857</td>
+<td style="text-align: right;">29</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="test" class="level3">
+<h3 class="anchored" data-anchor-id="test">Test</h3>
+<div id="tbl-test" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-test-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5: The chosen query against the known sources published from 2015.
+</figcaption>
+<div aria-describedby="tbl-test-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Known sources from 2015 found</th>
+<th style="text-align: right;">Of those indexed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">PubMed</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Scopus</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Web of Science</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">At least one database</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">25</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Every known source from 2015 that is eligible apart from year meets this review’s criteria. Of the 13 the query misses, 6 are in none of the three databases or have no DOI or PMID to check them by. The other 7 name research data management, open data, or open science in their titles. All 13 are added by hand.</p>
+</section>
+<section id="tier-2-and-research-data-management" class="level3">
+<h3 class="anchored" data-anchor-id="tier-2-and-research-data-management">Tier 2 and research data management</h3>
+<p>Admitting all source types in tier 2 was weighed by its effect on screening. A local language model judged 300 records drawn at random from the query’s 7,933 against the screening guide’s criteria, without the tier criterion (see Artificial intelligence). It included 16% of them with tier 2 limited to reviews and syntheses and 21% with all source types, so admitting all source types adds about 420 records, a third more, to full-text screening. Most of the records it adds report factors in research data sharing in other fields.</p>
+<p>Four of the known sources the query misses concern research data management. “research data management” in titles would add 489 records, of which the model judged 44% eligible, against 21% for the query’s own records. The review treats research data management as a mechanism for implementation, a factor applied at screening, and keeps it out of the query, which searches research data sharing alone. “data management”, “open data”, and “open science” in titles would each add 2,000 to 5,400 records for one known source.</p>
+</section>
+<section id="known-item-test" class="level3">
+<h3 class="anchored" data-anchor-id="known-item-test">Known-item test</h3>
+<p>The query was also tested against the known items listed on the <a href="./materials/search-strategy.html">search strategy</a> page, reviews and studies of health research data sharing and cross-disciplinary reviews chosen before the search was developed. It finds 8 of the 11 health research sources and all 5 cross-disciplinary reviews. The three it misses are in the databases, and their titles do not name sharing data within five words: Hutchings et al.&nbsp;(2020) on “the secondary use and sharing of health administrative and clinical trial data”, Swales et al.&nbsp;(2024) on a data transfer agreement, and Inau et al.&nbsp;(2023) on health data stewardship. Two of them concern governance mechanisms. Title terms for the governance mechanisms the concept names were measured against the query’s 7,933 records: “data access” added 1,077 records, “data transfer” 1,617, “data governance” 1,120, “data stewardship” 82, and the FAIR principles 425, 4,304 together, for two of the known sources. The query leaves them out, and the misses are added by hand.</p>
+</section>
+<section id="sources-added-by-hand" class="level3">
+<h3 class="anchored" data-anchor-id="sources-added-by-hand">Sources added by hand</h3>
+<div id="tbl-hand-added" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-hand-added-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6: Known sources the query misses that meet this review’s criteria, added to the records by hand. The first 13 were published from 2015 and come from the sources included in the review by <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span>; the last three come from the known-item list.
+</figcaption>
+<div aria-describedby="tbl-hand-added-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Source</th>
+<th style="text-align: left;">DOI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Chiware and Mathe (2016). Academic libraries’ role in research data management services: a South African perspective</td>
+<td style="text-align: left;">10.7553/81-2-1563</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Chigwada et al.&nbsp;(2017). Research data management in research institutions in Zimbabwe</td>
+<td style="text-align: left;">10.5334/dsj-2017-031</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Schöpfel et al.&nbsp;(2018). Research data management in the French National Research Center (CNRS)</td>
+<td style="text-align: left;">10.1108/dta-01-2017-0005</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Wittenberg and Elings (2017). Building a research data management service at the University of California, Berkeley: a tale of collaboration</td>
+<td style="text-align: left;">10.1177/0340035216686982</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Specht et al.&nbsp;(2015). Data management challenges in analysis and synthesis in the ecosystem sciences</td>
+<td style="text-align: left;">10.1016/j.scitotenv.2015.03.092</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Schmidt et al.&nbsp;(2016). Open data in global environmental research: the Belmont Forum’s open data survey</td>
+<td style="text-align: left;">10.1371/journal.pone.0146695</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Watson (2015). When will ‘open science’ become simply ‘science’?</td>
+<td style="text-align: left;">10.1186/s13059-015-0669-2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bishoff and Johnston (2015). Approaches to data sharing: an analysis of NSF data management plans from a large research university</td>
+<td style="text-align: left;">10.7710/2162-3309.1231</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">He (2016). Data sharing across research and public communities</td>
+<td style="text-align: left;">10.13016/m2z84m</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Zvyagintseva (2015). Articulating a vision for community-engaged data curation in the digital humanities</td>
+<td style="text-align: left;">10.7939/r3m66s</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Brown et al.&nbsp;(2015). Directions for research data management in UK universities</td>
+<td style="text-align: left;">none</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Guédon (2015). Open data and science: towards optimizing the research process</td>
+<td style="text-align: left;">none</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Koopman (2015). Data archiving, management initiatives and expertise in the Biological Sciences Department</td>
+<td style="text-align: left;">none</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hutchings et al.&nbsp;(2020). A systematic literature review of researchers’ and healthcare professionals’ attitudes towards the secondary use and sharing of health administrative and clinical trial data</td>
+<td style="text-align: left;">10.1186/s13643-020-01485-5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Swales, Gooden, and Thaldar (2024). The anatomy of a data transfer agreement for health research</td>
+<td style="text-align: left;">10.3389/fphar.2024.1332700</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Inau et al.&nbsp;(2023). Initiatives, concepts, and implementation practices of the findable, accessible, interoperable, and reusable data principles in health data stewardship: scoping review</td>
+<td style="text-align: left;">10.2196/45013</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
 
 
 
+</section>
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-arksey2005" class="csl-entry" role="listitem">
 Arksey, H., and L. O’Malley. 2005. <span>“Scoping Studies: Towards a Methodological Framework.”</span> <em>International Journal of Social Research Methodology</em> 8 (1): 19–32. <a href="https://doi.org/10.1080/1364557032000119616">https://doi.org/10.1080/1364557032000119616</a>.
 </div>
+<div id="ref-callaghan2020" class="csl-entry" role="listitem">
+Callaghan, Max W., and Finn Müller-Hansen. 2020. <span>“Statistical Stopping Criteria for Automated Screening in Systematic Reviews.”</span> <em>Systematic Reviews</em> 9: 273. <a href="https://doi.org/10.1186/s13643-020-01521-4">https://doi.org/10.1186/s13643-020-01521-4</a>.
+</div>
 <div id="ref-cavallaro2026" class="csl-entry" role="listitem">
-Cavallaro, Ludovico, Philipp Graf, Josephine Verona Konrad, et al. 2026. <span>“Conceptualization, Operationalization, and Measurement of Adherence to Patient-Facing Digital Health Applications: Protocol for a Scoping Review.”</span> <em>JMIR Research Protocols</em> 15: e95287. <a href="https://doi.org/10.2196/95287">https://doi.org/10.2196/95287</a>.
+<span class="nocase">Cavallaro, Ludovico, Philipp Graf, Josephine Verona Konrad, et al.</span> 2026. <span>“Conceptualization, Operationalization, and Measurement of Adherence to Patient-Facing Digital Health Applications: Protocol for a Scoping Review.”</span> <em>JMIR Research Protocols</em> 15: e95287. <a href="https://doi.org/10.2196/95287">https://doi.org/10.2196/95287</a>.
 </div>
 <div id="ref-chawinga2019" class="csl-entry" role="listitem">
 Chawinga, Winner Dominic, and Sandy Zinn. 2019. <span>“Global Perspectives of Research Data Sharing: A Systematic Literature Review.”</span> <em>Library &amp; Information Science Research</em> 41 (2): 109–22. <a href="https://doi.org/10.1016/j.lisr.2019.04.004">https://doi.org/10.1016/j.lisr.2019.04.004</a>.
@@ -365,20 +768,32 @@ Chawinga, Winner Dominic, and Sandy Zinn. 2019. <span>“Global Perspectives of 
 <div id="ref-fecher2015" class="csl-entry" role="listitem">
 Fecher, B., S. Friesike, and M. Hebing. 2015. <span>“What Drives Academic Data Sharing?”</span> <em>PLoS ONE</em> 10 (2): e0118053. <a href="https://doi.org/10.1371/journal.pone.0118053">https://doi.org/10.1371/journal.pone.0118053</a>.
 </div>
+<div id="ref-flemyng2025" class="csl-entry" role="listitem">
+Flemyng, Ella, Anna Noel-Storr, Biljana Macura, et al. 2025. <span>“Position Statement on Artificial Intelligence (<span>AI</span>) Use in Evidence Synthesis Across <span>Cochrane</span>, the <span>Campbell Collaboration</span>, <span>JBI</span>, and the <span class="nocase">Collaboration for Environmental Evidence</span> 2025.”</span> <em>Campbell Systematic Reviews</em> 21: e70074. <a href="https://doi.org/10.1002/cl2.70074">https://doi.org/10.1002/cl2.70074</a>.
+</div>
 <div id="ref-kalkman2019" class="csl-entry" role="listitem">
-Kalkman, S., M. Mostert, C. Gerlinger, et al. 2019. <span>“Responsible Data Sharing in International Health Research: A Systematic Review of Principles and Norms.”</span> <em>BMC Medical Ethics</em> 20 (21). <a href="https://doi.org/10.1186/s12910-019-0359-9">https://doi.org/10.1186/s12910-019-0359-9</a>.
+<span class="nocase">Kalkman, S., M. Mostert, C. Gerlinger, et al.</span> 2019. <span>“Responsible Data Sharing in International Health Research: A Systematic Review of Principles and Norms.”</span> <em>BMC Medical Ethics</em> 20 (21). <a href="https://doi.org/10.1186/s12910-019-0359-9">https://doi.org/10.1186/s12910-019-0359-9</a>.
+</div>
+<div id="ref-kempny2026" class="csl-entry" role="listitem">
+Kempny, C., K. Annac, D. Wahidie, Y. Yilmaz-Aslan, and P. Brzoska. 2026. <span>“When to Stop Reviewing: Validation of Stop Criteria in <span>ASReview</span>.”</span> <em>BMC Medical Research Methodology</em> 26: 109. <a href="https://doi.org/10.1186/s12874-026-02866-5">https://doi.org/10.1186/s12874-026-02866-5</a>.
+</div>
+<div id="ref-leonelli2019" class="csl-entry" role="listitem">
+Leonelli, Sabina. 2019. <span>“Data Governance Is Key to Interpretation: Reconceptualizing Data in Data Science.”</span> <em>Harvard Data Science Review</em> 1 (1). <a href="https://doi.org/10.1162/99608f92.17405bb6">https://doi.org/10.1162/99608f92.17405bb6</a>.
 </div>
 <div id="ref-levac2010" class="csl-entry" role="listitem">
 Levac, Danielle, Heather Colquhoun, and Kelly K. O’Brien. 2010. <span>“Scoping Studies: Advancing the Methodology.”</span> <em>Implementation Science</em> 5: 69. <a href="https://doi.org/10.1186/1748-5908-5-69">https://doi.org/10.1186/1748-5908-5-69</a>.
 </div>
 <div id="ref-page2021" class="csl-entry" role="listitem">
-Page, M. J., J. E. McKenzie, P. M. Bossuyt, et al. 2021. <span>“The <span>PRISMA</span> 2020 Statement: An Updated Guideline for Reporting Systematic Reviews.”</span> <em>BMJ</em> 372: n71. <a href="https://doi.org/10.1136/bmj.n71">https://doi.org/10.1136/bmj.n71</a>.
+<span class="nocase">Page, M. J., J. E. McKenzie, P. M. Bossuyt, et al.</span> 2021. <span>“The <span>PRISMA</span> 2020 Statement: An Updated Guideline for Reporting Systematic Reviews.”</span> <em>BMJ</em> 372: n71. <a href="https://doi.org/10.1136/bmj.n71">https://doi.org/10.1136/bmj.n71</a>.
 </div>
 <div id="ref-perrier2020" class="csl-entry" role="listitem">
 Perrier, Laure, E. Blondal, and H. MacDonald. 2020. <span>“The Views, Perspectives, and Experiences of Academic Researchers with Data Sharing and Reuse: A Meta-Synthesis.”</span> <em>PLoS ONE</em> 15 (2): e0229182. <a href="https://doi.org/10.1371/journal.pone.0229182">https://doi.org/10.1371/journal.pone.0229182</a>.
 </div>
 <div id="ref-peters2020" class="csl-entry" role="listitem">
-Peters, Micah D. J. et al. 2020. <span>“Updated Methodological Guidance for the Conduct of Scoping Reviews.”</span> <em>JBI Evidence Synthesis</em> 18 (10): 2119–26. <a href="https://doi.org/10.11124/JBIES-20-00167">https://doi.org/10.11124/JBIES-20-00167</a>.
+<span class="nocase">Peters, Micah D. J. et al.</span> 2020. <span>“Updated Methodological Guidance for the Conduct of Scoping Reviews.”</span> <em>JBI Evidence Synthesis</em> 18 (10): 2119–26. <a href="https://doi.org/10.11124/JBIES-20-00167">https://doi.org/10.11124/JBIES-20-00167</a>.
+</div>
+<div id="ref-repke2026" class="csl-entry" role="listitem">
+Repke, Tim, Francesca Tinsdeall, Diana Danilenko, et al. 2026. <span>“Don’t Stop Me Now, ‘Cause i’m Having a Good Time Screening: Evaluation of Stopping Methods for Safe Use of Priority Screening in Systematic Reviews.”</span> <em>Cochrane Evidence Synthesis and Methods</em> 4: e70068. <a href="https://doi.org/10.1002/cesm.70068">https://doi.org/10.1002/cesm.70068</a>.
 </div>
 <div id="ref-rethlefsen2021" class="csl-entry" role="listitem">
 Rethlefsen, Melissa L., Shona Kirtley, Siw Waffenschmidt, et al. 2021. <span>“<span>PRISMA-S</span>: An Extension to the <span>PRISMA</span> Statement for Reporting Literature Searches in Systematic Reviews.”</span> <em>Systematic Reviews</em> 10: 39. <a href="https://doi.org/10.1186/s13643-020-01542-z">https://doi.org/10.1186/s13643-020-01542-z</a>.
@@ -389,11 +804,17 @@ Rowhani-Farid, Anisa, Michelle Allen, and Adrian G. Barnett. 2017. <span>“What
 <div id="ref-saulnier2019" class="csl-entry" role="listitem">
 Saulnier, Katie M., David Bujold, Stephanie O. M. Dyke, et al. 2019. <span>“Benefits and Barriers in the Design of Harmonized Access Agreements for International Data Sharing.”</span> <em>Scientific Data</em> 6 (1): 297. <a href="https://doi.org/10.1038/s41597-019-0310-4">https://doi.org/10.1038/s41597-019-0310-4</a>.
 </div>
+<div id="ref-shabani2021" class="csl-entry" role="listitem">
+Shabani, Mahsa, Adrian Thorogood, and Madeleine Murtagh. 2021. <span>“Data Access Governance.”</span> In <em>The Cambridge Handbook of Health Research Regulation</em>, edited by Graeme Laurie, Edward Dove, Agomoni Ganguli-Mitra, et al. Cambridge University Press. <a href="https://doi.org/10.1017/9781108620024.023">https://doi.org/10.1017/9781108620024.023</a>.
+</div>
 <div id="ref-tricco2018" class="csl-entry" role="listitem">
-Tricco, Andrea C., Erin Lillie, Wasifa Zarin, et al. 2018. <span>“<span>PRISMA</span> Extension for Scoping Reviews (<span>PRISMA-ScR</span>): Checklist and Explanation.”</span> <em>Annals of Internal Medicine</em> 169 (7): 467–73. <a href="https://doi.org/10.7326/M18-0850">https://doi.org/10.7326/M18-0850</a>.
+<span class="nocase">Tricco, Andrea C., Erin Lillie, Wasifa Zarin, et al.</span> 2018. <span>“<span>PRISMA</span> Extension for Scoping Reviews (<span>PRISMA-ScR</span>): Checklist and Explanation.”</span> <em>Annals of Internal Medicine</em> 169 (7): 467–73. <a href="https://doi.org/10.7326/M18-0850">https://doi.org/10.7326/M18-0850</a>.
 </div>
 <div id="ref-vanpanhuis2014" class="csl-entry" role="listitem">
-van Panhuis, Willem G., Proma Paul, Claudia Emerson, et al. 2014. <span>“A Systematic Review of Barriers to Data Sharing in Public Health.”</span> <em>BMC Public Health</em> 14: 1144. <a href="https://doi.org/10.1186/1471-2458-14-1144">https://doi.org/10.1186/1471-2458-14-1144</a>.
+<span class="nocase">van Panhuis, Willem G., Proma Paul, Claudia Emerson, et al.</span> 2014. <span>“A Systematic Review of Barriers to Data Sharing in Public Health.”</span> <em>BMC Public Health</em> 14: 1144. <a href="https://doi.org/10.1186/1471-2458-14-1144">https://doi.org/10.1186/1471-2458-14-1144</a>.
+</div>
+<div id="ref-wagner2024" class="csl-entry" role="listitem">
+Wagner, Gerit. 2024. <span>“<span>BibDedupe</span>: An Open-Source <span>Python</span> Library for Bibliographic Record Deduplication.”</span> <em>Journal of Open Source Software</em> 9 (97): 6318. <a href="https://doi.org/10.21105/joss.06318">https://doi.org/10.21105/joss.06318</a>.
 </div>
 <div id="ref-zuiderwijk2020" class="csl-entry" role="listitem">
 Zuiderwijk, Anneke, Rhythima Shinde, and Wei Jeng. 2020. <span>“What Drives and Inhibits Researchers to Share and Use Open Research Data? A Systematic Literature Review to Analyze Factors Influencing Open Research Data Adoption.”</span> <em>PLoS ONE</em> 15 (9): e0239283. <a href="https://doi.org/10.1371/journal.pone.0239283">https://doi.org/10.1371/journal.pone.0239283</a>.
