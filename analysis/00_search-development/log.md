@@ -313,6 +313,14 @@ This entry replaces "Tier 2 stays limited to reviews and syntheses" in the entry
 - **Changes.** The Known-item test section leaves the search strategy page, and the known-item results leave Development and testing, notebook 00's Approach and Findings, and the home page. Runs 17 and 18 stay in notebook 00 as a record, each marked that the list does not validate the query.
 - **Sources kept.** Hutchings et al. (2020), Swales et al. (2024) and Inau et al. (2023) stay among the sources added by hand, as eligible sources identified during search development.
 
+
+## Notebook 00 as the record, 18 November 2026
+
+- **One template for every run.** Question, what was measured, result, decision, files. Runs follow their numbers: runs 16 and 17 under Testing the query, runs 18 to 21 under Misses and scope.
+- **Plain names.** "Version 3" becomes phrase plus factor words, and the opening section names the queries the runs compare. Development studies become development sources throughout.
+- **Counts.** Runs 1 to 15 count development sources out of 40 with a DOI or PMID, from before sources about reuse alone left the known sources; the opening section says so, and the development set now has 39.
+- **Approach and Findings** leave the notebook; the search strategy page carries the summary. The database strings sit in code blocks, which wrap.
+
 ## To do
 
 - **Artificial intelligence section of `research-protocol.qmd`.** The sentence "The query terms come from those codes." oversimplifies how the terms were selected. Rewrite it once the query is settled, so it states how the terms were chosen: from measured records and development studies in the three databases, as the Term evidence section records.
