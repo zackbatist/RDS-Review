@@ -11,3 +11,7 @@
   padding: 0.1rem 0.5rem;
   line-height: 1.2;
 }
+#quarto-document-content td[style*="text-align: left"] {
+  text-align: justify !important;
+  hyphens: auto;
+}
