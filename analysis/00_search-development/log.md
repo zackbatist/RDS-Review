@@ -303,7 +303,7 @@ This entry replaces "Tier 2 stays limited to reviews and syntheses" in the entry
 - **Where the account lives.** PRISMA 2020's guidance on the search item asks for the development and validation of the search beside the strategies, so the search strategy page gains a Development and testing section: the method, after Hausner et al. (2012), the candidates compared, the test and known-item results, what the query misses, the limits of these results, and peer review. Notebook 00 stays the record of every run.
 - **Peer review.** A McGill health sciences librarian reviewed the search approach on 27 October 2026.
 - **Removed from the search strategy page.** Seed, which the screening guide states, and Candidate terms, whose counts came from a base query the review no longer uses. Notebook 00 lists the candidate terms under Phrase and factor terms.
-- **Protocol appendix.** Cut to the test results, a link to the search strategy page and the notebook, and the table of sources added by hand.
+- **Protocol appendix.** Removed. It repeated the search strategy page, and its table repeated that page's Other sources list. The protocol's search section links to the search strategy page.
 - **Screening guide.** Narrower first columns in its two tables. Export formats moved to the README in `data/raw/screening_exports/`, with one sentence pointing to it.
 
 ## To do
