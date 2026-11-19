@@ -9,6 +9,12 @@ Its taxonomy of factors will support manual annotation for supervised machine le
 ::: {.callout-note}
 ## Status
 Draft protocol. The protocol is not yet registered, and the eligibility criteria and limits can still change. See the [Research Protocol](research-protocol.qmd).
+
+Before screening begins:
+
+- Run the database searches and export the records, with the [sources added by hand](materials/search-strategy.qmd#other-sources).
+- A statistician reviews the seed sample size and the stopping rule.
+- Register the protocol on OSF.
 :::
 
 This website hosts the protocol, the codebook, the search and screening materials, and the notebooks that produce the counts, tables, and PRISMA flow diagram. Everything is tracked at [github.com/zackbatist/RDS-Review](https://github.com/zackbatist/RDS-Review).
@@ -18,6 +24,6 @@ This website hosts the protocol, the codebook, the search and screening material
 | [Research Protocol](research-protocol.qmd) | Background, questions, eligibility criteria, methods, and open decisions |
 | [Codebook](codebook.qmd) | The charting form, with each variable and its allowed values |
 | [Search strategy](materials/search-strategy.qmd) | Databases, search strings, dates, counts, and how the query was developed and tested |
-| [Screening guide](materials/screening-guide.qmd) | Screening stages, criteria, exclusion reasons, and export formats |
+| [Screening guide](materials/screening-guide.qmd) | Screening stages, criteria, and exclusion reasons |
 | [Checklists](materials/checklists/index.qmd) | PRISMA-ScR and PRISMA-S, with the location of each item |
 | [Analysis](analysis/index.qmd) | Notebooks for deduplication, screening counts, charting, and synthesis |

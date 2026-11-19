@@ -321,12 +321,6 @@ This entry replaces "Tier 2 stays limited to reviews and syntheses" in the entry
 - **Counts.** Runs 1 to 15 count development sources out of 40 with a DOI or PMID, from before sources about reuse alone left the known sources; the opening section says so, and the development set now has 39.
 - **Approach and Findings** leave the notebook; the search strategy page carries the summary. The database strings sit in code blocks, which wrap.
 
-## To do
+## To do: closed, 18 November 2026
 
-- **Artificial intelligence section of `research-protocol.qmd`.** The sentence "The query terms come from those codes." oversimplifies how the terms were selected. Rewrite it once the query is settled, so it states how the terms were chosen: from measured records and development studies in the three databases, as the Term evidence section records.
-- **Search strategy in `research-protocol.qmd`.** The single title block, the reasons the factor terms, abstracts and reuse are left out, and the NOT clause.
-- **Eligibility in `research-protocol.qmd` and the screening guide.** The line on sources that design, build or evaluate a specific system, product or service for sharing data.
-- **Sources added by hand.** The 16 sources in the protocol's appendix go into the search results by hand, as `other-hand-added_<date>.ris`, reported as identified from other sources.
-- **Statistical review.** A statistician reviews the seed sample size and the stopping rule's application before screening begins.
-- **Screening guide.** The Candidate terms table and the factor themes, as guidance for judging whether a record reports factors, and data sharing in the computing sense as an exclusion.
-- **Step 3 of notebook 00** still shows the queries built by the yield rule; the test set check of the chosen query replaces it.
+Search development is finished. Of the items listed here, five are done: the Artificial intelligence section no longer says the query terms come from the codes; the protocol's search section describes the title query, the factor terms, abstracts, reuse and the computing-word exclusion; the protocol and the screening guide carry the exclusion for systems, products and services; the screening guide carries the factor themes; and notebook 00 no longer shows the yield-rule queries. The two open items, exporting the sources added by hand with the database searches and the statistician's review of the seed size and stopping rule, move to the Status note on the site's home page.
