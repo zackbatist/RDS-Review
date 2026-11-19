@@ -350,17 +350,18 @@ div.csl-indent {
 <p>No large language model makes or suggests eligibility, charting, or synthesis decisions. ASReview ranks records by predicted relevance, and the reviewers make every screening decision. The analysis reruns from the search exports without invoking any language model.</p>
 <p>To estimate the screening workload, the first model in <a href="#tbl-local-models" class="quarto-xref">Table&nbsp;1</a> also judged two sets of records the search returns, 300 drawn at random and the 489 that “research data management” in titles would add, against the screening guide’s criteria, with a <a href="analysis/00_search-development/prompts/scope_prompt.md">prompt</a> that states them. These judgments estimate workload only. They decide no record’s eligibility and enter neither screening nor charting.</p>
 <p>A local large language model coded the sources included in the review by <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span> to identify those that meet this review’s eligibility criteria, which serve as known relevant sources for testing the query. For each source, it recorded the practice, data origin, field, source type, and reported factors from the title and abstract, with the passage that supports each code, choosing from the values listed in its <a href="analysis/00_search-development/prompts/coding_prompt.md">prompt</a>, which come from the eligibility criteria, the <a href="./materials/screening-guide.html">screening guide</a>, and the <a href="./codebook.html">codebook</a>. <a href="./analysis/00_search-development/00-search-development.html">Notebook 00</a> reports the codes and keeps the sources that meet the criteria, apart from publication year, as known sources. The model ran at temperature 0 with a fixed seed, which makes its output repeatable. A smaller model, run with the same prompt and settings, agrees with it on 79% to 100% of the codes for each variable, with Cohen’s kappa from 0.63 to 0.84.</p>
-<div id="tbl-local-models" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[16,42,42]">
+<div class="table-plain">
+<div id="tbl-local-models" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[14,43,43]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-local-models-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Local models that coded the sources included in the review by <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span>.
+Table&nbsp;1: Local models that coded the sources included in the review by <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span>. Builds are unsloth’s GGUF files on Hugging Face, fixed by revision.
 </figcaption>
 <div aria-describedby="tbl-local-models-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 16%">
-<col style="width: 42%">
-<col style="width: 42%">
+<col style="width: 14%">
+<col style="width: 43%">
+<col style="width: 43%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -377,8 +378,8 @@ Table&nbsp;1: Local models that coded the sources included in the review by <spa
 </tr>
 <tr class="even">
 <td style="text-align: left;">Build</td>
-<td style="text-align: left;">unsloth Q4_K_M, Hugging Face revision <code>51eab4d</code></td>
-<td style="text-align: left;">unsloth UD-Q4_K_M, Hugging Face revision <code>4af51b3</code></td>
+<td style="text-align: left;">Q4_K_M, revision <code>51eab4d</code></td>
+<td style="text-align: left;">UD-Q4_K_M, revision <code>4af51b3</code></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Hardware</td>
@@ -391,11 +392,26 @@ Table&nbsp;1: Local models that coded the sources included in the review by <spa
 <td style="text-align: left;">llama.cpp, build b12375</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Settings</td>
-<td style="text-align: left;">Temperature 0, fixed seed, thinking off, answers held to the prompt’s values</td>
-<td style="text-align: left;">The same</td>
+<td style="text-align: left;">Temperature</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">Seed</td>
+<td style="text-align: left;">Fixed</td>
+<td style="text-align: left;">Fixed</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Thinking</td>
+<td style="text-align: left;">Off</td>
+<td style="text-align: left;">Off</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Answers</td>
+<td style="text-align: left;">Held to the prompt’s values</td>
+<td style="text-align: left;">Held to the prompt’s values</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">Run</td>
 <td style="text-align: left;">16 November 2026</td>
 <td style="text-align: left;">16 November 2026</td>
@@ -404,6 +420,7 @@ Table&nbsp;1: Local models that coded the sources included in the review by <spa
 </table>
 </div>
 </figure>
+</div>
 </div>
 <p>Claude Opus 5.5 (Anthropic, model identifier <code>claude-opus-5-5</code>, used through claude.ai from 11 to 18 November 2026) was used in search development. At the authors’ direction, it wrote the scripts, proposed measurements, and drafted the search development records; the authors chose each term in the query from the measurements. Reporting of AI use follows the joint position statement of Cochrane, the Campbell Collaboration, JBI, and the Collaboration for Environmental Evidence <span class="citation" data-cites="flemyng2025">(<a href="#ref-flemyng2025" role="doc-biblioref">Flemyng et al. 2025</a>)</span>.</p>
 </section>
