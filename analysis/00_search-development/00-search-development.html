@@ -315,7 +315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="approach">Approach</h2>
 <p>RDS-Review maps the factors reported to influence research data sharing. It needs one search query that runs in PubMed, Scopus and Web of Science. The query must find the sources the review is about, return a number of records the team can screen, and use terms a reader can follow. <code>log.md</code> records each decision and its reason, with dates.</p>
 <p>The work tests candidate queries against known sources. <a href="https://doi.org/10.1016/j.lisr.2019.04.004">Chawinga and Zinn (2019)</a> reviewed research data sharing, and the references they cite as findings form the reference set of 102 sources. A local model coded each one against the RDS-Review criteria. Sources published 2007 to 2014 form the development set, and sources published from 2015 form the test set.</p>
-<p>Each run measures a candidate query in the three databases on two counts: the records it returns for 2015 to 2025 in English or French, and the development set sources it finds. A candidate drops out when another finds at least as many development sources in fewer records. Where several survive, the choice is a judgment, recorded in <code>log.md</code>. With the query chosen, the test set, held out until then, measured its coverage, and the known-item list on the <a href="../../materials/search-strategy.html">search strategy</a> page gave a second test. The local model also judged a random sample of the query’s records against the screening guide’s criteria, to estimate what opening tier 2 and adding research data management would cost in screening. A first attempt chose terms from the development set by how many sources each found, and returned 8,824 to 33,089 records per database; <code>log.md</code> records it, and its files stay in the repository.</p>
+<p>Each run measures a candidate query in the three databases on two counts: the records it returns for 2015 to 2025 in English or French, and the development set sources it finds. A candidate drops out when another finds at least as many development sources in fewer records. Where several survive, the choice is a judgment, recorded in <code>log.md</code>. With the query chosen, the test set, held out until then, measured its coverage. The local model also judged a random sample of the query’s records against the screening guide’s criteria, to estimate what opening tier 2 and adding research data management would cost in screening. A first attempt chose terms from the development set by how many sources each found, and returned 8,824 to 33,089 records per database; <code>log.md</code> records it, and its files stay in the repository.</p>
 </section>
 <section id="findings" class="level2">
 <h2 class="anchored" data-anchor-id="findings">Findings</h2>
@@ -324,10 +324,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Records.</strong> 2,437 in PubMed, 7,067 in Scopus and 6,149 in Web of Science on 18 November 2026; 7,933 once matched on DOI, or on title and year.</li>
 <li><strong>Development set.</strong> The query finds 29 of the 35 eligible development sources that at least one database indexes. Searching abstracts as well returns about eight times the records for at most three more sources.</li>
 <li><strong>Test set.</strong> The query finds 18 of the 25 eligible test sources that at least one database indexes (0.72, 95% interval 0.52 to 0.86). The 7 indexed sources it misses name research data management, open data or open science in their titles.</li>
-<li><strong>Known items.</strong> The query finds 8 of the 11 health research items and all 5 cross-disciplinary reviews on the known-item list. It misses Hutchings et al.&nbsp;(2020), Swales et al.&nbsp;(2024) and Inau et al.&nbsp;(2023).</li>
-<li><strong>Left out of the query.</strong> Reuse alone falls outside the review’s question, so the query searches sharing. Factor terms add two development sources for about 7,600 records, so they guide screening. Document type limits would drop sources the review keeps, since the databases’ types do not follow source types. Title terms for governance mechanisms would add 4,304 records to catch two known items. “research data management” would add 489 records and four test sources; the screening guide lists it as a mechanism for implementation.</li>
+<li><strong>Left out of the query.</strong> Reuse alone falls outside the review’s question, so the query searches sharing. Factor terms add two development sources for about 7,600 records, so they guide screening. Document type limits would drop sources the review keeps, since the databases’ types do not follow source types. “research data management” would add 489 records and four test sources; the screening guide lists it as a mechanism for implementation.</li>
 <li><strong>Tier 2.</strong> The local model judged 300 of the query’s records: 16% included with tier 2 limited to reviews and syntheses, 21% with all source types. Tier 2 opens to all source types, which adds about 420 records to full-text screening.</li>
-<li><strong>Added by hand.</strong> The 13 test sources the query misses, and Hutchings et al.&nbsp;(2020), Swales et al.&nbsp;(2024) and Inau et al.&nbsp;(2023): 16 in all.</li>
+<li><strong>Added by hand.</strong> The 13 test sources the query misses, and three eligible sources identified during search development, Hutchings et al.&nbsp;(2020), Swales et al.&nbsp;(2024) and Inau et al.&nbsp;(2023): 16 in all.</li>
 <li><strong>Screening.</strong> No citation searching. The seed sample is 200 records drawn at random. Screening stops on the ranked form of Callaghan and Müller-Hansen’s criterion, pending a statistician’s review.</li>
 </ul>
 <div id="c02" class="cell" data-execution_count="1">
@@ -1547,7 +1546,7 @@ Limits: published 2015 to 2025; English or French</code></pre>
 </section>
 <section id="testing-the-query" class="level2">
 <h2 class="anchored" data-anchor-id="testing-the-query">Testing the query</h2>
-<p>The test set and the known-item list test the chosen query. Tier 2 comes first, because opening it decides which test sources are in scope.</p>
+<p>The test set tests the chosen query. Tier 2 comes first, because opening it decides which test sources are in scope.</p>
 <section id="run-19.-tier-2-the-records-that-could-be-included" class="level3">
 <h3 class="anchored" data-anchor-id="run-19.-tier-2-the-records-that-could-be-included">Run 19. Tier 2: the records that could be included</h3>
 <p>The protocol limited tier 2, research in other fields and cross-disciplinary research, to reviews and syntheses. Three measures show how many records that limit keeps out, without judging relevance. Scopus applies AND NOT after every AND, so the limits come before the NOT clause here.</p>
@@ -1706,7 +1705,8 @@ Limits: published 2015 to 2025; English or French</code></pre>
 </section>
 <section id="run-17.-known-items" class="level3">
 <h3 class="anchored" data-anchor-id="run-17.-known-items">Run 17. Known items</h3>
-<p>The query against the known-item list on the <a href="../../materials/search-strategy.html">search strategy</a> page, chosen before the search was developed: 11 health research sources, 5 cross-disciplinary reviews, 3 adjacent sources and 2 comparators, checked by DOI in each database.</p>
+<p><em>The known-item list was generated by a language model and not independently verified, so it does not validate the query. This run is kept as a record.</em></p>
+<p>The query against a known-item list, chosen before the search was developed: 11 health research sources, 5 cross-disciplinary reviews, 3 adjacent sources and 2 comparators, checked by DOI in each database.</p>
 <p><strong>Finding.</strong> The query finds 8 of the 11 health research sources, all 5 reviews, and all adjacent and comparator sources. It misses three the databases hold. Hutchings et al.&nbsp;2020 puts seven words between <em>sharing</em> and <em>data</em>. Swales et al.&nbsp;2024 (a data transfer agreement) and Inau et al.&nbsp;2023 (health data stewardship) concern governance mechanisms whose titles do not name sharing.</p>
 <p>Files: <a href="https://github.com/zackbatist/RDS-Review/blob/main/data/raw/search-development/known_item_test.csv">known_item_test.csv</a>.</p>
 <div id="te52" class="cell" data-execution_count="23">
@@ -1753,6 +1753,7 @@ Limits: published 2015 to 2025; English or French</code></pre>
 <p>Runs 18 and 21 measure title terms that would catch the known sources the query misses.</p>
 <section id="run-18.-governance-terms" class="level3">
 <h3 class="anchored" data-anchor-id="run-18.-governance-terms">Run 18. Governance terms</h3>
+<p><em>The known-item list was generated by a language model and not independently verified, so it does not validate the query. This run is kept as a record.</em></p>
 <p>Two of the known items the query misses concern governance mechanisms that the PCC concept names. The run measures five title terms for them, each with the NOT clause, against the query’s 7,933 records: the records each adds once duplicates are removed, and the known sources from 2007 to 2014 and known items it finds that the query misses. The known sources from 2015 stay out, since they have already tested the query.</p>
 <p><strong>Finding.</strong></p>
 <table class="caption-top table">
@@ -1894,7 +1895,7 @@ Limits: published 2015 to 2025; English or French</code></pre>
 </section>
 <section id="sources-added-by-hand" class="level3">
 <h3 class="anchored" data-anchor-id="sources-added-by-hand">Sources added by hand</h3>
-<p>The query misses 16 known sources that meet the review’s criteria, the 13 test sources run 16 lists and the three known items run 17 lists. Each goes into the records by hand, as <code>other-hand-added_&lt;date&gt;.ris</code> in <code>data/raw/search_exports/</code>. No term enters the query to catch them: runs 18 and 21 show that the terms that would catch them add 82 to 5,351 records each, and a term added for one source looks picked. The protocol’s appendix lists the 16.</p>
+<p>The query misses 16 known sources that meet the review’s criteria, the 13 test sources run 16 lists and three sources identified during search development, Hutchings et al.&nbsp;(2020), Swales et al.&nbsp;(2024) and Inau et al.&nbsp;(2023). Each goes into the records by hand, as <code>other-hand-added_&lt;date&gt;.ris</code> in <code>data/raw/search_exports/</code>. No term enters the query to catch them: runs 18 and 21 show that the terms that would catch them add 82 to 5,351 records each, and a term added for one source looks picked. The <a href="../../materials/search-strategy.html">search strategy</a> page lists the 16.</p>
 </section>
 </section>
 <section id="reproducibility" class="level2">
