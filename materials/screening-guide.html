@@ -230,21 +230,68 @@ ul.task-list li input[type="checkbox"] {
 <p>The guide states how records are screened and how decisions are exported for the analysis notebooks. The criteria come from the <a href="../research-protocol.html">protocol</a> and are a draft.</p>
 <section id="stages" class="level2">
 <h2 class="anchored" data-anchor-id="stages">Stages</h2>
+<p>Title and abstract screening runs in <a href="https://asreview.nl">ASReview</a>, which ranks records by predicted relevance. The ranking starts from a seed sample of 200 records drawn at random, with a fixed random seed, from the deduplicated records.</p>
 <ol type="1">
 <li><strong>Title and abstract.</strong> Each deduplicated record gets one decision, <code>include</code> or <code>exclude</code>. When the title and abstract do not allow a decision, include the record.</li>
 <li><strong>Full text.</strong> Each included record’s full text is retrieved. A report that cannot be retrieved is counted as not retrieved. Each retrieved report gets one decision, and each exclusion gets one reason from the list below.</li>
 </ol>
+<p>Two reviewers independently screen the titles and abstracts of all records in the seed sample and resolve disagreements through discussion. The annotated seed sample initializes the ASReview ranking. One reviewer screens the ranked records until the stopping rule applies. Both reviewers then independently screen the full texts of the included records and resolve disagreements through discussion.</p>
+<p>Screening in ASReview stops on the statistical criterion of Callaghan and Müller-Hansen (2020), in its ranked form. After each screening session, export the decisions in the order they were made, seed sample first. A hypergeometric test on those decisions checks whether recall has reached 95% at a confidence level of 95%, and screening stops when the test rejects the hypothesis that recall falls below 95%.</p>
 <p>Each included report is assigned to a source of evidence. Reports of the same study share one <code>source_id</code>.</p>
 </section>
 <section id="criteria" class="level2">
 <h2 class="anchored" data-anchor-id="criteria">Criteria</h2>
 <p>A source is included when all of these hold.</p>
 <ul>
-<li>It concerns the sharing or reuse of research data.</li>
-<li>It reports factors that influence sharing or reuse, including barriers, facilitators, and governance mechanisms.</li>
-<li>It concerns health research (tier 1), or it is a review or synthesis of research in other fields or across fields (tier 2).</li>
+<li>It reports factors that influence research data sharing, such as barriers, facilitators and governance mechanisms.</li>
+<li>It concerns health research (tier 1), or research in other fields or across fields (tier 2).</li>
 </ul>
-<p>A source is excluded when it concerns only public health data, other health systems data, or only clinical care data. The rule for routine or clinical data reused for research is not yet set.</p>
+<p>Sources are excluded when they concern public health data, health systems data, or clinical care data used only for surveillance, service delivery, or patient care. Sources that concern these data reused for research are eligible. The data_origin variable in the codebook records whether a source concerns data collected for research or data reused for research after collection for surveillance, service delivery, or patient care. Each source is assigned a tier at screening from its field.</p>
+<p>Sources that design, build or evaluate a specific system, product or service for sharing data are excluded, such as a blockchain framework, a cloud platform or an encryption scheme. Sources that study why people adopt or resist such a system report factors and are eligible.</p>
+<p>A source reports factors when it addresses one of the themes in <a href="#tbl-factor-themes" class="quarto-xref">Table&nbsp;1</a>. The words beside each theme often signal it in a title or abstract.</p>
+<div id="tbl-factor-themes" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-factor-themes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Themes of factors, with words that often signal them.
+</figcaption>
+<div aria-describedby="tbl-factor-themes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Theme</th>
+<th>Words that signal it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Factors that obstruct</td>
+<td>barrier*, challenge*, obstacle*, reluctan*, privacy</td>
+</tr>
+<tr class="even">
+<td>Factors that facilitate</td>
+<td>facilitator*, enabler*, incentive*, motivat*, infrastructure, repositor*, interoperab*</td>
+</tr>
+<tr class="odd">
+<td>Stakeholder perspectives</td>
+<td>perception*, attitude*, willingness</td>
+</tr>
+<tr class="even">
+<td>Policies and what drive them</td>
+<td>polic*, mandate*, “open science”, “open data”, “open access”, “open research”</td>
+</tr>
+<tr class="odd">
+<td>Mechanisms for implementation</td>
+<td>governance, consent, licens*, ethic*, stewardship, “data management plan*”, “data curation”, “digital curation”, “research data management”</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
 </section>
 <section id="exclusion-reasons" class="level2">
 <h2 class="anchored" data-anchor-id="exclusion-reasons">Exclusion reasons</h2>
@@ -263,23 +310,23 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><code>not-data-sharing</code></td>
-<td>Not about the sharing or reuse of research data</td>
+<td>Not about research data sharing</td>
 </tr>
 <tr class="even">
 <td><code>not-factors</code></td>
-<td>Reports no barriers, facilitators, or governance mechanisms</td>
+<td>Reports no factors that influence research data sharing</td>
 </tr>
 <tr class="odd">
 <td><code>not-research-data</code></td>
-<td>Concerns only public health, other health systems, or clinical care data</td>
+<td>Concerns public health, health systems, or clinical care data used only for surveillance, service delivery, or patient care</td>
 </tr>
 <tr class="even">
-<td><code>tier2-not-review</code></td>
-<td>Research in other fields, and not a review or synthesis</td>
+<td><code>system-design</code></td>
+<td>Designs, builds or evaluates a specific system, product or service for sharing data</td>
 </tr>
 <tr class="odd">
 <td><code>language</code></td>
-<td>Outside the language limit, if one is set</td>
+<td>Not in English or French</td>
 </tr>
 <tr class="even">
 <td><code>date</code></td>
