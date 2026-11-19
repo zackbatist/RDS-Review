@@ -6,7 +6,7 @@ This page records the search, as PRISMA-S requires [@rethlefsen2021]. The counts
 
 ## Query
 
-One query runs in Scopus, Web of Science, and PubMed. It searches titles for a form of *share* within five words of *data*, and leaves out titles that name blockchain, smart contracts, the Internet of Things, vehicular networks, edge computing, or cloud computing. It covers sources published from 2015 to 2025 in English and French and applies no document type filter. The [protocol](../research-protocol.qmd) gives the reasons, and the [search development](../analysis/00_search-development/00-search-development.ipynb) notebook holds the measurements behind each choice.
+One query runs in Scopus, Web of Science, and PubMed. It searches titles for a form of *share* within five words of *data*, and leaves out titles that name blockchain, smart contracts, the Internet of Things, vehicular networks, edge computing, or cloud computing. It covers sources published from 2015 to 2025 in English and French and applies no document type filter. Development and testing, below, gives how it was chosen and how well it performs.
 
 | Database | Records |
 |:--|--:|
@@ -19,51 +19,40 @@ One query runs in Scopus, Web of Science, and PubMed. It searches titles for a f
 
 Platforms and search dates for the exports are to be added.
 
-## Seed
+## Development and testing
 
-The screening ranking starts from a seed sample of 200 records drawn at random, with a fixed random seed, from the deduplicated records. The [protocol](../research-protocol.qmd) gives the reasons.
+**Method.** Candidate queries were tested against known relevant sources, following the development and validation set approach of @hausner2012. The known sources are the 76 sources included by @chawinga2019 that meet this review's criteria apart from year. A script rebuilt their list from the paper, and a local language model checked each source against the criteria. Sources published 2007 to 2014 form the development set: 45 sources, 35 of them indexed in at least one database. Sources published from 2015 form the test set: 31 sources, 25 indexed, held out until the query was chosen.
 
-## Candidate terms
+Each candidate ran in PubMed, Scopus and Web of Science, with two counts: the records it returns for 2015 to 2025 in English or French, and the development sources it finds by DOI or PMID. A candidate dropped out when another found at least as many development sources in fewer records. The [known items](#known-item-test), listed before development began, gave a second test. Every measurement here can be checked or rerun in the [search development notebook](../analysis/00_search-development/00-search-development.ipynb), which holds each run with its code and files.
 
-Candidate factor terms from earlier drafts of the query were counted in the records that an earlier base query, "research data sharing" in titles and abstracts, returned. @tbl-relevance-checks shows how often each term appears. The search development measured these terms against known sources, and the query uses none of them; the [screening guide](screening-guide.qmd) groups them by theme for screening.
+**Candidates compared.**
 
-::: {.compact-table}
-| Rank | Term | Total | PubMed | WoS | Scopus |
-|--:|:--|--:|--:|--:|--:|
-| 1 | policies | 88 | 16 | 31 | 41 |
-| 2 | challenge* | 73 | 21 | 23 | 29 |
-| 3 | policy | 69 | 14 | 22 | 33 |
-| 4 | repositor* | 68 | 15 | 20 | 33 |
-| 5 | ethic* | 62 | 19 | 20 | 23 |
-| 6 | privacy | 52 | 15 | 15 | 22 |
-| 7 | infrastructure | 46 | 9 | 14 | 23 |
-| 8 | barrier* | 45 | 10 | 16 | 19 |
-| 9 | perception* | 42 | 9 | 15 | 18 |
-| 10 | open science | 41 | 5 | 15 | 21 |
-| 11 | motivat* | 37 | 5 | 15 | 17 |
-| 12 | interoperab* | 36 | 10 | 11 | 15 |
-| 13 | "open data" | 34 | 7 | 12 | 15 |
-| 14 | open access | 32 | 3 | 9 | 20 |
-| 15 | consent | 31 | 9 | 10 | 12 |
-| 16 | open research | 27 | 6 | 9 | 12 |
-| 17 | licens* | 25 | 3 | 5 | 17 |
-| 18 | attitude* | 23 | 3 | 9 | 11 |
-| 19 | incentive* | 21 | 3 | 6 | 12 |
-| 20 | mandate* | 17 | 4 | 6 | 7 |
-| 21 | willingness | 15 | 3 | 5 | 7 |
-| 22 | obstacle* | 12 | 4 | 3 | 5 |
-| 23= | "data reuse" | 10 | 0 | 4 | 6 |
-| 23= | stewardship | 10 | 3 | 3 | 4 |
-| 25 | "data management plan*" | 9 | 2 | 3 | 4 |
-| 26= | "data curation" | 8 | 2 | 3 | 3 |
-| 26= | facilitator* | 8 | 2 | 3 | 3 |
-| 28 | "data re-use" | 5 | 1 | 1 | 3 |
-| 29 | enabler* | 4 | 1 | 1 | 2 |
-| 30 | reluctan* | 3 | 1 | 1 | 1 |
-| 31 | "digital curation" | 0 | 0 | 0 | 0 |
+| Query | Records | Development sources found |
+|:--|--:|--:|
+| "data sharing" plus factor words (barrier, policy, incentive…) | 14,255 | 28 |
+| *share* within 3 words of *data*, title | 9,591 | 28 |
+| *share* within 5 words of *data*, title | 10,493 | 29 |
+| *share* within 5 words of *data*, title, OR "data sharing" plus factor words | 18,135 | 31 |
+| ***share* within 5 words of *data*, title, excluding computing words (the query)** | **7,933** | **29** |
 
-: Candidate terms ranked by records matched across the three databases. Ties share a rank (=). {#tbl-relevance-checks}
-:::
+: Records across the three databases with duplicates removed, and development sources found, of 35. {#tbl-candidates tbl-colwidths="[64,18,18]"}
+
+Searching abstracts as well returns about eight times the records for at most three more sources. Runs 5 to 15 hold the measurements.
+
+**Results.**
+
+- **Test set:** the query finds 18 of the 25 indexed test sources, a relative recall of 0.72 (95% interval 0.52 to 0.86). That is 8 of 11 in PubMed, 16 of 23 in Scopus and 12 of 18 in Web of Science (run 16).
+- **Known items:** it finds 8 of the 11 health research items and all 5 cross-disciplinary reviews (run 17).
+- **What it misses:** the missed test sources name research data management, open data or open science in their titles. The missed known items concern data transfer agreements and data stewardship.
+- **Terms that would catch them:** title terms for these add 82 to 5,351 records each, for one to five known sources (runs 18 and 21). They stay out of the query, and the 16 known sources it misses are added by hand (see [Other sources](#other-sources)).
+
+**Limits.**
+
+- The development result is in-sample, because the query was chosen to find as many development sources as possible. Only the test result estimates recall.
+- The test set is small and dates from 2015 to 2018, so recall for sources from 2019 to 2025 is untested.
+- Opening tier 2 to all source types came after the first test result. It raised the test sources in scope from 10 to 25.
+
+**Peer review.** A McGill health sciences librarian reviewed the search approach on 27 October 2026.
 
 ## Search strings
 
@@ -115,7 +104,7 @@ AND PY=(2015-2025)
 AND LA=(English OR French)
 ```
 
-## Other sources
+## Other sources {#other-sources}
 
 Known sources that the query misses and that meet the eligibility criteria are added by hand. The [protocol](../research-protocol.qmd) gives how each was found.
 
@@ -134,7 +123,9 @@ Known sources that the query misses and that meet the eligibility criteria are a
 - Koopman (2015). Data archiving, management initiatives and expertise in the Biological Sciences Department
 - Hutchings et al. (2020). A systematic literature review of researchers' and healthcare professionals' attitudes towards the secondary use and sharing of health administrative and clinical trial data, doi:10.1186/s13643-020-01485-5
 - Swales, Gooden, and Thaldar (2024). The anatomy of a data transfer agreement for health research, doi:10.3389/fphar.2024.1332700
-- Inau et al. (2023). Initiatives, concepts, and implementation practices of the findable, accessible, interoperable, and reusable data principles in health data stewardship: scoping review, doi:10.2196/45013 Name the export file for these sources with the prefix `other-`, for example `other-hand-added_2026-11-18.ris`.
+- Inau et al. (2023). Initiatives, concepts, and implementation practices of the findable, accessible, interoperable, and reusable data principles in health data stewardship: scoping review, doi:10.2196/45013
+
+Name the export file for these sources with the prefix `other-`, for example `other-hand-added_2026-11-18.ris`.
 
 ## Known-item test {#known-item-test}
 

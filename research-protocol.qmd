@@ -52,7 +52,7 @@ The search covers sources published from 2015 to 2025 in English and French, the
 
 One query runs in Scopus, Web of Science, and PubMed. It searches titles for a form of *share* within five words of *data*, which matches "data sharing" along with phrasings such as "sharing research data" and "sharing of health data", in sources published from 2015 to 2025 in English and French. It applies no document type filter, since all source types are eligible. The [search strategy](materials/search-strategy.qmd) page gives the query as written for each database, with the number of records it returns.
 
-Candidate queries were compared on the records they return and on how many known relevant sources they find. The known sources are the sources included in the review by @chawinga2019 that meet this review's criteria, apart from publication year. Those published from 2007 to 2014 served to compare candidate queries, and those published from 2015 were set aside until the query was chosen, to test it on sources it was not built from. A title search returned a small fraction of the records that a search of titles and abstracts returned and found most of the known sources. Factor terms, such as barriers, incentives, and policies, found few more known sources for many more records. The [screening guide](materials/screening-guide.qmd) lists them for reviewers to apply when they screen. The comparisons also showed that about a third of the records in Scopus and Web of Science report a system, product, or service for sharing data, such as a blockchain framework or a cloud storage scheme, which the eligibility criteria exclude. The query leaves out titles that name blockchain, smart contracts, the Internet of Things, vehicular networks, edge computing, or cloud computing, the words that most often mark such sources. Known sources the query misses are added to the records by hand. @sec-search-development summarizes the measurements and lists the sources added by hand.
+Candidate queries were compared on the records they return and on how many known relevant sources they find. The known sources are the sources included in the review by @chawinga2019 that meet this review's criteria, apart from publication year. Those published from 2007 to 2014 served to compare candidate queries, and those published from 2015 were set aside until the query was chosen, to test it on sources it was not built from. A title search returned a small fraction of the records that a search of titles and abstracts returned and found most of the known sources. Factor terms, such as barriers, incentives, and policies, found few more known sources for many more records. The [screening guide](materials/screening-guide.qmd) lists them for reviewers to apply when they screen. The comparisons also showed that about a third of the records in Scopus and Web of Science report a system, product, or service for sharing data, such as a blockchain framework or a cloud storage scheme, which the eligibility criteria exclude. The query leaves out titles that name blockchain, smart contracts, the Internet of Things, vehicular networks, edge computing, or cloud computing, the words that most often mark such sources. Known sources the query misses are added to the records by hand. @sec-search-development gives the test results and lists the sources added by hand.
 
 ### Selection of sources
 
@@ -101,77 +101,7 @@ The checklists for PRISMA-ScR and PRISMA-S record where each item is reported. T
 
 ## Appendix: search development {#sec-search-development}
 
-Each measurement counts the records a query returns for 2015 to 2025 in English and French, and checks which known sources it finds, by DOI or PMID. The known sources published from 2007 to 2014 compared candidate queries; those published from 2015 tested the chosen query. Web of Science's API rejects its language limit beside a proximity search, so its counts for those queries cover all languages; elsewhere the limit removes about 0.5% of records. Counts once duplicates are removed match records on DOI, or on title and year, and estimate the load; bib-dedupe finds as many duplicates or more. The [search development](analysis/00_search-development/00-search-development.ipynb) notebook holds the code and the files for each measurement.
-
-### Sharing terms
-
-"data sharing" and 17 other phrases for sharing were each counted alone. In PubMed, "shar\* data" found three known sources that "data sharing" missed. "data publication", "data access", and "data availability" each found only Costello (2009) beyond "data sharing", for 600 to 18,000 records. The notebook gives every phrase's counts.
-
-### Factor terms
-
-The factor terms of the Candidate terms table on the [search strategy](materials/search-strategy.qmd) page, with six general words for a factor (factor\*, influenc\*, determinant\*, driver\*, concern\*, trust), were paired with "data sharing" in three versions: "data sharing" in the title alone, "data sharing" with a factor term anywhere in the record, and either of the two. Five terms found no known source in any database and were dropped: facilitator\*, driver\*, interoperab\*, "open research", and "digital curation". Privacy was dropped, since removing it lost no known source in any database. Removing the remaining terms one by one lost known sources within two or three removals and still left thousands of records. Requiring the factor term within five words of "data sharing" more than halved the records in Scopus and Web of Science.
-
-| Version | PubMed | Scopus | Web of Science |
-|:--|--:|--:|--:|
-| "data sharing" in the title | 1,677 (17) | 5,517 (16) | 4,438 (16) |
-| "data sharing" with a factor term | 6,959 (18) | 22,134 (24) | 15,057 (26) |
-| Either | 7,525 (21) | 23,357 (25) | 16,208 (27) |
-| Either, the factor term within five words | 7,295 (21) | 9,018 (21) | 7,175 (21) |
-
-: Records each version returns, with the known sources from 2007 to 2014 it finds in brackets. PubMed cannot search within five words, so its last row matches the factor term anywhere. {#tbl-factor-versions}
-
-### A form of share near data
-
-The phrase "data sharing" misses titles such as "sharing research data" and "sharing of health data". A form of *share* within three or five words of *data* in the title found more known sources than any version above, with no factor terms. The same search in titles and abstracts returned about eight times the records for at most three more known sources in any database.
-
-| Query | PubMed | Scopus | Web of Science |
-|:--|--:|--:|--:|
-| *share* within five words of *data*, title | 2,532 (20) | 9,547 (27) | 7,813 (28) |
-| The same in title or abstract | 18,840 (21) | 82,908 (30) | 62,198 (31) |
-| The title query, or "data sharing" with a factor term | 7,840 (21) | 12,799 (29) | 10,346 (30) |
-
-: Records each query returns, with the known sources from 2007 to 2014 it finds in brackets. {#tbl-share-near-data}
-
-### Document types
-
-Editorials, letters, notes, and news make up 8% to 18% of the title query's records in each database. The databases index most opinion pieces as articles or reviews, and index some empirical and policy sources as notes or editorials, so a document type filter would keep most opinion pieces and drop sources the review keeps. The query uses none.
-
-### Systems, products, and services
-
-Titles naming blockchain, cloud computing, encryption, and other computing terms make up 6% of the title query's records in PubMed, 35% in Scopus, and 29% in Web of Science, and include no known source from 2007 to 2014. Most report a system, product, or service for sharing data, which the eligibility criteria exclude. Such words came into use after 2014, so the known sources from those years cannot show what leaving them out costs. The query leaves out only the words that almost always mark such sources. Encryption, access control, and privacy-preserving methods also describe the governance of research data, so screening handles them.
-
-| Words left out of titles | Records once duplicates are removed | Known sources from 2007 to 2014 found, of 35 |
-|:--|--:|--:|
-| None | 10,493 | 29 |
-| blockchain\*, "smart contract\*" | 9,157 | 29 |
-| and IoT, "internet of things", vehicular, "edge computing" | 8,848 | 29 |
-| and cloud | 7,933 | 29 |
-| and attribute-based, cryptograph\* | 7,857 | 29 |
-
-: The title query across the three databases as computing words are left out. The query stops at cloud; the last two words save 76 records. {#tbl-not-clause}
-
-### Test
-
-| | Known sources from 2015 found | Of those indexed |
-|:--|--:|--:|
-| PubMed | 8 | 11 |
-| Scopus | 16 | 23 |
-| Web of Science | 12 | 18 |
-| At least one database | 18 | 25 |
-
-: The chosen query against the known sources published from 2015. {#tbl-test}
-
-Every known source from 2015 that is eligible apart from year meets this review's criteria. Of the 13 the query misses, 6 are in none of the three databases or have no DOI or PMID to check them by. The other 7 name research data management, open data, or open science in their titles. All 13 are added by hand.
-
-### Tier 2 and research data management
-
-Admitting all source types in tier 2 was weighed by its effect on screening. A local language model judged 300 records drawn at random from the query's 7,933 against the screening guide's criteria, without the tier criterion (see Artificial intelligence). It included 16% of them with tier 2 limited to reviews and syntheses and 21% with all source types, so admitting all source types adds about 420 records, a third more, to full-text screening. Most of the records it adds report factors in research data sharing in other fields.
-
-Four of the known sources the query misses concern research data management. "research data management" in titles would add 489 records, of which the model judged 44% eligible, against 21% for the query's own records. The review treats research data management as a mechanism for implementation, a factor applied at screening, and keeps it out of the query, which searches research data sharing alone. "data management", "open data", and "open science" in titles would each add 2,000 to 5,400 records for one known source.
-
-### Known-item test
-
-The query was also tested against the known items listed on the [search strategy](materials/search-strategy.qmd) page, reviews and studies of health research data sharing and cross-disciplinary reviews chosen before the search was developed. It finds 8 of the 11 health research sources and all 5 cross-disciplinary reviews. The three it misses are in the databases, and their titles do not name sharing data within five words: Hutchings et al. (2020) on "the secondary use and sharing of health administrative and clinical trial data", Swales et al. (2024) on a data transfer agreement, and Inau et al. (2023) on health data stewardship. Two of them concern governance mechanisms. Title terms for the governance mechanisms the concept names were measured against the query's 7,933 records: "data access" added 1,077 records, "data transfer" 1,617, "data governance" 1,120, "data stewardship" 82, and the FAIR principles 425, 4,304 together, for two of the known sources. The query leaves them out, and the misses are added by hand.
+The query finds 18 of the 25 known sources from 2015 that the databases index (relative recall 0.72, 95% interval 0.52 to 0.86), and 8 of the 11 health research items and all 5 cross-disciplinary reviews on the known-item list. The [search strategy](materials/search-strategy.qmd) page reports how the query was developed and tested, the candidates compared, and the limits of these results. The [search development](analysis/00_search-development/00-search-development.ipynb) notebook holds the code and the files for each measurement.
 
 ### Sources added by hand
 

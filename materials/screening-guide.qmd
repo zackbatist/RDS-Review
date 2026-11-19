@@ -18,6 +18,8 @@ Screening in ASReview stops on the statistical criterion of Callaghan and Mülle
 
 Each included report is assigned to a source of evidence. Reports of the same study share one `source_id`.
 
+Export the decisions as CSV files into `data/raw/screening_exports/`, whose [README](https://github.com/zackbatist/RDS-Review/blob/main/data/raw/screening_exports/README.md) gives the columns. [02-screening](../analysis/02-screening.ipynb) reads them.
+
 ## Criteria
 
 A source is included when all of these hold.
@@ -39,7 +41,7 @@ A source reports factors when it addresses one of the themes in @tbl-factor-them
 | Policies and what drive them | polic\*, mandate\*, "open science", "open data", "open access", "open research" |
 | Mechanisms for implementation | governance, consent, licens\*, ethic\*, stewardship, "data management plan\*", "data curation", "digital curation", "research data management" |
 
-: Themes of factors, with words that often signal them. {#tbl-factor-themes}
+: Themes of factors, with words that often signal them. {#tbl-factor-themes tbl-colwidths="[30,70]"}
 
 ## Exclusion reasons
 
@@ -48,6 +50,7 @@ Record one reason code per excluded report at full text.
 ```{python}
 #| echo: false
 #| output: asis
+#| tbl-colwidths: [25,75]
 from pathlib import Path
 
 import yaml
@@ -60,28 +63,3 @@ for r in book["exclusion_reasons"]:
 ```
 
 [02-screening](../analysis/02-screening.ipynb) stops with an error when a full-text exclusion has a reason code that is not in this list.
-
-## Export formats
-
-Export decisions from the screening tool into `data/raw/screening_exports/` as CSV files with lowercase values. [02-screening](../analysis/02-screening.ipynb) reads them. The final files hold one row per record, with disagreements between reviewers already settled.
-
-**`title_abstract.csv`**
-
-| Column | Content |
-|---|---|
-| `record_id` | The identifier from `deduplicated_records.csv` |
-| `decision` | `include` or `exclude` |
-
-**`full_text.csv`**
-
-| Column | Content |
-|---|---|
-| `record_id` | The identifier from `deduplicated_records.csv` |
-| `source_id` | The source of evidence the report belongs to. Optional. Defaults to `record_id`. |
-| `retrieved` | `yes` or `no` |
-| `decision` | `include` or `exclude`. Blank when `retrieved` is `no`. |
-| `reason` | An exclusion reason code. Required when `decision` is `exclude`. |
-
-**Reviewer files**
-
-When more than one person screens, export each reviewer's own decisions as well. Name them `title_abstract_<reviewer>.csv` and `full_text_<reviewer>.csv`, for example `title_abstract_r1.csv`. They have the columns `record_id` and `decision`, and they may cover only a sample, such as a calibration set. With two or more reviewer files for a stage, the notebook reports percent agreement and Cohen's kappa for each pair of reviewers and lists the records they disagree on. Reviewer files do not change the counts. The final files do.

@@ -297,6 +297,15 @@ This entry replaces "Tier 2 stays limited to reviews and syntheses" in the entry
 - **Structure and tables.** Zack found the plan's headings and the long tables hard to follow. The page now follows what was done: Approach, Findings, Known sources, Choosing the query, Testing the query, What the query misses, and Reproducibility. Step 2 and the first version of step 3 leave the page, and Approach says in one sentence that a first attempt chose terms by yield. The notebook no longer displays the files: each run gives its question and finding in prose, with small comparison tables for runs 5, 10, 11, 15, 16, 18, 20 and 21, and links its files on GitHub. Runs keep their numbers, so runs 19 and 20 come before run 16, since opening tier 2 decides which test sources are in scope.
 - **Tables (superseded by the line above).** The notebook shows its tables as Markdown, so they read the same on the web page and in the PDF. The PDF leaves out the `ref_id`, `doi` and `pmid` columns and shows at most 25 rows of a table, with a note where it does; the web page shows every table whole.
 
+
+## Search development reported on the search strategy page, 18 November 2026
+
+- **Where the account lives.** PRISMA 2020's guidance on the search item asks for the development and validation of the search beside the strategies, so the search strategy page gains a Development and testing section: the method, after Hausner et al. (2012), the candidates compared, the test and known-item results, what the query misses, the limits of these results, and peer review. Notebook 00 stays the record of every run.
+- **Peer review.** A McGill health sciences librarian reviewed the search approach on 27 October 2026.
+- **Removed from the search strategy page.** Seed, which the screening guide states, and Candidate terms, whose counts came from a base query the review no longer uses. Notebook 00 lists the candidate terms under Phrase and factor terms.
+- **Protocol appendix.** Cut to the test results, a link to the search strategy page and the notebook, and the table of sources added by hand.
+- **Screening guide.** Narrower first columns in its two tables. Export formats moved to the README in `data/raw/screening_exports/`, with one sentence pointing to it.
+
 ## To do
 
 - **Artificial intelligence section of `research-protocol.qmd`.** The sentence "The query terms come from those codes." oversimplifies how the terms were selected. Rewrite it once the query is settled, so it states how the terms were chosen: from measured records and development studies in the three databases, as the Term evidence section records.
