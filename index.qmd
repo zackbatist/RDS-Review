@@ -17,7 +17,7 @@ This website hosts the protocol, the codebook, the search and screening material
 |---|---|
 | [Research Protocol](research-protocol.qmd) | Background, questions, eligibility criteria, methods, and open decisions |
 | [Codebook](codebook.qmd) | The charting form, with each variable and its allowed values |
-| [Search strategy](materials/search-strategy.qmd) | Databases, search strings, dates, counts, and the known-item test |
+| [Search strategy](materials/search-strategy.qmd) | Databases, search strings, dates, counts, and how the query was developed and tested |
 | [Screening guide](materials/screening-guide.qmd) | Screening stages, criteria, exclusion reasons, and export formats |
 | [Checklists](materials/checklists/index.qmd) | PRISMA-ScR and PRISMA-S, with the location of each item |
 | [Analysis](analysis/index.qmd) | Notebooks for deduplication, screening counts, charting, and synthesis |

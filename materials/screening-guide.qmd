@@ -34,7 +34,7 @@ Sources that design, build or evaluate a specific system, product or service for
 A source reports factors when it addresses one of the themes in @tbl-factor-themes. The words beside each theme often signal it in a title or abstract.
 
 | Theme | Words that signal it |
-|---|---|
+|:--|:--|
 | Factors that obstruct | barrier\*, challenge\*, obstacle\*, reluctan\*, privacy |
 | Factors that facilitate | facilitator\*, enabler\*, incentive\*, motivat\*, infrastructure, repositor\*, interoperab\* |
 | Stakeholder perspectives | perception\*, attitude\*, willingness |
@@ -57,7 +57,7 @@ import yaml
 
 book = yaml.safe_load(Path("../codebook.yml").read_text(encoding="utf-8"))
 print("| Code | Reason |")
-print("|---|---|")
+print("|:--|:--|")
 for r in book["exclusion_reasons"]:
     print(f"| `{r['code']}` | {r['reason']} |")
 ```
