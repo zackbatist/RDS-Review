@@ -87,14 +87,14 @@ A local large language model coded the sources included in the review by @chawin
 |:--|:--|:--|
 | Use | Codes of record | Check on the codes of record |
 | Build | Q4_K_M, revision `51eab4d` | UD-Q4_K_M, revision `4af51b3` |
-| Hardware | 4 × NVIDIA Quadro RTX 6000, 24 GB | 1 × NVIDIA Quadro RTX 6000, 24 GB |
+| Hardware | 4 × Quadro RTX 6000, 24 GB | 1 × Quadro RTX 6000, 24 GB |
 | Server | llama.cpp, release b12375 | llama.cpp, release b12375 |
 | Temperature | 0 | 0 |
 | Seed | Fixed | Fixed |
 | Thinking mode | Off | Off |
-| Output | JSON schema of the prompt's values | JSON schema of the prompt's values |
+| Output | JSON schema | JSON schema |
 
-: Local models that coded the sources included in the review by @chawinga2019. Builds are unsloth's GGUF files on Hugging Face, fixed by revision. {#tbl-local-models tbl-colwidths="[18,41,41]"}
+: Local models that coded the sources included in the review by @chawinga2019. Builds are unsloth's GGUF files on Hugging Face, fixed by revision. The GPUs are made by NVIDIA. The JSON schema holds each answer to the values the prompt defines. {#tbl-local-models tbl-colwidths="[20,40,40]"}
 :::
 
 Claude Opus 5.5 (Anthropic, model identifier `claude-opus-5-5`, used through claude.ai from 11 to 18 November 2026) was used in search development. At the authors' direction, it wrote the scripts, proposed measurements, and drafted the search development records; the authors chose each term in the query from the measurements. Reporting of AI use follows the joint position statement of Cochrane, the Campbell Collaboration, JBI, and the Collaboration for Environmental Evidence [@flemyng2025].
