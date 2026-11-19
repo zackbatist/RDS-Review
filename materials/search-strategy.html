@@ -218,8 +218,7 @@ div.csl-indent {
    
   <ul>
   <li><a href="#query" id="toc-query" class="nav-link active" data-scroll-target="#query">Query</a></li>
-  <li><a href="#seed" id="toc-seed" class="nav-link" data-scroll-target="#seed">Seed</a></li>
-  <li><a href="#candidate-terms" id="toc-candidate-terms" class="nav-link" data-scroll-target="#candidate-terms">Candidate terms</a></li>
+  <li><a href="#development-and-testing" id="toc-development-and-testing" class="nav-link" data-scroll-target="#development-and-testing">Development and testing</a></li>
   <li><a href="#search-strings" id="toc-search-strings" class="nav-link" data-scroll-target="#search-strings">Search strings</a>
   <ul class="collapse">
   <li><a href="#generic-query" id="toc-generic-query" class="nav-link" data-scroll-target="#generic-query">Generic query</a></li>
@@ -258,7 +257,7 @@ div.csl-indent {
 <p>This page records the search, as PRISMA-S requires <span class="citation" data-cites="rethlefsen2021">(<a href="#ref-rethlefsen2021" role="doc-biblioref">Rethlefsen et al. 2021</a>)</span>. The counts are the records each database returned before deduplication. <a href="../analysis/01-deduplication.html">01-deduplication</a> writes the identification counts for the flow diagram from the exports in <code>data/raw/search_exports/</code> once the exports are in.</p>
 <section id="query" class="level2">
 <h2 class="anchored" data-anchor-id="query">Query</h2>
-<p>One query runs in Scopus, Web of Science, and PubMed. It searches titles for a form of <em>share</em> within five words of <em>data</em>, and leaves out titles that name blockchain, smart contracts, the Internet of Things, vehicular networks, edge computing, or cloud computing. It covers sources published from 2015 to 2025 in English and French and applies no document type filter. The <a href="../research-protocol.html">protocol</a> gives the reasons, and the <a href="../analysis/00_search-development/00-search-development.html">search development</a> notebook holds the measurements behind each choice.</p>
+<p>One query runs in Scopus, Web of Science, and PubMed. It searches titles for a form of <em>share</em> within five words of <em>data</em>, and leaves out titles that name blockchain, smart contracts, the Internet of Things, vehicular networks, edge computing, or cloud computing. It covers sources published from 2015 to 2025 in English and French and applies no document type filter. Development and testing, below, gives how it was chosen and how well it performs.</p>
 <div id="tbl-records" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-records-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -296,286 +295,76 @@ Table&nbsp;1: Records the query returned on 18 November 2026 through each databa
 </div>
 <p>Platforms and search dates for the exports are to be added.</p>
 </section>
-<section id="seed" class="level2">
-<h2 class="anchored" data-anchor-id="seed">Seed</h2>
-<p>The screening ranking starts from a seed sample of 200 records drawn at random, with a fixed random seed, from the deduplicated records. The <a href="../research-protocol.html">protocol</a> gives the reasons.</p>
-</section>
-<section id="candidate-terms" class="level2">
-<h2 class="anchored" data-anchor-id="candidate-terms">Candidate terms</h2>
-<p>Candidate factor terms from earlier drafts of the query were counted in the records that an earlier base query, “research data sharing” in titles and abstracts, returned. <a href="#tbl-relevance-checks" class="quarto-xref">Table&nbsp;2</a> shows how often each term appears. The search development measured these terms against known sources, and the query uses none of them; the <a href="../materials/screening-guide.html">screening guide</a> groups them by theme for screening.</p>
-<div class="compact-table">
-<div id="tbl-relevance-checks" class="quarto-float quarto-figure quarto-figure-center anchored">
+<section id="development-and-testing" class="level2">
+<h2 class="anchored" data-anchor-id="development-and-testing">Development and testing</h2>
+<p><strong>Method.</strong> Candidate queries were tested against known relevant sources, following the development and validation set approach of <span class="citation" data-cites="hausner2012">Hausner et al. (<a href="#ref-hausner2012" role="doc-biblioref">2012</a>)</span>. The known sources are the 76 sources included by <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span> that meet this review’s criteria apart from year. A script rebuilt their list from the paper, and a local language model checked each source against the criteria. Sources published 2007 to 2014 form the development set: 45 sources, 35 of them indexed in at least one database. Sources published from 2015 form the test set: 31 sources, 25 indexed, held out until the query was chosen.</p>
+<p>Each candidate ran in PubMed, Scopus and Web of Science, with two counts: the records it returns for 2015 to 2025 in English or French, and the development sources it finds by DOI or PMID. A candidate dropped out when another found at least as many development sources in fewer records. The <a href="#known-item-test">known items</a>, listed before development began, gave a second test. Every measurement here can be checked or rerun in the <a href="../analysis/00_search-development/00-search-development.html">search development notebook</a>, which holds each run with its code and files.</p>
+<p><strong>Candidates compared.</strong></p>
+<div id="tbl-candidates" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[64,18,18]">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-relevance-checks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2: Candidate terms ranked by records matched across the three databases. Ties share a rank (=).
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-candidates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Records across the three databases with duplicates removed, and development sources found, of 35.
 </figcaption>
-<div aria-describedby="tbl-relevance-checks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="tbl-candidates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
+<colgroup>
+<col style="width: 64%">
+<col style="width: 18%">
+<col style="width: 18%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">Rank</th>
-<th style="text-align: left;">Term</th>
-<th style="text-align: right;">Total</th>
-<th style="text-align: right;">PubMed</th>
-<th style="text-align: right;">WoS</th>
-<th style="text-align: right;">Scopus</th>
+<th style="text-align: left;">Query</th>
+<th style="text-align: right;">Records</th>
+<th style="text-align: right;">Development sources found</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">policies</td>
-<td style="text-align: right;">88</td>
-<td style="text-align: right;">16</td>
-<td style="text-align: right;">31</td>
-<td style="text-align: right;">41</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: left;">challenge*</td>
-<td style="text-align: right;">73</td>
-<td style="text-align: right;">21</td>
-<td style="text-align: right;">23</td>
-<td style="text-align: right;">29</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">3</td>
-<td style="text-align: left;">policy</td>
-<td style="text-align: right;">69</td>
-<td style="text-align: right;">14</td>
-<td style="text-align: right;">22</td>
-<td style="text-align: right;">33</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">4</td>
-<td style="text-align: left;">repositor*</td>
-<td style="text-align: right;">68</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">33</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">5</td>
-<td style="text-align: left;">ethic*</td>
-<td style="text-align: right;">62</td>
-<td style="text-align: right;">19</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">23</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">6</td>
-<td style="text-align: left;">privacy</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">22</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">7</td>
-<td style="text-align: left;">infrastructure</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">14</td>
-<td style="text-align: right;">23</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">8</td>
-<td style="text-align: left;">barrier*</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">16</td>
-<td style="text-align: right;">19</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">9</td>
-<td style="text-align: left;">perception*</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">18</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">10</td>
-<td style="text-align: left;">open science</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">21</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">11</td>
-<td style="text-align: left;">motivat*</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">17</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">12</td>
-<td style="text-align: left;">interoperab*</td>
-<td style="text-align: right;">36</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">15</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">13</td>
-<td style="text-align: left;">“open data”</td>
-<td style="text-align: right;">34</td>
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">15</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">14</td>
-<td style="text-align: left;">open access</td>
-<td style="text-align: right;">32</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">20</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">15</td>
-<td style="text-align: left;">consent</td>
-<td style="text-align: right;">31</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">12</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">16</td>
-<td style="text-align: left;">open research</td>
-<td style="text-align: right;">27</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">12</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">17</td>
-<td style="text-align: left;">licens*</td>
-<td style="text-align: right;">25</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">17</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">18</td>
-<td style="text-align: left;">attitude*</td>
-<td style="text-align: right;">23</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">11</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">19</td>
-<td style="text-align: left;">incentive*</td>
-<td style="text-align: right;">21</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">12</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">20</td>
-<td style="text-align: left;">mandate*</td>
-<td style="text-align: right;">17</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">7</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">21</td>
-<td style="text-align: left;">willingness</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">7</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">22</td>
-<td style="text-align: left;">obstacle*</td>
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">23=</td>
-<td style="text-align: left;">“data reuse”</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">6</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">23=</td>
-<td style="text-align: left;">stewardship</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">25</td>
-<td style="text-align: left;">“data management plan*”</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">26=</td>
-<td style="text-align: left;">“data curation”</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">26=</td>
-<td style="text-align: left;">facilitator*</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="even">
+<td style="text-align: left;">“data sharing” plus factor words (barrier, policy, incentive…)</td>
+<td style="text-align: right;">14,255</td>
 <td style="text-align: right;">28</td>
-<td style="text-align: left;">“data re-use”</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">29</td>
-<td style="text-align: left;">enabler*</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">30</td>
-<td style="text-align: left;">reluctan*</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
+<td style="text-align: left;"><em>share</em> within 3 words of <em>data</em>, title</td>
+<td style="text-align: right;">9,591</td>
+<td style="text-align: right;">28</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;"><em>share</em> within 5 words of <em>data</em>, title</td>
+<td style="text-align: right;">10,493</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><em>share</em> within 5 words of <em>data</em>, title, OR “data sharing” plus factor words</td>
+<td style="text-align: right;">18,135</td>
 <td style="text-align: right;">31</td>
-<td style="text-align: left;">“digital curation”</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong><em>share</em> within 5 words of <em>data</em>, title, excluding computing words (the query)</strong></td>
+<td style="text-align: right;"><strong>7,933</strong></td>
+<td style="text-align: right;"><strong>29</strong></td>
 </tr>
 </tbody>
 </table>
 </div>
 </figure>
 </div>
-</div>
+<p>Searching abstracts as well returns about eight times the records for at most three more sources. Runs 5 to 15 hold the measurements.</p>
+<p><strong>Results.</strong></p>
+<ul>
+<li><strong>Test set:</strong> the query finds 18 of the 25 indexed test sources, a relative recall of 0.72 (95% interval 0.52 to 0.86). That is 8 of 11 in PubMed, 16 of 23 in Scopus and 12 of 18 in Web of Science (run 16).</li>
+<li><strong>Known items:</strong> it finds 8 of the 11 health research items and all 5 cross-disciplinary reviews (run 17).</li>
+<li><strong>What it misses:</strong> the missed test sources name research data management, open data or open science in their titles. The missed known items concern data transfer agreements and data stewardship.</li>
+<li><strong>Terms that would catch them:</strong> title terms for these add 82 to 5,351 records each, for one to five known sources (runs 18 and 21). They stay out of the query, and the 16 known sources it misses are added by hand (see <a href="#other-sources">Other sources</a>).</li>
+</ul>
+<p><strong>Limits.</strong></p>
+<ul>
+<li>The development result is in-sample, because the query was chosen to find as many development sources as possible. Only the test result estimates recall.</li>
+<li>The test set is small and dates from 2015 to 2018, so recall for sources from 2019 to 2025 is untested.</li>
+<li>Opening tier 2 to all source types came after the first test result. It raised the test sources in scope from 10 to 25.</li>
+</ul>
+<p><strong>Peer review.</strong> A McGill health sciences librarian reviewed the search approach on 27 October 2026.</p>
 </section>
 <section id="search-strings" class="level2">
 <h2 class="anchored" data-anchor-id="search-strings">Search strings</h2>
@@ -637,8 +426,9 @@ AND LA=(English OR French)</code></pre>
 <li>Koopman (2015). Data archiving, management initiatives and expertise in the Biological Sciences Department</li>
 <li>Hutchings et al.&nbsp;(2020). A systematic literature review of researchers’ and healthcare professionals’ attitudes towards the secondary use and sharing of health administrative and clinical trial data, doi:10.1186/s13643-020-01485-5</li>
 <li>Swales, Gooden, and Thaldar (2024). The anatomy of a data transfer agreement for health research, doi:10.3389/fphar.2024.1332700</li>
-<li>Inau et al.&nbsp;(2023). Initiatives, concepts, and implementation practices of the findable, accessible, interoperable, and reusable data principles in health data stewardship: scoping review, doi:10.2196/45013 Name the export file for these sources with the prefix <code>other-</code>, for example <code>other-hand-added_2026-11-18.ris</code>.</li>
+<li>Inau et al.&nbsp;(2023). Initiatives, concepts, and implementation practices of the findable, accessible, interoperable, and reusable data principles in health data stewardship: scoping review, doi:10.2196/45013</li>
 </ul>
+<p>Name the export file for these sources with the prefix <code>other-</code>, for example <code>other-hand-added_2026-11-18.ris</code>.</p>
 </section>
 <section id="known-item-test" class="level2">
 <h2 class="anchored" data-anchor-id="known-item-test">Known-item test</h2>
@@ -686,6 +476,12 @@ AND LA=(English OR French)</code></pre>
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-chawinga2019" class="csl-entry" role="listitem">
+Chawinga, Winner Dominic, and Sandy Zinn. 2019. <span>“Global Perspectives of Research Data Sharing: A Systematic Literature Review.”</span> <em>Library &amp; Information Science Research</em> 41 (2): 109–22. <a href="https://doi.org/10.1016/j.lisr.2019.04.004">https://doi.org/10.1016/j.lisr.2019.04.004</a>.
+</div>
+<div id="ref-hausner2012" class="csl-entry" role="listitem">
+Hausner, Elke, Siw Waffenschmidt, Thomas Kaiser, and Michael Simon. 2012. <span>“Routine Development of Objectively Derived Search Strategies.”</span> <em>Systematic Reviews</em> 1: 19. <a href="https://doi.org/10.1186/2046-4053-1-19">https://doi.org/10.1186/2046-4053-1-19</a>.
+</div>
 <div id="ref-rethlefsen2021" class="csl-entry" role="listitem">
 Rethlefsen, Melissa L., Shona Kirtley, Siw Waffenschmidt, et al. 2021. <span>“<span>PRISMA-S</span>: An Extension to the <span>PRISMA</span> Statement for Reporting Literature Searches in Systematic Reviews.”</span> <em>Systematic Reviews</em> 10: 39. <a href="https://doi.org/10.1186/s13643-020-01542-z">https://doi.org/10.1186/s13643-020-01542-z</a>.
 </div>

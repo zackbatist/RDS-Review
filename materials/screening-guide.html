@@ -201,7 +201,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#stages" id="toc-stages" class="nav-link active" data-scroll-target="#stages">Stages</a></li>
   <li><a href="#criteria" id="toc-criteria" class="nav-link" data-scroll-target="#criteria">Criteria</a></li>
   <li><a href="#exclusion-reasons" id="toc-exclusion-reasons" class="nav-link" data-scroll-target="#exclusion-reasons">Exclusion reasons</a></li>
-  <li><a href="#export-formats" id="toc-export-formats" class="nav-link" data-scroll-target="#export-formats">Export formats</a></li>
   </ul>
 </nav>
     </div>
@@ -238,6 +237,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Two reviewers independently screen the titles and abstracts of all records in the seed sample and resolve disagreements through discussion. The annotated seed sample initializes the ASReview ranking. One reviewer screens the ranked records until the stopping rule applies. Both reviewers then independently screen the full texts of the included records and resolve disagreements through discussion.</p>
 <p>Screening in ASReview stops on the statistical criterion of Callaghan and Müller-Hansen (2020), in its ranked form. After each screening session, export the decisions in the order they were made, seed sample first. A hypergeometric test on those decisions checks whether recall has reached 95% at a confidence level of 95%, and screening stops when the test rejects the hypothesis that recall falls below 95%.</p>
 <p>Each included report is assigned to a source of evidence. Reports of the same study share one <code>source_id</code>.</p>
+<p>Export the decisions as CSV files into <code>data/raw/screening_exports/</code>, whose <a href="https://github.com/zackbatist/RDS-Review/blob/main/data/raw/screening_exports/README.md">README</a> gives the columns. <a href="../analysis/02-screening.html">02-screening</a> reads them.</p>
 </section>
 <section id="criteria" class="level2">
 <h2 class="anchored" data-anchor-id="criteria">Criteria</h2>
@@ -249,7 +249,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Sources are excluded when they concern public health data, health systems data, or clinical care data used only for surveillance, service delivery, or patient care. Sources that concern these data reused for research are eligible. The data_origin variable in the codebook records whether a source concerns data collected for research or data reused for research after collection for surveillance, service delivery, or patient care. Each source is assigned a tier at screening from its field.</p>
 <p>Sources that design, build or evaluate a specific system, product or service for sharing data are excluded, such as a blockchain framework, a cloud platform or an encryption scheme. Sources that study why people adopt or resist such a system report factors and are eligible.</p>
 <p>A source reports factors when it addresses one of the themes in <a href="#tbl-factor-themes" class="quarto-xref">Table&nbsp;1</a>. The words beside each theme often signal it in a title or abstract.</p>
-<div id="tbl-factor-themes" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="tbl-factor-themes" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[30,70]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-factor-themes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;1: Themes of factors, with words that often signal them.
@@ -257,8 +257,8 @@ Table&nbsp;1: Themes of factors, with words that often signal them.
 <div aria-describedby="tbl-factor-themes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 30%">
+<col style="width: 70%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -296,10 +296,11 @@ Table&nbsp;1: Themes of factors, with words that often signal them.
 <section id="exclusion-reasons" class="level2">
 <h2 class="anchored" data-anchor-id="exclusion-reasons">Exclusion reasons</h2>
 <p>Record one reason code per excluded report at full text.</p>
-<table class="caption-top table">
+<div id="9ec5fa5a" class="cell" data-tbl-colwidths="[25,75]" data-execution_count="1">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 25%">
+<col style="width: 75%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -338,67 +339,8 @@ Table&nbsp;1: Themes of factors, with words that often signal them.
 </tr>
 </tbody>
 </table>
+</div>
 <p><a href="../analysis/02-screening.html">02-screening</a> stops with an error when a full-text exclusion has a reason code that is not in this list.</p>
-</section>
-<section id="export-formats" class="level2">
-<h2 class="anchored" data-anchor-id="export-formats">Export formats</h2>
-<p>Export decisions from the screening tool into <code>data/raw/screening_exports/</code> as CSV files with lowercase values. <a href="../analysis/02-screening.html">02-screening</a> reads them. The final files hold one row per record, with disagreements between reviewers already settled.</p>
-<p><strong><code>title_abstract.csv</code></strong></p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Column</th>
-<th>Content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>record_id</code></td>
-<td>The identifier from <code>deduplicated_records.csv</code></td>
-</tr>
-<tr class="even">
-<td><code>decision</code></td>
-<td><code>include</code> or <code>exclude</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong><code>full_text.csv</code></strong></p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column</th>
-<th>Content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>record_id</code></td>
-<td>The identifier from <code>deduplicated_records.csv</code></td>
-</tr>
-<tr class="even">
-<td><code>source_id</code></td>
-<td>The source of evidence the report belongs to. Optional. Defaults to <code>record_id</code>.</td>
-</tr>
-<tr class="odd">
-<td><code>retrieved</code></td>
-<td><code>yes</code> or <code>no</code></td>
-</tr>
-<tr class="even">
-<td><code>decision</code></td>
-<td><code>include</code> or <code>exclude</code>. Blank when <code>retrieved</code> is <code>no</code>.</td>
-</tr>
-<tr class="odd">
-<td><code>reason</code></td>
-<td>An exclusion reason code. Required when <code>decision</code> is <code>exclude</code>.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Reviewer files</strong></p>
-<p>When more than one person screens, export each reviewer’s own decisions as well. Name them <code>title_abstract_&lt;reviewer&gt;.csv</code> and <code>full_text_&lt;reviewer&gt;.csv</code>, for example <code>title_abstract_r1.csv</code>. They have the columns <code>record_id</code> and <code>decision</code>, and they may cover only a sample, such as a calibration set. With two or more reviewer files for a stage, the notebook reports percent agreement and Cohen’s kappa for each pair of reviewers and lists the records they disagree on. Reviewer files do not change the counts. The final files do.</p>
 
 
 </section>
