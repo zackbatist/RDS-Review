@@ -4,7 +4,7 @@ title: "Research Protocol"
 
 ::: {.callout-note}
 ## Status
-Draft. The eligibility criteria and limits can still change. The protocol will be registered on [OSF Registries](https://osf.io/registries) before screening begins, because PROSPERO does not accept scoping reviews. Registration link: to be added.
+Draft. The eligibility criteria and limits can still change. We will submit the protocol to JMIR Research Protocols before full-text screening ends, and add its DOI and IRRID here once it is published.
 :::
 
 ## Background
@@ -21,11 +21,11 @@ The taxonomy of factors this review produces serves the CITF-emails study, where
 
 ## Objective and questions
 
-The objective is to map the factors reported to influence the sharing of research data in health research, and to compare them with the factors reported for other fields and for public health data.
+The objective is to map the factors reported to influence the sharing of research data in health research, and to compare them with the factors reported for other fields.
 
 1. Which factors (barriers, facilitators, and governance mechanisms) are reported to influence the sharing of research data in health research?
 2. How can these factors be organized into a taxonomy suitable for annotating correspondence about data sharing?
-3. How do the factors reported for health research differ from those reported for research in other fields and for public health data?
+3. How do the factors reported for health research differ from those reported for research in other fields?
 
 ## Methods
 

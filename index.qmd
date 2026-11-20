@@ -2,19 +2,12 @@
 title: "Research data sharing: a scoping review (RDS-Review)"
 ---
 
-RDS-Review maps the factors reported to influence the sharing and reuse of research data, including barriers, facilitators, and governance mechanisms. It centres on health research data and compares it with research data sharing in other fields. It updates the 2019 review of research data sharing by Chawinga and Zinn with scoping review methods.
-
+RDS-Review maps the factors reported to influence the sharing of research data, including barriers, facilitators, and governance mechanisms.
 Its taxonomy of factors will support manual annotation for supervised machine learning in the [CITF-emails](https://zackbatist.info/CITF-emails/) study.
 
 ::: {.callout-note}
 ## Status
-Draft protocol. The protocol is not yet registered, and the eligibility criteria and limits can still change. See the [Research Protocol](research-protocol.qmd).
-
-Before screening begins:
-
-- Run the database searches and export the records, with the [sources added by hand](materials/search-strategy.qmd#other-sources).
-- A statistician reviews the seed sample size and the stopping rule.
-- Register the protocol on OSF.
+Draft protocol, to be submitted to JMIR Research Protocols. The eligibility criteria and limits can still change. See the [Research Protocol](research-protocol.qmd).
 :::
 
 This website hosts the protocol, the codebook, the search and screening materials, and the notebooks that produce the counts, tables, and PRISMA flow diagram. Everything is tracked at [github.com/zackbatist/RDS-Review](https://github.com/zackbatist/RDS-Review).
