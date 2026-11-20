@@ -22,10 +22,7 @@ Export the decisions as CSV files into `data/raw/screening_exports/`, whose [REA
 
 ## Criteria
 
-A source is included when all of these hold.
-
-- It reports factors that influence research data sharing, such as barriers, facilitators and governance mechanisms.
-- It concerns health research (tier 1), or research in other fields or across fields (tier 2).
+A source is included when it reports factors that influence research data sharing, such as barriers, facilitators and governance mechanisms.
 
 Sources are excluded when they concern public health data, health systems data, or clinical care data used only for surveillance, service delivery, or patient care. Sources that concern these data reused for research are eligible. The data_origin variable in the codebook records whether a source concerns data collected for research or data reused for research after collection for surveillance, service delivery, or patient care. Each source is assigned a tier at screening from its field.
 

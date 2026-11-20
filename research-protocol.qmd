@@ -39,10 +39,9 @@ The criteria follow the population, concept, and context (PCC) structure that JB
 |:--------|:---------------------------------|
 | Population | No restriction. Sources may concern researchers, data stewards, institutions, or governance bodies. |
 | Concept | Factors that influence the sharing of research data, including barriers, facilitators, and governance mechanisms. Research data are data used for research, whether collected for a study or collected for another purpose and reused for research. Data governance comprises the strategies and tools employed to identify, manage, and disseminate data [@leonelli2019]. In health research, data access governance manages who has access to data, for what purposes, and under what conditions, through data access committees, data access agreements, policies, and monitoring [@shabani2021]. |
-| Context, tier 1 | Health research. All source types are eligible. |
-| Context, tier 2 | Research in other fields and cross-disciplinary research. All source types are eligible. |
+| Context | Health research, research in other fields, and cross-disciplinary research. All source types are eligible. |
 
-Sources are excluded when they concern public health data, health systems data, or clinical care data used only for surveillance, service delivery, or patient care. Sources that concern these data reused for research are eligible. The `data_origin` variable in the codebook records whether a source concerns data collected for research or data reused for research after collection for surveillance, service delivery, or patient care. Each source is assigned a tier at screening from its field.
+Sources are excluded when they concern public health data, health systems data, or clinical care data used only for surveillance, service delivery, or patient care. Sources that concern these data reused for research are eligible. The `data_origin` variable in the codebook records whether a source concerns data collected for research or data reused for research after collection for surveillance, service delivery, or patient care.
 
 Sources that design, build or evaluate a specific system, product or service for sharing data are excluded, such as a blockchain framework, a cloud platform or an encryption scheme. Sources that study why people adopt or resist such a system report factors and are eligible.
 
@@ -72,7 +71,7 @@ The review does not appraise the included sources, following JBI guidance for sc
 
 ### Synthesis
 
-The review codes factors inductively. The resulting taxonomy is a primary output. Counts by tier, field, source type, and year describe the evidence base, and the factor categories are compared across fields.
+The review codes factors inductively. The resulting taxonomy is a primary output. Counts by field, source type, and year describe the evidence base, and the factor categories are compared across fields.
 
 ### Artificial intelligence
 

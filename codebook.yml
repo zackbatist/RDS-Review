@@ -20,10 +20,6 @@ tables:
       - name: record_id
         definition: Identifier of the primary report in `deduplicated_records.csv`.
         required: true
-      - name: tier
-        definition: Context tier from the [protocol](research-protocol.qmd).
-        values: ["1", "2"]
-        required: true
       - name: field
         definition: Field of research the source concerns.
         values: [health, other, cross-disciplinary]
