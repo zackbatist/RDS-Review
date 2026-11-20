@@ -12,7 +12,7 @@ Title and abstract screening runs in [ASReview](https://asreview.nl), which rank
 1. **Title and abstract.** Each deduplicated record gets one decision, `include` or `exclude`. When the title and abstract do not allow a decision, include the record.
 2. **Full text.** Each included record's full text is retrieved. A report that cannot be retrieved is counted as not retrieved. Each retrieved report gets one decision, and each exclusion gets one reason from the list below.
 
-Two reviewers independently screen the titles and abstracts of all records in the seed sample and resolve disagreements through discussion. The annotated seed sample initializes the ASReview ranking. One reviewer screens the ranked records until the stopping rule applies. Both reviewers then independently screen the full texts of the included records and resolve disagreements through discussion.
+ZB and MO independently screen the titles and abstracts of the 200 records in the seed sample, resolve disagreements through discussion, and report their agreement as Cohen's kappa. We load the annotated seed sample into ASReview to start the ranking. ZB screens the ranked records until the stopping rule applies, and then screens the full texts of the included records.
 
 Screening in ASReview stops on the statistical criterion of Callaghan and Müller-Hansen (2020), in its ranked form. After each screening session, export the decisions in the order they were made, seed sample first. A hypergeometric test on those decisions checks whether recall has reached 95% at a confidence level of 95%, and screening stops when the test rejects the hypothesis that recall falls below 95%.
 
