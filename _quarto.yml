@@ -9,8 +9,8 @@ project:
     - "*.ipynb"
 
 lang: en-CA
-bibliography: assets/RDS-Review.bib
-csl: assets/chicago-author-date.csl
+bibliography: RDS-Review.bib
+csl: chicago-author-date.csl
 
 website:
   title: "RDS-Review"

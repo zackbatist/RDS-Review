@@ -5,8 +5,8 @@ author:
   - "Melissa Ouellet"
 date: 2026-10-09
 date-modified: 2026-10-14
-bibliography: 2026-10-09-rds-report.bib
-csl: ../assets/chicago-author-date.csl
+bibliography: ../RDS-Review.bib
+csl: ../chicago-author-date.csl
 format:
   pdf:
     documentclass: article

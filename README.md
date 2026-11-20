@@ -35,6 +35,6 @@ Run `quarto publish gh-pages`.
 | `analysis/` | The notebooks and their index page |
 | `analysis/00_search-development/` | Notebook 00, which records the search development and its outcomes, the scripts that call the database APIs, the scripts and prompts for the local model, and the log |
 | `scripts/` | The launch script for a local language model |
-| `assets/` | Bibliography and citation style |
+| `RDS-Review.bib`, `chicago-author-date.csl` | Bibliography and citation style |
 
 Notebook inputs, outputs, and run order are on the Analysis page of the site.
