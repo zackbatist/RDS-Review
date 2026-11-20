@@ -5,11 +5,6 @@ title: "Research data sharing: a scoping review (RDS-Review)"
 RDS-Review maps the factors reported to influence the sharing of research data, including barriers, facilitators, and governance mechanisms.
 Its taxonomy of factors will support manual annotation for supervised machine learning in the [CITF-emails](https://zackbatist.info/CITF-emails/) study.
 
-::: {.callout-note}
-## Status
-Draft protocol, to be submitted to JMIR Research Protocols. The eligibility criteria and limits can still change. See the [Research Protocol](research-protocol.qmd).
-:::
-
 This website hosts the protocol, the codebook, the search and screening materials, and the notebooks that produce the counts, tables, and PRISMA flow diagram. Everything is tracked at [github.com/zackbatist/RDS-Review](https://github.com/zackbatist/RDS-Review).
 
 | Page | Contents |

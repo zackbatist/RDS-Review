@@ -2,11 +2,6 @@
 title: "Research Protocol"
 ---
 
-::: {.callout-note}
-## Status
-Draft. The eligibility criteria and limits can still change. We will submit the protocol to JMIR Research Protocols before full-text screening ends, and add its DOI and IRRID here once it is published.
-:::
-
 ## Background
 
 This review maps the factors reported to influence the sharing of research data in health research, including barriers, facilitators, and governance mechanisms.
