@@ -24,8 +24,13 @@ tables:
         definition: Field of research the source concerns.
         values: [health, other, cross-disciplinary]
         required: true
-      - name: field_detail
-        definition: Specific field or subfield, such as genomics or archaeology.
+      - name: openalex_field
+        definition: Field of the source's primary topic in OpenAlex, taken by DOI. ZB confirms or corrects it, and codes it from OpenAlex's fields when OpenAlex gives the source no topic.
+      - name: openalex_subfield
+        definition: Subfield of the source's primary topic in OpenAlex, taken by DOI. ZB confirms or corrects it, and codes it from OpenAlex's subfields when OpenAlex gives the source no topic.
+      - name: openalex_corrected
+        definition: Whether ZB changed OpenAlex's field or subfield. `no-topic` means OpenAlex gave the source no topic and ZB coded both.
+        values: ["yes", "no", no-topic]
       - name: source_type
         definition: Type of source.
         values: [empirical, review, policy-guidance, opinion, other]

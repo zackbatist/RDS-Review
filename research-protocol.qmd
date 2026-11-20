@@ -65,7 +65,9 @@ Screening in ASReview stops on the statistical criterion of @callaghan2020, in i
 
 ### Data charting
 
-Each included source is charted once into the form defined in the [codebook](codebook.qmd), with one row for the source and one row for each factor it reports. The form is piloted on a sample of sources and revised before full charting begins.
+Each included source is charted once into the form defined in the [codebook](codebook.qmd), with one row for the source and one row for each factor it reports. ZB and MO independently chart a pilot sample of 10 included sources, compare their charting, resolve disagreements through discussion, and revise the form. ZB then charts all included sources. After the pilot the form stays fixed, apart from `factor_category`, which we revise during synthesis. We do not contact the authors of sources to obtain or confirm data.
+
+We take the field and subfield of each included source from OpenAlex by DOI, as `openalex_field` and `openalex_subfield`, to break down the sources coded `other` in `field`. OpenAlex assigns each work a primary topic from its title, abstract and source name with a fine-tuned language model, and maps each topic to a subfield and field of Scopus's All Science Journal Classification [@openalex2026]. ZB confirms or corrects both values while charting each source, codes them from OpenAlex's fields and subfields when OpenAlex gives the source no topic, and marks each correction in `openalex_corrected`. We report the share of sources corrected.
 
 The review does not appraise the included sources, following JBI guidance for scoping reviews [@peters2020]. It maps the factors that sources report, and its eligible source types share no common appraisal tool.
 
@@ -75,7 +77,9 @@ The review codes factors inductively. The resulting taxonomy is a primary output
 
 ### Artificial intelligence
 
-No large language model makes or suggests eligibility, charting, or synthesis decisions. ASReview ranks records by predicted relevance, and the reviewers make every screening decision. The analysis reruns from the search exports without invoking any language model.
+No large language model makes eligibility, charting, or synthesis decisions. ASReview ranks records by predicted relevance, and the reviewers make every screening decision. The analysis reruns from the search exports without invoking any language model.
+
+We use OpenAlex's field and subfield as suggested values for `openalex_field` and `openalex_subfield`. OpenAlex assigns these values with its own fine-tuned Qwen3-8B model, which OpenAlex trained on 2 million works whose topics it chose with Claude Opus 5.5 [@openalex2026]. We save the values OpenAlex returns with the date of the pull, and ZB confirms or corrects each one while charting.
 
 To estimate the screening workload, Qwen3.5-122B-A10B (@tbl-local-models) also judged two sets of records the search returns, 300 drawn at random and the 489 that "research data management" in titles would add, against the screening guide's criteria, with a [prompt](analysis/00_search-development/prompts/scope_prompt.md) that states them. These judgments estimate workload only. They decide no record's eligibility and enter neither screening nor charting.
 
