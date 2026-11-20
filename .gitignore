@@ -72,3 +72,6 @@ __pycache__/
 ##########################
 *_files/
 /*.html
+jmir-protocol/*.pdf
+jmir-protocol/*.docx
+jmir-protocol/*.tex
