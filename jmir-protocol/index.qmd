@@ -12,27 +12,34 @@ author:
   - name: David Buckeridge
     orcid: 0000-0003-1817-5047
     affiliation: McGill University
+abstract: |
+  **Background:**
+
+  **Objective:**
+
+  **Methods:**
+
+  **Results:**
+
+  **Conclusions:**
+
+  **International Registered Report Identifier (IRRID):**
+date: last-modified
+date-format: long
 bibliography: ../RDS-Review.bib
 csl: ../journal-of-medical-internet-research.csl
 lang: en-CA
 format:
   pdf:
+    documentclass: article
+    fontsize: 11pt
+    geometry:
+      - margin=1in
+    linestretch: 1.15
     number-sections: false
+    shift-heading-level-by: -1
+    toc: false
 ---
-
-## Abstract
-
-**Background:**
-
-**Objective:**
-
-**Methods:**
-
-**Results:**
-
-**Conclusions:**
-
-**International Registered Report Identifier (IRRID):**
 
 ## Introduction
 
