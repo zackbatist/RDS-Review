@@ -1,0 +1,92 @@
+---
+title: "Factors Influencing the Sharing of Research Data in Health Research: Protocol for a Scoping Review"
+author:
+  - name: Zachary Batist
+    orcid: 0000-0003-0435-508X
+    affiliation: McGill University
+  - name: Melissa Ouellet
+    affiliation: McGill University
+  - name: Sadun Khezri
+    orcid: 0000-0001-6235-6668
+    affiliation: McGill University
+  - name: David Buckeridge
+    orcid: 0000-0003-1817-5047
+    affiliation: McGill University
+bibliography: ../RDS-Review.bib
+csl: ../journal-of-medical-internet-research.csl
+lang: en-CA
+format:
+  pdf:
+    number-sections: false
+---
+
+## Abstract
+
+**Background:**
+
+**Objective:**
+
+**Methods:**
+
+**Results:**
+
+**Conclusions:**
+
+**International Registered Report Identifier (IRRID):**
+
+## Introduction
+
+## Methods
+
+### Design
+
+### Eligibility Criteria
+
+### Information Sources and Search
+
+### Selection of Sources of Evidence
+
+### Data Charting
+
+### Synthesis
+
+### Artificial Intelligence
+
+### Ethical Considerations
+
+## Results
+
+## Discussion
+
+### Anticipated Findings
+
+### Comparison With Prior Work
+
+### Strengths and Limitations
+
+### Dissemination
+
+## Funding
+
+## Conflicts of Interest
+
+## Data Availability
+
+## Authors' Contributions
+
+## Abbreviations
+
+## Multimedia Appendices
+
+- Multimedia Appendix 1: PRISMA-ScR checklist.
+- Multimedia Appendix 2: Search strings for PubMed, Scopus and Web of Science.
+- Multimedia Appendix 3: Sources added by hand.
+- Multimedia Appendix 4: Charting form.
+- Multimedia Appendix 5: Screening guide.
+- Multimedia Appendix 6: Coding prompt (`coding_prompt.md`).
+- Multimedia Appendix 7: Scope prompt (`scope_prompt.md`).
+
+## References
+
+::: {#refs}
+:::

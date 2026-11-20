@@ -7,6 +7,7 @@ project:
   render:
     - "*.qmd"
     - "*.ipynb"
+    - "!jmir-protocol/"
 
 lang: en-CA
 bibliography: RDS-Review.bib
