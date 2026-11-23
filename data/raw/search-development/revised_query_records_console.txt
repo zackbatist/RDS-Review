@@ -1,0 +1,8 @@
+PubMed             9194 records,    9018 with a DOI
+Scopus            31683 records,   29797 with a DOI
+Web of Science    22763 records,   21036 with a DOI
+
+all three         63640 records
+unique            34305 records, counting a shared DOI, or the same title and year, as one
+
+wrote revised_query_records.csv
