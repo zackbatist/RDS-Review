@@ -1,0 +1,106 @@
+model Qwen3.8-27B-UD-Q4_K_M.gguf, build b12375-9d25e0014; writing data/raw/search-development/terms_qwen3.8-27b.csv
+  1 Albert 2012: title only, 1 terms, 0 not in text
+  2 Anane-Sarpong 2017: title and abstract, 5 terms, 0 not in text
+  3 Anderson 2009: title and abstract, 4 terms, 0 not in text
+  4 Bertzky 2009: title and abstract, 4 terms, 0 not in text
+  5 Bezuidenhout 2013: title only, 1 terms, 0 not in text
+  6 Bishoff 2015: title and abstract, 8 terms, 0 not in text
+  7 Bond-Lamberty 2018: title and abstract, 4 terms, 0 not in text
+  8 Borgman 2012: title and abstract, 4 terms, 0 not in text
+  9 Brakewood 2013: title and abstract, 4 terms, 0 not in text
+ 10 Brown 2015: title and abstract, 7 terms, 0 not in text
+ 11 Bull 2015: title and abstract, 4 terms, 0 not in text
+ 12 Burgi 2017: title and abstract, 0 terms, 0 not in text
+ 13 Cahill 2007: title only, 0 terms, 0 not in text
+ 14 Chandramohan 2008: title and abstract, 3 terms, 0 not in text
+ 15 Charbonneau 2013: title and abstract, 0 terms, 0 not in text
+ 16 Chen 2017: title and abstract, 5 terms, 0 not in text
+ 17 Chigwada 2017: title and abstract, 2 terms, 0 not in text
+ 18 Chiware 2016: title and abstract, 4 terms, 0 not in text
+ 19 Clement 2016: title and abstract, 4 terms, 0 not in text
+ 20 Coady 2013: title and abstract, 5 terms, 0 not in text
+ 21 Cohn 2012: title and abstract, 1 terms, 0 not in text
+ 22 Cooper 2007: title and abstract, 6 terms, 0 not in text
+ 23 Costello 2009: title and abstract, 5 terms, 0 not in text
+ 24 Cragin 2010: title and abstract, 10 terms, 0 not in text
+ 25 Curty 2015: title only, 2 terms, 0 not in text
+ 26 Curty 2017: title and abstract, 2 terms, 0 not in text
+ 27 Dai 2018: title and abstract, 11 terms, 0 not in text
+ 28 Davenport 2012: title only, 0 terms, 0 not in text
+ 29 Delson 2007: title only, 1 terms, 0 not in text
+ 30 Deng 2016: title and abstract, 6 terms, 0 not in text
+ 31 Dong 2016: title and abstract, 2 terms, 0 not in text
+ 32 Doorn 2013: title and abstract, 2 terms, 0 not in text
+ 33 Elsayed 2018: title and abstract, 5 terms, 1 not in text
+ 34 Enke 2012: title and abstract, 7 terms, 0 not in text
+ 35 European Commission 2012: title only, 2 terms, 0 not in text
+ 36 Fecher 2015: title and abstract, 6 terms, 0 not in text
+ 37 Fisher 2010: title and abstract, 8 terms, 0 not in text
+ 38 Fry 2008: title and abstract, 8 terms, 1 not in text
+ 39 Guedon 2015: title only, 1 terms, 0 not in text
+ 40 Gupta 2013: title and abstract, 0 terms, 0 not in text
+ 41 Haddow 2011: title and abstract, 7 terms, 0 not in text
+ 42 Harding 2013: title and abstract, 3 terms, 0 not in text
+ 43 He 2016: title and abstract, 14 terms, 0 not in text
+ 44 Higgins 2011: title and abstract, 0 terms, 0 not in text
+ 45 Houtkoop 2018: title and abstract, 3 terms, 0 not in text
+ 46 Huang 2012: title and abstract, 9 terms, 0 not in text
+ 47 Huang 2013: title and abstract, 12 terms, 0 not in text
+ 48 Jeng 2016: title and abstract, 6 terms, 0 not in text
+ 49 Kaye 2018: title and abstract, 8 terms, 0 not in text
+ 50 Koltay 2017: title and abstract, 0 terms, 0 not in text
+ 51 Koopman 2015: title only, 0 terms, 0 not in text
+ 52 Kostkova 2018: title and abstract, 3 terms, 0 not in text
+ 53 Kowalczyk 2011: title only, 1 terms, 0 not in text
+ 54 Levenson 2010: title and abstract, 1 terms, 0 not in text
+ 55 Matlatse 2016: title only, 0 terms, 0 not in text
+ 56 Mbuagbaw 2017: title and abstract, 5 terms, 0 not in text
+ 57 McCullough 2009: title and abstract, 4 terms, 0 not in text
+ 58 Mennes 2013: title and abstract, 4 terms, 0 not in text
+ 59 Milia 2012: title and abstract, 7 terms, 0 not in text
+ 60 Mundel 2014: title only, 0 terms, 0 not in text
+ 61 Nelson 2009: title only, 1 terms, 0 not in text
+ 62 Ng'eno 2018: title only, 0 terms, 0 not in text
+ 63 Ostell 2009: title and abstract, 2 terms, 0 not in text
+ 64 Parr 2007: title and abstract, 9 terms, 0 not in text
+ 65 Pearce 2011: title and abstract, 3 terms, 0 not in text
+ 66 Peng 2016: title and abstract, 4 terms, 0 not in text
+ 67 Permanent Access to the Records in Europe 2009: title only, 0 terms, 0 not in text
+ 68 Perrino 2013: title and abstract, 5 terms, 0 not in text
+ 69 Pisani 2010: title and abstract, 24 terms, 6 not in text
+ 70 Pitt 2013: title and abstract, 5 terms, 0 not in text
+ 71 Piwowar 2011: title and abstract, 12 terms, 0 not in text
+ 72 Plengsaeng 2014: title and abstract, 3 terms, 0 not in text
+ 73 Rohlfing 2012: title and abstract, 1 terms, 0 not in text
+ 74 Ross 2016: title and abstract, 3 terms, 0 not in text
+ 75 Rowhani-Farid 2017: title and abstract, 2 terms, 0 not in text
+ 76 Sansone 2012: title and abstract, 2 terms, 0 not in text
+ 77 Savage 2009: title and abstract, 11 terms, 0 not in text
+ 78 Sayogo 2013: title and abstract, 8 terms, 0 not in text
+ 79 Schmidt 2016: title and abstract, 3 terms, 0 not in text
+ 80 Schöpfel 2018: title and abstract, 1 terms, 0 not in text
+ 81 Schumacher 2015: title and abstract, 0 terms, 0 not in text
+ 82 Scott 2014: title and abstract, 7 terms, 0 not in text
+ 83 Shakeri 2013: title only, 0 terms, 0 not in text
+ 84 Sheather 2009: title and abstract, 2 terms, 0 not in text
+ 85 Specht 2015: title and abstract, 5 terms, 0 not in text
+ 86 Steen 2011: title and abstract, 0 terms, 0 not in text
+ 87 Takashima 2018: title and abstract, 6 terms, 0 not in text
+ 88 Teeters 2008: title and abstract, 4 terms, 0 not in text
+ 89 Tenopir 2011: title and abstract, 6 terms, 1 not in text
+ 90 Tucker 2009: title only, 1 terms, 0 not in text
+ 91 Van Horn 2013: title and abstract, 5 terms, 0 not in text
+ 92 Volk 2014: title and abstract, 5 terms, 0 not in text
+ 93 Wallis 2013: title and abstract, 10 terms, 0 not in text
+ 94 Walters 2011: title and abstract, 0 terms, 0 not in text
+ 95 Watson 2015: title and abstract, 0 terms, 0 not in text
+ 96 Wiley 2018: title and abstract, 4 terms, 0 not in text
+ 97 Wittenberg 2017: title and abstract, 0 terms, 0 not in text
+ 98 Woolfrey 2009: title only, 4 terms, 0 not in text
+ 99 Yoon 2015: title only, 2 terms, 0 not in text
+100 Yoon 2017: title and abstract, 5 terms, 1 not in text
+101 Zimmerman 2008: title and abstract, 3 terms, 0 not in text
+102 Zvyagintseva 2015: title and abstract, 3 terms, 0 not in text
+
+sources: 102; terms: 412; not in text: 10
+sources with no terms: 18
