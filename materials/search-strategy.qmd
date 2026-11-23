@@ -6,48 +6,48 @@ This page records the search, as PRISMA-S requires [@rethlefsen2021]. The counts
 
 ## Query
 
-One query runs in Scopus, Web of Science, and PubMed. It searches titles for a form of *share* within five words of *data*, and leaves out titles that name blockchain, smart contracts, the Internet of Things, vehicular networks, edge computing, or cloud computing. It covers sources published from 2015 to 2025 in English and French and applies no document type filter. Development and testing, below, gives how it was chosen and how well it performs.
+One query runs in Scopus, Web of Science, and PubMed. It searches titles and abstracts for a form of *share* within five words of *data*, together with a word beginning *research* or *scienti*. In Scopus and Web of Science the search also covers author keywords. It covers sources published from 2015 to 2025 in English and French and applies no document type filter. Development and testing, below, gives how we chose it and how well it performs.
 
 | Database | Records |
 |:--|--:|
-| PubMed | 2,437 |
-| Scopus | 7,067 |
-| Web of Science | 6,149 |
-| **Total** | **15,653** |
+| PubMed | 9,194 |
+| Scopus | 31,683 |
+| Web of Science | 22,763 |
+| **Total** | **63,640** |
 
-: Records the query returned on 18 November 2026 through each database's API, before deduplication. Matched on DOI, or on title and year, they come to 7,933. The Web of Science count omits the language limit, which its API rejects beside a proximity search. {#tbl-records}
+: Records the query returned on 23 November 2026 through each database's API, before deduplication. Matched on DOI, or on title and year, they come to 34,305. The Web of Science count omits the language limit, which its API rejects beside a proximity search. {#tbl-records}
 
 Platforms and search dates for the exports are to be added.
 
 ## Development and testing
 
-**Method.** Candidate queries were tested against known relevant sources, following the development and validation set approach of @hausner2012. The known sources are the 76 sources included by @chawinga2019 that meet this review's criteria apart from year. A script rebuilt their list from the paper, and a local language model checked each source against the criteria. Sources published 2007 to 2014 form the development set: 45 sources, 35 of them indexed in at least one database. Sources published from 2015 form the test set: 31 sources, 25 indexed, held out until the query was chosen.
+**Method.** We tested candidate queries against known relevant sources, following the development and validation set approach of @hausner2012. The known sources are the 76 sources included by @chawinga2019 that meet this review's criteria apart from year. We rebuilt their list from the paper with a script, and checked each source against the criteria with a local language model. Sources published 2007 to 2014 form the development set: 45 sources, 35 of them indexed in at least one database. Sources published from 2015 form the test set: 31 sources, 25 indexed, held out until we chose the query.
 
-Each candidate ran in PubMed, Scopus and Web of Science, with two counts: the records it returns for 2015 to 2025 in English or French, and the development sources it finds by DOI or PMID. A candidate dropped out when another found at least as many development sources in fewer records. Every measurement here can be checked or rerun in the [search development notebook](../analysis/00_search-development/00-search-development.ipynb), which holds each run with its code and files.
+We ran each candidate in PubMed, Scopus and Web of Science and recorded two counts: the records it returns for 2015 to 2025 in English or French, and the development and test sources it finds by DOI or PMID. Every measurement here can be checked or rerun in the [search development notebook](../analysis/00_search-development/00-search-development.ipynb), which holds each run with its code and files.
 
 **Candidates compared.**
 
-| Query | Records | Development sources found |
-|:--|--:|--:|
-| "data sharing" plus factor words (barrier, policy, incentive…) | 14,255 | 28 |
-| *share* within 3 words of *data*, title | 9,591 | 28 |
-| *share* within 5 words of *data*, title | 10,493 | 29 |
-| *share* within 5 words of *data*, title, OR "data sharing" plus factor words | 18,135 | 31 |
-| ***share* within 5 words of *data*, title, excluding computing words (the query)** | **7,933** | **29** |
+| Query, titles and abstracts | PubMed | Scopus | Web of Science |
+|:--|:--|:--|:--|
+| *share* within 5 words of *data* | 18,840 | 82,924 | 62,225 |
+| *share* within 5 words of *"research data"* | 1,536 · 15 | 743 · 41 | 589 · 37 |
+| *share* within 5 words of *data* AND *research\** | 8,615 · 5 | 29,912 · 8 | 21,330 · 8 |
+| ***share* within 5 words of *data* AND (*research\** OR *scienti\**) (the query)** | **9,194 · 3** | **31,683 · 3** | **22,763 · 5** |
+| *share* within 5 words of *data* AND (*research\** OR *scientific* OR *scientist\** OR *trial\** OR *cohort\**) | 10,511 · 1 | 33,481 · 3 | 24,361 · 3 |
+| *share* within 5 words of *data* AND (*research\** OR *scientific* OR *scientist\** OR *study* OR *studies* OR *trial\** OR *cohort\**) | 14,396 · 1 | 49,304 · 2 | 37,258 · 3 |
 
-: Records across the three databases with duplicates removed, and development sources found, of 35. {#tbl-candidates tbl-colwidths="[64,18,18]"}
+: Records for 2015 to 2025, and the development and test sources each query loses against *share* within 5 words of *data*. {#tbl-candidates tbl-colwidths="[52,16,16,16]"}
 
-Searching abstracts as well returns about eight times the records for at most three more sources. Runs 5 to 15 hold the measurements.
+Runs 25 to 27 hold these measurements, and runs 28 to 30 the tests of a clause excluding computing words, which also excluded eligible records.
 
 **Results.**
 
-- **Test set:** the query finds 18 of the 25 indexed test sources, a relative recall of 0.72 (95% interval 0.52 to 0.86). That is 8 of 11 in PubMed, 16 of 23 in Scopus and 12 of 18 in Web of Science (run 16).
-- **What it misses:** the missed test sources name research data management, open data or open science in their titles.
-- **Terms that would catch them:** title terms for these add 489 to 5,351 records each, for one to five test sources (run 21). They stay out of the query, and the 13 test sources it misses are added by hand (see [Other sources](#other-sources)).
+- **Test set:** the query finds 20 of the 25 indexed test sources, a relative recall of 0.80 (95% interval 0.61 to 0.91). That is 8 of 11 in PubMed, 19 of 23 in Scopus and 12 of 18 in Web of Science (run 31).
+- **What it misses:** five indexed test sources. Chiware and Mathe (2016), Specht et al. (2015) and Wittenberg and Elings (2017) concern research data management, Watson (2015) concerns open science, and Houtkoop et al. (2018) has no word beginning *research* or *scienti* in the fields the databases search.
 
 **Limits.**
 
-- The development result is in-sample, because the query was chosen to find as many development sources as possible. Only the test result estimates recall.
+- The development result is in-sample, because we chose the query to find as many development sources as possible. Only the test result estimates recall.
 - The test set is small and dates from 2015 to 2018, so recall for sources from 2019 to 2025 is untested.
 - Admitting all source types from fields outside health research came after the first test result. It raised the test sources in scope from 10 to 25.
 
@@ -58,9 +58,9 @@ Searching abstracts as well returns about eight times the records for at most th
 ### Generic query
 
 ```text
-Title: share* NEAR/5 data
-NOT
-Title: blockchain* OR "smart contract*" OR IoT OR "internet of things" OR vehicular OR "edge computing" OR cloud
+Title/abstract: share* NEAR/5 data
+AND
+Title/abstract: research* OR scienti*
 
 Limits: published 2015 to 2025; English or French
 ```
@@ -71,9 +71,8 @@ PubMed's proximity search takes no truncation, so the string writes out four for
 
 ```text
 (
-  ("sharing data"[ti:~5] OR "shared data"[ti:~5] OR "share data"[ti:~5] OR "shares data"[ti:~5])
-  NOT (blockchain*[ti] OR "smart contract*"[ti] OR IoT[ti] OR "internet of things"[ti]
-       OR vehicular[ti] OR "edge computing"[ti] OR cloud[ti])
+  ("sharing data"[tiab:~5] OR "shared data"[tiab:~5] OR "share data"[tiab:~5] OR "shares data"[tiab:~5])
+  AND (research*[tiab] OR scienti*[tiab])
 )
 AND 2015:2025[dp]
 AND (english[la] OR french[la])
@@ -81,50 +80,21 @@ AND (english[la] OR french[la])
 
 ### Scopus
 
-Scopus applies AND NOT after every AND, so the limits come first and the NOT clause last.
-
 ```text
-TITLE ( shar* W/5 data )
+TITLE-ABS-KEY ( shar* W/5 data )
+AND TITLE-ABS-KEY ( research* OR scienti* )
 AND PUBYEAR > 2014 AND PUBYEAR < 2026
 AND LANGUAGE ( english OR french )
-AND NOT TITLE ( blockchain* OR "smart contract*" OR IoT OR "internet of things"
-                OR vehicular OR "edge computing" OR cloud )
 ```
 
 ### Web of Science
 
 ```text
-(
-  TI=( shar* NEAR/5 data )
-  NOT TI=( blockchain* OR "smart contract*" OR IoT OR "internet of things"
-           OR vehicular OR "edge computing" OR cloud )
-)
+TS=( shar* NEAR/5 data )
+AND TS=( research* OR scienti* )
 AND PY=(2015-2025)
 AND LA=(English OR French)
 ```
-
-## Other sources {#other-sources}
-
-These sources meet the eligibility criteria and are added by hand. The first 13 are test sources the query misses. The last three were identified during search development.
-
-- Chiware and Mathe (2016). Academic libraries' role in research data management services: a South African perspective, doi:10.7553/81-2-1563. Title names research data management.
-- Chigwada et al. (2017). Research data management in research institutions in Zimbabwe, doi:10.5334/dsj-2017-031. Title names research data management.
-- Schöpfel et al. (2018). Research data management in the French National Research Center (CNRS), doi:10.1108/dta-01-2017-0005. Title names research data management.
-- Wittenberg and Elings (2017). Building a research data management service at the University of California, Berkeley: a tale of collaboration, doi:10.1177/0340035216686982. Title names research data management.
-- Specht et al. (2015). Data management challenges in analysis and synthesis in the ecosystem sciences, doi:10.1016/j.scitotenv.2015.03.092. Title names data management.
-- Schmidt et al. (2016). Open data in global environmental research: the Belmont Forum's open data survey, doi:10.1371/journal.pone.0146695. Title names open data.
-- Watson (2015). When will 'open science' become simply 'science'?, doi:10.1186/s13059-015-0669-2. Title names open science.
-- Bishoff and Johnston (2015). Approaches to data sharing: an analysis of NSF data management plans from a large research university, doi:10.7710/2162-3309.1231. In none of the three databases.
-- He (2016). Data sharing across research and public communities, doi:10.13016/m2z84m. In none of the three databases.
-- Zvyagintseva (2015). Articulating a vision for community-engaged data curation in the digital humanities, doi:10.7939/r3m66s. In none of the three databases.
-- Brown et al. (2015). Directions for research data management in UK universities. No DOI or PMID to check it by.
-- Guédon (2015). Open data and science: towards optimizing the research process. No DOI or PMID to check it by.
-- Koopman (2015). Data archiving, management initiatives and expertise in the Biological Sciences Department. No DOI or PMID to check it by.
-- Hutchings et al. (2020). A systematic literature review of researchers' and healthcare professionals' attitudes towards the secondary use and sharing of health administrative and clinical trial data, doi:10.1186/s13643-020-01485-5. Seven words between *sharing* and *data* in the title.
-- Swales, Gooden, and Thaldar (2024). The anatomy of a data transfer agreement for health research, doi:10.3389/fphar.2024.1332700. Title names a data transfer agreement.
-- Inau et al. (2023). Initiatives, concepts, and implementation practices of the findable, accessible, interoperable, and reusable data principles in health data stewardship: scoping review, doi:10.2196/45013. Title names health data stewardship.
-
-Name the export file for these sources with the prefix `other-`, for example `other-hand-added_2026-11-18.ris`.
 
 ## Export file names
 
