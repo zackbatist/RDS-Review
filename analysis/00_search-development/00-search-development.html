@@ -356,17 +356,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>ROOT <span class="op">=</span> <span class="bu">next</span>(p <span class="cf">for</span> p <span class="kw">in</span> [Path.cwd(), <span class="op">*</span>Path.cwd().parents] <span class="cf">if</span> (p <span class="op">/</span> <span class="st">"_quarto.yml"</span>).exists())</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>RAW <span class="op">=</span> ROOT <span class="op">/</span> <span class="st">"data"</span> <span class="op">/</span> <span class="st">"raw"</span> <span class="op">/</span> <span class="st">"search-development"</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>PROCESSED <span class="op">=</span> ROOT <span class="op">/</span> <span class="st">"data"</span> <span class="op">/</span> <span class="st">"processed"</span> <span class="op">/</span> <span class="st">"search-development"</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>PROCESSED_FILES <span class="op">=</span> {<span class="st">"reference_sources.csv"</span>, <span class="st">"counts.csv"</span>, <span class="st">"verdict.csv"</span>, <span class="st">"statement_matches.csv"</span>}</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>DATABASES <span class="op">=</span> {<span class="st">"PubMed"</span>: <span class="st">"pubmed"</span>, <span class="st">"Scopus"</span>: <span class="st">"scopus"</span>, <span class="st">"Web of Science"</span>: <span class="st">"web-of-science"</span>}</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>PROCESSED_FILES <span class="op">=</span> {<span class="st">"reference_sources.csv"</span>, <span class="st">"counts.csv"</span>, <span class="st">"verdict.csv"</span>, <span class="st">"statement_matches.csv"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"terms_counts.csv"</span>, <span class="st">"factor_term_counts.csv"</span>, <span class="st">"factor_theme_agreement.csv"</span>}</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>DATABASES <span class="op">=</span> {<span class="st">"PubMed"</span>: <span class="st">"pubmed"</span>, <span class="st">"Scopus"</span>: <span class="st">"scopus"</span>, <span class="st">"Web of Science"</span>: <span class="st">"web-of-science"</span>}</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> path(name):</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (PROCESSED <span class="cf">if</span> name <span class="kw">in</span> PROCESSED_FILES <span class="cf">else</span> RAW) <span class="op">/</span> name</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> path(name):</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (PROCESSED <span class="cf">if</span> name <span class="kw">in</span> PROCESSED_FILES <span class="cf">else</span> RAW) <span class="op">/</span> name</span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read(name):</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.read_csv(path(name), dtype<span class="op">=</span><span class="bu">str</span>, keep_default_na<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read(name):</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.read_csv(path(name), dtype<span class="op">=</span><span class="bu">str</span>, keep_default_na<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div id="591327cf" class="cell" data-execution_count="2">
@@ -559,7 +560,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Reuse:</strong> “data reuse” (2).</li>
 </ul>
 <p>The first three patterns hold <em>share</em> and <em>data</em> within a few words of each other. Each term in the last three appears in two or three sources.</p>
-<p>Files: <a href="https://github.com/zackbatist/RDS-Review/blob/main/data/raw/search-development/terms_qwen3.8-27b.csv">terms_qwen3.8-27b.csv</a>, <a href="https://github.com/zackbatist/RDS-Review/blob/main/data/raw/search-development/terms_console_qwen3.8-27b.txt">terms_console_qwen3.8-27b.txt</a>.</p>
+<p>Files: <a href="https://github.com/zackbatist/RDS-Review/blob/main/data/processed/search-development/terms_counts.csv">terms_counts.csv</a>, <a href="https://github.com/zackbatist/RDS-Review/blob/main/data/raw/search-development/terms_qwen3.8-27b.csv">terms_qwen3.8-27b.csv</a>, <a href="https://github.com/zackbatist/RDS-Review/blob/main/data/raw/search-development/terms_console_qwen3.8-27b.txt">terms_console_qwen3.8-27b.txt</a>.</p>
 <div id="run22code" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
@@ -581,212 +582,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"</span><span class="sc">{</span><span class="bu">int</span>((term_rows[<span class="st">'location'</span>] <span class="op">==</span> <span class="st">'not in text'</span>).<span class="bu">sum</span>())<span class="sc">}</span><span class="ss"> not in the text"</span>)</span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    none <span class="op">=</span> <span class="bu">sorted</span>(<span class="bu">set</span>(sets.index) <span class="op">-</span> <span class="bu">set</span>(term_rows[<span class="st">"ref_id"</span>]))</span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(none)<span class="sc">}</span><span class="ss"> sources with no term"</span>)</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    display(table[table[<span class="st">"all"</span>] <span class="op">&gt;</span> <span class="dv">1</span>])</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    write(table.reset_index(), <span class="st">"terms_counts.csv"</span>)</span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Not run yet: terms_qwen3.8-27b.csv is missing."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>412 terms, 259 distinct, 29 used by two or more sources; 10 not in the text
 18 sources with no term</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">all</th>
-<th data-quarto-table-cell-role="th">development</th>
-<th data-quarto-table-cell-role="th">test</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">term</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">data sharing</th>
-<td>50</td>
-<td>30</td>
-<td>20</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">sharing data</th>
-<td>12</td>
-<td>4</td>
-<td>8</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">share data</th>
-<td>11</td>
-<td>9</td>
-<td>2</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">sharing</th>
-<td>8</td>
-<td>6</td>
-<td>2</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">data sharing policies</th>
-<td>5</td>
-<td>3</td>
-<td>2</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">sharing of data</th>
-<td>4</td>
-<td>2</td>
-<td>2</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">sharing research data</th>
-<td>4</td>
-<td>1</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">biodiversity data sharing</th>
-<td>3</td>
-<td>3</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">data management</th>
-<td>3</td>
-<td>3</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">data curation</th>
-<td>3</td>
-<td>1</td>
-<td>2</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">data management plans</th>
-<td>3</td>
-<td>1</td>
-<td>2</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">research data sharing</th>
-<td>3</td>
-<td>1</td>
-<td>2</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">data sharing practices</th>
-<td>3</td>
-<td>0</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">open data</th>
-<td>3</td>
-<td>0</td>
-<td>3</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">data repository</th>
-<td>2</td>
-<td>2</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">data sharing policy</th>
-<td>2</td>
-<td>2</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">data sharing program</th>
-<td>2</td>
-<td>2</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">publish data</th>
-<td>2</td>
-<td>2</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">share their data</th>
-<td>2</td>
-<td>2</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">shared data</th>
-<td>2</td>
-<td>2</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">data accessibility</th>
-<td>2</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">research data</th>
-<td>2</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">scientific data sharing</th>
-<td>2</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">sharing individual level data</th>
-<td>2</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">data management and sharing practices</th>
-<td>2</td>
-<td>0</td>
-<td>2</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">data reuse</th>
-<td>2</td>
-<td>0</td>
-<td>2</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">data sharers</th>
-<td>2</td>
-<td>0</td>
-<td>2</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">making research data accessible</th>
-<td>2</td>
-<td>0</td>
-<td>2</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">research data management services</th>
-<td>2</td>
-<td>0</td>
-<td>2</td>
-</tr>
-</tbody>
-</table>
-
-</div>
 </div>
 </div>
 </section>
@@ -795,7 +597,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Question.</strong> How often do the factor terms in the screening guide’s factors table appear in the titles and abstracts of the 102 sources, and how do they spread across the sources?</p>
 <p><strong>Measured.</strong> We matched each factor term against each source’s title and abstract, with no model. A term ending in * matches any word that starts with it, and a quoted term matches as a phrase. We counted the sources that use each term and each theme, in all 102 sources and in the development and test sets, and the number of themes each source touches.</p>
 <p><strong>Result.</strong> 79 sources use at least one factor term and 23 use none; 12 of those 23 have a title only. <em>polic*</em> (28 sources) and <em>challenge*</em> (18) are the terms used most, and <em>facilitator*</em>, <em>interoperab*</em>, <em>“open research”</em> and <em>licens*</em> appear in no source. <em>“research data management”</em> appears in 1 development source and 13 test sources.</p>
-<p>Files: <a href="https://github.com/zackbatist/RDS-Review/blob/main/data/raw/search-development/reference_lookups.csv">reference_lookups.csv</a>.</p>
+<p>Files: <a href="https://github.com/zackbatist/RDS-Review/blob/main/data/processed/search-development/factor_term_counts.csv">factor_term_counts.csv</a>, <a href="https://github.com/zackbatist/RDS-Review/blob/main/data/raw/search-development/reference_lookups.csv">reference_lookups.csv</a>.</p>
 <div id="run23code" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
@@ -844,10 +646,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    spread <span class="op">=</span> pd.crosstab(per_source.rename(<span class="st">"themes per source"</span>), coded_on)</span>
 <span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">int</span>((per_source <span class="op">&gt;</span> <span class="dv">0</span>).<span class="bu">sum</span>())<span class="sc">}</span><span class="ss"> sources use a factor term, </span><span class="sc">{</span><span class="bu">int</span>((per_source <span class="op">==</span> <span class="dv">0</span>).<span class="bu">sum</span>())<span class="sc">}</span><span class="ss"> use none"</span>)</span>
 <span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>    display(by_theme)</span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    display(by_term)</span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    display(spread)</span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Not run yet: reference_lookups.csv is missing."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    write(by_term.reset_index(), <span class="st">"factor_term_counts.csv"</span>)</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Not run yet: reference_lookups.csv is missing."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>79 sources use a factor term, 23 use none</code></pre>
@@ -907,271 +708,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </div>
 </div>
-<div class="cell-output cell-output-display">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">all</th>
-<th data-quarto-table-cell-role="th">development</th>
-<th data-quarto-table-cell-role="th">test</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">theme</th>
-<th data-quarto-table-cell-role="th">term</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th rowspan="5" data-quarto-table-cell-role="th" data-valign="top">factors that obstruct</th>
-<th data-quarto-table-cell-role="th">barrier*</th>
-<td>11</td>
-<td>7</td>
-<td>4</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">challenge*</th>
-<td>18</td>
-<td>9</td>
-<td>9</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">obstacle*</th>
-<td>5</td>
-<td>4</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">reluctan*</th>
-<td>3</td>
-<td>2</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">privacy</th>
-<td>4</td>
-<td>1</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<th rowspan="7" data-quarto-table-cell-role="th" data-valign="top">factors that facilitate</th>
-<th data-quarto-table-cell-role="th">facilitator*</th>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">enabler*</th>
-<td>2</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">incentive*</th>
-<td>4</td>
-<td>1</td>
-<td>3</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">motivat*</th>
-<td>8</td>
-<td>6</td>
-<td>2</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">infrastructure</th>
-<td>12</td>
-<td>4</td>
-<td>8</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">repositor*</th>
-<td>11</td>
-<td>7</td>
-<td>4</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">interoperab*</th>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<th rowspan="3" data-quarto-table-cell-role="th" data-valign="top">stakeholder perspectives</th>
-<th data-quarto-table-cell-role="th">perception*</th>
-<td>4</td>
-<td>2</td>
-<td>2</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">attitude*</th>
-<td>6</td>
-<td>2</td>
-<td>4</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">willingness</th>
-<td>4</td>
-<td>2</td>
-<td>2</td>
-</tr>
-<tr class="even">
-<th rowspan="6" data-quarto-table-cell-role="th" data-valign="top">policies and what drive them</th>
-<th data-quarto-table-cell-role="th">polic*</th>
-<td>28</td>
-<td>14</td>
-<td>14</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">mandate*</th>
-<td>5</td>
-<td>2</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">"open science"</th>
-<td>3</td>
-<td>1</td>
-<td>2</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">"open data"</th>
-<td>4</td>
-<td>0</td>
-<td>4</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">"open access"</th>
-<td>11</td>
-<td>6</td>
-<td>5</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">"open research"</th>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<th rowspan="9" data-quarto-table-cell-role="th" data-valign="top">mechanisms for implementation</th>
-<th data-quarto-table-cell-role="th">governance</th>
-<td>3</td>
-<td>1</td>
-<td>2</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">consent</th>
-<td>5</td>
-<td>4</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">licens*</th>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">ethic*</th>
-<td>11</td>
-<td>7</td>
-<td>4</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">stewardship</th>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">"data management plan*"</th>
-<td>8</td>
-<td>2</td>
-<td>6</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">"data curation"</th>
-<td>7</td>
-<td>4</td>
-<td>3</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">"digital curation"</th>
-<td>3</td>
-<td>2</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">"research data management"</th>
-<td>14</td>
-<td>1</td>
-<td>13</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th">coded on</th>
-<th data-quarto-table-cell-role="th">title and abstract</th>
-<th data-quarto-table-cell-role="th">title only</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">themes per source</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>11</td>
-<td>12</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>28</td>
-<td>7</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>20</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>16</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>6</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">5</th>
-<td>2</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
 </div>
 </section>
 <section id="run-3.-factor-themes-coded-by-qwen-against-the-factor-term-match" class="level4">
@@ -1180,7 +716,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Measured.</strong> For each of the five themes, and for any theme, each source gets a yes or no from the factor themes Qwen3.5-122B coded (the themes in <code>reference_sources.csv</code>) and from run 2’s factor term match. We report percentage agreement, Cohen’s kappa with a 95% confidence interval, and McNemar’s exact test, for all 102 sources and for the development and test sets.</p>
 <p><strong>Result.</strong> Factor themes coded by Qwen and factor term match agree on 63% to 90% of sources per theme, with kappa from 0.34 to 0.64. Qwen codes more themes than factor term match finds. For factors that obstruct and factors that facilitate, factor term match finds no theme that Qwen misses, while Qwen codes factors that obstruct in 19 sources and factors that facilitate in 38 sources with no factor term for them (McNemar p &lt; 0.001 for both). For policies and what drive them, Qwen alone codes 14 sources and factor term match alone finds 4 (p = 0.031). For stakeholder perspectives and mechanisms for implementation, the disagreements run both ways and neither direction prevails (McNemar p = 0.34 and 0.33). For any theme, Qwen codes a factor in 88 sources and factor term match finds one in 79; the two agree on 81 sources (79%), with kappa 0.32.</p>
 <p><strong>Decision.</strong> Qwen finds factors in sources that use none of the factor terms. Factors stay out of the query and go to screening (run 15), so we take no terms from the coding.</p>
-<p>Files: <a href="https://github.com/zackbatist/RDS-Review/blob/main/data/processed/search-development/reference_sources.csv">reference_sources.csv</a>, <a href="https://github.com/zackbatist/RDS-Review/blob/main/data/raw/search-development/reference_codes_qwen3.5-122b.csv">reference_codes_qwen3.5-122b.csv</a>.</p>
+<p>Files: <a href="https://github.com/zackbatist/RDS-Review/blob/main/data/processed/search-development/factor_theme_agreement.csv">factor_theme_agreement.csv</a>, <a href="https://github.com/zackbatist/RDS-Review/blob/main/data/processed/search-development/reference_sources.csv">reference_sources.csv</a>, <a href="https://github.com/zackbatist/RDS-Review/blob/main/data/raw/search-development/reference_codes_qwen3.5-122b.csv">reference_codes_qwen3.5-122b.csv</a>.</p>
 <div id="run03code" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
@@ -1210,9 +746,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>                             <span class="cf">for</span> t <span class="kw">in</span> qwen.columns</span>
 <span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>                             <span class="cf">for</span> name, rows <span class="kw">in</span> ((<span class="st">"all"</span>, qwen.index), (<span class="st">"development"</span>, sets <span class="op">==</span> <span class="st">"development"</span>),</span>
 <span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>                                                (<span class="st">"test"</span>, sets <span class="op">==</span> <span class="st">"test"</span>))]).set_index([<span class="st">"theme"</span>, <span class="st">"set"</span>])</span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    display(compared)</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Not run yet: reference_lookups.csv is missing."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    write(compared.reset_index(), <span class="st">"factor_theme_agreement.csv"</span>)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    display(compared.xs(<span class="st">"all"</span>, level<span class="op">=</span><span class="st">"set"</span>)[[<span class="st">"agreement"</span>, <span class="st">"kappa"</span>, <span class="st">"kappa_low"</span>, <span class="st">"kappa_high"</span>, <span class="st">"mcnemar_p"</span>]])</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Not run yet: reference_lookups.csv is missing."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1222,12 +759,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">n</th>
-<th data-quarto-table-cell-role="th">both</th>
-<th data-quarto-table-cell-role="th">Factor themes coded by Qwen only</th>
-<th data-quarto-table-cell-role="th">Factor term match only</th>
-<th data-quarto-table-cell-role="th">neither</th>
 <th data-quarto-table-cell-role="th">agreement</th>
 <th data-quarto-table-cell-role="th">kappa</th>
 <th data-quarto-table-cell-role="th">kappa_low</th>
@@ -1236,12 +767,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">theme</th>
-<th data-quarto-table-cell-role="th">set</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th"></th>
@@ -1251,13 +776,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<th rowspan="3" data-quarto-table-cell-role="th" data-valign="top">factors that obstruct</th>
-<th data-quarto-table-cell-role="th">all</th>
-<td>102</td>
-<td>33</td>
-<td>19</td>
-<td>0</td>
-<td>50</td>
+<th data-quarto-table-cell-role="th">factors that obstruct</th>
 <td>0.81</td>
 <td>0.63</td>
 <td>0.48</td>
@@ -1265,39 +784,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.000</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">development</th>
-<td>60</td>
-<td>16</td>
-<td>16</td>
-<td>0</td>
-<td>28</td>
-<td>0.73</td>
-<td>0.48</td>
-<td>0.27</td>
-<td>0.70</td>
-<td>0.000</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">test</th>
-<td>42</td>
-<td>17</td>
-<td>3</td>
-<td>0</td>
-<td>22</td>
-<td>0.93</td>
-<td>0.86</td>
-<td>0.70</td>
-<td>1.00</td>
-<td>0.250</td>
-</tr>
-<tr class="even">
-<th rowspan="3" data-quarto-table-cell-role="th" data-valign="top">factors that facilitate</th>
-<th data-quarto-table-cell-role="th">all</th>
-<td>102</td>
-<td>29</td>
-<td>38</td>
-<td>0</td>
-<td>35</td>
+<th data-quarto-table-cell-role="th">factors that facilitate</th>
 <td>0.63</td>
 <td>0.34</td>
 <td>0.18</td>
@@ -1305,39 +792,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.000</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">development</th>
-<td>60</td>
-<td>16</td>
-<td>22</td>
-<td>0</td>
-<td>22</td>
-<td>0.63</td>
-<td>0.35</td>
-<td>0.13</td>
-<td>0.56</td>
-<td>0.000</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">test</th>
-<td>42</td>
-<td>13</td>
-<td>16</td>
-<td>0</td>
-<td>13</td>
-<td>0.62</td>
-<td>0.33</td>
-<td>0.08</td>
-<td>0.59</td>
-<td>0.000</td>
-</tr>
-<tr class="odd">
-<th rowspan="3" data-quarto-table-cell-role="th" data-valign="top">stakeholder perspectives</th>
-<th data-quarto-table-cell-role="th">all</th>
-<td>102</td>
-<td>7</td>
-<td>3</td>
-<td>7</td>
-<td>85</td>
+<th data-quarto-table-cell-role="th">stakeholder perspectives</th>
 <td>0.90</td>
 <td>0.53</td>
 <td>0.25</td>
@@ -1345,39 +800,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.344</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">development</th>
-<td>60</td>
-<td>4</td>
-<td>2</td>
-<td>2</td>
-<td>52</td>
-<td>0.93</td>
-<td>0.63</td>
-<td>0.28</td>
-<td>0.98</td>
-<td>1.000</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">test</th>
-<td>42</td>
-<td>3</td>
-<td>1</td>
-<td>5</td>
-<td>33</td>
-<td>0.86</td>
-<td>0.43</td>
-<td>0.00</td>
-<td>0.85</td>
-<td>0.219</td>
-</tr>
-<tr class="even">
-<th rowspan="3" data-quarto-table-cell-role="th" data-valign="top">policies and what drive them</th>
-<th data-quarto-table-cell-role="th">all</th>
-<td>102</td>
-<td>35</td>
-<td>14</td>
-<td>4</td>
-<td>49</td>
+<th data-quarto-table-cell-role="th">policies and what drive them</th>
 <td>0.82</td>
 <td>0.64</td>
 <td>0.49</td>
@@ -1385,39 +808,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.031</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">development</th>
-<td>60</td>
-<td>18</td>
-<td>11</td>
-<td>1</td>
-<td>30</td>
-<td>0.80</td>
-<td>0.60</td>
-<td>0.39</td>
-<td>0.80</td>
-<td>0.006</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">test</th>
-<td>42</td>
-<td>17</td>
-<td>3</td>
-<td>3</td>
-<td>19</td>
-<td>0.86</td>
-<td>0.71</td>
-<td>0.50</td>
-<td>0.93</td>
-<td>1.000</td>
-</tr>
-<tr class="odd">
-<th rowspan="3" data-quarto-table-cell-role="th" data-valign="top">mechanisms for implementation</th>
-<th data-quarto-table-cell-role="th">all</th>
-<td>102</td>
-<td>26</td>
-<td>10</td>
-<td>16</td>
-<td>50</td>
+<th data-quarto-table-cell-role="th">mechanisms for implementation</th>
 <td>0.75</td>
 <td>0.46</td>
 <td>0.28</td>
@@ -1425,70 +816,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.327</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">development</th>
-<td>60</td>
-<td>11</td>
-<td>8</td>
-<td>6</td>
-<td>35</td>
-<td>0.77</td>
-<td>0.45</td>
-<td>0.19</td>
-<td>0.70</td>
-<td>0.791</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">test</th>
-<td>42</td>
-<td>15</td>
-<td>2</td>
-<td>10</td>
-<td>15</td>
-<td>0.71</td>
-<td>0.45</td>
-<td>0.18</td>
-<td>0.71</td>
-<td>0.039</td>
-</tr>
-<tr class="even">
-<th rowspan="3" data-quarto-table-cell-role="th" data-valign="top">any theme</th>
-<th data-quarto-table-cell-role="th">all</th>
-<td>102</td>
-<td>73</td>
-<td>15</td>
-<td>6</td>
-<td>8</td>
+<th data-quarto-table-cell-role="th">any theme</th>
 <td>0.79</td>
 <td>0.32</td>
 <td>0.05</td>
 <td>0.58</td>
 <td>0.078</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">development</th>
-<td>60</td>
-<td>37</td>
-<td>13</td>
-<td>2</td>
-<td>8</td>
-<td>0.75</td>
-<td>0.38</td>
-<td>0.10</td>
-<td>0.65</td>
-<td>0.007</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">test</th>
-<td>42</td>
-<td>36</td>
-<td>2</td>
-<td>4</td>
-<td>0</td>
-<td>0.86</td>
-<td>-0.07</td>
-<td>-0.86</td>
-<td>0.72</td>
-<td>0.688</td>
 </tr>
 </tbody>
 </table>
@@ -1542,9 +875,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    q, p <span class="op">=</span> cochran_q(three.astype(<span class="bu">int</span>))</span>
 <span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"sources each approach reaches: "</span> <span class="op">+</span> <span class="st">", "</span>.join(<span class="ss">f"</span><span class="sc">{</span>c<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span><span class="bu">int</span>(three[c].<span class="bu">sum</span>())<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> c <span class="kw">in</span> three))</span>
 <span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fleiss' kappa </span><span class="sc">{</span>fleiss_kappa(three.astype(<span class="bu">int</span>))<span class="sc">:.2f}</span><span class="ss">; Cochran's Q </span><span class="sc">{</span>q<span class="sc">:.1f}</span><span class="ss">, p = </span><span class="sc">{</span>p<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>    display(patterns)</span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> pair <span class="kw">in</span> pairs:</span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>        display(pair)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>    display(pd.concat(pairs)[[<span class="st">"agreement"</span>, <span class="st">"kappa"</span>, <span class="st">"mcnemar_p"</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>sources each approach reaches: Terms extracted by Qwen 84, Factor term match 79, Factor themes coded by Qwen 88
@@ -1558,184 +889,28 @@ Fleiss' kappa 0.31; Cochran's Q 3.9, p = 0.140</code></pre>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Terms extracted by Qwen</th>
-<th data-quarto-table-cell-role="th">Factor term match</th>
-<th data-quarto-table-cell-role="th">Factor themes coded by Qwen</th>
-<th data-quarto-table-cell-role="th">sources</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>67</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>True</td>
-<td>False</td>
-<td>True</td>
-<td>12</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>False</td>
-<td>True</td>
-<td>True</td>
-<td>6</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>False</td>
-<td>True</td>
-<td>False</td>
-<td>5</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>4</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">5</th>
-<td>True</td>
-<td>False</td>
-<td>False</td>
-<td>4</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">6</th>
-<td>False</td>
-<td>False</td>
-<td>True</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">7</th>
-<td>True</td>
-<td>True</td>
-<td>False</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">n</th>
-<th data-quarto-table-cell-role="th">both</th>
-<th data-quarto-table-cell-role="th">Terms extracted by Qwen only</th>
-<th data-quarto-table-cell-role="th">Factor term match only</th>
-<th data-quarto-table-cell-role="th">neither</th>
 <th data-quarto-table-cell-role="th">agreement</th>
 <th data-quarto-table-cell-role="th">kappa</th>
-<th data-quarto-table-cell-role="th">kappa_low</th>
-<th data-quarto-table-cell-role="th">kappa_high</th>
 <th data-quarto-table-cell-role="th">mcnemar_p</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Terms extracted by Qwen and Factor term match</th>
-<td>102</td>
-<td>68</td>
-<td>16</td>
-<td>11</td>
-<td>7</td>
 <td>0.74</td>
 <td>0.18</td>
-<td>-0.09</td>
-<td>0.44</td>
 <td>0.442</td>
 </tr>
-</tbody>
-</table>
-
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">n</th>
-<th data-quarto-table-cell-role="th">both</th>
-<th data-quarto-table-cell-role="th">Terms extracted by Qwen only</th>
-<th data-quarto-table-cell-role="th">Factor themes coded by Qwen only</th>
-<th data-quarto-table-cell-role="th">neither</th>
-<th data-quarto-table-cell-role="th">agreement</th>
-<th data-quarto-table-cell-role="th">kappa</th>
-<th data-quarto-table-cell-role="th">kappa_low</th>
-<th data-quarto-table-cell-role="th">kappa_high</th>
-<th data-quarto-table-cell-role="th">mcnemar_p</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
+<tr class="even">
 <th data-quarto-table-cell-role="th">Terms extracted by Qwen and Factor themes coded by Qwen</th>
-<td>102</td>
-<td>79</td>
-<td>5</td>
-<td>9</td>
-<td>9</td>
 <td>0.86</td>
 <td>0.48</td>
-<td>0.23</td>
-<td>0.73</td>
 <td>0.424</td>
 </tr>
-</tbody>
-</table>
-
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">n</th>
-<th data-quarto-table-cell-role="th">both</th>
-<th data-quarto-table-cell-role="th">Factor term match only</th>
-<th data-quarto-table-cell-role="th">Factor themes coded by Qwen only</th>
-<th data-quarto-table-cell-role="th">neither</th>
-<th data-quarto-table-cell-role="th">agreement</th>
-<th data-quarto-table-cell-role="th">kappa</th>
-<th data-quarto-table-cell-role="th">kappa_low</th>
-<th data-quarto-table-cell-role="th">kappa_high</th>
-<th data-quarto-table-cell-role="th">mcnemar_p</th>
-</tr>
-</thead>
-<tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Factor term match and Factor themes coded by Qwen</th>
-<td>102</td>
-<td>73</td>
-<td>6</td>
-<td>15</td>
-<td>8</td>
 <td>0.79</td>
 <td>0.32</td>
-<td>0.05</td>
-<td>0.58</td>
 <td>0.078</td>
 </tr>
 </tbody>
@@ -3266,7 +2441,7 @@ Fleiss' kappa 0.31; Cochran's Q 3.9, p = 0.140</code></pre>
 </section>
 <section id="reproducibility" class="level2">
 <h2 class="anchored" data-anchor-id="reproducibility">Reproducibility</h2>
-<p>The work runs in two places. We call the database APIs from the analysis server, with the scripts in <code>retrieval/</code> and the runs. The local model runs under llama.cpp on the GPU server. Its GGUF file comes from Hugging Face at a fixed revision with its SHA-256 checked, and we start it with <code>scripts/launch_rds_llm.sh</code> (<code>scripts/README.md</code>). Files the APIs and the local model return go in <code>data/raw/search-development/</code>, and files this notebook builds go in <code>data/processed/search-development/</code>. The notebook’s first code cells hold the fixed rules that build <code>reference_sources.csv</code>, <code>counts.csv</code>, <code>verdict.csv</code> and <code>statement_matches.csv</code> from the raw files, and they run at every render.</p>
+<p>The work runs in two places. We call the database APIs from the analysis server, with the scripts in <code>retrieval/</code> and the runs. The local model runs under llama.cpp on the GPU server. Its GGUF file comes from Hugging Face at a fixed revision with its SHA-256 checked, and we start it with <code>scripts/launch_rds_llm.sh</code> (<code>scripts/README.md</code>). Files the APIs and the local model return go in <code>data/raw/search-development/</code>, and files this notebook builds go in <code>data/processed/search-development/</code>. The notebook’s first code cells hold the fixed rules that build <code>reference_sources.csv</code>, <code>counts.csv</code>, <code>verdict.csv</code> and <code>statement_matches.csv</code> from the raw files, and they run at every render. The cells of runs 1 to 3 write <code>terms_counts.csv</code>, <code>factor_term_counts.csv</code> and <code>factor_theme_agreement.csv</code> to the same folder.</p>
 <p>Every file comes from code in the repository except one judgment, the comparison of Chawinga and Zinn’s criteria with RDS-Review’s in <code>comparison.csv</code>. The local model runs at temperature 0 with a fixed seed and thinking off, and each output file records the model file, the llama.cpp build and the settings. The databases keep indexing new records, so a rerun of the searches months later returns somewhat different counts; the committed files and <code>log.md</code> record what each search returned and when.</p>
 <p>The searches need three API keys, all registered under zachary.batist@mcgill.ca: an NCBI API key (ncbi.nlm.nih.gov, Account Settings), a Scopus API key (dev.elsevier.com), which has full Scopus Search access only from McGill’s network, and a Web of Science Starter API key (developer.clarivate.com) on the Free Institutional Member Plan. Rebuilding the reference set also needs Elsevier full-text entitlement for the journal.</p>
 <section id="commands" class="level3">
