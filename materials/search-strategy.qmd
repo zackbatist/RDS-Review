@@ -6,7 +6,7 @@ This page records the search, as PRISMA-S requires [@rethlefsen2021]. The counts
 
 ## Query
 
-One query runs in Scopus, Web of Science, and PubMed. It searches titles and abstracts for a form of *share* within five words of *data*, together with a word beginning *research* or *scienti*. In Scopus and Web of Science the search also covers author keywords. It covers sources published from 2015 to 2025 in English and French and applies no document type filter. Development and testing, below, gives how we chose it and how well it performs.
+One query runs in Scopus, Web of Science, and PubMed. It searches titles and abstracts for a form of *share* within five words of *data*, together with a word beginning *research* or *scienti*. In Scopus and Web of Science the search also covers author keywords. It covers sources published from 2015 to 2025 in English and French and applies no document type filter.
 
 | Database | Records |
 |:--|--:|
