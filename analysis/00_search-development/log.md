@@ -324,3 +324,23 @@ This entry replaces "Tier 2 stays limited to reviews and syntheses" in the entry
 ## To do: closed, 18 November 2026
 
 Search development is finished. Of the items listed here, five are done: the Artificial intelligence section no longer says the query terms come from the codes; the protocol's search section describes the title query, the factor terms, abstracts, reuse and the computing-word exclusion; the protocol and the screening guide carry the exclusion for systems, products and services; the screening guide carries the factor themes; and notebook 00 no longer shows the yield-rule queries. The two open items, exporting the sources added by hand with the database searches and the statistician's review of the seed size and stopping rule, move to the Status note on the site's home page.
+
+
+## Terms from the known sources, 23 November 2026
+
+- **Terms extracted by Qwen (run 22).** Qwen3.8-27B listed the words and phrases each of the 102 sources in the reference set uses to describe research data sharing, with `prompts/terms_prompt.md`. Qwen3.5-122B did not fit on the free GPUs. Almost every recurring term puts a form of *share* next to *data*; each other recurring term appears in two or three sources.
+- **Factor term match (run 23).** The terms in the screening guide's factors table, matched against the 102 sources' titles and abstracts with no model: 79 sources use at least one.
+- **Factor themes coded by Qwen against the factor term match (run 24).** Qwen3.5-122B's coding finds factor themes in more sources than the factor term match, in sources that use none of the factor terms. For building the query, Qwen's coding adds nothing over the factor term match.
+
+
+## Query revised, 23 November 2026
+
+- **Titles and abstracts.** Zack's decision: every part of the query searches titles and abstracts.
+- **Research term (runs 25 to 27).** share within 5 words of data AND (*research\** OR *scienti\**) cuts about half the records of share within 5 words of data and loses 3, 3 and 5 known sources in PubMed, Scopus and Web of Science. *research\** alone loses 5 to 8; *trial\** and *cohort\** add no known source across the three databases.
+- **Health terms (run 25).** "individual participant data", "individual patient data" and "clinical trial data" find no known source share within 5 words of data misses, and stay out.
+- **No NOT clause (runs 28 to 30).** In titles and abstracts, every computing word also excluded eligible records, such as "Role of Incentives in the Use of Blockchain-Based Platforms for Sharing Sensitive Health Data: Experimental Study". The query excludes nothing; reviewers exclude sources that design a system for sharing data when they screen.
+- **Test set (run 31).** The revised query finds 20 of the 25 indexed test sources, 0.80 (95% interval 0.61 to 0.91).
+- **Records (run 32).** 9,194 in PubMed, 31,683 in Scopus and 22,763 in Web of Science, about 34,305 once records sharing a DOI, or a title and year, count as one.
+- **No sources added by hand.** Zack's decision. The Sources added by hand section leaves notebook 00, the Other sources section leaves the search strategy page, the `other-` prefix leaves the README in `data/raw/search_exports/`, and the appendix of sources added by hand leaves the JMIR protocol's list.
+- **No new precision samples.** Zack's decision: the precision samples drew on the title query, and no new samples are drawn for the revised query.
+- **Text updated.** The protocol's search section and the search strategy page describe the revised query.

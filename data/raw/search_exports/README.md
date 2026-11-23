@@ -12,8 +12,6 @@ One file per database search, exactly as exported. Do not edit these files, and 
 
 Examples: `scopus_2026-11-18.ris`, `web-of-science_2026-11-18.ris`.
 
-Sources added by hand use the prefix `other-`: `other-hand-added_2026-11-18.ris`.
-
 ## CSV columns
 
 CSV exports need a title column. These columns are recognized, ignoring case: `Title`, `Abstract`, `Authors`, `Year`, `Journal`, `DOI`, `Volume`, `Issue`, and `Pages`. Common variants such as `Source title`, `Publication year`, and `Page start` with `Page end` are also recognized. Separate several authors with semicolons.

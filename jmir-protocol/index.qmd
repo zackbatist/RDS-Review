@@ -87,11 +87,10 @@ format:
 
 - Multimedia Appendix 1: PRISMA-ScR checklist.
 - Multimedia Appendix 2: Search strings for PubMed, Scopus and Web of Science.
-- Multimedia Appendix 3: Sources added by hand.
-- Multimedia Appendix 4: Charting form.
-- Multimedia Appendix 5: Screening guide.
-- Multimedia Appendix 6: Coding prompt (`coding_prompt.md`).
-- Multimedia Appendix 7: Scope prompt (`scope_prompt.md`).
+- Multimedia Appendix 3: Charting form.
+- Multimedia Appendix 4: Screening guide.
+- Multimedia Appendix 5: Coding prompt (`coding_prompt.md`).
+- Multimedia Appendix 6: Scope prompt (`scope_prompt.md`).
 
 ## References
 
