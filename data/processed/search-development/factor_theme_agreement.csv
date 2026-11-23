@@ -1,0 +1,19 @@
+theme,set,n,both,Factor themes coded by Qwen only,Factor term match only,neither,agreement,kappa,kappa_low,kappa_high,mcnemar_p
+factors that obstruct,all,102,33,19,0,50,0.81,0.63,0.48,0.78,0.0
+factors that obstruct,development,60,16,16,0,28,0.73,0.48,0.27,0.7,0.0
+factors that obstruct,test,42,17,3,0,22,0.93,0.86,0.7,1.0,0.25
+factors that facilitate,all,102,29,38,0,35,0.63,0.34,0.18,0.51,0.0
+factors that facilitate,development,60,16,22,0,22,0.63,0.35,0.13,0.56,0.0
+factors that facilitate,test,42,13,16,0,13,0.62,0.33,0.08,0.59,0.0
+stakeholder perspectives,all,102,7,3,7,85,0.9,0.53,0.25,0.81,0.344
+stakeholder perspectives,development,60,4,2,2,52,0.93,0.63,0.28,0.98,1.0
+stakeholder perspectives,test,42,3,1,5,33,0.86,0.43,0.0,0.85,0.219
+policies and what drive them,all,102,35,14,4,49,0.82,0.64,0.49,0.79,0.031
+policies and what drive them,development,60,18,11,1,30,0.8,0.6,0.39,0.8,0.006
+policies and what drive them,test,42,17,3,3,19,0.86,0.71,0.5,0.93,1.0
+mechanisms for implementation,all,102,26,10,16,50,0.75,0.46,0.28,0.64,0.327
+mechanisms for implementation,development,60,11,8,6,35,0.77,0.45,0.19,0.7,0.791
+mechanisms for implementation,test,42,15,2,10,15,0.71,0.45,0.18,0.71,0.039
+any theme,all,102,73,15,6,8,0.79,0.32,0.05,0.58,0.078
+any theme,development,60,37,13,2,8,0.75,0.38,0.1,0.65,0.007
+any theme,test,42,36,2,4,0,0.86,-0.07,-0.86,0.72,0.688
