@@ -1,0 +1,95 @@
+
+PubMed: records the NOT removes from share near data AND (research* OR scienti*)
+  blockchain*               202
+  "smart contract*"          49
+  IoT                        80
+  "internet of things"       88
+  vehicular                   7
+  "edge computing"           12
+  cloud                     246
+  all seven, fetched: 488
+  20 at random:
+    2020  Blockchain-Authenticated Sharing of Genomic and Clinical Outcomes Data of Patients With Cancer: A Prospective Cohort Study.
+    2022  CrowdMed-II: a blockchain-based framework for efficient consent management in health data sharing.
+    2017  Big Data Smart Socket (BDSS): a system that abstracts data transfer habits from end users.
+    2021  Blockchain-Federated-Learning and Deep Learning Models for COVID-19 Detection Using CT Imaging.
+    2022  Research on Public Administration and Resource Allocation Based on Blockchain and Structured Occupational Therapy.
+    2024  Patient-Centric Approach to Personalized Electronic Medical Records via QR Code in Japan.
+    2024  Adapting the open-source Gen3 platform and kubernetes for the NIH HEAL IMPOWR and MIRHIQL clinical trial data commons: Customization, cloud transition
+    2019  National and Transnational Security Implications of Asymmetric Access to and Use of Biological Data.
+    2022  An IoT-Based Smart System with an MQTT Broker for Individual Patient Vital Sign Monitoring in Potential Emergency or Prehospital Applications.
+    2025  Challenges and strategies in building a foundational digital health data integration ecosystem: a systematic review and thematic synthesis.
+    2022  The Biomedical Research Hub: a federated platform for patient research data.
+    2018  Secure count query on encrypted genomic data.
+    2023  Automatic Hybrid Access Control in SCADA-Enabled IIoT Networks Using Machine Learning.
+    2023  Wide-area vehicle trajectory data based on advanced tracking and trajectory splicing technologies: Potentials in transportation research.
+    2020  Connecting data, tools and people across Europe: ELIXIR's response to the COVID-19 pandemic.
+    2025  DDBJ update in 2024: the DDBJ Group Cloud service for sharing pre-publication data.
+    2025  Ethical AI in Healthcare: Integrating Zero-Knowledge Proofs and Smart Contracts for Transparent Data Governance.
+    2025  A Blockchain-Based Medical Electronic Health Record Big Data Sharing Scheme.
+    2025  Blockchain in Critical Care.
+    2022  Privacy-Aware Architectures for NFC and RFID Sensors in Healthcare Applications.
+
+Scopus: records the NOT removes from share near data AND (research* OR scienti*)
+  blockchain*              2551
+  "smart contract*"         725
+  IoT                      1619
+  "internet of things"     1768
+  vehicular                 205
+  "edge computing"          299
+  cloud                    2580
+  all seven, fetched: 5938
+  20 at random:
+    2018  Research issues and challenges related to Geo-IoT platform
+    2023  Blockchain Technology in Construction Supply Chain Management: Enhance Transaction Speed, Cost Effectiveness And Security
+    2025  FedEmo: A Federated Learning Framework for Privacy-Preserving Emotion Detection From Handwriting on Consumer IoMT Devices
+    2017  Key technology and application of energy measurement data security
+    2025  Hierarchical squeeze forward fractional net-based multi-party data sharing algorithm using hierarchical homomorphic encryption in blockchain
+    2023  Blockchain-Assisted Privacy-Preserving Data Computing Architecture for Web3
+    2023  Voice detection and cloud computing service database improvement based on data sharing network
+    2021  Research on Digital Middle Platform Construction and Data Application of Power Grid Based on the Internet of Things
+    2018  A secure encryption scheme based on certificateless proxy signature
+    2023  A Systematic Review of Secure IoT Data Sharing
+    2025  Research on improving the quality of groundwater self-monitoring via Blockchain technology
+    2025  Time Series Analysis and Modeling with Federated Leaning Techniques in Cloud Edge Scenario: A Case Study on Environmental Air Quality in Homes
+    2023  An encrypted medical blockchain data search method with access control mechanism
+    2025  Research on the Blockchain Sharing Model of Anonymous Traceable Human Resource System Multi-Group Data
+    2021  Blockchain-enabled wireless communications: a new paradigm towards 6G
+    2020  Cloud assisted big data information retrieval system for critical data supervision in disaster regions
+    2024  Scalable edge computing architecture for multimedia data management: Challenges and research avenues
+    2024  A Protection Approach for Coal Miners Safety Helmet Using IoT
+    2021  PUF-based key generation scheme for secure group communication using MEMS
+    2019  A blockchain-based trusted security zone architecture
+
+Web of Science: records the NOT removes from share near data AND (research* OR scienti*)
+  blockchain*              1334
+  "smart contract*"         372
+  IoT                       899
+  "internet of things"      927
+  vehicular                 120
+  "edge computing"          176
+  cloud                    1520
+  all seven, fetched: 3262
+  20 at random:
+    2018  A policy-oriented secured service for the e-commerce applications in cloud
+    2026  Transforming Biospecimen Management: A Roadmap for Integrated Sample Traceability in the Era of Global Research
+    2021  Research on Design and Application of Power Dispatch Based on Blockchain
+    2020  Multi-Access Edge Computing and Blockchain-based Secure Telehealth System Connected with 5G and IoT
+    2022  SCALABLE AND SECURE SHARING OF PERSONAL HEALTH RECORDS IN CLOUD COMPUTING USING ATTRIBUTE-BASED ENCRYPTION
+    2022  Software Architecture and Non-Fungible Tokens for Digital Twin Decentralized Applications in the Built Environment
+    2023  BLOCKCHAIN AND CITY INFORMATION MODELING (CIM): A NEW APPROACH OF TRANSPARENCY AND EFFICIENCY
+    2022  BCSM: A BlockChain-based Security Manager for Big Data
+    2024  PureFed: An Efficient Collaborative and Trustworthy Federated Learning Framework Based on Blockchain Network
+    2025  A data encryption and file sharing framework among microservices-based edge nodes with blockchain
+    2023  Enabling Secure Data sharing with data deduplication and sensitive information hiding in cloud-assisted Electronic Medical Systems
+    2023  Blockchain-Based Internet-of-Things for Secure Transmission of Medical Data in Rural Areas
+    2026  From crisis to control: big data solutions for risk management in supply chains
+    2016  Efficient Key Management Protocol with Predictive Rekeying for Dynamic Networks
+    2024  A state-of-the-art on federated learning for vehicular communications
+    2023  A Multi-joint Optimisation Method for Distributed Edge Computing Resources in IoT-Based Smart Cities
+    2024  Improving traceability in e-governance file-sharing systems: the Moroccan justice system as a use case
+    2023  Integration of federated learning with IoT for smart cities applications, challenges, and solutions
+    2021  Centralized cloud information accountability integrity with Firefly Key Generation Algorithm (CCIAI-FKGA) for cloud environment
+    2021  The Road to Accountable and Dependable Manufacturing
+
+wrote not_removed_records.csv

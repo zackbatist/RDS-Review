@@ -1,0 +1,38 @@
+
+PubMed: development sources 39, test sources 28
+  share near data                                                without NOT records   18840  development 21/39  test  9/28  lost 0
+  share near data                                                with NOT    records   17790  development 21/39  test  9/28  lost 0
+  share near "research data"                                     without NOT records    1536  development  9/39  test  6/28  lost 15
+  share near "research data"                                     with NOT    records    1469  development  9/39  test  6/28  lost 15
+  share near data AND research*                                  without NOT records    8615  development 17/39  test  8/28  lost 5
+  share near data AND research*                                  with NOT    records    8151  development 17/39  test  8/28  lost 5
+  share near data AND a research word                            without NOT records   14396  development 20/39  test  9/28  lost 1
+  share near data AND a research word                            with NOT    records   13741  development 20/39  test  9/28  lost 1
+  share near data AND a research word without study and studies  without NOT records   10511  development 20/39  test  9/28  lost 1
+  share near data AND a research word without study and studies  with NOT    records   10003  development 20/39  test  9/28  lost 1
+
+Scopus: development sources 39, test sources 28
+  share near data                                                without NOT records   82924  development 30/39  test 20/28  lost 0
+  share near data                                                with NOT    records   62769  development 30/39  test 20/28  lost 0
+  share near "research data"                                     without NOT records     743  development  3/39  test  6/28  lost 41
+  share near "research data"                                     with NOT    records     686  development  3/39  test  6/28  lost 41
+  share near data AND research*                                  without NOT records   29912  development 24/39  test 18/28  lost 8
+  share near data AND research*                                  with NOT    records   24191  development 24/39  test 18/28  lost 8
+  share near data AND a research word                            without NOT records   49304  development 29/39  test 19/28  lost 2
+  share near data AND a research word                            with NOT    records   40641  development 29/39  test 19/28  lost 2
+  share near data AND a research word without study and studies  without NOT records   33481  development 28/39  test 19/28  lost 3
+  share near data AND a research word without study and studies  with NOT    records   27420  development 28/39  test 19/28  lost 3
+
+Web of Science: development sources 39, test sources 28
+  share near data                                                without NOT records   62225  development 31/39  test 14/28  lost 0
+  share near data                                                with NOT    records   49700  development 31/39  test 14/28  lost 0
+  share near "research data"                                     without NOT records     589  development  3/39  test  5/28  lost 37
+  share near "research data"                                     with NOT    records     553  development  3/39  test  5/28  lost 37
+  share near data AND research*                                  without NOT records   21330  development 25/39  test 12/28  lost 8
+  share near data AND research*                                  with NOT    records   18216  development 25/39  test 12/28  lost 8
+  share near data AND a research word                            without NOT records   37258  development 29/39  test 13/28  lost 3
+  share near data AND a research word                            with NOT    records   32259  development 29/39  test 13/28  lost 3
+  share near data AND a research word without study and studies  without NOT records   24361  development 29/39  test 13/28  lost 3
+  share near data AND a research word without study and studies  with NOT    records   21041  development 29/39  test 13/28  lost 3
+
+wrote research_terms.csv

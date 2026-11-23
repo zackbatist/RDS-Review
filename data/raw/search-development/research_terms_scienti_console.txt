@@ -1,0 +1,42 @@
+
+PubMed: development sources 39, test sources 28
+  share near data                               without NOT records   18840  development 21/39  test  9/28  lost 0
+  share near data                               with NOT    records   17790  development 21/39  test  9/28  lost 0
+  share near data AND (research* OR scienti*)   without NOT records    9194  development 19/39  test  8/28  lost 3
+      lost: Mbuagbaw et al., 2017
+      lost: Mennes et al., 2013
+      lost: Savage and Vickers, 2009
+  share near data AND (research* OR scienti*)   with NOT    records    8706  development 19/39  test  8/28  lost 3
+      lost: Mbuagbaw et al., 2017
+      lost: Mennes et al., 2013
+      lost: Savage and Vickers, 2009
+
+Scopus: development sources 39, test sources 28
+  share near data                               without NOT records   82924  development 30/39  test 20/28  lost 0
+  share near data                               with NOT    records   62769  development 30/39  test 20/28  lost 0
+  share near data AND (research* OR scienti*)   without NOT records   31683  development 28/39  test 19/28  lost 3
+      lost: Houtkoop et al., 2018
+      lost: Huang et al., 2013
+      lost: Mennes et al., 2013
+  share near data AND (research* OR scienti*)   with NOT    records   25745  development 28/39  test 19/28  lost 3
+      lost: Houtkoop et al., 2018
+      lost: Huang et al., 2013
+      lost: Mennes et al., 2013
+
+Web of Science: development sources 39, test sources 28
+  share near data                               without NOT records   62225  development 31/39  test 14/28  lost 0
+  share near data                               with NOT    records   49700  development 31/39  test 14/28  lost 0
+  share near data AND (research* OR scienti*)   without NOT records   22763  development 28/39  test 12/28  lost 5
+      lost: Houtkoop et al., 2018
+      lost: Huang et al., 2013
+      lost: Mbuagbaw et al., 2017
+      lost: Mennes et al., 2013
+      lost: Savage and Vickers, 2009
+  share near data AND (research* OR scienti*)   with NOT    records   19501  development 28/39  test 12/28  lost 5
+      lost: Houtkoop et al., 2018
+      lost: Huang et al., 2013
+      lost: Mbuagbaw et al., 2017
+      lost: Mennes et al., 2013
+      lost: Savage and Vickers, 2009
+
+wrote research_terms_scienti.csv

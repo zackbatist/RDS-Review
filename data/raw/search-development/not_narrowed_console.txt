@@ -1,0 +1,83 @@
+
+PubMed: share near data AND (research* OR scienti*), 9194 records
+  NOT all seven words            removes    488  leaves   8706
+  NOT six words, without cloud   removes    285  leaves   8909
+  NOT four words                 removes    276  leaves   8918
+  records only cloud removes: 203
+  20 at random:
+    2015  Building new computational models to support health behavior change and maintenance: new opportunities in behavioral research.
+    2018  BAMSI: a multi-cloud service for scalable distributed filtering of massive genome data.
+    2018  Improving data workflow systems with cloud services and use of open data for bioinformatics research.
+    2020  fRNAkenseq: a fully powered-by-CyVerse cloud integrated RNA-sequencing analysis tool.
+    2024  KoNA: Korean Nucleotide Archive as A New Data Repository for Nucleotide Sequence Data.
+    2024  St. Jude Survivorship Portal: Sharing and Analyzing Large Clinical and Genomic Datasets from Pediatric Cancer Survivors.
+    2018  Development of a data collection and management system in West Africa: challenges and sustainability.
+    2025  Rehabilomics Strategies Enabled by Cloud-Based Rehabilitation: Scoping Review.
+    2019  Securing Personal Health Record System in Cloud Using User Usage Based Encryption.
+    2022  MCX Cloud-a modern, scalable, high-performance and in-browser Monte Carlo simulation platform with cloud computing.
+    2021  Mass Dynamics 1.0: A Streamlined, Web-Based Environment for Analyzing, Sharing, and Integrating Label-Free Data.
+    2016  Big Data Application in Biomedical Research and Health Care: A Literature Review.
+    2024  Population Neuroscience: Strategies to Promote Data Sharing While Protecting Privacy.
+    2025  Privacy-Enhancing Sequential Learning under Heterogeneous Selection Bias in Multi-Site EHR Data.
+    2025  Regulating neural data processing in the age of BCIs: Ethical concerns and legal approaches.
+    2024  Adapting the open-source Gen3 platform and kubernetes for the NIH HEAL IMPOWR and MIRHIQL clinical trial data commons: Customization, cloud transition
+    2021  Sherlock: an open-source data platform to store, analyze and integrate Big Data for computational biologists.
+    2023  Share all SARS-CoV-2 data immediately.
+    2016  The Medical Science DMZ.
+    2025  DDBJ update in 2024: the DDBJ Group Cloud service for sharing pre-publication data.
+
+Scopus: share near data AND (research* OR scienti*), 31683 records
+  NOT all seven words            removes   5938  leaves  25745
+  NOT six words, without cloud   removes   4274  leaves  27409
+  NOT four words                 removes   4033  leaves  27650
+  records only cloud removes: 1664
+  20 at random:
+    2017  Unstructured social media data mining system based on emotional database and unstructured information management architecture framework
+    2015  Health care system towards elastic multicloud with load balance and group
+    2025  Revolutionizing Cloud Computing: Decentralized Scheduling with Federated Learning for Enhanced Resource Utilization
+    2022  Genetic analysis instrumentation innovations built into the SeqStudio ™ Flex Genetic Analyzers
+    2022  A Survey on Content-Based Encrypted Image Retrieval in Cloud Computing
+    2020  Towards a European health research and innovation cloud (HRIC)
+    2017  An overview of online based platforms for sharing and analyzing electrophysiology data from big data perspective
+    2022  Analysis of Privacy and Security Challenges in e-Health Clouds
+    2025  Verifiable attribute-based multi-keyword search scheme with sensitive information hiding for cloud-assisted e-healthcare sharing systems
+    2025  UTILIZING FUZZY-IDENTITY-BASED ENCRYPTION WITH PROXY-RE-ENCRYPTION FOR DATA SHARING
+    2016  Data integration: Combined imaging and electrophysiology data in the cloud
+    2023  Performance Framework for Virtual Machine Migration in Cloud Computing
+    2025  Modeling and Cloud-Based Control of a DSTATCOM-Integrated Micro Grid System
+    2020  Case study of the social and information technological difficulties of the learners during the COVID-19 period
+    2016  A survey of public auditing for shared data storage with user revocation in cloud computing
+    2018  The Research and Application of Improved Search Method Based on Big Data
+    2023  Dynamic Feature Sharing for Cooperative Perception from Point Clouds
+    2023  OPEN leaf: an open-source cloud-based phenotyping system for tracking dynamic changes at leaf-specific resolution in Arabidopsis
+    2016  Towards virtual dataspaces for material scientific data cloud
+    2020  Drops: Division and replication of data in cloud for optimal performance and security
+
+Web of Science: share near data AND (research* OR scienti*), 22763 records
+  NOT all seven words            removes   3262  leaves  19501
+  NOT six words, without cloud   removes   2258  leaves  20505
+  NOT four words                 removes   2118  leaves  20645
+  records only cloud removes: 1004
+  20 at random:
+    2021  A Novel Method for Density Analysis of Repaired Point Cloud with Holes Based on Image Data
+    2016  Integration of data and computing infrastructures for earth science: an image mosaicking use-case
+    2023  An Improved Approach of Image Steganography Based on Least Significant Bit Technique for Secure Communication in Cloud
+    2022  Enterprise Financial Data Sharing Based on Information Fusion Cloud Computing Environment
+    2018  HCI Patterns for Cryptographically Equipped Cloud Services
+    2024  Development of Integrated Database for Experiments and Simulations
+    2019  Context Aware VM Placement Optimization Technique for Heterogeneous IaaS Cloud
+    2019  The Lord of the Shares: Combining Attribute-Based Encryption and Searchable Encryption for Flexible Data Sharing
+    2020  Disaster Risk Management Through the DesignSafe Cyberinfrastructure
+    2018  Cloud-Assisted Distributed Control System Architecture for Platooning
+    2025  An automatic scientific data collection framework for materials science
+    2022  A Comprehensive Review on Secure Data Sharing in Cloud Environment (Retracted article. See vol. 146, pg. 199, 2026)
+    2022  Diffusion of a Lifelog-Based Digital Healthcare Platform for Future Precision Medicine: Data Provision and Verification Study
+    2025  Data Integration and Analytics in the Dairy Industry: Challenges and Pathways Forward
+    2019  ECC Based Secure Sharing of Healthcare Data in the Health Cloud Environment
+    2019  Hierarchical group key management for secure data sharing in a cloud-based environment
+    2025  Predictable inventory management within dairy supply chain operations
+    2015  SensorDB: a virtual laboratory for the integration, visualization and analysis of varied biological sensor data
+    2020  Accelerating Artificial Intelligence on the Grid
+    2021  The International Radiomics Platform - An Initiative of the German and Austrian Radiological Societies First Application Examples
+
+wrote cloud_only_records.csv

@@ -1,0 +1,53 @@
+
+PubMed: development sources 39, test sources 28
+  title    baseline: share near data                            with NOT    records    2436  development 20/39  test  8/28  lost 0
+  title    baseline: share near data                            without NOT records    2531  development 20/39  test  8/28  lost 0
+  anywhere baseline: share near data                            with NOT    records   18255  development 21/39  test  9/28  lost 0
+  anywhere baseline: share near data                            without NOT records   18840  development 21/39  test  9/28  lost 0
+  anywhere research 1: share near "research data"               with NOT    records    1510  development  9/39  test  6/28  lost 15
+  anywhere research 1: share near "research data"               without NOT records    1536  development  9/39  test  6/28  lost 15
+  anywhere research 2: share near data AND research*            with NOT    records    8380  development 17/39  test  8/28  lost 5
+  anywhere research 2: share near data AND research*            without NOT records    8615  development 17/39  test  8/28  lost 5
+  anywhere research 3: share near data AND a research word      with NOT    records   14050  development 20/39  test  9/28  lost 1
+  anywhere research 3: share near data AND a research word      without NOT records   14396  development 20/39  test  9/28  lost 1
+  anywhere research 4: research 3 without study, studies        with NOT    records   10256  development 20/39  test  9/28  lost 1
+  anywhere research 4: research 3 without study, studies        without NOT records   10511  development 20/39  test  9/28  lost 1
+  anywhere health "individual participant data"                 records    2353  added    2180  development  0/39  test  0/28  beyond baseline 0
+  anywhere health "individual patient data"                     records    4042  added    3930  development  0/39  test  0/28  beyond baseline 0
+  anywhere health "clinical trial data"                         records    4095  added    3916  development  0/39  test  0/28  beyond baseline 0
+
+Scopus: development sources 39, test sources 28
+  title    baseline: share near data                            with NOT    records    7070  development 27/39  test 16/28  lost 0
+  title    baseline: share near data                            without NOT records    9551  development 27/39  test 16/28  lost 0
+  anywhere baseline: share near data                            with NOT    records   70281  development 30/39  test 20/28  lost 0
+  anywhere baseline: share near data                            without NOT records   82924  development 30/39  test 20/28  lost 0
+  anywhere research 1: share near "research data"               with NOT    records     715  development  3/39  test  6/28  lost 41
+  anywhere research 1: share near "research data"               without NOT records     743  development  3/39  test  6/28  lost 41
+  anywhere research 2: share near data AND research*            with NOT    records   26348  development 24/39  test 18/28  lost 8
+  anywhere research 2: share near data AND research*            without NOT records   29912  development 24/39  test 18/28  lost 8
+  anywhere research 3: share near data AND a research word      with NOT    records   43993  development 29/39  test 19/28  lost 2
+  anywhere research 3: share near data AND a research word      without NOT records   49304  development 29/39  test 19/28  lost 2
+  anywhere research 4: research 3 without study, studies        with NOT    records   29744  development 28/39  test 19/28  lost 3
+  anywhere research 4: research 3 without study, studies        without NOT records   33481  development 28/39  test 19/28  lost 3
+  anywhere health "individual participant data"                 records    2444  added    2268  development  0/39  test  0/28  beyond baseline 0
+  anywhere health "individual patient data"                     records    4122  added    4007  development  0/39  test  0/28  beyond baseline 0
+  anywhere health "clinical trial data"                         records    5135  added    4912  development  0/39  test  0/28  beyond baseline 0
+
+Web of Science: development sources 39, test sources 28
+  title    baseline: share near data                            with NOT    records    6149  development 28/39  test 12/28  lost 0
+  title    baseline: share near data                            without NOT records    7814  development 28/39  test 12/28  lost 0
+  anywhere baseline: share near data                            with NOT    records   54521  development 31/39  test 14/28  lost 0
+  anywhere baseline: share near data                            without NOT records   62225  development 31/39  test 14/28  lost 0
+  anywhere research 1: share near "research data"               with NOT    records     577  development  3/39  test  5/28  lost 37
+  anywhere research 1: share near "research data"               without NOT records     589  development  3/39  test  5/28  lost 37
+  anywhere research 2: share near data AND research*            with NOT    records   19465  development 25/39  test 12/28  lost 8
+  anywhere research 2: share near data AND research*            without NOT records   21330  development 25/39  test 12/28  lost 8
+  anywhere research 3: share near data AND a research word      with NOT    records   34292  development 29/39  test 13/28  lost 3
+  anywhere research 3: share near data AND a research word      without NOT records   37258  development 29/39  test 13/28  lost 3
+  anywhere research 4: research 3 without study, studies        with NOT    records   22392  development 29/39  test 13/28  lost 3
+  anywhere research 4: research 3 without study, studies        without NOT records   24361  development 29/39  test 13/28  lost 3
+  anywhere health "individual participant data"                 records    2832  added    2668  development  0/39  test  0/28  beyond baseline 0
+  anywhere health "individual patient data"                     records    5176  added    5056  development  0/39  test  0/28  beyond baseline 0
+  anywhere health "clinical trial data"                         records    4498  added    4280  development  0/39  test  1/28  beyond baseline 0
+
+wrote term_table_research.csv

@@ -1,0 +1,140 @@
+
+PubMed: records each word alone removes from share near data AND (research* OR scienti*)
+
+  blockchain*: 129
+    2019  How to Use Blockchain for Diabetes Health Care Data and Access Management: An Operational Concept.
+    2024  Blockchain-Based Dynamic Consent and its Applications for Patient-Centric Research and Health Information Sharing: Protocol for an Integrative Review.
+    2023  NeoStarling: An Efficient and Scalable Collaborative Blockchain-Enabled Obstacle Mapping Solution for Vehicular Environments.
+    2025  A hybrid blockchain-based solution for secure sharing of electronic medical record data.
+    2021  HonestChain: Consortium blockchain for protected data sharing in health information systems.
+    2021  Research on medical system based on blockchain technology.
+    2023  Role of Incentives in the Use of Blockchain-Based Platforms for Sharing Sensitive Health Data: Experimental Study.
+    2025  Toward owner governance in genomic data privacy with Governome.
+    2025  Retrospective analysis and decentralized distribution to improve the lifecycle of Ah receptor research assets.
+    2024  MatSwarm: trusted swarm transfer learning driven materials computation for secure big data sharing.
+
+  "smart contract*": 0
+
+  IoT: 10
+    2022  An Improved ID-Based Data Storage Scheme for Fog-Enabled IoT Environments.
+    2023  Graph-based association rule learning for context-based health monitoring to enable user-centered assistance.
+    2024  Privacy-Preserving Detection of Tampered Radio-Frequency Transmissions Utilizing Federated Learning in LoRa Networks.
+    2022  Federated learning-based AI approaches in smart healthcare: concepts, taxonomies, challenges and open issues.
+    2025  Patient-centric care and digital health tools.
+    2024  Federated Learning in the Detection of Fake News Using Deep Learning as a Basic Method.
+    2020  Three-Factor Fast Authentication Scheme with Time Bound and User Anonymity for Multi-Server E-Health Systems in 5G-Based Wireless Sensor Networks.
+    2021  Electrical Tomography Reconstruction Using Reconfigurable Waveforms in a FPGA.
+    2024  Secure Enhancement for MQTT Protocol Using Distributed Machine Learning Framework.
+    2018  The future of waste management in smart and sustainable cities: A review and concept paper.
+
+  "internet of things": 17
+    2025  Advancing genome-based precision medicine: a review on machine learning applications for rare genetic disorders.
+    2022  A Deep Learning-Based Privacy-Preserving Model for Smart Healthcare in Internet of Medical Things Using Fog Computing.
+    2025  Leveraging geographic information system for dengue surveillance: a scoping review.
+    2022  Collection of a Continuous Long-Term Dataset for the Evaluation of Wi-Fi-Fingerprinting-Based Indoor Positioning Systems.
+    2022  Digital technologies: tensions in privacy and data.
+    2022  Design and Optimization of Urinary Real-Time Nursing Model Based on Medical Internet of Things.
+    2024  Double-edged sword of industrial internet of things: Empirical evidence from green transformation of enterprises.
+    2022  Review: Smart agri-systems for the pig industry.
+    2019  Susan G. Komen Big Data for Breast Cancer Initiative: How Patient Advocacy Organizations Can Facilitate Using Big Data to Improve Patient Outcomes.
+    2019  Beyond the hype of big data and artificial intelligence: building foundations for knowledge and wisdom.
+
+Scopus: records each word alone removes from share near data AND (research* OR scienti*)
+
+  blockchain*: 1401
+    2019  Trust modeling for blockchain-based wearable data market
+    2023  Clients’ digitalization, audit firms’ digital expertise, and audit quality: evidence from China
+    2022  Application of a distributed verification in Islamic microfinance institutions: a sustainable model
+    2022  Understanding the Use of Blockchain in Medical Data Security: A Systematic Literature Review
+    2021  Combined application of hash, public key and blockchain technology in electronic money transactions
+    2023  Role of Incentives in the Use of Blockchain-Based Platforms for Sharing Sensitive Health Data: Experimental Study
+    2021  Blockchain in healthcare system: Security issues, attacks and challenges
+    2019  Industrial applications of blockchain
+    2022  Blockchain-based supply chain system in automotive industry forsmall-and medium-sized manufacturing
+    2023  How to Share Medical Data Belonging to Multiple Owners in a Secure Manner
+
+  "smart contract*": 19
+    2025  Trans-Border Trusted Data Spaces: A General Framework Supporting Trustworthy International Data Circulation
+    2019  Research on Confirming the Rights of Government Data Resources based on Smart Contract
+    2019  Building blocks of negotiating agents for healthcare data
+    2023  EFFECTIVE STRATEGY TO ENHANCE INTERMEDIATE DATA CONFIDENTIALITY SCIENTIFIC WORKFLOWS ON DISTRIBUTED MULTI-TENANT CLOUD INFRASTRUCTURE
+    2024  Achieving Secure and Efficient Emergency Data Sharing based on Searchable Proxy Re-Encryption
+    2020  Making context the central concept in privacy engineering
+    2025  A Cross-Multi-Domain Trust Assessment Authority Delegation Method Based on Automotive Industry Chain
+    2025  Research on Incentive echanisms and Profit Distribution for Data Sharing in Personal Trusted Data Spaces
+    2024  Managing the Geo-Spatial Data using Block chain
+    2023  ENHANCING ONION SUPPLY CHAIN USING THE SMART CONTRACT PLATFORM: A META-ANALYSIS
+
+  IoT: 193
+    2023  Big Data Application on Prediction of HDD Manufacturing Process Performance
+    2019  A novel approach to resource starvation attacks on message queuing telemetry transport brokers
+    2019  7th Annual Privacy Forum, APF 2019
+    2025  A Federated Approach to Enhance Calibration of Distributed ML-Based Intrusion Detection Systems
+    2024  Comprehensive Security for IoT Devices with Kubernetes and Raspberry Pi Cluster
+    2025  A systematic review on lightweight security algorithms for a sustainable IoT infrastructure
+    2023  W2Parking: A Data-Driven Win-Win Contract Parking Sharing Mechanism Under Both Supply and Demand Uncertainties
+    2023  FLAIRS: FPGA-Accelerated Inference-Resistant & Secure Federated Learning
+    2020  Research and development of smart irrigation in China*
+    2023  5th International Workshop on Emerging Technologies for Authorization and Authentication, ETAA 2022, co-located with the 27th European Symposium on Re
+
+  "internet of things": 301
+    2017  Modelling knowledge dynamics in industry 4.0: A smart grid scenario
+    2022  Application of Intelligent Algorithm Big Data Analysis in Smart Campus Construction
+    2023  Formalizing Stream Reasoning for a Decentralized Semantic Web
+    2023  Smartphone Apps for Containing the COVID-19 Pandemic in Germany: Qualitative Interview Study With Experts Based on Grounded Theory
+    2019  Research on Big Data Acquisition and Application of Cold Chain Logistics Based on Artificial Intelligence and Energy Internet of Things
+    2019  Finite approximate consensus for privacy in distributed sensor networks
+    2016  Mining social interactions in privacy-preserving temporal networks
+    2023  Lightweight Bidirectional Differential Privacy Protection Method for Privacy-Sensitive Data in Medical Internet of Things
+    2020  Research status and development trend of concrete spiral distributor
+    2025  Cloud-Network-End Collaborative Security for Wireless Networks: Architecture, Mechanisms, and Applications
+
+Web of Science: records each word alone removes from share near data AND (research* OR scienti*)
+
+  blockchain*: 706
+    2021  Emerging and Established Trends to Support Secure Health Information Exchange
+    2022  Blockchain design in health data management
+    2026  Assessing blockchain technology's technical utility in construction supply chains: A multi-KPI decision support approach via use cases
+    2021  Blockchain System in the Higher Education
+    2023  Blockchain-based Scalable and Secure EHR Data Sharing using Proxy Re-Encryption
+    2024  Secure and Flexible Privacy-Preserving Federated Learning Based on Multi-Key Fully Homomorphic Encryption
+    2022  Research on Epidemic Data Sharing Model Based on Cross-Chain Mechanism
+    2023  A Secure EMR Sharing System With Tamper Resistance and Expressive Access Control
+    2022  Data-driven secure, resilient and sustainable supply chains: gaps, opportunities, and a new generalised data sharing and data monetisation framework
+    2025  DataJudge: Cross-Chain Data Consistency Verification Based on Extended Merkle Hash Tree
+
+  "smart contract*": 8
+    2022  Investigating barriers to demand-driven SME collaboration in low-volume high-variability manufacturing
+    2020  Application of Block Chain Technology in Constructing Network Threat Intelligence System
+    2025  Verifiable Provenance for theWeb
+    2025  Trans-Border Trusted Data Spaces: A General Framework Supporting Trustworthy International Data Circulation
+    2020  Making context the central concept in privacy engineering
+    2017  OPPay: Design and Implementation of A Payment System for Opportunistic Data Services
+    2020  Acknowledging Value of Personal Information: a Privacy Aware Data Market for Health and Social Research
+    2025  A Cross-Multi-Domain Trust Assessment Authority Delegation Method Based on Automotive Industry Chain
+
+  IoT: 125
+    2024  Secure Enhancement for MQTT Protocol Using Distributed Machine Learning Framework
+    2020  Three-Factor Fast Authentication Scheme with Time Bound and User Anonymity for Multi-Server E-Health Systems in 5G-Based Wireless Sensor Networks
+    2024  Federated Learning in the Detection of Fake News Using Deep Learning as a Basic Method
+    2024  EPDR: An Efficient and Privacy-Preserving Disease Research System with Horizontal Federated Learning in the Internet of Medical Things
+    2016  FOGGY CLOUDS AND CLOUDY FOGS: A REAL NEED FOR COORDINATED MANAGEMENT OF FOG-TO-CLOUD COMPUTING SYSTEMS
+    2022  An Improved ID-Based Data Storage Scheme for Fog-Enabled IoT Environments
+    2019  A Comprehensive Literature Review of Data Encryption Techniques in Cloud Computing and IoT Environment
+    2017  NIMBLE Collaborative Platform: Microservice Architectural Approach to Federated IoT
+    2024  Group Signature with Time-Bound Keys for Secure E-health Record Sharing
+    2024  A Comprehensive Review of Beekeeping Datasets for Precision Apiculture Research
+
+  "internet of things": 166
+    2024  Research on the Design Practice of People-oriented Smart Community
+    2017  Application Research on Monitoring Cloud Platform of Bridge Construction Based on BIM
+    2019  The future security of travel by public transport: A review of evidence
+    2018  An Internet of Things-based Simulation Study on Lijiang River Water Environment Monitoring
+    2016  Securing BIG Storage: Present and Future
+    2022  Analysis of attribute-based cryptographic techniques and their application to protect cloud services
+    2017  Modelling Knowledge Dynamics in Industry 4.0: A Smart Grid Scenario
+    2023  Federated Learning Attacks Revisited: A Critical Discussion of Gaps, Assumptions, and Evaluation Setups
+    2024  Federated clustered multi-domain learning for health monitoring
+    2021  Analysis on homomorphic technique for data security in fog computing
+
+wrote not_unique_records.csv
