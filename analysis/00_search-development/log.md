@@ -328,19 +328,38 @@ Search development is finished. Of the items listed here, five are done: the Art
 
 ## Terms from the known sources, 23 November 2026
 
-- **Terms extracted by Qwen (run 22).** Qwen3.8-27B listed the words and phrases each of the 102 sources in the reference set uses to describe research data sharing, with `prompts/terms_prompt.md`. Qwen3.5-122B did not fit on the free GPUs. Almost every recurring term puts a form of *share* next to *data*; each other recurring term appears in two or three sources.
-- **Factor term match (run 23).** The terms in the screening guide's factors table, matched against the 102 sources' titles and abstracts with no model: 79 sources use at least one.
-- **Factor themes coded by Qwen against the factor term match (run 24).** Qwen3.5-122B's coding finds factor themes in more sources than the factor term match, in sources that use none of the factor terms. For building the query, Qwen's coding adds nothing over the factor term match.
+- **Terms extracted by Qwen (run 1).** Qwen3.8-27B listed the words and phrases each of the 102 sources in the reference set uses to describe research data sharing, with `prompts/terms_prompt.md`. Qwen3.5-122B did not fit on the free GPUs. Almost every recurring term puts a form of *share* next to *data*; each other recurring term appears in two or three sources.
+- **Factor term match (run 2).** The terms in the screening guide's factors table, matched against the 102 sources' titles and abstracts with no model: 79 sources use at least one.
+- **Factor themes coded by Qwen against the factor term match (runs 3 and 4).** Qwen3.5-122B's coding finds factor themes in more sources than the factor term match, in sources that use none of the factor terms. For building the query, Qwen's coding adds nothing over the factor term match.
 
 
 ## Query revised, 23 November 2026
 
 - **Titles and abstracts.** Zack's decision: every part of the query searches titles and abstracts.
-- **Research term (runs 25 to 27).** share within 5 words of data AND (*research\** OR *scienti\**) cuts about half the records of share within 5 words of data and loses 3, 3 and 5 known sources in PubMed, Scopus and Web of Science. *research\** alone loses 5 to 8; *trial\** and *cohort\** add no known source across the three databases.
-- **Health terms (run 25).** "individual participant data", "individual patient data" and "clinical trial data" find no known source share within 5 words of data misses, and stay out.
-- **No NOT clause (runs 28 to 30).** In titles and abstracts, every computing word also excluded eligible records, such as "Role of Incentives in the Use of Blockchain-Based Platforms for Sharing Sensitive Health Data: Experimental Study". The query excludes nothing; reviewers exclude sources that design a system for sharing data when they screen.
-- **Test set (run 31).** The revised query finds 20 of the 25 indexed test sources, 0.80 (95% interval 0.61 to 0.91).
-- **Records (run 32).** 9,194 in PubMed, 31,683 in Scopus and 22,763 in Web of Science, about 34,305 once records sharing a DOI, or a title and year, count as one.
+- **Research term (runs 21 and 22).** share within 5 words of data AND (*research\** OR *scienti\**) cuts about half the records of share within 5 words of data and loses 3, 3 and 5 known sources in PubMed, Scopus and Web of Science. *research\** alone loses 5 to 8; *trial\** and *cohort\** add no known source across the three databases.
+- **Health terms (run 20).** "individual participant data", "individual patient data" and "clinical trial data" find no known source share within 5 words of data misses, and stay out.
+- **No NOT clause (runs 23 to 25).** In titles and abstracts, every computing word also excluded eligible records, such as "Role of Incentives in the Use of Blockchain-Based Platforms for Sharing Sensitive Health Data: Experimental Study". The query excludes nothing; reviewers exclude sources that design a system for sharing data when they screen.
+- **Test set (run 26).** The revised query finds 20 of the 25 indexed test sources, 0.80 (95% interval 0.61 to 0.91).
+- **Records (run 27).** 9,194 in PubMed, 31,683 in Scopus and 22,763 in Web of Science, about 34,305 once records sharing a DOI, or a title and year, count as one.
 - **No sources added by hand.** Zack's decision. The Sources added by hand section leaves notebook 00, the Other sources section leaves the search strategy page, the `other-` prefix leaves the README in `data/raw/search_exports/`, and the appendix of sources added by hand leaves the JMIR protocol's list.
 - **No new precision samples.** Zack's decision: the precision samples drew on the title query, and no new samples are drawn for the revised query.
 - **Text updated.** The protocol's search section and the search strategy page describe the revised query.
+
+
+## Notebook 00 reorganized, 23 November 2026
+
+- **Order.** The notebook follows the logic of the search development, and its runs are numbered in that order: Known sources (with the terms the known sources use), Choosing the query, Scope, The title query, Revising the query, The revised query. Entries in this log before this one use the earlier numbers.
+- **Removed.** Runs on the known-item list, which Zack withdrew (earlier runs 17 and 18); title terms to catch the test sources the title query missed (earlier run 21); the computing words for the title query (earlier runs 13 to 15), which runs 23 to 25 replace; the research rows of earlier run 25, which run 21 repeats; the section setting out the title query's strings; the Sources added by hand section.
+- **Split.** Earlier run 24 becomes runs 3 and 4. Earlier run 25 keeps only the health terms, as run 20.
+- **Test set.** Runs 20 to 25 count the sources each search loses among development and test sources together, so run 26 does not test the revised query on sources independent of its choice. The notebook says so.
+
+  | Earlier | Now |
+  |:--|:--|
+  | 1 to 12 | 5 to 16 |
+  | 16 | 19 |
+  | 19, 20 | 17, 18 |
+  | 22, 23 | 1, 2 |
+  | 24 | 3 and 4 |
+  | 25 (health terms) | 20 |
+  | 26 to 30 | 21 to 25 |
+  | 31, 32 | 26, 27 |

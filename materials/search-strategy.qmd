@@ -38,11 +38,11 @@ We ran each candidate in PubMed, Scopus and Web of Science and recorded two coun
 
 : Records for 2015 to 2025, and the development and test sources each query loses against *share* within 5 words of *data*. {#tbl-candidates tbl-colwidths="[52,16,16,16]"}
 
-Runs 25 to 27 hold these measurements, and runs 28 to 30 the tests of a clause excluding computing words, which also excluded eligible records.
+Runs 21 and 22 hold these measurements, and runs 23 to 25 the tests of a clause excluding computing words, which also excluded eligible records.
 
 **Results.**
 
-- **Test set:** the query finds 20 of the 25 indexed test sources, a relative recall of 0.80 (95% interval 0.61 to 0.91). That is 8 of 11 in PubMed, 19 of 23 in Scopus and 12 of 18 in Web of Science (run 31).
+- **Test set:** the query finds 20 of the 25 indexed test sources, a relative recall of 0.80 (95% interval 0.61 to 0.91). That is 8 of 11 in PubMed, 19 of 23 in Scopus and 12 of 18 in Web of Science (run 26).
 - **What it misses:** five indexed test sources. Chiware and Mathe (2016), Specht et al. (2015) and Wittenberg and Elings (2017) concern research data management, Watson (2015) concerns open science, and Houtkoop et al. (2018) has no word beginning *research* or *scienti* in the fields the databases search.
 
 **Limits.**
