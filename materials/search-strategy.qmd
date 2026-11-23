@@ -21,36 +21,28 @@ Platforms and search dates for the exports are to be added.
 
 ## Development and testing
 
-**Method.** We tested candidate queries against known relevant sources, following the development and validation set approach of @hausner2012. The known sources are the 76 sources included by @chawinga2019 that meet this review's criteria apart from year. We rebuilt their list from the paper with a script, and checked each source against the criteria with a local language model. Sources published 2007 to 2014 form the development set: 45 sources, 35 of them indexed in at least one database. Sources published from 2015 form the test set: 31 sources, 25 indexed, held out while we chose the title query. The revision to the revised query counted test sources too, so the test result below is not independent of that choice.
+**Method.** We tested candidate queries against known relevant sources, following the development and validation set approach of @hausner2012. The known sources are the 76 sources included by @chawinga2019 that meet this review's criteria apart from year. We rebuilt their list from the paper with a script, and checked each source against the criteria with a local language model. Sources published 2007 to 2014 form the development set: 45 sources, 35 of them indexed in at least one database. Sources published from 2015 form the test set: 31 sources, 25 indexed. We counted test sources while choosing the query's research term, so the test result below is not independent of that choice.
 
 We ran each candidate in PubMed, Scopus and Web of Science and recorded two counts: the records it returns for 2015 to 2025 in English or French, and the development and test sources it finds by DOI or PMID. Every measurement here can be checked or rerun in the [search development notebook](../analysis/00_search-development/00-search-development.ipynb), which holds each run with its code and files.
 
 **Candidates compared.**
 
-| Query, titles and abstracts | PubMed | Scopus | Web of Science |
-|:--|:--|:--|:--|
-| *share* within 5 words of *data* | 18,840 | 82,924 | 62,225 |
-| *share* within 5 words of *"research data"* | 1,536 · 15 | 743 · 41 | 589 · 37 |
-| *share* within 5 words of *data* AND *research\** | 8,615 · 5 | 29,912 · 8 | 21,330 · 8 |
-| ***share* within 5 words of *data* AND (*research\** OR *scienti\**) (the query)** | **9,194 · 3** | **31,683 · 3** | **22,763 · 5** |
-| *share* within 5 words of *data* AND (*research\** OR *scientific* OR *scientist\** OR *trial\** OR *cohort\**) | 10,511 · 1 | 33,481 · 3 | 24,361 · 3 |
-| *share* within 5 words of *data* AND (*research\** OR *scientific* OR *scientist\** OR *study* OR *studies* OR *trial\** OR *cohort\**) | 14,396 · 1 | 49,304 · 2 | 37,258 · 3 |
+| Added to *share* within 5 words of *data* | PubMed records | Lost | Scopus records | Lost | Web of Science records | Lost |
+|:--|--:|--:|--:|--:|--:|--:|
+| Nothing | 18,840 | 0 | 82,924 | 0 | 62,225 | 0 |
+| *"research data"* in place of *data* | 1,536 | 15 | 743 | 41 | 589 | 37 |
+| AND *research\** | 8,615 | 5 | 29,912 | 8 | 21,330 | 8 |
+| **AND (*research\** OR *scienti\**), the query** | **9,194** | **3** | **31,683** | **3** | **22,763** | **5** |
+| AND (*research\** OR *scientific* OR *scientist\** OR *trial\** OR *cohort\**) | 10,511 | 1 | 33,481 | 3 | 24,361 | 3 |
+| AND (*research\** OR *scientific* OR *scientist\** OR *study* OR *studies* OR *trial\** OR *cohort\**) | 14,396 | 1 | 49,304 | 2 | 37,258 | 3 |
 
-: Records for 2015 to 2025, and the development and test sources each query loses against *share* within 5 words of *data*. {#tbl-candidates tbl-colwidths="[52,16,16,16]"}
+: Records for 2015 to 2025, and the development and test sources that *share* within 5 words of *data* finds and each query loses. {#tbl-candidates tbl-colwidths="[40,10,10,10,10,10,10]"}
 
 Runs 21 and 22 hold these measurements, and runs 23 to 25 the tests of a clause excluding computing words, which also excluded eligible records.
 
-**Results.**
+**Results.** The query finds 20 of the 25 test sources that the databases index: 8 of 11 in PubMed, 19 of 23 in Scopus and 12 of 18 in Web of Science (run 26), a relative recall of 0.80 (95% interval 0.61 to 0.91). It misses Chiware and Mathe (2016), Specht et al. (2015) and Wittenberg and Elings (2017), which concern research data management; Watson (2015), which concerns open science; and Houtkoop et al. (2018), which the research term loses.
 
-- **Test set:** the query finds 20 of the 25 indexed test sources, a relative recall of 0.80 (95% interval 0.61 to 0.91). That is 8 of 11 in PubMed, 19 of 23 in Scopus and 12 of 18 in Web of Science (run 26).
-- **What it misses:** five indexed test sources. Chiware and Mathe (2016), Specht et al. (2015) and Wittenberg and Elings (2017) concern research data management, Watson (2015) concerns open science, and Houtkoop et al. (2018) has no word beginning *research* or *scienti* in the fields the databases search.
-
-**Limits.**
-
-- The development result is in-sample, because we chose the query to find as many development sources as possible. Only the test result estimates recall.
-- The test set is small and dates from 2015 to 2018, so recall for sources from 2019 to 2025 is untested.
-- The revised query was chosen partly on the test sources, so 20 of 25 overstates its recall on sources it has not seen.
-- Admitting all source types from fields outside health research came after the first test result. It raised the test sources in scope from 10 to 25.
+**Limits.** We chose the query partly on the test sources, so 0.80 overstates its recall. The test set is small and its sources date from 2015 to 2018, so it gives no estimate of recall for 2019 to 2025. We admitted all source types from fields outside health research after a first test of an earlier query, which raised the test sources in scope from 10 to 31.
 
 **Peer review.** A McGill health sciences librarian reviewed the search approach on 27 October 2026.
 

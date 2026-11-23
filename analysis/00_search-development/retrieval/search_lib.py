@@ -6,8 +6,7 @@ import requests
 ROOT = Path(__file__).resolve().parents[3]
 RAW = ROOT / "data" / "raw" / "search-development"
 PROCESSED = ROOT / "data" / "processed" / "search-development"
-PROCESSED_FILES = {"reference_sources.csv", "counts.csv", "verdict.csv", "statement_matches.csv",
-                   "terms.csv", "term_syntax.csv"}
+PROCESSED_FILES = {"reference_sources.csv", "counts.csv", "verdict.csv", "statement_matches.csv"}
 CODES = "reference_codes_qwen3.5-122b.csv"  # the local model's codes of record
 DATABASES = {"pubmed": "PubMed", "scopus": "Scopus", "web-of-science": "Web of Science"}
 
