@@ -363,3 +363,10 @@ Search development is finished. Of the items listed here, five are done: the Art
   | 25 (health terms) | 20 |
   | 26 to 30 | 21 to 25 |
   | 31, 32 | 26, 27 |
+
+## Residue removed, 23 November 2026
+
+- **Files deleted.** `retrieval/query.py`, `retrieval/precision.py`, `precision_screening_template.html`, and `precision_screening.html`, `terms.csv` and `term_syntax.csv` in `data/processed/search-development/`. They served the first version of step 3, with terms chosen by yield, and the precision samples, which Zack dropped. Notebook 00 no longer builds the three processed files, and its checks and Reproducibility section no longer name them. The raw files these steps produced stay in `data/raw/search-development/`, since earlier entries cite them.
+- **`terms.py` moved** from `retrieval/` to `local-model/`, beside `coding.py` and `scope.py`, since it sends sources to the local model.
+- **Tier 2 estimate.** Runs 17 and 18 measured the cost of opening tier 2 on the title query's 7,933 records. Zack decided against measuring it again on the revised query, and tier 2 stays open to all source types.
+- **Voice.** Zack asked for a pass over notebook 00's prose, the search strategy page and the protocol's AI section. The protocol now also reports that the local model judged the scope sample (run 18).
