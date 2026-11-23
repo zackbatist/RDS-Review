@@ -21,7 +21,7 @@ Platforms and search dates for the exports are to be added.
 
 ## Development and testing
 
-**Method.** We tested candidate queries against known relevant sources, following the development and validation set approach of @hausner2012. The known sources are the 76 sources included by @chawinga2019 that meet this review's criteria apart from year. We rebuilt their list from the paper with a script, and checked each source against the criteria with a local language model. Sources published 2007 to 2014 form the development set: 45 sources, 35 of them indexed in at least one database. Sources published from 2015 form the test set: 31 sources, 25 indexed, held out until we chose the query.
+**Method.** We tested candidate queries against known relevant sources, following the development and validation set approach of @hausner2012. The known sources are the 76 sources included by @chawinga2019 that meet this review's criteria apart from year. We rebuilt their list from the paper with a script, and checked each source against the criteria with a local language model. Sources published 2007 to 2014 form the development set: 45 sources, 35 of them indexed in at least one database. Sources published from 2015 form the test set: 31 sources, 25 indexed, held out while we chose the title query. The revision to the revised query counted test sources too, so the test result below is not independent of that choice.
 
 We ran each candidate in PubMed, Scopus and Web of Science and recorded two counts: the records it returns for 2015 to 2025 in English or French, and the development and test sources it finds by DOI or PMID. Every measurement here can be checked or rerun in the [search development notebook](../analysis/00_search-development/00-search-development.ipynb), which holds each run with its code and files.
 
@@ -49,6 +49,7 @@ Runs 21 and 22 hold these measurements, and runs 23 to 25 the tests of a clause 
 
 - The development result is in-sample, because we chose the query to find as many development sources as possible. Only the test result estimates recall.
 - The test set is small and dates from 2015 to 2018, so recall for sources from 2019 to 2025 is untested.
+- The revised query was chosen partly on the test sources, so 20 of 25 overstates its recall on sources it has not seen.
 - Admitting all source types from fields outside health research came after the first test result. It raised the test sources in scope from 10 to 25.
 
 **Peer review.** A McGill health sciences librarian reviewed the search approach on 27 October 2026.
