@@ -1,0 +1,5 @@
+database,query,found,indexed,coverage,low,high
+PubMed,"((""sharing data""[tiab:~5] OR ""shared data""[tiab:~5] OR ""share data""[tiab:~5] OR ""shares data""[tiab:~5]) AND (research*[tiab] OR scienti*[tiab]))",8,11,0.727,0.434,0.903
+Scopus,(TITLE-ABS-KEY(shar* W/5 data) AND (TITLE-ABS-KEY(research*) OR TITLE-ABS-KEY(scienti*))),19,23,0.826,0.629,0.93
+Web of Science,(TS=(shar* NEAR/5 data) AND (TS=(research*) OR TS=(scienti*))),12,18,0.667,0.437,0.837
+all three,,20,25,0.8,0.609,0.911

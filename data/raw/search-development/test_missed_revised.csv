@@ -1,0 +1,12 @@
+ref_id,label,title,year,doi,pmid,field,source_type,in_scope,pubmed,scopus,web_of_science
+bb3000,Bishoff and Johnston (2015),Approaches to data sharing: An analysis of NSF Data Management plans from a large research university,2015,10.7710/2162-3309.1231,,cross-disciplinary,empirical,yes,not indexed,not indexed,not indexed
+bb0050,"Brown et al., 2015",Directions for research data management in UK universities,2015,,,cross-disciplinary,policy-guidance,yes,no DOI or PMID,no DOI or PMID,no DOI or PMID
+bb0080,"Chiware and Mathe, 2016",Academic libraries' role in research data management services: A south African perspective,2016,10.7553/81-2-1563,,health,empirical,yes,not indexed,not indexed,"indexed, not found"
+bb0205,"Guedon, 2015",Open data and science: Towards optimizing the research process,2015,,,cross-disciplinary,opinion,yes,no DOI or PMID,no DOI or PMID,no DOI or PMID
+bb2070,"He, 2016",Data sharing across research and public communities,2016,10.13016/m2z84m,,cross-disciplinary,empirical,yes,not indexed,not indexed,not indexed
+bb0245,"Houtkoop et al., 2018",Data sharing in psychology: A survey on barriers and preconditions,2018,10.1177/2515245917751886,,other,empirical,yes,not indexed,"indexed, not found","indexed, not found"
+bb0285,"Koopman, 2015","Data archiving, management initiatives and expertise in the Biological Sciences Department (Master's thesis)",2015,,,other,empirical,yes,no DOI or PMID,no DOI or PMID,no DOI or PMID
+bb0460,"Specht et al., 2015",Data management challenges in analysis and synthesis in the ecosystem sciences,2015,10.1016/j.scitotenv.2015.03.092,25891686,other,empirical,yes,"indexed, not found","indexed, not found","indexed, not found"
+bb0515,"Watson, 2015",When will ‘open science’ become simply ‘science’?,2015,10.1186/s13059-015-0669-2,25986601,other,opinion,yes,"indexed, not found","indexed, not found","indexed, not found"
+bb0530,"Wittenberg and Elings, 2017","Building a research data management service at the University of California, Berkeley: A tale of collaboration",2017,10.1177/0340035216686982,,other,empirical,yes,not indexed,"indexed, not found","indexed, not found"
+bb0550,"Zvyagintseva, 2015",Articulating a vision for community-engaged data curation in the digital humanities,2015,10.7939/r3m66s,,other,empirical,yes,not indexed,not indexed,not indexed

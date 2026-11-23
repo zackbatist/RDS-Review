@@ -1,0 +1,30 @@
+PubMed          found  8 of 11 indexed   95% interval 0.43 to 0.90
+Scopus          found 19 of 23 indexed   95% interval 0.63 to 0.93
+Web of Science  found 12 of 18 indexed   95% interval 0.44 to 0.84
+at least one    found 20 of 25 indexed   95% interval 0.61 to 0.91
+
+missed:
+  Bishoff and Johnston (2015): PubMed not indexed; Scopus not indexed; Web of Science not indexed
+      Approaches to data sharing: An analysis of NSF Data Management plans from a large research university
+  Brown et al., 2015: PubMed no DOI or PMID; Scopus no DOI or PMID; Web of Science no DOI or PMID
+      Directions for research data management in UK universities
+  Chiware and Mathe, 2016: PubMed not indexed; Scopus not indexed; Web of Science indexed, not found
+      Academic libraries' role in research data management services: A south African perspective
+  Guedon, 2015: PubMed no DOI or PMID; Scopus no DOI or PMID; Web of Science no DOI or PMID
+      Open data and science: Towards optimizing the research process
+  He, 2016: PubMed not indexed; Scopus not indexed; Web of Science not indexed
+      Data sharing across research and public communities
+  Houtkoop et al., 2018: PubMed not indexed; Scopus indexed, not found; Web of Science indexed, not found
+      Data sharing in psychology: A survey on barriers and preconditions
+  Koopman, 2015: PubMed no DOI or PMID; Scopus no DOI or PMID; Web of Science no DOI or PMID
+      Data archiving, management initiatives and expertise in the Biological Sciences Department (Master's thesis)
+  Specht et al., 2015: PubMed indexed, not found; Scopus indexed, not found; Web of Science indexed, not found
+      Data management challenges in analysis and synthesis in the ecosystem sciences
+  Watson, 2015: PubMed indexed, not found; Scopus indexed, not found; Web of Science indexed, not found
+      When will ‘open science’ become simply ‘science’?
+  Wittenberg and Elings, 2017: PubMed not indexed; Scopus indexed, not found; Web of Science indexed, not found
+      Building a research data management service at the University of California, Berkeley: A tale of collaboration
+  Zvyagintseva, 2015: PubMed not indexed; Scopus not indexed; Web of Science not indexed
+      Articulating a vision for community-engaged data curation in the digital humanities
+
+wrote test_coverage_revised.csv and test_missed_revised.csv
