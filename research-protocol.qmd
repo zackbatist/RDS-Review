@@ -47,7 +47,7 @@ The search covers sources published from 2015 to 2025 in English and French, the
 
 One query runs in Scopus, Web of Science, and PubMed. Its terms are a form of *share* within five words of *data*, the phrase "open data" and the phrase "research data management", each in the titles and abstracts of records that contain *research\** or *scienti\**. The search covers sources published from 2015 to 2025 in English and French, with no document type filter, since all source types are eligible. The proximity term matches "data sharing" along with phrasings such as "sharing research data" and "sharing of health data". The two phrases match records on open data or research data management that lack such phrasings. The [search strategy](materials/search-strategy.qmd) page gives the query as written for each database, with the number of records it returns.
 
-Of the 102 sources included by @chawinga2019, 76 are in at least one of the three databases, and 62 of those match this review's query. The query's terms came from tests against these same sources, so 62 of 76 is not an independent measure of recall. The [search strategy](materials/search-strategy.qmd) page has the full account of the query's development and testing.
+@chawinga2019 included 105 sources and did not list them. Of the 102 rebuilt from the paper's references, 76 are in at least one of the three databases, and 62 of those match this review's query. The query's terms came from tests against these same sources, so 62 of 76 is not an independent measure of recall. The [search strategy](materials/search-strategy.qmd) page has the full account of the query's development and testing.
 
 ### Selection of sources
 

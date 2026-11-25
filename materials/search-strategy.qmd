@@ -20,7 +20,7 @@ Platforms and search dates for the exports are to be added.
 
 ## Development and testing
 
-**Method.** Following @hausner2012, the known relevant sources for testing candidate queries are the 102 sources included by @chawinga2019. The list of these 102 sources is a reconstruction from the paper's references, since the paper does not list its included sources. Of the 102 sources, 85 have a DOI or PMID and 76 are in at least one of the three databases. The query's terms are the outcome of tests against these sources, so the result below is not an independent test of the query. Each test, with its code and files, is in the [search development notebook](../analysis/00_search-development/00-search-development.ipynb).
+**Method.** Following @hausner2012, the known relevant sources for testing candidate queries are the sources included by @chawinga2019. The paper does not list its 105 included sources, and we rebuilt a list of 102 from its references. Of the 102 sources, 85 have a DOI or PMID and 76 are in at least one of the three databases. The query's terms are the outcome of tests against these sources, so the result below is not an independent test of the query. Each test, with its code and files, is in the [search development notebook](../analysis/00_search-development/00-search-development.ipynb).
 
 **Candidates compared.**
 
