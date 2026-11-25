@@ -45,9 +45,9 @@ The search covers sources published from 2015 to 2025 in English and French, the
 
 ### Information sources and search
 
-One query runs in Scopus, Web of Science, and PubMed. It searches titles and abstracts for a form of *share* or *open* within five words of *data*, together with a word beginning *research* or *scienti*, in sources published from 2015 to 2025 in English and French. The proximity terms match "data sharing" and "open data" along with phrasings such as "sharing research data" and "sharing of health data", and we add the second term to limit the records to sources that concern research. We apply no document type filter, since all source types are eligible. The [search strategy](materials/search-strategy.qmd) page gives the query as written for each database, with the number of records it returns.
+One query runs in Scopus, Web of Science, and PubMed. Its terms are a form of *share* within five words of *data*, the phrase "open data" and the phrase "research data management", each in the titles and abstracts of records that contain *research\** or *scienti\**. The search covers sources published from 2015 to 2025 in English and French, with no document type filter, since all source types are eligible. The proximity term matches "data sharing" along with phrasings such as "sharing research data" and "sharing of health data". The two phrases match records on open data or research data management that lack such phrasings. The [search strategy](materials/search-strategy.qmd) page gives the query as written for each database, with the number of records it returns.
 
-We tested the query on the sources @chawinga2019 included that were published from 2015 and meet this review's criteria; it finds 21 of the 25 that the databases index. These sources also informed the query's final form, so the figure overstates its recall. The [search strategy](materials/search-strategy.qmd) page reports how we developed and tested the query.
+Of the 102 sources included by @chawinga2019, 76 are in at least one of the three databases, and 62 of those match this review's query. The query's terms came from tests against these same sources, so 62 of 76 is not an independent measure of recall. The [search strategy](materials/search-strategy.qmd) page has the full account of the query's development and testing.
 
 ### Selection of sources
 

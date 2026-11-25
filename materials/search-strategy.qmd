@@ -6,26 +6,21 @@ This page records the search, as PRISMA-S requires [@rethlefsen2021]. The counts
 
 ## Query
 
-The query is a form of *share* or *open* within five words of *data*, together with a word beginning *research* or *scienti*, in titles and abstracts. A distance of five words is sufficient for phrasings such as "sharing of research data" and "openly available data". The results comprise 110,847 records across PubMed, Scopus and Web of Science, of which 60,852 are unique by DOI or by title and year. Of the 25 test sources in these databases, 21 are among the results (0.84, 95% interval 0.65 to 0.94).
+One query runs in Scopus, Web of Science, and PubMed. Its terms are a form of *share* within five words of *data*, the phrase "open data" and the phrase "research data management", each in the titles and abstracts of records that contain *research\** or *scienti\**. The search covers sources published from 2015 to 2025 in English and French, with no document type filter.
 
-In Scopus and Web of Science the search also covers author keywords. It covers sources published from 2015 to 2025 in English and French and applies no document type filter.
-
-| Database | Records |
-|:--|--:|
-| PubMed | 14,371 |
-| Scopus | 55,738 |
-| Web of Science | 40,738 |
-| **Total** | **110,847** |
-
-: Records the query returned on 25 November 2026 through each database's API, before deduplication. Matched on DOI, or on title and year, they come to 60,852. The Web of Science count omits the language limit, which its API rejects beside a proximity search. {#tbl-records}
+| Database | Records | Known sources in the database | Matching the query |
+|:--|--:|--:|--:|
+| PubMed | 10,397 | 43 | 33 |
+| Scopus | 39,441 | 70 | 58 |
+| Web of Science | 28,134 | 65 | 50 |
+| **Total** | **77,972** | **76** | **62** |
+| Unique by DOI, or by title and year | 42,920 | | |
 
 Platforms and search dates for the exports are to be added.
 
 ## Development and testing
 
-**Method.** We tested candidate queries against known relevant sources, following the development and validation set approach of @hausner2012. The known sources are the 76 sources included by @chawinga2019 that meet this review's criteria apart from year. We rebuilt their list from the paper with a script, and checked each source against the criteria with a local language model. Sources published 2007 to 2014 form the development set: 45 sources, 35 of them indexed in at least one database. Sources published from 2015 form the test set: 31 sources, 25 indexed. We counted test sources while choosing the query's terms and their distance from *data*, so the test result below is not independent of those choices.
-
-We ran each candidate in PubMed, Scopus and Web of Science and recorded two counts: the records it returns for 2015 to 2025 in English or French, and the development and test sources it finds by DOI or PMID. Every measurement here can be checked or rerun in the [search development notebook](../analysis/00_search-development/00-search-development.ipynb), which holds each run with its code and files.
+**Method.** Following @hausner2012, the known relevant sources for testing candidate queries are the 102 sources included by @chawinga2019. The list of these 102 sources is a reconstruction from the paper's references, since the paper does not list its included sources. Of the 102 sources, 85 have a DOI or PMID and 76 are in at least one of the three databases. The query's terms are the outcome of tests against these sources, so the result below is not an independent test of the query. Each test, with its code and files, is in the [search development notebook](../analysis/00_search-development/00-search-development.ipynb).
 
 **Candidates compared.**
 
@@ -33,13 +28,13 @@ We ran each candidate in PubMed, Scopus and Web of Science and recorded two coun
 |:--|--:|--:|--:|--:|
 | share NEAR/5 data | 18,840 | 82,926 | 62,228 | 163,994 |
 | (share NEAR/5 data) AND (research\* OR scienti\*) | 9,194 | 31,681 | 22,764 | 63,639 |
-| **(share NEAR/5 data OR open\* NEAR/5 data) AND (research\* OR scienti\*)** | **14,371** | **55,738** | **40,738** | **110,847** |
+| **(share NEAR/5 data OR "open data" OR "research data management") AND (research\* OR scienti\*)** | **10,397** | **39,441** | **28,134** | **77,972** |
 
 : Records for 2015 to 2025, before deduplication, on 25 November 2026. {#tbl-candidates tbl-colwidths="[64,9,9,9,9]"}
 
-**Results.** Of the 25 test sources in the databases, the query finds nine of 11 in PubMed, 20 of 23 in Scopus and 13 of 18 in Web of Science, and 21 in at least one database, a relative recall of 0.84 (95% interval 0.65 to 0.94). It misses Chiware and Mathe (2016) and Wittenberg and Elings (2017), which concern research data management; Watson (2015), which concerns open science; and Houtkoop et al. (2018), which has no word beginning *research* or *scienti*.
+**Results.** Of the 76 known sources in at least one of the three databases, 62 match the query. The relative recall against these sources is 0.82 (95% interval 0.71 to 0.89). Of the 14 that do not match, 12 predate the review's period of 2015 to 2025.
 
-**Limits.** We chose the query partly on the test sources, so 0.84 overstates its recall. The test set is small and its sources date from 2015 to 2018, so it gives no estimate of recall for 2019 to 2025.
+**Limits.** The known sources date from 2007 to 2018, so the recall figure is for work published up to 2018. @chawinga2019 selected these sources under criteria that differ from this review's, and some fall outside its scope.
 
 **Peer review.** A McGill health sciences librarian reviewed the search approach on 27 October 2026.
 
@@ -48,7 +43,7 @@ We ran each candidate in PubMed, Scopus and Web of Science and recorded two coun
 ### Generic query
 
 ```text
-Title/abstract: share* NEAR/5 data OR open* NEAR/5 data
+Title/abstract: share* NEAR/5 data OR "open data" OR "research data management"
 AND
 Title/abstract: research* OR scienti*
 
@@ -57,12 +52,12 @@ Limits: published 2015 to 2025; English or French
 
 ### PubMed
 
-PubMed's proximity search takes no truncation, so the PubMed string spells out four forms of *share* and five forms of *open*.
+PubMed's proximity search takes no truncation, so the PubMed string spells out four forms of *share*.
 
 ```text
 (
   ("sharing data"[tiab:~5] OR "shared data"[tiab:~5] OR "share data"[tiab:~5] OR "shares data"[tiab:~5]
-   OR "open data"[tiab:~5] OR "opened data"[tiab:~5] OR "opening data"[tiab:~5] OR "openly data"[tiab:~5] OR "openness data"[tiab:~5])
+   OR "open data"[tiab] OR "research data management"[tiab])
   AND (research*[tiab] OR scienti*[tiab])
 )
 AND 2015:2025[dp]
@@ -72,7 +67,7 @@ AND (english[la] OR french[la])
 ### Scopus
 
 ```text
-( TITLE-ABS-KEY ( shar* W/5 data ) OR TITLE-ABS-KEY ( open* W/5 data ) )
+( TITLE-ABS-KEY ( shar* W/5 data ) OR TITLE-ABS-KEY ( "open data" OR "research data management" ) )
 AND TITLE-ABS-KEY ( research* OR scienti* )
 AND PUBYEAR > 2014 AND PUBYEAR < 2026
 AND LANGUAGE ( english OR french )
@@ -81,7 +76,7 @@ AND LANGUAGE ( english OR french )
 ### Web of Science
 
 ```text
-( TS=( shar* NEAR/5 data ) OR TS=( open* NEAR/5 data ) )
+( TS=( shar* NEAR/5 data ) OR TS=( "open data" OR "research data management" ) )
 AND TS=( research* OR scienti* )
 AND PY=(2015-2025)
 AND LA=(English OR French)
