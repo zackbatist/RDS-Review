@@ -336,64 +336,46 @@ div.csl-indent {
 <p>We use OpenAlex’s field and subfield as suggested values for <code>openalex_field</code> and <code>openalex_subfield</code>. OpenAlex assigns these values with its own fine-tuned Qwen3-8B model, which OpenAlex trained on 2 million works whose topics it chose with Claude Opus 5.5 <span class="citation" data-cites="openalex2026">(<a href="#ref-openalex2026" role="doc-biblioref">OpenAlex 2026</a>)</span>. We save the values OpenAlex returns with the date of the pull, and ZB confirms or corrects each one while charting.</p>
 <p>We used a local large language model, Qwen3.8-27B, in search development, with a temperature of zero and a fixed seed. We prompted it to list the words in the title and abstract of each source included by <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span> that describe research data sharing, as a basis for the query’s terms. The word lists and the prompt are in <a href="./analysis/00_search-development/00-search-development.html">Notebook 00</a>.</p>
 <div class="table-plain">
-<div id="tbl-local-models" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[20,40,40]">
+<div id="tbl-local-models" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[20,80]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-local-models-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Local models that coded the sources included in the review by <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span>. Builds are unsloth’s GGUF files on Hugging Face, fixed by revision. The GPUs are made by NVIDIA. The JSON schema holds each answer to the values the prompt defines.
+Table&nbsp;1: The build is unsloth’s GGUF file on Hugging Face, fixed by revision. The GPU is made by NVIDIA. The JSON schema holds each answer to the values the prompt defines.
 </figcaption>
 <div aria-describedby="tbl-local-models-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
 <col style="width: 20%">
-<col style="width: 40%">
-<col style="width: 40%">
+<col style="width: 80%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;"></th>
-<th style="text-align: left;">Qwen3.5-122B-A10B</th>
 <th style="text-align: left;">Qwen3.8-27B</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Use</td>
-<td style="text-align: left;">Codes of record</td>
-<td style="text-align: left;">Check on the codes of record; words the known sources use for research data sharing</td>
+<td style="text-align: left;">Words the known sources use for research data sharing</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Build</td>
-<td style="text-align: left;">Q4_K_M, revision <code>51eab4d</code></td>
 <td style="text-align: left;">UD-Q4_K_M, revision <code>4af51b3</code></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Hardware</td>
-<td style="text-align: left;">4 × Quadro RTX 6000, 24 GB</td>
 <td style="text-align: left;">1 × Quadro RTX 6000, 24 GB</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Server</td>
 <td style="text-align: left;">llama.cpp, release b12375</td>
-<td style="text-align: left;">llama.cpp, release b12375</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Temperature</td>
-<td style="text-align: left;">0</td>
-<td style="text-align: left;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Seed</td>
-<td style="text-align: left;">Fixed</td>
-<td style="text-align: left;">Fixed</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Thinking mode</td>
 <td style="text-align: left;">Off</td>
-<td style="text-align: left;">Off</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Output</td>
-<td style="text-align: left;">JSON schema</td>
 <td style="text-align: left;">JSON schema</td>
 </tr>
 </tbody>
