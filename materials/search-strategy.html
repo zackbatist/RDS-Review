@@ -255,146 +255,120 @@ div.csl-indent {
 <p>This page records the search, as PRISMA-S requires <span class="citation" data-cites="rethlefsen2021">(<a href="#ref-rethlefsen2021" role="doc-biblioref">Rethlefsen et al. 2021</a>)</span>. The counts are the records each database returned before deduplication. <a href="../analysis/01-deduplication.html">01-deduplication</a> writes the identification counts for the flow diagram from the exports in <code>data/raw/search_exports/</code> once the exports are in.</p>
 <section id="query" class="level2">
 <h2 class="anchored" data-anchor-id="query">Query</h2>
-<p>One query runs in Scopus, Web of Science, and PubMed. It searches titles and abstracts for a form of <em>share</em> within five words of <em>data</em>, together with a word beginning <em>research</em> or <em>scienti</em>. In Scopus and Web of Science the search also covers author keywords. It covers sources published from 2015 to 2025 in English and French and applies no document type filter.</p>
-<div id="tbl-records" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-records-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Records the query returned on 23 November 2026 through each database’s API, before deduplication. Matched on DOI, or on title and year, they come to 34,305. The Web of Science count omits the language limit, which its API rejects beside a proximity search.
-</figcaption>
-<div aria-describedby="tbl-records-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p>One query runs in Scopus, Web of Science, and PubMed. Its terms are a form of <em>share</em> within five words of <em>data</em>, the phrase “open data” and the phrase “research data management”, each in the titles and abstracts of records that contain <em>research*</em> or <em>scienti*</em>. The search covers sources published from 2015 to 2025 in English and French, with no document type filter.</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Database</th>
 <th style="text-align: right;">Records</th>
+<th style="text-align: right;">Known sources in the database</th>
+<th style="text-align: right;">Matching the query</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">PubMed</td>
-<td style="text-align: right;">9,194</td>
+<td style="text-align: right;">10,397</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">33</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Scopus</td>
-<td style="text-align: right;">31,683</td>
+<td style="text-align: right;">39,441</td>
+<td style="text-align: right;">70</td>
+<td style="text-align: right;">58</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Web of Science</td>
-<td style="text-align: right;">22,763</td>
+<td style="text-align: right;">28,134</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">50</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Total</strong></td>
-<td style="text-align: right;"><strong>63,640</strong></td>
+<td style="text-align: right;"><strong>77,972</strong></td>
+<td style="text-align: right;"><strong>76</strong></td>
+<td style="text-align: right;"><strong>62</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Unique by DOI, or by title and year</td>
+<td style="text-align: right;">42,920</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
 </tr>
 </tbody>
 </table>
-</div>
-</figure>
-</div>
 <p>Platforms and search dates for the exports are to be added.</p>
 </section>
 <section id="development-and-testing" class="level2">
 <h2 class="anchored" data-anchor-id="development-and-testing">Development and testing</h2>
-<p><strong>Method.</strong> We tested candidate queries against known relevant sources, following the development and validation set approach of <span class="citation" data-cites="hausner2012">Hausner et al. (<a href="#ref-hausner2012" role="doc-biblioref">2012</a>)</span>. The known sources are the 76 sources included by <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span> that meet this review’s criteria apart from year. We rebuilt their list from the paper with a script, and checked each source against the criteria with a local language model. Sources published 2007 to 2014 form the development set: 45 sources, 35 of them indexed in at least one database. Sources published from 2015 form the test set: 31 sources, 25 indexed. We counted test sources while choosing the query’s research term, so the test result below is not independent of that choice.</p>
-<p>We ran each candidate in PubMed, Scopus and Web of Science and recorded two counts: the records it returns for 2015 to 2025 in English or French, and the development and test sources it finds by DOI or PMID. Every measurement here can be checked or rerun in the <a href="../analysis/00_search-development/00-search-development.html">search development notebook</a>, which holds each run with its code and files.</p>
+<p><strong>Method.</strong> Following <span class="citation" data-cites="hausner2012">Hausner et al. (<a href="#ref-hausner2012" role="doc-biblioref">2012</a>)</span>, the known relevant sources for testing candidate queries are the 102 sources included by <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span>. The list of these 102 sources is a reconstruction from the paper’s references, since the paper does not list its included sources. Of the 102 sources, 85 have a DOI or PMID and 76 are in at least one of the three databases. The query’s terms are the outcome of tests against these sources, so the result below is not an independent test of the query. Each test, with its code and files, is in the <a href="../analysis/00_search-development/00-search-development.html">search development notebook</a>.</p>
 <p><strong>Candidates compared.</strong></p>
-<div id="tbl-candidates" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,10,10,10,10,10,10]">
+<div id="tbl-candidates" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[64,9,9,9,9]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-candidates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2: Records for 2015 to 2025, and the development and test sources that <em>share</em> within 5 words of <em>data</em> finds and each query loses.
+Table&nbsp;1: Records for 2015 to 2025, before deduplication, on 25 November 2026.
 </figcaption>
 <div aria-describedby="tbl-candidates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 40%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
+<col style="width: 64%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Added to <em>share</em> within 5 words of <em>data</em></th>
-<th style="text-align: right;">PubMed records</th>
-<th style="text-align: right;">Lost</th>
-<th style="text-align: right;">Scopus records</th>
-<th style="text-align: right;">Lost</th>
-<th style="text-align: right;">Web of Science records</th>
-<th style="text-align: right;">Lost</th>
+<th style="text-align: left;">Search</th>
+<th style="text-align: right;">PubMed</th>
+<th style="text-align: right;">Scopus</th>
+<th style="text-align: right;">Web of Science</th>
+<th style="text-align: right;">Total</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Nothing</td>
+<td style="text-align: left;">share NEAR/5 data</td>
 <td style="text-align: right;">18,840</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">82,924</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">62,225</td>
-<td style="text-align: right;">0</td>
+<td style="text-align: right;">82,926</td>
+<td style="text-align: right;">62,228</td>
+<td style="text-align: right;">163,994</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><em>“research data”</em> in place of <em>data</em></td>
-<td style="text-align: right;">1,536</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">743</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">589</td>
-<td style="text-align: right;">37</td>
+<td style="text-align: left;">(share NEAR/5 data) AND (research* OR scienti*)</td>
+<td style="text-align: right;">9,194</td>
+<td style="text-align: right;">31,681</td>
+<td style="text-align: right;">22,764</td>
+<td style="text-align: right;">63,639</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">AND <em>research*</em></td>
-<td style="text-align: right;">8,615</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">29,912</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">21,330</td>
-<td style="text-align: right;">8</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>AND (<em>research*</em> OR <em>scienti*</em>), the query</strong></td>
-<td style="text-align: right;"><strong>9,194</strong></td>
-<td style="text-align: right;"><strong>3</strong></td>
-<td style="text-align: right;"><strong>31,683</strong></td>
-<td style="text-align: right;"><strong>3</strong></td>
-<td style="text-align: right;"><strong>22,763</strong></td>
-<td style="text-align: right;"><strong>5</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">AND (<em>research*</em> OR <em>scientific</em> OR <em>scientist*</em> OR <em>trial*</em> OR <em>cohort*</em>)</td>
-<td style="text-align: right;">10,511</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">33,481</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">24,361</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">AND (<em>research*</em> OR <em>scientific</em> OR <em>scientist*</em> OR <em>study</em> OR <em>studies</em> OR <em>trial*</em> OR <em>cohort*</em>)</td>
-<td style="text-align: right;">14,396</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">49,304</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">37,258</td>
-<td style="text-align: right;">3</td>
+<td style="text-align: left;"><strong>(share NEAR/5 data OR “open data” OR “research data management”) AND (research* OR scienti*)</strong></td>
+<td style="text-align: right;"><strong>10,397</strong></td>
+<td style="text-align: right;"><strong>39,441</strong></td>
+<td style="text-align: right;"><strong>28,134</strong></td>
+<td style="text-align: right;"><strong>77,972</strong></td>
 </tr>
 </tbody>
 </table>
 </div>
 </figure>
 </div>
-<p>Runs 21 and 22 hold these measurements, and runs 23 to 25 the tests of a clause excluding computing words, which also excluded eligible records.</p>
-<p><strong>Results.</strong> The query finds 20 of the 25 test sources that the databases index: 8 of 11 in PubMed, 19 of 23 in Scopus and 12 of 18 in Web of Science (run 26), a relative recall of 0.80 (95% interval 0.61 to 0.91). It misses Chiware and Mathe (2016), Specht et al.&nbsp;(2015) and Wittenberg and Elings (2017), which concern research data management; Watson (2015), which concerns open science; and Houtkoop et al.&nbsp;(2018), which the research term loses.</p>
-<p><strong>Limits.</strong> We chose the query partly on the test sources, so 0.80 overstates its recall. The test set is small and its sources date from 2015 to 2018, so it gives no estimate of recall for 2019 to 2025. We admitted all source types from fields outside health research after a first test of an earlier query, which raised the test sources in scope from 10 to 31.</p>
+<p><strong>Results.</strong> Of the 76 known sources in at least one of the three databases, 62 match the query. The relative recall against these sources is 0.82 (95% interval 0.71 to 0.89). Of the 14 that do not match, 12 predate the review’s period of 2015 to 2025.</p>
+<p><strong>Limits.</strong> The known sources date from 2007 to 2018, so the recall figure is for work published up to 2018. <span class="citation" data-cites="chawinga2019">Chawinga and Zinn (<a href="#ref-chawinga2019" role="doc-biblioref">2019</a>)</span> selected these sources under criteria that differ from this review’s, and some fall outside its scope.</p>
 <p><strong>Peer review.</strong> A McGill health sciences librarian reviewed the search approach on 27 October 2026.</p>
 </section>
 <section id="search-strings" class="level2">
 <h2 class="anchored" data-anchor-id="search-strings">Search strings</h2>
 <section id="generic-query" class="level3">
 <h3 class="anchored" data-anchor-id="generic-query">Generic query</h3>
-<pre class="text"><code>Title/abstract: share* NEAR/5 data
+<pre class="text"><code>Title/abstract: share* NEAR/5 data OR "open data" OR "research data management"
 AND
 Title/abstract: research* OR scienti*
 
@@ -402,9 +376,10 @@ Limits: published 2015 to 2025; English or French</code></pre>
 </section>
 <section id="pubmed" class="level3">
 <h3 class="anchored" data-anchor-id="pubmed">PubMed</h3>
-<p>PubMed’s proximity search takes no truncation, so the string writes out four forms of <em>share</em>.</p>
+<p>PubMed’s proximity search takes no truncation, so the PubMed string spells out four forms of <em>share</em>.</p>
 <pre class="text"><code>(
-  ("sharing data"[tiab:~5] OR "shared data"[tiab:~5] OR "share data"[tiab:~5] OR "shares data"[tiab:~5])
+  ("sharing data"[tiab:~5] OR "shared data"[tiab:~5] OR "share data"[tiab:~5] OR "shares data"[tiab:~5]
+   OR "open data"[tiab] OR "research data management"[tiab])
   AND (research*[tiab] OR scienti*[tiab])
 )
 AND 2015:2025[dp]
@@ -412,14 +387,14 @@ AND (english[la] OR french[la])</code></pre>
 </section>
 <section id="scopus" class="level3">
 <h3 class="anchored" data-anchor-id="scopus">Scopus</h3>
-<pre class="text"><code>TITLE-ABS-KEY ( shar* W/5 data )
+<pre class="text"><code>( TITLE-ABS-KEY ( shar* W/5 data ) OR TITLE-ABS-KEY ( "open data" OR "research data management" ) )
 AND TITLE-ABS-KEY ( research* OR scienti* )
 AND PUBYEAR &gt; 2014 AND PUBYEAR &lt; 2026
 AND LANGUAGE ( english OR french )</code></pre>
 </section>
 <section id="web-of-science" class="level3">
 <h3 class="anchored" data-anchor-id="web-of-science">Web of Science</h3>
-<pre class="text"><code>TS=( shar* NEAR/5 data )
+<pre class="text"><code>( TS=( shar* NEAR/5 data ) OR TS=( "open data" OR "research data management" ) )
 AND TS=( research* OR scienti* )
 AND PY=(2015-2025)
 AND LA=(English OR French)</code></pre>
