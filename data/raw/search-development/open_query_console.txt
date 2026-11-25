@@ -1,0 +1,18 @@
+PubMed: test found 9 of 11 indexed, 95% interval 0.523 to 0.949
+Scopus: test found 20 of 23 indexed, 95% interval 0.679 to 0.955
+Web of Science: test found 13 of 18 indexed, 95% interval 0.491 to 0.875
+at least one: test found 21 of 25 indexed, 95% interval 0.653 to 0.936
+  missed: Bishoff and Johnston (2015) | not indexed; not indexed; not indexed
+  missed: Brown et al., 2015 | no DOI or PMID; no DOI or PMID; no DOI or PMID
+  missed: Chiware and Mathe, 2016 | not indexed; not indexed; indexed, not found
+  missed: Guedon, 2015 | no DOI or PMID; no DOI or PMID; no DOI or PMID
+  missed: He, 2016 | not indexed; not indexed; not indexed
+  missed: Houtkoop et al., 2018 | not indexed; indexed, not found; indexed, not found
+  missed: Koopman, 2015 | no DOI or PMID; no DOI or PMID; no DOI or PMID
+  missed: Watson, 2015 | indexed, not found; indexed, not found; indexed, not found
+  missed: Wittenberg and Elings, 2017 | not indexed; indexed, not found; indexed, not found
+  missed: Zvyagintseva, 2015 | not indexed; not indexed; not indexed
+PubMed: 14371 records, 14129 with a DOI
+Scopus: 55738 records, 51871 with a DOI
+Web of Science: 40738 records, 37418 with a DOI
+all three: 110847 records; unique: 60852, counting a shared DOI, or the same title and year, as one

@@ -1,0 +1,9 @@
+PubMed | (share NEAR/5 data) AND (research* OR scienti*) | records 9194 | added 0 | development 19 of 39 | test 8 of 28 | found beyond the query: none | lost: none
+PubMed | (share NEAR/5 data OR open* NEAR/5 data) AND (research* OR scienti*) | records 14371 | added 5177 | development 19 of 39 | test 9 of 28 | found beyond the query: Specht et al., 2015 | lost: none
+PubMed | (share NEAR/5 data) AND (research* OR scienti* OR open* NEAR/5 data) | records 9519 | added 325 | development 20 of 39 | test 8 of 28 | found beyond the query: Mennes et al., 2013 | lost: none
+Scopus | (share NEAR/5 data) AND (research* OR scienti*) | records 31681 | added 0 | development 28 of 39 | test 19 of 28 | found beyond the query: none | lost: none
+Scopus | (share NEAR/5 data OR open* NEAR/5 data) AND (research* OR scienti*) | records 55738 | added 24057 | development 29 of 39 | test 20 of 28 | found beyond the query: McCullough, 2009; Specht et al., 2015 | lost: none
+Scopus | (share NEAR/5 data) AND (research* OR scienti* OR open* NEAR/5 data) | records 33347 | added 1666 | development 29 of 39 | test 20 of 28 | found beyond the query: Houtkoop et al., 2018; Mennes et al., 2013 | lost: none
+Web of Science | (share NEAR/5 data) AND (research* OR scienti*) | records 22764 | added 0 | development 28 of 39 | test 12 of 28 | found beyond the query: none | lost: none
+Web of Science | (share NEAR/5 data OR open* NEAR/5 data) AND (research* OR scienti*) | records 40738 | added 17974 | development 29 of 39 | test 13 of 28 | found beyond the query: McCullough, 2009; Specht et al., 2015 | lost: none
+Web of Science | (share NEAR/5 data) AND (research* OR scienti* OR open* NEAR/5 data) | records 23987 | added 1223 | development 29 of 39 | test 13 of 28 | found beyond the query: Houtkoop et al., 2018; Mennes et al., 2013 | lost: none

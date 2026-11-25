@@ -1,0 +1,5 @@
+database,query,limit,found,indexed,coverage,low,high
+PubMed,"(((""sharing data""[tiab:~5] OR ""shared data""[tiab:~5] OR ""share data""[tiab:~5] OR ""shares data""[tiab:~5]) OR (""open data""[tiab:~5] OR ""opened data""[tiab:~5] OR ""opening data""[tiab:~5] OR ""openly data""[tiab:~5] OR ""openness data""[tiab:~5])) AND (research*[tiab] OR scienti*[tiab]))",2015:2025[dp] AND (english[la] OR french[la]),9,11,0.818,0.523,0.949
+Scopus,((TITLE-ABS-KEY(shar* W/5 data) OR TITLE-ABS-KEY(open* W/5 data)) AND (TITLE-ABS-KEY(research*) OR TITLE-ABS-KEY(scienti*))),PUBYEAR > 2014 AND PUBYEAR < 2026 AND LANGUAGE(english OR french),20,23,0.87,0.679,0.955
+Web of Science,((TS=(shar* NEAR/5 data) OR TS=(open* NEAR/5 data)) AND (TS=(research*) OR TS=(scienti*))),PY=(2015-2025),13,18,0.722,0.491,0.875
+all three,,,21,25,0.84,0.653,0.936
