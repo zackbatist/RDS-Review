@@ -1,31 +1,31 @@
-theme,term,all,development,test
-factors that obstruct,barrier*,11,7,4
-factors that obstruct,challenge*,18,9,9
-factors that obstruct,obstacle*,5,4,1
-factors that obstruct,reluctan*,3,2,1
-factors that obstruct,privacy,4,1,3
-factors that facilitate,facilitator*,0,0,0
-factors that facilitate,enabler*,2,1,1
-factors that facilitate,incentive*,4,1,3
-factors that facilitate,motivat*,8,6,2
-factors that facilitate,infrastructure,12,4,8
-factors that facilitate,repositor*,11,7,4
-factors that facilitate,interoperab*,0,0,0
-stakeholder perspectives,perception*,4,2,2
-stakeholder perspectives,attitude*,6,2,4
-stakeholder perspectives,willingness,4,2,2
-policies and what drive them,polic*,28,14,14
-policies and what drive them,mandate*,5,2,3
-policies and what drive them,"""open science""",3,1,2
-policies and what drive them,"""open data""",4,0,4
-policies and what drive them,"""open access""",11,6,5
-policies and what drive them,"""open research""",0,0,0
-mechanisms for implementation,governance,3,1,2
-mechanisms for implementation,consent,5,4,1
-mechanisms for implementation,licens*,0,0,0
-mechanisms for implementation,ethic*,11,7,4
-mechanisms for implementation,stewardship,1,1,0
-mechanisms for implementation,"""data management plan*""",8,2,6
-mechanisms for implementation,"""data curation""",7,4,3
-mechanisms for implementation,"""digital curation""",3,2,1
-mechanisms for implementation,"""research data management""",14,1,13
+theme,term,sources
+factors that obstruct,barrier*,11
+factors that obstruct,challenge*,18
+factors that obstruct,obstacle*,5
+factors that obstruct,reluctan*,3
+factors that obstruct,privacy,4
+factors that facilitate,facilitator*,0
+factors that facilitate,enabler*,2
+factors that facilitate,incentive*,4
+factors that facilitate,motivat*,8
+factors that facilitate,infrastructure,12
+factors that facilitate,repositor*,11
+factors that facilitate,interoperab*,0
+stakeholder perspectives,perception*,4
+stakeholder perspectives,attitude*,6
+stakeholder perspectives,willingness,4
+policies and what drive them,polic*,28
+policies and what drive them,mandate*,5
+policies and what drive them,"""open science""",3
+policies and what drive them,"""open data""",4
+policies and what drive them,"""open access""",11
+policies and what drive them,"""open research""",0
+mechanisms for implementation,governance,3
+mechanisms for implementation,consent,5
+mechanisms for implementation,licens*,0
+mechanisms for implementation,ethic*,11
+mechanisms for implementation,stewardship,1
+mechanisms for implementation,"""data management plan*""",8
+mechanisms for implementation,"""data curation""",7
+mechanisms for implementation,"""digital curation""",3
+mechanisms for implementation,"""research data management""",14
