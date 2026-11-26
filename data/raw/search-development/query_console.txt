@@ -1,22 +1,6 @@
-PubMed | hits 2015 to 2025: 10397 | of the 102: 85 with a DOI or PMID, 43 in the database, 33 found by the query
-Scopus | hits 2015 to 2025: 39441 | of the 102: 85 with a DOI or PMID, 70 in the database, 58 found by the query
-Web of Science | hits 2015 to 2025: 28134 | of the 102: 85 with a DOI or PMID, 65 in the database, 50 found by the query
-At least one database | of the 102: 76 in a database, 62 found by the query
-  in a database, not found: Cahill and Passamano, 2007
-  in a database, not found: Cohn, 2012
-  in a database, not found: Delson et al., 2007
-  in a database, not found: Gupta, 2013
-  in a database, not found: Houtkoop et al., 2018
-  in a database, not found: Huang et al., 2013
-  in a database, not found: Kowalczyk and Shankar, 2011
-  in a database, not found: Levenson, 2010
-  in a database, not found: McCullough, 2009
-  in a database, not found: Mennes et al., 2013
-  in a database, not found: Parr, 2007
-  in a database, not found: Sheather, 2009
-  in a database, not found: Steen, 2011
-  in a database, not found: Watson, 2015
-PubMed: 10397 records fetched
-Scopus: 39441 records fetched
-Web of Science: 28134 records fetched
-All three: 77972 records; unique: 42920, counting a shared DOI, or the same title and year, as one
+PubMed sharing block: ("sharing data"[tiab:~5] OR "shared data"[tiab:~5] OR "share data"[tiab:~5] OR "shares data"[tiab:~5] OR "sharer data"[tiab:~5] OR "sharers data"[tiab:~5] OR "shareable data"[tiab:~5] OR "sharable data"[tiab:~5])
+78020 42925
+pubmed indexed 43 found 33
+scopus indexed 70 found 58
+web-of-science indexed 65 found 50
+at least one database: indexed 76 found 62

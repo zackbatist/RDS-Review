@@ -387,3 +387,10 @@ Search development is finished. Of the items listed here, five are done: the Art
 - **Known sources.** The search strategy page, the protocol and run 6 count all 102 sources rebuilt from the 105 Chawinga and Zinn included, with no coding and no development and test split.
 - **Text.** Notebook 00 gains runs 4 to 6. The search strategy page and the protocol's search section give the query, its records and the counts of the 102 sources, and the records table gains two columns on known sources.
 - **Notebook 00 cut.** Following Melissa's suggestion, the main part of notebook 00 holds only the list of 102 sources (run 1), the terms the sources use (run 2), the factor terms in the sources (run 3) and runs 4 to 6. A supplement at the end of the notebook's source holds the coding, the development and test sets, the comparison with Chawinga and Zinn's search and the earlier runs, now labelled exploratory runs 3 to 31, grouped by phase. Rendering with `-M exploratory:true` shows it. `reference_sources.csv` now holds only the bibliographic details of the 102 sources; the supplement builds `reference_sources_coded.csv` with the codes, the development and test sets and the tiers. Runs 2 and 3 count sources with no development and test split.
+
+## PubMed forms of share, 26 November 2026
+
+- **Generic query.** The search strategy page gave the generic query as *share\** NEAR/5 data, which misses *sharing*. It now gives *shar\** NEAR/5 data, as in the Scopus and Web of Science strings and in run 6.
+- **PubMed forms.** Zack's decision: the PubMed string spells out eight forms of *share*, adding *sharer*, *sharers*, *shareable* and *sharable* to *sharing*, *shared*, *share* and *shares*. `FORMS` in notebook 00 holds the eight.
+- **Run 6 rerun.** On 26 November 2026, the query returns 10,435 records in PubMed, 39,442 in Scopus and 28,143 in Web of Science, 78,020 in all and 42,925 unique. Of the 102 sources, 76 are in at least one database and 62 match the query, as before.
+- **Text.** The search strategy page gives the eight-form PubMed string and the new record counts. Notebook 00's query table and run 6 table match.

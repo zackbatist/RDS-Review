@@ -10,11 +10,11 @@ One query runs in Scopus, Web of Science, and PubMed. Its terms are a form of *s
 
 | Database | Records | Known sources in the database | Matching the query |
 |:--|--:|--:|--:|
-| PubMed | 10,397 | 43 | 33 |
-| Scopus | 39,441 | 70 | 58 |
-| Web of Science | 28,134 | 65 | 50 |
-| **Total** | **77,972** | **76** | **62** |
-| Unique by DOI, or by title and year | 42,920 | | |
+| PubMed | 10,435 | 43 | 33 |
+| Scopus | 39,442 | 70 | 58 |
+| Web of Science | 28,143 | 65 | 50 |
+| **Total** | **78,020** | **76** | **62** |
+| Unique by DOI, or by title and year | 42,925 | | |
 
 Platforms and search dates for the exports are to be added.
 
@@ -28,7 +28,7 @@ Platforms and search dates for the exports are to be added.
 |:--|--:|--:|--:|--:|
 | share NEAR/5 data | 18,840 | 82,926 | 62,228 | 163,994 |
 | (share NEAR/5 data) AND (research\* OR scienti\*) | 9,194 | 31,681 | 22,764 | 63,639 |
-| **(share NEAR/5 data OR "open data" OR "research data management") AND (research\* OR scienti\*)** | **10,397** | **39,441** | **28,134** | **77,972** |
+| **(share NEAR/5 data OR "open data" OR "research data management") AND (research\* OR scienti\*)** | **10,435** | **39,442** | **28,143** | **78,020** |
 
 : Records for 2015 to 2025, before deduplication, on 25 November 2026. {#tbl-candidates tbl-colwidths="[64,9,9,9,9]"}
 
@@ -52,11 +52,12 @@ Limits: published 2015 to 2025; English or French
 
 ### PubMed
 
-PubMed's proximity search takes no truncation, so the PubMed string spells out the four verb forms of *share*. Adding *sharers*, *shareable* and *sharable* returned 77 more records and no more known sources (run 4 in notebook 00).
+PubMed's proximity search takes no truncation, so the PubMed string spells out eight forms of *share*.
 
 ```text
 (
   ("sharing data"[tiab:~5] OR "shared data"[tiab:~5] OR "share data"[tiab:~5] OR "shares data"[tiab:~5]
+   OR "sharer data"[tiab:~5] OR "sharers data"[tiab:~5] OR "shareable data"[tiab:~5] OR "sharable data"[tiab:~5]
    OR "open data"[tiab] OR "research data management"[tiab])
   AND (research*[tiab] OR scienti*[tiab])
 )

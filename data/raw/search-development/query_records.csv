@@ -166,6 +166,7 @@ id,doi,title,year,database
 26348291,10.1038/ncomms9221,Global priorities for an effective information basis of biodiversity distributions.,2015,PubMed
 26346437,10.1186/s12889-015-2212-5,Total Exposure Study Analysis consortium: a cross-sectional study of tobacco exposures.,2015,PubMed
 26343138,10.1186/s12864-015-1789-5,"The primary reasons behind data sharing, its wider benefits and how to cope with the realities of commercial data.",2015,PubMed
+26340240,10.1097/naq.0000000000000120,Sharable and Comparable Data for Nursing Management.,2015,PubMed
 26339471,10.12688/f1000research.6354.1,AGRIS: providing access to agricultural research data exploiting open data on the web.,2015,PubMed
 26336651,10.1186/s40709-015-0032-5,Data integration in biological research: an overview.,2015,PubMed
 26335984,10.1093/jamia/ocv118,Opportunities and challenges in the use of personal health data for health research.,2016,PubMed
@@ -263,6 +264,7 @@ id,doi,title,year,database
 26140212,10.1186/s13742-015-0067-4,Building a multi-scaled geospatial temporal ecology database from disparate data sources: fostering open science and data reuse.,2015,PubMed
 26139769,10.4103/0971-5916.159509,Biology & control of Anopheles culicifacies Giles 1901.,2015,PubMed
 26138291,10.1007/s40262-015-0298-7,"Effect of Kidney Function on Drug Kinetics and Dosing in Neonates, Infants, and Children.",2015,PubMed
+26138036,10.1016/j.ijmedinf.2015.06.002,"CER Hub: An informatics platform for conducting comparative effectiveness research using multi-institutional, heterogeneous, electronic clinical data.",2015,PubMed
 26132578,10.3310/hta19460,A scoping study to explore the cost-effectiveness of next-generation sequencing compared with traditional genetic testing for the diagnosis of learning disabilities in children.,2015,PubMed
 26132205,10.1371/journal.pone.0130527,Sharing with More Caring: Coordinating and Improving the Ethical Governance of Data and Biomaterials Obtained from Children.,2015,PubMed
 26126555,10.5694/mja14.01707,Data sharing in Indigenous health research: guidelines needed.,2015,PubMed
@@ -338,6 +340,7 @@ id,doi,title,year,database
 25953958,10.1534/g3.115.016683,XSim: Simulation of Descendants from Ancestors with Sequence Data.,2015,PubMed
 25953109,10.1186/s12910-015-0020-1,IRB practices and policies regarding the secondary research use of biospecimens.,2015,PubMed
 25952467,10.1002/humu.22810,The DNA Bank: High-Security Bank Accounts to Protect and Share Your Genetic Identity.,2015,PubMed
+25937488,10.1016/j.neuroimage.2015.04.057,"The Pediatric Imaging, Neurocognition, and Genetics (PING) Data Repository.",2016,PubMed
 30222404,10.1177/2168479015572373,Medicines in Pregnancy Forum: Proceedings on Ethical and Legal Considerations.,2015,PubMed
 29057150,,Psychological Effects of Urban Crime Gleaned from Social Media.,2015,PubMed
 25919529,10.1001/jama.2015.3656,Preferred Reporting Items for Systematic Review and Meta-Analyses of individual participant data: the PRISMA-IPD Statement.,2015,PubMed
@@ -365,6 +368,7 @@ id,doi,title,year,database
 25855077,10.1093/rpd/ncv027,Medical exposure assessment: the global approach of the United Nations Scientific Committee on the Effects of Atomic Radiation.,2015,PubMed
 25843019,10.1016/j.neuroimage.2015.03.069,Harvard Aging Brain Study: Dataset and accessibility.,2017,PubMed
 25411682,10.17226/18967,,2015,PubMed
+25834725,10.1186/s13336-015-0019-3,Clinical decision support systems for improving diagnostic accuracy and achieving precision medicine.,2015,PubMed
 25831125,10.2196/jmir.3082,Systems Medicine 2.0: potential benefits of combining electronic health care records with systems science models.,2015,PubMed
 25830019,10.1186/s13742-015-0055-8,Improving functional magnetic resonance imaging reproducibility.,2015,PubMed
 25829461,10.1093/jamia/ocv014,Comparison of consumers' views on electronic data sharing for healthcare and research.,2015,PubMed
@@ -415,6 +419,7 @@ id,doi,title,year,database
 25685001,10.3897/zookeys.475.8556,"VIS - A database on the distribution of fishes in inland and estuarine waters in Flanders, Belgium.",2015,PubMed
 25676387,10.1016/j.jalz.2014.11.005,Development of a unified clinical trial database for Alzheimer's disease.,2015,PubMed
 25673291,10.1093/bib/bbv001,Environmental genes and genomes: understanding the differences and challenges in the approaches and software for their analyses.,2015,PubMed
+25670754,10.1093/jamia/ocu011,A national action plan for sharable and comparable nursing data to support practice and translational research for transforming health care.,2015,PubMed
 25669144,10.1016/j.scitotenv.2015.01.089,Finding our way: On the sharing and reuse of animal telemetry data in Australasia.,2015,PubMed
 25666423,10.1007/s11682-015-9354-z,Interacting with the National Database for Autism Research (NDAR) via the LONI Pipeline workflow environment.,2015,PubMed
 25665542,10.1038/sc.2014.246,Common data elements for spinal cord injury clinical research: a National Institute for Neurological Disorders and Stroke project.,2015,PubMed
@@ -1128,6 +1133,7 @@ id,doi,title,year,database
 29193424,10.1111/jop.12667,Oral cancer databases: A comprehensive review.,2018,PubMed
 29191798,10.2196/mhealth.7827,Using Android and Open Data Kit Technology in Data Management for Research in Resource-Limited Settings in the Niger Delta Region of Nigeria: Cross-Sectional Household Survey.,2017,PubMed
 29191176,10.1186/s12874-017-0429-y,Mobile electronic versus paper case report forms in clinical trials: a randomized controlled trial.,2017,PubMed
+29708675,,,2017,PubMed
 29227603,10.3310/phr05100,,2017,PubMed
 29187736,10.1038/s41431-017-0045-7,Rules for processing genetic data for research purposes in view of the new EU General Data Protection Regulation.,2018,PubMed
 29187081,10.1108/jhom-05-2017-0109,Medical directors' perspectives on strengthening hospital quality and safety.,2017,PubMed
@@ -1182,6 +1188,7 @@ id,doi,title,year,database
 29089294,10.2196/publichealth.8507,Online Influence and Sentiment of Fitness Tweets: Analysis of Two Million Fitness Tweets.,2017,PubMed
 29086216,10.1186/s13321-017-0240-0,Chemotion ELN: an Open Source electronic lab notebook for chemists in academia.,2017,PubMed
 29085255,10.1007/s10109-017-0252-3,"Geospatial cryptography: enabling researchers to access private, spatially referenced, human subjects data for cancer control and prevention.",2017,PubMed
+29084948,10.1038/s41467-017-01371-0,An automated platform for high-throughput mouse behavior and physiology with voluntary head-fixation.,2017,PubMed
 29084595,10.1186/s13063-017-2245-4,SCORE: Shared care of Colorectal cancer survivors: protocol for a randomised controlled trial.,2017,PubMed
 29083964,10.1177/0956797617730892,Is There a Chastity Belt on Perception?,2018,PubMed
 29077811,10.1093/bioinformatics/btx441,Reactome enhanced pathway visualization.,2017,PubMed
@@ -1871,6 +1878,7 @@ id,doi,title,year,database
 30155508,10.5334/egems.236,A Solutions-Based Approach to Building Data-Sharing Partnerships.,2018,PubMed
 30153927,10.1016/j.ijmedinf.2018.08.006,Personal health data: A systematic mapping study.,2018,PubMed
 30148141,10.21037/mhealth.2018.05.07,VA mobile apps for PTSD and related problems: public health resources for veterans and those who care for them.,2018,PubMed
+30135734,10.12688/f1000research.15433.1,Epiviz Web Components: reusable and extensible component library to visualize functional genomic datasets.,2018,PubMed
 30133922,10.1002/jbmr.3578,Continuing Challenges in Advancing Preclinical Science in Skeletal Cell-Based Therapies and Tissue Regeneration.,2018,PubMed
 30130030,,Precision medicine and sharing medical data in real time: opportunities and barriers.,2018,PubMed
 30127055,10.1136/bmjopen-2018-024398,Feasibility and impact of data-driven learning within the suicide prevention action network of thirteen specialist mental healthcare institutions (SUPRANET Care) in the Netherlands: a study protocol.,2018,PubMed
@@ -2025,6 +2033,7 @@ id,doi,title,year,database
 29794537,10.1097/ppo.0000000000000318,Progress Toward Cancer Data Ecosystems.,2018,PubMed
 29792774,10.1177/0956797618779041,When the Good Looks Bad: An Experimental Exploration of the Repulsion Effect.,2018,PubMed
 29790950,10.1093/gigascience/giy060,"The research data management platform (RDMP): A novel, process driven, open-source tool for the management of longitudinal cohorts of clinical data.",2018,PubMed
+29790941,10.1093/gigascience/giy057,ASaiM: a Galaxy-based framework to analyze microbiota data.,2018,PubMed
 29788473,10.1093/schbul/sby059,Enhancing Psychosis-Spectrum Nosology Through an International Data Sharing Initiative.,2018,PubMed
 29786695,10.1038/sdata.2018.96,"The asthma mobile health study, smartphone data collected using ResearchKit.",2018,PubMed
 29785204,10.1186/s13031-018-0163-z,Using digital health to enable ethical health research in conflict and other humanitarian settings.,2018,PubMed
@@ -2923,10 +2932,12 @@ id,doi,title,year,database
 30776876,10.5469/neuroint.2019.00031,Protection of Personal Information in Medical Journal Publications.,2019,PubMed
 34467015,10.32481/djph.2019.02.011,Geographic Relationships Between Smoking and Chronic Lower Respiratory Disease in Delaware.,2019,PubMed
 33117974,10.1016/j.acax.2019.100007,Procedures for systematic capture and management of analytical data in academia.,2019,PubMed
+30762611,10.1097/cin.0000000000000520,Nursing Value User Stories: A Value Measurement Method for Linking Nurse Contribution to Patient Outcomes.,2019,PubMed
 30762388,10.1037/amp0000408,"But what do participants want? Comment on the ""Data Sharing in Psychology"" special section (2018).",2019,PubMed
 30760329,10.1186/s13063-019-3173-2,COMPare: a prospective cohort study correcting and monitoring 58 misreported trials in real time.,2019,PubMed
 30759220,10.1093/database/baz013,"A scalable, aggregated genotypic-phenotypic database for human disease variation.",2019,PubMed
 32935021,10.23889/ijpds.v4i1.465,"The Experience of Establishing Data Sharing & Linkage Platforms for Administrative, Research and Community-Service Data.",2019,PubMed
+30753493,10.1093/jamia/ocy178,Criteria2Query: a natural language interface to clinical databases for cohort definition.,2019,PubMed
 30741250,,An Ontology Approach for Knowledge Representation of ECG Data.,2019,PubMed
 30741237,,Design for a Canadian Digital Health Policy & Practices Observatory.,2019,PubMed
 30736037,10.22454/fammed.2019.318583,Supporting Family Medicine Research Capacity: The Critical Role and Current Contributions of US Family Medicine Organizations.,2019,PubMed
@@ -3233,6 +3244,7 @@ id,doi,title,year,database
 33160096,10.1016/j.ejmg.2020.104093,Pan-european landscape of research into neurodevelopmental copy number variants: A survey by the MINDDS consortium.,2020,PubMed
 33158213,10.3390/s20216285,Differences in Power Spectral Densities and Phase Quantities Due to Processing of EEG Signals.,2020,PubMed
 33157146,10.1016/j.jneumeth.2020.108972,Core principles for the implementation of the neurodata without borders data standard.,2021,PubMed
+33154995,10.1016/j.patter.2020.100122,Argonaut: A Web Platform for Collaborative Multi-omic Data Visualization and Exploration.,2020,PubMed
 33153915,10.1016/j.jcjq.2020.09.008,Conducting Safety Research Safely: A Policy-Based Approach for Conducting Research with Peer Review Protected Material.,2020,PubMed
 33153801,10.1016/j.healthpol.2020.10.002,Measuring research in the big data era: The evolution of performance measurement systems in the Italian teaching hospitals.,2020,PubMed
 33152770,10.1055/s-0040-1719037,Artificial Intelligence in the Intensive Care Unit.,2021,PubMed
@@ -3422,6 +3434,7 @@ id,doi,title,year,database
 32849924,10.1007/s13167-020-00213-2,"Biobanks in the era of big data: objectives, challenges, perspectives, and innovations for predictive, preventive, and personalised medicine.",2020,PubMed
 32849170,10.3389/fneur.2020.00632,Harnessing Real-World Data to Inform Decision-Making: Multiple Sclerosis Partners Advancing Technology and Health Solutions (MS PATHS).,2020,PubMed
 32849037,10.3389/fpsyg.2020.01749,The Correlation Analysis Between Salary Gap and Enterprise Innovation Efficiency Based on the Entrepreneur Psychology.,2020,PubMed
+32843438,10.1136/medethics-2019-105887,"Control, trust and the sharing of health information: the limits of trust.",2020,PubMed
 32842793,10.1080/17474124.2020.1815533,Data sharing during COVID-19 pandemic: what to take away.,2020,PubMed
 35047690,10.1136/bmjos-2019-100051,Publication rate in preclinical research: a plea for preregistration.,2020,PubMed
 32840950,10.1002/bdr2.1787,A model partnership for communication and dissemination of scientific recommendations for pregnant women during the emergency response to the Zika virus outbreak: MotherToBaby and the Centers for Disease Control and Prevention.,2020,PubMed
@@ -3448,6 +3461,7 @@ id,doi,title,year,database
 32815860,10.1097/jcp.0000000000001275,A 4-Year Retrospective Analysis of Patients Presenting at the Emergency Department With Synthetic Cannabinoid Intoxication in Turkey.,2020,PubMed
 32815545,10.1093/database/baaa059,FAIR digital objects in environmental and life sciences should comprise workflow operation design data and method information for repeatability of study setups and reproducibility of results.,2020,PubMed
 32812286,10.1111/hsc.13140,Joining the dots: Day to day challenges for practitioners in delivering integrated dementia care.,2021,PubMed
+32811224,10.1080/13561820.2020.1798897,National Center for Interprofessional Practice and Education IPE core data set and information exchange for knowledge generation.,2023,PubMed
 32810842,10.1123/mc.2020-0023,"An Open Data Set of Inertial, Magnetic, Foot-Ground Contact, and Electromyographic Signals From Wearable Sensors During Walking.",2020,PubMed
 32808934,10.2196/22214,The Academic Viewpoint on Patient Data Ownership in the Context of Big Data: Scoping Review.,2020,PubMed
 32807514,10.1016/j.tig.2020.07.010,Challenges of Genetic Data Sharing in African Studies.,2020,PubMed
@@ -3548,6 +3562,7 @@ id,doi,title,year,database
 32642867,10.1186/s41687-020-00223-8,Development of an electronic patient-reported outcome measure (ePROM) system to aid the management of patients with advanced chronic kidney disease.,2020,PubMed
 32642856,10.1007/s10916-020-01600-y,Towards Interoperability in Clinical Research - Enabling FHIR on the Open-Source Research Platform XNAT.,2020,PubMed
 32638010,10.1093/jamia/ocaa083,Piloting a model-to-data approach to enable predictive analytics in health care through patient mortality prediction.,2020,PubMed
+32637961,10.1101/2020.07.01.182964,Using iCn3D and the World Wide Web for structure-based collaborative research: Analyzing molecular interactions at the root of COVID-19.,2020,PubMed
 32636393,10.1038/s41597-020-0553-0,"A self-organizing, living library of time-series data.",2020,PubMed
 32634870,10.5808/gi.2020.18.2.e16,Social Media Mining Toolkit (SMMT).,2020,PubMed
 32632356,10.1016/j.imr.2020.100434,Artificial intelligence and COVID-19: A multidisciplinary approach.,2020,PubMed
@@ -3586,6 +3601,7 @@ id,doi,title,year,database
 32570596,10.3233/shti200379,Data Integration Approaches for Representing Stem Cell Studies.,2020,PubMed
 32570578,10.3233/shti200361,Analysis of Professional Competencies for the Clinical Research Data Management Profession.,2020,PubMed
 32570563,10.3233/shti200345,SPHN/PHRT - MedCo in Action: Empowering the Swiss Molecular Tumor Board with Privacy-Preserving and Real-Time Patient Discovery.,2020,PubMed
+32570562,10.3233/shti200344,SPHN - The Swiss Personalized Health Network Initiative.,2020,PubMed
 32570558,10.3233/shti200339,Impact Analysis of the Policy for Access of Administrative Data in France: A Before-After Study.,2020,PubMed
 32570413,10.3233/shti200189,Problems in FAIRifying Medical Datasets.,2020,PubMed
 32570398,10.3233/shti200174,MedCo2: Privacy-Preserving Cohort Exploration and Analysis.,2020,PubMed
@@ -3744,6 +3760,7 @@ id,doi,title,year,database
 32299440,10.1186/s12913-020-05099-4,"Using patient-reported measures to drive change in healthcare: the experience of the digital, continuous and systematic PREMs observatory in Italy.",2020,PubMed
 32298776,10.1016/j.jclinepi.2020.03.026,"Individual participant data meta-analyses (IPDMA): data contribution was associated with trial corresponding author country, publication year, and journal impact factor.",2020,PubMed
 32297548,10.1080/02813432.2020.1753344,Should GPs ask patients about their financial concerns? Exploration through collaborative research.,2020,PubMed
+32296450,10.3389/fpls.2020.00289,"Management, Analyses, and Distribution of the MaizeCODE Data on the Cloud.",2020,PubMed
 32293418,10.1186/s12910-020-0456-9,Perspectives regarding privacy in clinical research among research professionals from the Arab region: an exploratory qualitative study.,2020,PubMed
 32293007,10.1093/ije/dyz051,"Availability, access, analysis and dissemination of small-area data.",2020,PubMed
 32284864,10.1177/2050312120915400,What motivates the sharing of consumer-generated genomic information?,2020,PubMed
@@ -3931,6 +3948,7 @@ id,doi,title,year,database
 31913851,10.1515/jib-2019-0060,Programmatic Access to FAIRified Digital Plant Genetic Resources.,2020,PubMed
 31911366,10.1016/j.radonc.2019.11.019,Distributed learning on 20 000+ lung cancer patients - The Personal Health Train.,2020,PubMed
 31910861,10.1186/s13063-019-3980-5,Trial Forge Guidance 2: how to decide if a further Study Within A Trial (SWAT) is needed.,2020,PubMed
+31904820,10.1093/bioinformatics/btz960,BCdatabaser: on-the-fly reference database creation for (meta-)barcoding.,2020,PubMed
 31898483,10.1186/s12199-019-0839-z,Spatial-temporal distribution of human brucellosis in mainland China from 2004 to 2017 and an analysis of social and environmental factors.,2020,PubMed
 36037052,10.20900/agmr20200016,Why Loneliness Interventions Are Unsuccessful: A Call for Precision Health.,2020,PubMed
 34708218,10.1162/99608f92.c871f9e0,Coming To Our Census: How Social Statistics Underpin Our Democracy (And Republic).,2020,PubMed
@@ -4078,6 +4096,7 @@ id,doi,title,year,database
 34896635,10.1016/j.semcancer.2021.12.001,"Harmonization after the GDPR? Divergences in the rules for genetic and health data sharing in four member states and ways to overcome them by EU measures: Insights from Germany, Greece, Latvia and Sweden.",2022,PubMed
 34896237,10.1016/j.jclinepi.2021.12.003,Open science failed to penetrate academic hiring practices: a cross-sectional study.,2022,PubMed
 34893969,10.3758/s13428-021-01697-0,Emotion norms for 6000 Polish word meanings with a direct mapping to the Polish wordnet.,2022,PubMed
+34892075,10.1109/embc46164.2021.9629865,Federation of Brain Age Estimation in Structural Neuroimaging Data.,2021,PubMed
 34891768,10.1109/embc46164.2021.9630199,An Integrated Toolkit for Extensible and Reproducible Neuroscience.,2021,PubMed
 34891750,10.1109/embc46164.2021.9630083,A Platform for Integrating and Sharing Cancer Stem Cell Data.,2021,PubMed
 34890097,10.1111/febs.16318,EnzymeML-a data exchange format for biocatalysis and enzymology.,2022,PubMed
@@ -4220,6 +4239,7 @@ id,doi,title,year,database
 34720070,10.1080/07359683.2021.1994115,Examining the barriers to accepting big health data from a health marketeer's perspective.,2023,PubMed
 36883116,10.1145/3460120.3484799,WristPrint: Characterizing User Re-identification Risks from Wrist-worn Accelerometry Data.,2021,PubMed
 34717179,10.1016/j.ijmedinf.2021.104623,"Governing health data across changing contexts: A focus group study of citizen's views in England, Iceland, and Sweden.",2021,PubMed
+34715889,10.1186/s13023-021-02089-5,"RaDiCo, the French national research program on rare disease cohorts.",2021,PubMed
 34714705,10.1177/09567976211024248,The Effects of Retirement on Sense of Purpose in Life: Crisis or Opportunity?,2021,PubMed
 34714408,10.1007/s00429-021-02400-x,Manual delineation approaches for direct imaging of the subcortex.,2022,PubMed
 34714253,10.2196/31294,Public Attitudes to Digital Health Research Repositories: Cross-sectional International Survey.,2021,PubMed
@@ -4620,6 +4640,7 @@ id,doi,title,year,database
 34076242,10.1093/gigascience/giab041,De novo genome assemblies of butterflies.,2021,PubMed
 34075382,10.1101/2021.05.14.444026,CovidExpress: an interactive portal for intuitive investigation on SARS-CoV-2 related transcriptomes.,2021,PubMed
 34075208,10.1038/s41431-021-00859-0,Solve-RD: systematic pan-European data sharing and collaborative analysis to solve rare diseases.,2021,PubMed
+34074871,10.1097/cin.0000000000000764,"Evaluating Systemized Nomenclature of Medicine Clinical Terms Coverage of Complementary and Integrative Health Therapy Approaches Used Within Integrative Nursing, Health, and Medicine.",2021,PubMed
 34071999,10.3390/ijerph18115756,Anaemia in Children and Adolescents: A Bibliometric Analysis of BRICS Countries (1990-2020).,2021,PubMed
 34069834,10.3390/ijerph18105355,Methodology to Investigate Indigenous Solid Waste Systems and Practices in the Rural Areas Surrounding Maseru (Kingdom of Lesotho).,2021,PubMed
 34068457,10.3390/s21093272,Electrical Tomography Reconstruction Using Reconfigurable Waveforms in a FPGA.,2021,PubMed
@@ -4659,6 +4680,7 @@ id,doi,title,year,database
 34034040,10.1016/j.ijheh.2021.113768,Human Health Exposure Analysis Resource (HHEAR): A model for incorporating the exposome into health studies.,2021,PubMed
 34033232,10.1002/epi4.12490,"Antiepileptogenesis and disease modification: Progress, challenges, and the path forward-Report of the Preclinical Working Group of the 2018 NINDS-sponsored antiepileptogenesis and disease modification workshop.",2021,PubMed
 34097374,10.17226/26203,,2021,PubMed
+34029830,10.1016/j.cmpb.2021.106143,A clinically viable vendor-independent and device-agnostic solution for accelerated cardiac MRI reconstruction.,2021,PubMed
 34026719,10.3389/fpubh.2021.669463,Systemic Fairness for Sharing Health Data: Perspectives From Swiss Stakeholders.,2021,PubMed
 39925469,10.12688/f1000research.51947.1,Receptiveness to participating in cannabis research in pregnancy: a survey study at The Ottawa Hospital.,2021,PubMed
 34022422,10.1016/j.jbi.2021.103815,Analysis of security and privacy challenges for DNA-genomics applications and databases.,2021,PubMed
@@ -4684,6 +4706,7 @@ id,doi,title,year,database
 34003431,10.1007/s12021-021-09516-9,The C-BIG Repository: an Institution-Level Open Science Platform.,2022,PubMed
 34002781,10.1093/jjco/hyaa233,Lecture No. 5Impact of Human Genome Research: 'Policy and Ethics'-its meaning in data sharing.,2021,PubMed
 33998998,10.2196/24236,Understanding Barriers to Novel Data Linkages: Topic Modeling of the Results of the LifeInfo Survey.,2021,PubMed
+33998130,10.1111/jnu.12674,"Understanding Women's Cardiovascular Health Using MyStrengths+MyHealth: A Patient-Generated Data Visualization Study of Strengths, Challenges, and Needs Differences.",2021,PubMed
 33997444,10.31662/jmaj.2021-0003,Initiative on Rare and Undiagnosed Disease in Japan.,2021,PubMed
 33996898,10.3389/fmolb.2021.643681,Nucleic Acid-Based Therapeutics in Orphan Neurological Disorders: Recent Developments.,2021,PubMed
 33993794,10.1177/0271678x211015101,Reproducibility of findings in modern PET neuroimaging: insight from the NRM2018 grand challenge.,2021,PubMed
@@ -5029,6 +5052,7 @@ id,doi,title,year,database
 33164105,10.1093/jamia/ocaa195,Information needs and priority use cases of population health researchers to improve preparedness for future hurricanes and floods.,2021,PubMed
 33156332,10.1093/nar/gkaa982,DDBJ update: streamlining submission and access of human data.,2021,PubMed
 33141804,10.1097/tp.0000000000003511,"Race, Education, and Gender Disparities in Transplantation of Kidneys From Hepatitis C Viremic Donors.",2021,PubMed
+33135074,10.1093/bioinformatics/btaa924,Scool: a new data storage format for single-cell Hi-C data.,2021,PubMed
 33119759,10.1093/nar/gkaa957,gcType: a high-quality type strain genome database for microbial phylogenetic and functional research.,2021,PubMed
 33079668,10.1109/tvcg.2020.3030472,Chemicals in the Creek: designing a situated data physicalization of open government data with the community.,2021,PubMed
 33048753,10.1109/tvcg.2020.3030476,StructGraphics: Flexible Visualization Design through Data-Agnostic and Reusable Graphical Structures.,2021,PubMed
@@ -5516,6 +5540,7 @@ id,doi,title,year,database
 36043500,10.1002/brb3.2739,"Aberrant intrinsic neural network strength in individuals with ""smartphone addiction"": An MRI data fusion study.",2022,PubMed
 36041642,10.1016/j.neuroimage.2022.119594,Cross-paradigm integration shows a common neural basis for aversive and appetitive conditioning.,2022,PubMed
 36040906,10.1371/journal.pntd.0010720,The impact of COVID-19 pandemic on invasive fungal infections in Africa: What have we learned?,2022,PubMed
+36040109,10.1093/bib/bbac348,G-DIRT: a web server for identification and removal of duplicate germplasms based on identity-by-state analysis using single nucleotide polymorphism genotyping data.,2022,PubMed
 36037923,10.1016/j.envres.2022.114151,Monitoring spatiotemporal characteristics of land-use carbon emissions and their driving mechanisms in the Yellow River Delta: A grid-scale analysis.,2022,PubMed
 36037169,10.1371/journal.pone.0273657,Perspectives and experiences of researchers regarding feedback of incidental genomic research findings: A qualitative study.,2022,PubMed
 36035277,10.1155/2022/8735099,A Retrospective Analysis of Internet-Based Sharing Nursing Service Appointment Data.,2022,PubMed
@@ -5636,6 +5661,7 @@ id,doi,title,year,database
 35867493,10.1097/phh.0000000000001529,"""Hot Topics in Practice"" Webinars: Best Practices for Public Health Webinar Development.",2022,PubMed
 35867129,10.1007/s00125-022-05751-0,Consortium-based approach to receiving an EMA qualification opinion on the use of islet autoantibodies as enrichment biomarkers in type 1 diabetes clinical studies.,2023,PubMed
 35865969,10.3389/fphar.2022.873556,Challenges and Opportunities With Routinely Collected Data on the Utilization of Cancer Medicines. Perspectives From Health Authority Personnel Across 18 European Countries.,2022,PubMed
+35865358,10.1038/s43856-022-00148-x,Recommendations for achieving interoperable and shareable medical data in the USA.,2022,PubMed
 35863830,10.1136/bmjopen-2022-062349,Optimising the secondary use of primary care prescribing data to improve quality of care: a qualitative analysis.,2022,PubMed
 35862862,10.1093/femsyr/foac034,Expectable diversity patterns in wine yeast communities.,2022,PubMed
 35861762,10.1161/circulationaha.122.059046,"Community-Based, Cluster-Randomized Pilot Trial of a Cardiovascular Mobile Health Intervention: Preliminary Findings of the FAITH! Trial.",2022,PubMed
@@ -5747,6 +5773,7 @@ id,doi,title,year,database
 37767227,10.12688/openreseurope.14825.2,Joint controllers in large research consortia: a funnel model to distinguish controllers in the sense of the GDPR from other partners in the consortium.,2022,PubMed
 35710552,10.1186/s12910-022-00799-4,Research based on existing clinical data and biospecimens: a systematic study of patients' opinions.,2022,PubMed
 35710439,10.1186/s13023-022-02391-w,Increasing African genomic data generation and sharing to resolve rare and undiagnosed diseases in Africa: a call-to-action by the H3Africa rare diseases working group.,2022,PubMed
+35709746,10.1055/a-1877-9498,Using an Ontology to Derive a Sharable and Interoperable Relational Data Model for Heterogeneous Healthcare Data and Various Applications.,2022,PubMed
 35709239,10.1371/journal.pone.0270150,"Protocol for a sequential, prospective meta-analysis to describe coronavirus disease 2019 (COVID-19) in the pregnancy and postpartum periods.",2022,PubMed
 35708763,10.2196/29856,Tailoring Mobile Data Collection for Intervention Research in a Challenging Context: Development and Implementation in the Malakit Study.,2022,PubMed
 35707745,10.3389/fnsys.2022.885304,Future Directions for Chemosensory Connectomes: Best Practices and Specific Challenges.,2022,PubMed
@@ -6318,6 +6345,7 @@ id,doi,title,year,database
 39314265,10.1214/23-aoas1747,TARGETING UNDERREPRESENTED POPULATIONS IN PRECISION MEDICINE: A FEDERATED TRANSFER LEARNING APPROACH.,2023,PubMed
 39077032,10.1016/j.soh.2023.100042,Orientation of One Health development: think globally and act locally.,2023,PubMed
 39005631,10.12688/openreseurope.16516.2,Parent attitudes towards data sharing in developmental science.,2023,PubMed
+38947251,10.12688/hrbopenres.13711.2,Building public trust and confidence in secondary use of health data for healthcare improvement and research: a qualitative study pre-protocol.,2023,PubMed
 38938369,10.1016/j.jacadv.2023.100613,Mobile Health Fitness Interventions: Impact of Features on Routine Use and Data Sharing Acceptability.,2023,PubMed
 38875580,10.2196/41818,Extractive Clinical Question-Answering With Multianswer and Multifocus Questions: Data Set Development and Evaluation Study.,2023,PubMed
 38655455,10.1017/cts.2023.697,"Effectiveness of multimodal participant recruitment in SPARK, a large, online longitudinal research study of autism.",2024,PubMed
@@ -6936,6 +6964,7 @@ id,doi,title,year,database
 37406284,10.1097/acm.0000000000005313,Improving Graduate Medical Education by Aggregating Data Across the Medical Education Continuum.,2024,PubMed
 37404336,10.3389/fninf.2023.1207721,Enhancing collaborative neuroimaging research: introducing COINSTAC Vaults for federated analysis and reproducibility.,2023,PubMed
 37403548,10.1111/tan.15145,The genotype list string code syntax for exchanging nomenclature-level genotyping results in clinical and research data management and analysis systems.,2023,PubMed
+37402776,10.1038/s41597-023-02328-3,Home-to-school pedestrian mobility GPS data from a citizen science experiment in the Barcelona area.,2023,PubMed
 40078223,10.1016/j.bsheal.2023.07.004,On the collection and integration of SARS-CoV-2 genome data.,2023,PubMed
 37399677,10.1016/j.healthpol.2023.104861,The European health data space: Too big to succeed?,2023,PubMed
 37398034,10.1101/2023.06.15.545116,"AddBiomechanics: Automating model scaling, inverse kinematics, and inverse dynamics from human motion data through sequential optimization.",2023,PubMed
@@ -7102,6 +7131,7 @@ id,doi,title,year,database
 37186586,10.1371/journal.pdig.0000140,Data integration between clinical research and patient care: A framework for context-depending data sharing and in silico predictions.,2023,PubMed
 37185177,10.1136/bmjopen-2022-069596,Building an understanding of Ethnic minority people's Service Use Relating to Emergency care for injuries: the BE SURE study protocol.,2023,PubMed
 37181736,10.3389/fninf.2023.1173623,The image and data archive at the laboratory of neuro imaging.,2023,PubMed
+37181735,10.3389/fninf.2023.1082111,"NeuroWRAP: integrating, validating, and sharing neurodata analysis workflows.",2023,PubMed
 37181330,10.1016/j.xhgg.2023.100196,Cloud-based biomedical data storage and analysis for genomic research: Landscape analysis of data governance in emerging NIH-supported platforms.,2023,PubMed
 37181203,10.1002/ece3.9961,Reproducibility in ecology and evolution: Minimum standards for data and code.,2023,PubMed
 37177517,10.3390/s23094315,Exploring the Role of Federated Data Spaces in Implementing Twin Transition within Manufacturing Ecosystems.,2023,PubMed
@@ -7149,6 +7179,7 @@ id,doi,title,year,database
 39324014,10.17159/sajs.2023/14719,"Data sharing: A Long COVID perspective, challenges, and road map for the future.",2023,PubMed
 37126398,10.2196/43006,Applications of Federated Learning in Mobile Health: Scoping Review.,2023,PubMed
 37125057,10.1017/cts.2023.33,Political views and organizational distrust affect rural residents' willingness to share personal data for COVID-19 contact tracing: A cross-sectional survey study.,2023,PubMed
+37122062,10.1542/peds.2022-059113,The APPD Longitudinal Educational Assessment Research Network's First Decade.,2023,PubMed
 37116766,10.1016/j.neuroimage.2023.120138,"Highlight results, don't hide them: Enhance interpretation, reduce biases and improve reproducibility.",2023,PubMed
 37113431,10.4103/jehp.jehp_328_22,The experience of Saudi respiratory therapists dealing with COVID-19 patients: A qualitative study.,2023,PubMed
 37113255,10.1177/20552076231169826,Sensing the (digital) pulse. Future steps for improving the secondary use of data for research in Switzerland.,2023,PubMed
@@ -7526,6 +7557,7 @@ id,doi,title,year,database
 41726473,,"Unified Resource Browser: An Interactive and Reconfigurable Web Framework for Biomedical Metadata Exploration, Visualization, and Management.",2024,PubMed
 41726461,,LEVERAGING EPIC'S NATIVE ETL INFRASTRUCTURE FOR OMOP CDM IMPLEMENTATION: A COLLABORATIVE EXPERIENCE.,2024,PubMed
 41383680,10.21037/hbsn-24-284,From NAFPD to MAFPD: a literature review of implications of a nomenclature change.,2025,PubMed
+40852153,10.1145/3687464,ProcessGAN: Generating Privacy-Preserving Time-Aware Process Data with Conditional Generative Adversarial Nets.,2024,PubMed
 40857480,10.1080/01442872.2024.2403506,Private commercial companies sharing health-relevant consumer data with health researchers in sub-Saharan Africa: an ethical exploration.,2024,PubMed
 40452859,10.3389/fsoc.2024.1258723,Examining gendered cassava trait preferences through commercial seed business: a case study of IITA GoSeed and Umudike Seeds in Nigeria.,2024,PubMed
 40417515,,Federated Multiple Imputation for Variables that Are Missing Not At Random in Distributed Electronic Health Records.,2024,PubMed
@@ -7544,6 +7576,7 @@ id,doi,title,year,database
 40071812,10.1002/ajpa.70008,"""Rigorous and Systematic Qualitative Data Analysis in Biological Anthropology"".",2024,PubMed
 40070923,10.3389/fmed.2024.1489925,"Data altruism and the ""consent"" question: a study into the ""consent"" models used under the GDPR and how the data altruism mechanism can act as a potential solution for the research community in the reuse of health data.",2024,PubMed
 40060162,10.1093/biosci/biae109,"National biodiversity data infrastructures: ten essential functions for science, policy, and practice.",2025,PubMed
+40030482,10.1109/tip.2024.3512376,Subjective and Objective Analysis of Indian Social Media Video Quality.,2024,PubMed
 40018636,10.1136/bmjph-2023-000798,Randomised trial of Mentored 'Planning to be Active+Family' [MPBA+F] for Appalachian youth at risk for diabetes: virtual delivery protocol.,2024,PubMed
 40018573,10.1136/bmjph-2024-001106,Improving dissemination products and practices for community-based organisations serving LGBTQ+ communities in the USA: a thematic analysis.,2024,PubMed
 40012986,10.12688/wellcomeopenres.20770.2,"A pilot study to explore utility of electronic informed consent in a low- income setting; the case of a Controlled human infection study in Blantyre, Malawi.",2024,PubMed
@@ -8142,6 +8175,7 @@ id,doi,title,year,database
 39112811,10.1007/7854_2024_512,Advancing Population Health Through Open Environmental Data Platforms.,2024,PubMed
 39111722,10.1016/j.neubiorev.2024.105843,Age differences in prosociality across the adult lifespan: A meta-analysis.,2024,PubMed
 39110783,10.1177/09567976241257255,Does Physiological Arousal Increase Social Transmission of Information? Two Replications of Berger (2011).,2024,PubMed
+39110025,10.1097/cin.0000000000001171,Use of Standardized Nursing Terminologies to Capture Social Determinants of Health Data: An Integrative Review.,2024,PubMed
 39108906,10.1016/j.heliyon.2024.e34286,Can board of directors' faultlines improve corporate innovation performance? Evidence from China.,2024,PubMed
 39108154,10.12834/vetit.3527.25903.2,"The ""Working Group Land of Fires"" Platform for emergency management, data sharing and dissemination.",2024,PubMed
 39106671,10.1016/j.compbiomed.2024.108941,The sample locator: A federated search tool for biosamples and associated data in Europe using HL7 FHIR.,2024,PubMed
@@ -8425,6 +8459,7 @@ id,doi,title,year,database
 38771557,10.1007/s11136-024-03672-6,Extracting big data from the internet to support the development of a new patient-reported outcome measure for breast implant illness: a proof of concept study.,2024,PubMed
 38771322,10.1094/pdis-10-23-2180-fe,"Meta-Analysis in Plant Pathology: Publication Patterns, Methodological Trends, and Potential Future Directions.",2024,PubMed
 38769117,10.1038/s41598-024-62156-2,Evolutionary game analysis of data sharing among large and medium-sized enterprises in the perspective of platform empowerment.,2024,PubMed
+38769056,10.1093/nar/gkae410,"The Galaxy platform for accessible, reproducible, and collaborative data analyses: 2024 update.",2024,PubMed
 38766364,10.1177/20552076241248922,An innovative technological infrastructure for managing SARS-CoV-2 data across different cohorts in compliance with General Data Protection Regulation.,2024,PubMed
 38765058,10.1021/acsenvironau.3c00013,Toward Digitalization of Fishing Vessels to Achieve Higher Environmental and Economic Sustainability.,2024,PubMed
 38764594,,The Canadian VirusSeq Data Portal & Duotang: open resources for SARS-CoV-2 viral sequences and genomic epidemiology.,2024,PubMed
@@ -9146,6 +9181,7 @@ id,doi,title,year,database
 41280417,10.3389/fvets.2025.1691572,Unlocking farm-level antimicrobial resistance: a qualitative study of researchers' experiences and challenges.,2025,PubMed
 41274263,10.1016/j.jenvman.2025.128040,How does climate risk impact corporate green investment? Evidence from Chinese listed firms.,2025,PubMed
 41273456,10.1007/s10916-025-02302-z,"Infectious, Allergic, and Immune-Mediated Disease Data Resources: a Landscape Overview and Subset Assessment.",2025,PubMed
+41271806,10.1038/s41598-025-25049-6,Easy-access online social media metrics are associated with misinformation sharing activity.,2025,PubMed
 41270743,10.1016/j.ajhg.2025.11.003,Collaborative science in genomics: The value of data sharing and thoughtful stewardship.,2025,PubMed
 41269466,10.1186/s40798-025-00908-8,Statistical Power in Musculoskeletal Research: A Meta-Review of 266 Randomised Controlled Trials.,2025,PubMed
 41269235,10.1002/wjs.70165,Beyond the Hype: Mapping the Evolution of Artificial Intelligence in General Surgery Through Two Decades of Bibliometrics.,2025,PubMed
@@ -9456,6 +9492,7 @@ id,doi,title,year,database
 40907459,10.1016/j.compbiolchem.2025.108665,Multiview-cooperated graph neural network enables novel multi-omics cancer subtype classification.,2026,PubMed
 40906744,10.1371/journal.pone.0330976,LWLCM: A novel lightweight stream cipher using logistic chaos function and multiplexer for IoT communications.,2025,PubMed
 40904389,10.3389/fpsyg.2025.1581772,Discursive construction of the 'scholar' identity: a critical genre analysis of chinese and english academic biographies.,2025,PubMed
+40899558,10.3233/shti251414,ECG Synthesis and Utility Analysis - A Diffusion Model Based Approach.,2025,PubMed
 40899552,10.3233/shti251407,Anonymization of Health Insurance Claims Data for Medication Safety Assessments.,2025,PubMed
 40898424,10.1111/cts.70340,"Data Sharing Experience, Guidance, and Resources From the Rare Diseases Clinical Research Network (RDCRN).",2025,PubMed
 40898261,10.1186/s12961-025-01351-7,"Implementation context and stakeholder perspectives on routine immunization data among lower-level private for-profit providers in an urban setting: experiences from Kampala, Uganda.",2025,PubMed
@@ -10095,6 +10132,7 @@ id,doi,title,year,database
 40118284,10.1016/j.bcp.2025.116874,Retrospective analysis and decentralized distribution to improve the lifecycle of Ah receptor research assets.,2025,PubMed
 40118074,10.1021/acs.jpclett.4c03654,A Reflection on the Use of Molecular Simulation to Respond to SARS-CoV-2 Pandemic Threats.,2025,PubMed
 40117144,10.1109/tpami.2025.3552309,Impact of Noisy Supervision in Foundation Model Learning.,2025,PubMed
+40116183,10.1080/20008066.2025.2477423,Making trauma ecological momentary assessment studies FAIR: review of design considerations and data procedures.,2025,PubMed
 40116112,10.3892/mmr.2025.13497,[Corrigendum] Effects of nicorandil on p120 expression in the spinal cord and dorsal root ganglion of rats with chronic postsurgical pain.,2025,PubMed
 40113354,10.1016/s2215-0366(25)00025-2,"The trajectory of sedative adverse events caused by antipsychotics: a meta-analysis of individual participant data from randomised, placebo-controlled, clinical trials in acute phase schizophrenia.",2025,PubMed
 40113007,10.1016/j.expneurol.2025.115222,Redefining macrophage phenotypes after spinal cord injury: An open data approach.,2025,PubMed
@@ -11752,6 +11790,7 @@ id,doi,title,year,database
 2-s2.0-85187933416,10.1007/s11625-024-01477-7,Towards true prices in food retailing: the value added tax as an instrument transforming agri-food systems,2025,Scopus
 2-s2.0-85174459848,10.1177/00027642231205771,Challenges in Remote Study Design: An Infrastructure Review of a Linkage Study,2025,Scopus
 2-s2.0-85173959242,10.1177/01979183231205564,Challenges with International Migration Data: An Analysis of the Experience of National Statistical Institutions,2025,Scopus
+2-s2.0-105056961587,10.1515/cdbme-2025-0142,Evaluation strategy for image acquisition protocols in confocal microscopy mosaic imaging of the cornea,2025,Scopus
 2-s2.0-105048932380,10.1016/j.esmorw.2025.100172,Opportunities and challenges in pooling health-related quality-of-life data for prediction modeling in breast cancer across Europe: lessons from the EORTC BALANCE project,2025,Scopus
 2-s2.0-105047849401,10.1177/0282423x251347024,Enhancing Microsimulation by Open Data,2025,Scopus
 2-s2.0-105044035631,10.1016/j.esmorw.2025.100159,Advancing breast cancer research through real-world data from the Singapore Joint Breast Cancer Registry,2025,Scopus
@@ -60373,6 +60412,7 @@ WOS:000708946900001,10.1177/2515245920960351,An Introduction to Linear Mixed-Eff
 WOS:000691242000013,10.1136/bmjopen-2020-045105,SPIRIT-PRO Extension explanation and elaboration: guidelines for inclusion of patient-reported outcomes in protocols of clinical trials,2021,Web of Science
 WOS:000659131200007,10.32604/cmc.2021.015466,Real-Time Multimodal Biometric Authentication of Human Using Face Feature Analysis,2021,Web of Science
 WOS:000676157600030,10.1109/vrw52623.2021.00037,Individual Differences & Task Attention in Cybersickness: A Call for a Standardized Approach to Data Sharing,2021,Web of Science
+WOS:001917456200106,,Research on Cooperative Detection Technology of Networked Radar Based on Data Fusion,2021,Web of Science
 WOS:000656070700016,,INFLUENCE OF ECONOMIC POLICY UNCERTAINTY ON ENTERPRISES' FINANCIAL INFORMATION DISCLOSURE,2021,Web of Science
 WOS:000654905700021,10.1109/comst.2021.3058573,"Federated Machine Learning: Survey, Multi-Level Classification, Desirable Criteria and Future Directions in Communication and Networking Systems",2021,Web of Science
 WOS:000716858200094,10.1109/cscwd49262.2021.9437738,Evaluating the Communication Efficiency in Federated Learning Algorithms,2021,Web of Science
@@ -66026,6 +66066,7 @@ WOS:001606713600023,10.1145/3569951.3597585,Scholarly Data Share 2.0: Granular A
 WOS:001280123200015,,A case study on providing FAIR and metrologically traceable data sets,2023,Web of Science
 WOS:001599323300084,10.3233/faia230330,On the Robustness of Split Learning Against Adversarial Attacks,2023,Web of Science
 WOS:001220600006038,,Cross-Domain Policy Adaptation via Value-Guided Data Filtering,2023,Web of Science
+WOS:001917416900036,10.1109/mdm58254.2023.00049,Are footpaths encroached by shared e-scooters? Spatio-temporal Analysis of Micro-mobility Services,2023,Web of Science
 WOS:001701722200027,10.1145/3605390.3605417,"Share or Protect: Understanding the Interplay of Trust, Privacy Concerns, and Data Sharing Purposes in Health and Well-Being Apps",2023,Web of Science
 WOS:001037809505036,10.1145/3544548.3581000,IntimaSea: Exploring Shared Stress Display in Close Relationships,2023,Web of Science
 WOS:001565564600013,10.1007/978-3-031-36007-7_13,Clinical Data Integration Strategies for Multicenter Studies,2023,Web of Science
@@ -77105,7 +77146,7 @@ WOS:001629932200001,10.1080/17460794.2025.2597129,Epidemiological analysis of SA
 WOS:001630441600006,10.4186/ej.2025.29.11.91,BIM Driven Lean Construction: Leveraging Navisworks and Leica Geosystems for Enhanced Transparency and Efficiency on a Bridge Project,2025,Web of Science
 WOS:001629481300001,10.1177/18724981251400126,Secure sharing model of data throughout the entire process of power equipment based on machine learning,2026,Web of Science
 WOS:001629982700001,10.1080/10447318.2025.2594140,Personalization vs. Privacy: How the Desire for Unique ChatGPT Interactions Influences Data Sharing,2026,Web of Science
-WOS:001630283800001,10.1108/ecam-05-2025-0743,Spatiotemporal patterns of the synergistic development of digitalization and greenization in the construction industry: evidence from listed construction companies in China,2025,Web of Science
+WOS:001630283800001,10.1108/ecam-05-2025-0743,Spatiotemporal patterns of the synergistic development of digitalization and greenization in the construction industry: evidence from listed construction companies in China,2026,Web of Science
 WOS:001631154900001,10.1002/mde.70059,Industry Expert Independent Directors and Corporate Innovation,2026,Web of Science
 WOS:001629291000001,10.1007/s10668-025-07062-x,Technology-enabled coopetition: a pathway to sustainability for SMEs,2025,Web of Science
 WOS:001629290100001,10.1007/s13198-025-03085-9,A framework for data protection and fake account detection in social network,2025,Web of Science
@@ -77971,3 +78012,10 @@ WOS:001903226300030,,Using NFDI4Health Local Data Hub and Metadata-Schema for cl
 WOS:001903226300020,,From Clinical Data to Discovery: integration of Beacon v2 with OMOP-CDM,2025,Web of Science
 WOS:001895729000327,10.1109/icde65448.2025.00337,How to Answer Secure and Private SQL Queries?,2025,Web of Science
 WOS:001895729000335,10.1109/icde65448.2025.00345,DBMS with CXL Memory: What's New and What's Next,2025,Web of Science
+WOS:001917398500040,10.1109/wispnet64060.2025.11004979,"AI-Powered Warehouse Management: Autonomous Mobile Robots and Advanced Optimization with NFC, MILP, and Swarm Algorithms",2025,Web of Science
+WOS:001901643100004,,Large Language Models in Labor Market Research Data Management: Potentials and Limitations,2025,Web of Science
+WOS:001901643100001,,Large Language Models for Research Data Management?! 2025 (LLMs4RDM 2025),2025,Web of Science
+WOS:001901643100006,,Improving Accessibility and Reproducibility by Guiding Large Language Models,2025,Web of Science
+WOS:001912157600018,,Findings of the Code-Mixed Information Retrieval from Social Media Data (CMIR) Shared Task at FIRE 2025,2025,Web of Science
+WOS:001921418600019,,Methods for optimizing data fragmentation to improve the efficiency of decentralized databases in blockchain networks,2025,Web of Science
+WOS:001886151300013,10.1117/12.3069682,Federated object detection for defence and security applications using realistic unbalanced heterogeneous data distributions,2025,Web of Science
