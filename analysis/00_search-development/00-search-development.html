@@ -348,10 +348,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="run-2.-terms-the-sources-use">Run 2. Terms the sources use</h3>
 <p><strong>Question.</strong> Which words do the sources included in Chawinga and Zinn use for research data sharing?</p>
 <p><strong>Measured.</strong> A local model, Qwen3.8-27B, read the title and abstract of each of the 102 sources in the reference set with <a href="https://github.com/zackbatist/RDS-Review/blob/main/analysis/00_search-development/prompts/terms_prompt.md"><code>prompts/terms_prompt.md</code></a> and listed the words and phrases the source uses to describe research data sharing, copied exactly. The prompt does not name any of the specific terms mentioned in the screening guide. It reads:</p>
+<blockquote class="blockquote">
 <p>You are helping build a literature search for a scoping review on research data sharing. Research data are data collected for a study, or collected for another purpose and reused for research.</p>
 <p>From the title and abstract below, list the words and phrases the source uses to describe research data sharing. Copy each term exactly as it appears. Each term is a word or short phrase that names one thing. Give an empty list if there are none.</p>
-<p>Answer only with JSON: {“terms”: [“<term>”]}</term></p>
-<p>Title: {title} Abstract: {abstract}</p>
+<p>Answer only with JSON: {“terms”: [“&lt;term&gt;”]}</p>
+<p>Title: {title}<br>
+Abstract: {abstract}</p>
+</blockquote>
 <p>We dropped terms that are not in the source’s title or abstract, joined terms that differ only in case or hyphens, and counted the sources that use each term.</p>
 <p><strong>Result.</strong> The model returned 412 terms, 259 of them distinct; 29 appear in two or more sources, and 18 sources yield no term. The recurring terms fall into six patterns:</p>
 <ul>
