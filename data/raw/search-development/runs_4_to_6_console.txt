@@ -1,0 +1,62 @@
+PubMed sharing block: ("sharing data"[tiab:~5] OR "shared data"[tiab:~5] OR "share data"[tiab:~5] OR "shares data"[tiab:~5] OR "sharer data"[tiab:~5] OR "sharers data"[tiab:~5] OR "shareable data"[tiab:~5] OR "sharable data"[tiab:~5])
+
+=== Run 4
+PubMed | (shar* NEAR/5 data OR open* NEAR/5 data) AND (research* OR scienti*) | records 14409 | of the 102 found 33
+PubMed | (shar* NEAR/5 data) AND (research* OR scienti*) | records 9271 | of the 102 found 32
+PubMed | ... OR "research data management" | records 9415 | of the 102 found 32
+PubMed | ... OR "open science" | records 14262 | of the 102 found 34
+PubMed | ... OR "data publication*" | records 9402 | of the 102 found 32
+PubMed | ... OR all three | records 14515 | of the 102 found 34
+Scopus | (shar* NEAR/5 data OR open* NEAR/5 data) AND (research* OR scienti*) | records 55739 | of the 102 found 54
+Scopus | (shar* NEAR/5 data) AND (research* OR scienti*) | records 31681 | of the 102 found 52
+Scopus | ... OR "research data management" | records 32655 | of the 102 found 57
+Scopus | ... OR "open science" | records 40645 | of the 102 found 55
+Scopus | ... OR "data publication*" | records 32471 | of the 102 found 52
+Scopus | ... OR all three | records 42246 | of the 102 found 60
+Web of Science | (shar* NEAR/5 data OR open* NEAR/5 data) AND (research* OR scienti*) | records 40745 | of the 102 found 46
+Web of Science | (shar* NEAR/5 data) AND (research* OR scienti*) | records 22770 | of the 102 found 44
+Web of Science | ... OR "research data management" | records 23499 | of the 102 found 49
+Web of Science | ... OR "open science" | records 30524 | of the 102 found 47
+Web of Science | ... OR "data publication*" | records 23407 | of the 102 found 44
+Web of Science | ... OR all three | records 31776 | of the 102 found 52
+
+=== Run 5
+PubMed | base | records 9415 | added 0 | of the 102 found 32
+PubMed | ... OR "open data" | records 10435 | added 1020 | of the 102 found 33
+PubMed | ... OR "open research data" | records 9429 | added 14 | of the 102 found 32
+PubMed | ... OR both | records 10448 | added 1033 | of the 102 found 33
+Scopus | base | records 32655 | added 0 | of the 102 found 57
+Scopus | ... OR "open data" | records 39442 | added 6787 | of the 102 found 58
+Scopus | ... OR "open research data" | records 32751 | added 96 | of the 102 found 57
+Scopus | ... OR both | records 39498 | added 6843 | of the 102 found 58
+Web of Science | base | records 23499 | added 0 | of the 102 found 49
+Web of Science | ... OR "open data" | records 28143 | added 4644 | of the 102 found 50
+Web of Science | ... OR "open research data" | records 23584 | added 85 | of the 102 found 49
+Web of Science | ... OR both | records 28200 | added 4701 | of the 102 found 50
+
+=== Run 6
+78020 42925
+pubmed indexed 43 found 33
+scopus indexed 70 found 58
+web-of-science indexed 65 found 50
+at least one database: indexed 76 found 62
+missed: Cahill and Passamano, 2007 2007
+missed: Cohn, 2012 2012
+missed: Delson et al., 2007 2007
+missed: Gupta, 2013 2013
+missed: Houtkoop et al., 2018 2018
+missed: Huang et al., 2013 2013
+missed: Kowalczyk and Shankar, 2011 2011
+missed: Levenson, 2010 2010
+missed: McCullough, 2009 2009
+missed: Mennes et al., 2013 2012
+missed: Parr, 2007 2007
+missed: Sheather, 2009 2009
+missed: Steen, 2011 2010
+missed: Watson, 2015 2015
+Counter({'Scopus': 39442, 'Web of Science': 28143, 'PubMed': 10435})
+
+=== Candidates table
+PubMed | shar* NEAR/5 data 18939 | AND (research* OR scienti*) 9271
+Scopus | shar* NEAR/5 data 82926 | AND (research* OR scienti*) 31681
+Web of Science | shar* NEAR/5 data 62250 | AND (research* OR scienti*) 22770

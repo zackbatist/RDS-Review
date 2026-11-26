@@ -26,8 +26,8 @@ Platforms and search dates for the exports are to be added.
 
 | Search | PubMed | Scopus | Web of Science | Total |
 |:--|--:|--:|--:|--:|
-| shar\* NEAR/5 data | 18,939 | 82,926 | 62,228 | 164,093 |
-| (shar\* NEAR/5 data) AND (research\* OR scienti\*) | 9,271 | 31,681 | 22,764 | 63,716 |
+| shar\* NEAR/5 data | 18,939 | 82,926 | 62,250 | 164,115 |
+| (shar\* NEAR/5 data) AND (research\* OR scienti\*) | 9,271 | 31,681 | 22,770 | 63,722 |
 | **(shar\* NEAR/5 data OR "open data" OR "research data management") AND (research\* OR scienti\*)** | **10,435** | **39,442** | **28,143** | **78,020** |
 
 : Records for 2015 to 2025, before deduplication, on 25 November 2026. {#tbl-candidates tbl-colwidths="[64,9,9,9,9]"}
