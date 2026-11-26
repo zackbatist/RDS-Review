@@ -43,7 +43,7 @@ Platforms and search dates for the exports are to be added.
 ### Generic query
 
 ```text
-Title/abstract: share* NEAR/5 data OR "open data" OR "research data management"
+Title/abstract: shar* NEAR/5 data OR "open data" OR "research data management"
 AND
 Title/abstract: research* OR scienti*
 
@@ -52,7 +52,7 @@ Limits: published 2015 to 2025; English or French
 
 ### PubMed
 
-PubMed's proximity search takes no truncation, so the PubMed string spells out four forms of *share*.
+PubMed's proximity search takes no truncation, so the PubMed string spells out the four verb forms of *share*. Adding *sharers*, *shareable* and *sharable* returned 77 more records and no more known sources (run 4 in notebook 00).
 
 ```text
 (
