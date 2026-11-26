@@ -351,7 +351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p>You are helping build a literature search for a scoping review on research data sharing. Research data are data collected for a study, or collected for another purpose and reused for research.</p>
 <p>From the title and abstract below, list the words and phrases the source uses to describe research data sharing. Copy each term exactly as it appears. Each term is a word or short phrase that names one thing. Give an empty list if there are none.</p>
-<p>Answer only with JSON: {“terms”: [“&lt;term&gt;”]}</p>
+<p>Answer only with JSON: <code>{"terms": ["&lt;term&gt;"]}</code></p>
 <p>Title: {title}<br>
 Abstract: {abstract}</p>
 </blockquote>
@@ -778,15 +778,15 @@ Abstract: {abstract}</p>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">PubMed</td>
-<td style="text-align: left;">((“sharing data”[tiab:~5] OR “shared data”[tiab:~5] OR “share data”[tiab:~5] OR “shares data”[tiab:~5] OR “sharer data”[tiab:~5] OR “sharers data”[tiab:~5] OR “shareable data”[tiab:~5] OR “sharable data”[tiab:~5]) OR (“open data”[tiab] OR “research data management”[tiab])) AND (research<em>[tiab] OR scienti</em>[tiab])</td>
+<td style="text-align: left;"><code>(("sharing data"[tiab:~5] OR "shared data"[tiab:~5] OR "share data"[tiab:~5] OR "shares data"[tiab:~5] OR "sharer data"[tiab:~5] OR "sharers data"[tiab:~5] OR "shareable data"[tiab:~5] OR "sharable data"[tiab:~5]) OR ("open data"[tiab] OR "research data management"[tiab])) AND (research*[tiab] OR scienti*[tiab])</code></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Scopus</td>
-<td style="text-align: left;">(TITLE-ABS-KEY(shar* W/5 data) OR TITLE-ABS-KEY(“open data”) OR TITLE-ABS-KEY(“research data management”)) AND (TITLE-ABS-KEY(research<em>) OR TITLE-ABS-KEY(scienti</em>))</td>
+<td style="text-align: left;"><code>(TITLE-ABS-KEY(shar* W/5 data) OR TITLE-ABS-KEY("open data") OR TITLE-ABS-KEY("research data management")) AND (TITLE-ABS-KEY(research*) OR TITLE-ABS-KEY(scienti*))</code></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Web of Science</td>
-<td style="text-align: left;">(TS=(shar* NEAR/5 data) OR TS=(“open data”) OR TS=(“research data management”)) AND (TS=(research<em>) OR TS=(scienti</em>))</td>
+<td style="text-align: left;"><code>(TS=(shar* NEAR/5 data) OR TS=("open data") OR TS=("research data management")) AND (TS=(research*) OR TS=(scienti*))</code></td>
 </tr>
 </tbody>
 </table>
