@@ -274,31 +274,31 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">PubMed</td>
-<td style="text-align: right;">10,397</td>
+<td style="text-align: right;">10,435</td>
 <td style="text-align: right;">43</td>
 <td style="text-align: right;">33</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Scopus</td>
-<td style="text-align: right;">39,441</td>
+<td style="text-align: right;">39,442</td>
 <td style="text-align: right;">70</td>
 <td style="text-align: right;">58</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Web of Science</td>
-<td style="text-align: right;">28,134</td>
+<td style="text-align: right;">28,143</td>
 <td style="text-align: right;">65</td>
 <td style="text-align: right;">50</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Total</strong></td>
-<td style="text-align: right;"><strong>77,972</strong></td>
+<td style="text-align: right;"><strong>78,020</strong></td>
 <td style="text-align: right;"><strong>76</strong></td>
 <td style="text-align: right;"><strong>62</strong></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Unique by DOI, or by title and year</td>
-<td style="text-align: right;">42,920</td>
+<td style="text-align: right;">42,925</td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 </tr>
@@ -350,10 +350,10 @@ Table&nbsp;1: Records for 2015 to 2025, before deduplication, on 25 November 202
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>(share NEAR/5 data OR “open data” OR “research data management”) AND (research* OR scienti*)</strong></td>
-<td style="text-align: right;"><strong>10,397</strong></td>
-<td style="text-align: right;"><strong>39,441</strong></td>
-<td style="text-align: right;"><strong>28,134</strong></td>
-<td style="text-align: right;"><strong>77,972</strong></td>
+<td style="text-align: right;"><strong>10,435</strong></td>
+<td style="text-align: right;"><strong>39,442</strong></td>
+<td style="text-align: right;"><strong>28,143</strong></td>
+<td style="text-align: right;"><strong>78,020</strong></td>
 </tr>
 </tbody>
 </table>
@@ -376,9 +376,10 @@ Limits: published 2015 to 2025; English or French</code></pre>
 </section>
 <section id="pubmed" class="level3">
 <h3 class="anchored" data-anchor-id="pubmed">PubMed</h3>
-<p>PubMed’s proximity search takes no truncation, so the PubMed string spells out the four verb forms of <em>share</em>. Adding <em>sharers</em>, <em>shareable</em> and <em>sharable</em> returned 77 more records and no more known sources (run 4 in notebook 00).</p>
+<p>PubMed’s proximity search takes no truncation, so the PubMed string spells out eight forms of <em>share</em>.</p>
 <pre class="text"><code>(
   ("sharing data"[tiab:~5] OR "shared data"[tiab:~5] OR "share data"[tiab:~5] OR "shares data"[tiab:~5]
+   OR "sharer data"[tiab:~5] OR "sharers data"[tiab:~5] OR "shareable data"[tiab:~5] OR "sharable data"[tiab:~5]
    OR "open data"[tiab] OR "research data management"[tiab])
   AND (research*[tiab] OR scienti*[tiab])
 )
