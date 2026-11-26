@@ -248,7 +248,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#open-data-and-research-data-management" id="toc-open-data-and-research-data-management" class="nav-link" data-scroll-target="#open-data-and-research-data-management">Open data and research data management</a>
   <ul>
-  <li><a href="#run-4.-phrases-beside-share-near-data" id="toc-run-4.-phrases-beside-share-near-data" class="nav-link" data-scroll-target="#run-4.-phrases-beside-share-near-data">Run 4. Phrases beside share near data</a></li>
+  <li><a href="#run-4.-phrases-beside-shar-near-data" id="toc-run-4.-phrases-beside-shar-near-data" class="nav-link" data-scroll-target="#run-4.-phrases-beside-shar-near-data">Run 4. Phrases beside <em>shar*</em> near data</a></li>
   <li><a href="#run-5.-open-data-as-a-phrase" id="toc-run-5.-open-data-as-a-phrase" class="nav-link" data-scroll-target="#run-5.-open-data-as-a-phrase">Run 5. “open data” as a phrase</a></li>
   <li><a href="#the-query" id="toc-the-query" class="nav-link" data-scroll-target="#the-query">The query</a></li>
   <li><a href="#run-6.-the-query-against-the-102-sources-and-its-records" id="toc-run-6.-the-query-against-the-102-sources-and-its-records" class="nav-link" data-scroll-target="#run-6.-the-query-against-the-102-sources-and-its-records">Run 6. The query against the 102 sources, and its records</a></li>
@@ -337,17 +337,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We measured each candidate query by how many known relevant sources it finds (<a href="https://doi.org/10.1186/2046-4053-1-19">Hausner et al.&nbsp;2012</a>). The known sources are the 102 sources included in <a href="https://doi.org/10.1016/j.lisr.2019.04.004">Chawinga and Zinn’s (2019)</a> review of research data sharing.</p>
 <section id="run-1.-rebuilding-chawinga-and-zinns-list" class="level3">
 <h3 class="anchored" data-anchor-id="run-1.-rebuilding-chawinga-and-zinns-list">Run 1. Rebuilding Chawinga and Zinn’s list</h3>
-<p>Chawinga and Zinn did not publish a list of their 105 included sources, and neither the paper’s Crossref record nor the first author’s thesis and data deposits hold one. We rebuilt the list with <code>retrieval/reference_set.py</code> from the paper’s full text, read through Elsevier’s Article Retrieval API, and kept only bibliographic details. We took the references Table 2 names, the references sections 4 and 5 cite, and, for each country section 4.3 lists that no other selected reference names, the reference from 2007 to 2018 whose title names it. The result is 102 sources. With <code>retrieval/lookups.py</code>, we checked each DOI against Crossref and OpenAlex and pulled the PMID, the earliest publication date, the title, the abstract, the MeSH headings and the keywords.</p>
+<p>Chawinga and Zinn did not publish the list of their 105 sources included in their review, and it was therefore necessary to rebuild the list from the paper’s full text (using <a href="https://github.com/zackbatist/RDS-Review/blob/main/analysis/00_search-development/retrieval/reference_set.py"><code>retrieval/reference_set.py</code></a>). We took the references from Table 2 and the references cited in sections 4 and 5. For each country section 4.3 lists that no other selected reference names, we also took the reference from 2007 to 2018 whose title names it. This produced a set of 102 sources. With <a href="https://github.com/zackbatist/RDS-Review/blob/main/analysis/00_search-development/retrieval/lookups.py"><code>retrieval/lookups.py</code></a>, we checked each DOI against Crossref and OpenAlex and pulled the PMID, the earliest publication date, the title, the abstract, the MeSH headings and the keywords.</p>
 <p>Files: <a href="https://github.com/zackbatist/RDS-Review/blob/main/data/raw/search-development/reference_candidates.csv">reference_candidates.csv</a>, <a href="https://github.com/zackbatist/RDS-Review/blob/main/data/raw/search-development/reference_lookups.csv">reference_lookups.csv</a>.</p>
 </section>
 </section>
 <section id="terms-the-known-sources-use" class="level2">
 <h2 class="anchored" data-anchor-id="terms-the-known-sources-use">Terms the known sources use</h2>
-<p>Runs 2 and 3 read the known sources for the words that describe research data sharing, with a local model and with the screening guide’s factor terms. We ran them on 23 November 2026.</p>
+<p>In runs 2 and 3, we read Chawinga and Zinn’s sources for the words and phrases that describe research data sharing. Run 2 uses a simple, open-ended prompt, and run 3 matches the specific terms documented in the screening guide. We ran them on 23 November 2026.</p>
 <section id="run-2.-terms-the-sources-use" class="level3">
 <h3 class="anchored" data-anchor-id="run-2.-terms-the-sources-use">Run 2. Terms the sources use</h3>
-<p><strong>Question.</strong> Which words do the known sources use for research data sharing, and does share near data cover them?</p>
-<p><strong>Measured.</strong> A local model, Qwen3.8-27B, read the title and abstract of each of the 102 sources in the reference set with <code>prompts/terms_prompt.md</code> and listed the words and phrases the source uses to describe research data sharing, copied exactly. The prompt names no factor and none of the screening guide’s terms. We dropped terms that are not in the source’s title or abstract, joined terms that differ only in case or hyphens, and counted the sources that use each term.</p>
+<p><strong>Question.</strong> Which words do the sources included in Chawinga and Zinn use for research data sharing?</p>
+<p><strong>Measured.</strong> A local model, Qwen3.8-27B, read the title and abstract of each of the 102 sources in the reference set with <a href="https://github.com/zackbatist/RDS-Review/blob/main/analysis/00_search-development/prompts/terms_prompt.md"><code>prompts/terms_prompt.md</code></a> and listed the words and phrases the source uses to describe research data sharing, copied exactly. The prompt does not name any of the specific terms mentioned in the screening guide. It reads:</p>
+<p>You are helping build a literature search for a scoping review on research data sharing. Research data are data collected for a study, or collected for another purpose and reused for research.</p>
+<p>From the title and abstract below, list the words and phrases the source uses to describe research data sharing. Copy each term exactly as it appears. Each term is a word or short phrase that names one thing. Give an empty list if there are none.</p>
+<p>Answer only with JSON: {“terms”: [“<term>”]}</term></p>
+<p>Title: {title} Abstract: {abstract}</p>
+<p>We dropped terms that are not in the source’s title or abstract, joined terms that differ only in case or hyphens, and counted the sources that use each term.</p>
 <p><strong>Result.</strong> The model returned 412 terms, 259 of them distinct; 29 appear in two or more sources, and 18 sources yield no term. The recurring terms fall into six patterns:</p>
 <ul>
 <li><strong>The same idea, worded differently:</strong> “data sharing” (50 sources), “sharing data” (12), “share data” (11), “sharing of data” (4), “shared data” (2), “share their data” (2).</li>
@@ -388,8 +393,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="run-3.-factor-terms-in-the-sources" class="level3">
 <h3 class="anchored" data-anchor-id="run-3.-factor-terms-in-the-sources">Run 3. Factor terms in the sources</h3>
-<p><strong>Question.</strong> How often do the factor terms in the screening guide’s factors table appear in the titles and abstracts of the 102 sources, and how do they spread across the sources?</p>
-<p><strong>Measured.</strong> We matched each factor term against each source’s title and abstract, with no model. A term ending in * matches any word that starts with it, and a quoted term matches as a phrase. We counted the sources that use each term and each theme, and the number of themes each source touches.</p>
+<p><strong>Question.</strong> How often do the terms in the screening guide’s factors table appear in the titles and abstracts of Chawinga and Zinn’s 102 sources, and how do they spread across the sources?</p>
+<p><strong>Measured.</strong> We matched each factor term against each source’s title and abstract. A term ending in * matches any word that starts with it, and a quoted term matches as a phrase. We counted the sources that use each term and each theme, and the number of themes each source touches.</p>
 <p><strong>Result.</strong> 79 sources use at least one factor term and 23 use none; 12 of those 23 have a title only. <em>polic*</em> (28 sources) and <em>challenge*</em> (18) are the terms used most, and <em>facilitator*</em>, <em>interoperab*</em>, <em>“open research”</em> and <em>licens*</em> appear in no source. <em>“research data management”</em> appears in 14 sources.</p>
 <p>Files: <a href="https://github.com/zackbatist/RDS-Review/blob/main/data/processed/search-development/factor_term_counts.csv">factor_term_counts.csv</a>, <a href="https://github.com/zackbatist/RDS-Review/blob/main/data/raw/search-development/reference_lookups.csv">reference_lookups.csv</a>.</p>
 <div id="run23code" class="cell" data-execution_count="4">
@@ -489,7 +494,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="open-data-and-research-data-management" class="level2">
 <h2 class="anchored" data-anchor-id="open-data-and-research-data-management">Open data and research data management</h2>
-<p>Runs 4 and 5 concern phrases beside share near data, and run 6 concerns the query’s records and the known sources among them. All searches are in titles and abstracts, on 25 November 2026.</p>
+<p>Runs 4 and 5 concern phrases beside <em>shar*</em> near data, and run 6 concerns the query’s records and the known sources among them. All searches are in titles and abstracts, on 25 November 2026.</p>
 <div id="te02" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
@@ -517,7 +522,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"("</span> <span class="op">+</span> <span class="st">" OR "</span>.join(TAG[where][db].<span class="bu">format</span>(t) <span class="cf">for</span> t <span class="kw">in</span> terms) <span class="op">+</span> <span class="st">")"</span></span>
 <span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>FORMS <span class="op">=</span> (<span class="st">"sharing"</span>, <span class="st">"shared"</span>, <span class="st">"share"</span>, <span class="st">"shares"</span>)  <span class="co"># PubMed proximity takes no truncation</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>FORMS <span class="op">=</span> (<span class="st">"sharing"</span>, <span class="st">"shared"</span>, <span class="st">"share"</span>, <span class="st">"shares"</span>, <span class="st">"sharer"</span>, <span class="st">"sharers"</span>, <span class="st">"shareable"</span>, <span class="st">"sharable"</span>)  <span class="co"># PubMed proximity takes no truncation</span></span>
 <span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> share_near_data(db, where, n):</span>
@@ -562,10 +567,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>SRC <span class="op">=</span> sl.read(<span class="st">"reference_sources.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<section id="run-4.-phrases-beside-share-near-data" class="level3">
-<h3 class="anchored" data-anchor-id="run-4.-phrases-beside-share-near-data">Run 4. Phrases beside share near data</h3>
-<p><strong>Question.</strong> What is the effect of adding “research data management”, “open science” or “data publication*” to (share NEAR/5 data) AND (<em>research*</em> OR <em>scienti*</em>), compared with <em>open*</em> NEAR/5 data?</p>
-<p><strong>Measured.</strong> Each phrase joined by OR to (share NEAR/5 data) AND (<em>research*</em> OR <em>scienti*</em>), alone and all three together, in PubMed, Scopus and Web of Science. In PubMed, the share part also includes <em>sharers</em>, <em>shareable</em> and <em>sharable</em>. For each search, the records for 2015 to 2025 and the matches among the 102 sources, with no date limit.</p>
+<section id="run-4.-phrases-beside-shar-near-data" class="level3">
+<h3 class="anchored" data-anchor-id="run-4.-phrases-beside-shar-near-data">Run 4. Phrases beside <em>shar*</em> near data</h3>
+<p><strong>Question.</strong> What is the effect of adding “research data management”, “open science” or “data publication*” to (shar* NEAR/5 data) AND (<em>research*</em> OR <em>scienti*</em>), compared with <em>open*</em> NEAR/5 data?</p>
+<p><strong>Measured.</strong> Each phrase joined by OR to (shar* NEAR/5 data) AND (<em>research*</em> OR <em>scienti*</em>), alone and all three together, in PubMed, Scopus and Web of Science. In PubMed, the share part also includes <em>sharers</em>, <em>shareable</em> and <em>sharable</em>. For each search, the records for 2015 to 2025 and the matches among the 102 sources, with no date limit.</p>
 <p><strong>Result.</strong> Each cell gives records and matches among the 102 sources.</p>
 <table class="caption-top table">
 <colgroup>
@@ -584,7 +589,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">(share NEAR/5 data) AND (<em>research*</em> OR <em>scienti*</em>)</td>
+<td style="text-align: left;">(shar* NEAR/5 data) AND (<em>research*</em> OR <em>scienti*</em>)</td>
 <td style="text-align: left;">9,271 · 32</td>
 <td style="text-align: left;">31,681 · 52</td>
 <td style="text-align: left;">22,764 · 44</td>
@@ -614,7 +619,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">31,766 · 52</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">(share NEAR/5 data OR <em>open*</em> NEAR/5 data) AND (<em>research*</em> OR <em>scienti*</em>)</td>
+<td style="text-align: left;">(shar* NEAR/5 data OR <em>open*</em> NEAR/5 data) AND (<em>research*</em> OR <em>scienti*</em>)</td>
 <td style="text-align: left;">14,371 · 33</td>
 <td style="text-align: left;">55,738 · 54</td>
 <td style="text-align: left;">40,738 · 46</td>
@@ -675,7 +680,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="run-5.-open-data-as-a-phrase" class="level3">
 <h3 class="anchored" data-anchor-id="run-5.-open-data-as-a-phrase">Run 5. “open data” as a phrase</h3>
 <p><strong>Question.</strong> Is there a narrower way to include open data than <em>open*</em> NEAR/5 data?</p>
-<p><strong>Measured.</strong> “open data” AND (<em>research*</em> OR <em>scienti*</em>), and “open research data”, each joined by OR to (share NEAR/5 data AND (<em>research*</em> OR <em>scienti*</em>)) OR “research data management”, alone and together. For each search, the records for 2015 to 2025, the added records and the matches among the 102 sources.</p>
+<p><strong>Measured.</strong> “open data” AND (<em>research*</em> OR <em>scienti*</em>), and “open research data”, each joined by OR to (shar* NEAR/5 data AND (<em>research*</em> OR <em>scienti*</em>)) OR “research data management”, alone and together. For each search, the records for 2015 to 2025, the added records and the matches among the 102 sources.</p>
 <p><strong>Result.</strong> Each cell gives records and matches among the 102 sources.</p>
 <table class="caption-top table">
 <colgroup>
@@ -694,7 +699,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">(share NEAR/5 data AND (<em>research*</em> OR <em>scienti*</em>)) OR “research data management”</td>
+<td style="text-align: left;">(shar* NEAR/5 data AND (<em>research*</em> OR <em>scienti*</em>)) OR “research data management”</td>
 <td style="text-align: left;">9,338 · 32</td>
 <td style="text-align: left;">32,655 · 57</td>
 <td style="text-align: left;">23,490 · 49</td>
@@ -756,7 +761,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="the-query" class="level3">
 <h3 class="anchored" data-anchor-id="the-query">The query</h3>
-<p>(share NEAR/5 data OR “open data” OR “research data management”) AND (<em>research*</em> OR <em>scienti*</em>), in titles and abstracts, 2015 to 2025, English or French.</p>
+<p>(shar* NEAR/5 data OR “open data” OR “research data management”) AND (<em>research*</em> OR <em>scienti*</em>), in titles and abstracts, 2015 to 2025, English or French.</p>
 <table class="caption-top table">
 <caption>The query as written for each database.</caption>
 <colgroup>
@@ -772,7 +777,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">PubMed</td>
-<td style="text-align: left;">((“sharing data”[tiab:~5] OR “shared data”[tiab:~5] OR “share data”[tiab:~5] OR “shares data”[tiab:~5]) OR (“open data”[tiab] OR “research data management”[tiab])) AND (research<em>[tiab] OR scienti</em>[tiab])</td>
+<td style="text-align: left;">((“sharing data”[tiab:~5] OR “shared data”[tiab:~5] OR “share data”[tiab:~5] OR “shares data”[tiab:~5] OR “sharer data”[tiab:~5] OR “sharers data”[tiab:~5] OR “shareable data”[tiab:~5] OR “sharable data”[tiab:~5]) OR (“open data”[tiab] OR “research data management”[tiab])) AND (research<em>[tiab] OR scienti</em>[tiab])</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Scopus</td>
@@ -809,31 +814,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">PubMed</td>
-<td style="text-align: right;">10,397</td>
+<td style="text-align: right;">10,435</td>
 <td style="text-align: right;">43</td>
 <td style="text-align: right;">33</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Scopus</td>
-<td style="text-align: right;">39,441</td>
+<td style="text-align: right;">39,442</td>
 <td style="text-align: right;">70</td>
 <td style="text-align: right;">58</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Web of Science</td>
-<td style="text-align: right;">28,134</td>
+<td style="text-align: right;">28,143</td>
 <td style="text-align: right;">65</td>
 <td style="text-align: right;">50</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">At least one database</td>
-<td style="text-align: right;">77,972</td>
+<td style="text-align: right;">78,020</td>
 <td style="text-align: right;">76</td>
 <td style="text-align: right;">62</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Unique</td>
-<td style="text-align: right;">42,920</td>
+<td style="text-align: right;">42,925</td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 </tr>
@@ -869,12 +874,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="reproducibility" class="level2">
 <h2 class="anchored" data-anchor-id="reproducibility">Reproducibility</h2>
-<p>The work runs in two places. We call the database APIs from the analysis server, with the scripts in <code>retrieval/</code> and the runs. The local model runs under llama.cpp on the GPU server. Its GGUF file comes from Hugging Face at a fixed revision with its SHA-256 checked, and we start it with <code>scripts/launch_rds_llm.sh</code> (<code>scripts/README.md</code>). Files the APIs and the local model return go in <code>data/raw/search-development/</code>, and files this notebook builds go in <code>data/processed/search-development/</code>. The notebook’s first code cells build <code>reference_sources.csv</code> from the raw files, and they run at every render. The cells of runs 2 and 3 write <code>terms_counts.csv</code> and <code>factor_term_counts.csv</code> to the same folder. Earlier runs remain in the supplement at the end of the notebook’s source, and rendering with <code>-M exploratory:true</code> shows them.</p>
+<p>We call the database APIs from the analysis server, with the scripts in <code>retrieval/</code> and the runs. The local model runs under llama.cpp on the GPU server. Its GGUF file comes from Hugging Face at a fixed revision with its SHA-256 checked, and we start it with <code>scripts/launch_rds_llm.sh</code> (<code>scripts/README.md</code>). Files the APIs and the local model return go in <code>data/raw/search-development/</code>, and files this notebook builds go in <code>data/processed/search-development/</code>. The notebook’s first code cells build <code>reference_sources.csv</code> from the raw files, and they run at every render. The cells of runs 2 and 3 write <code>terms_counts.csv</code> and <code>factor_term_counts.csv</code> to the same folder. Earlier runs remain in the supplement at the end of the notebook’s source, and rendering with <code>-M exploratory:true</code> shows them.</p>
 <p>The local model runs at temperature 0 with a fixed seed and thinking off, and each output file records the model file, the llama.cpp build and the settings. The databases keep indexing new records, so a rerun of the searches months later returns somewhat different counts; the committed files and <code>log.md</code> record what each search returned and when.</p>
-<p>The searches need three API keys, all registered under zachary.batist@mcgill.ca: an NCBI API key (ncbi.nlm.nih.gov, Account Settings), a Scopus API key (dev.elsevier.com), which has full Scopus Search access only from McGill’s network, and a Web of Science Starter API key (developer.clarivate.com) on the Free Institutional Member Plan. Rebuilding the reference set also needs Elsevier full-text entitlement for the journal.</p>
+<p>The searches need an NCBI API key, a Scopus API key and a Web of Science Starter API key. The Scopus key has full Scopus Search access only from McGill’s network, and rebuilding the reference set also needs Elsevier full-text entitlement for the journal.</p>
 <section id="commands" class="level3">
 <h3 class="anchored" data-anchor-id="commands">Commands</h3>
-<p>Every command runs on the analysis server from a terminal. Run the long ones inside <code>tmux</code> (<code>tmux new -s search</code>, then paste; detach with Ctrl-b d, reattach with <code>tmux attach -t search</code>), so a dropped connection doesn’t stop them. The commands assume the repo is cloned at <code>~/RDS-Review</code>.</p>
 <ol type="1">
 <li><p><strong>Keys file.</strong> Prompts for each key without echoing it and writes <code>~/.rds-review-keys</code> outside the repo, readable by you only.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">umask</span> 077</span>
